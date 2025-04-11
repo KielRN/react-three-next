@@ -79,7 +79,7 @@ export default function Page() {
         </div>
       </div>
 
-      {/* third row - rocket */}
+      {/* third row - rocket with link */}
       <div className='mx-auto flex w-full flex-col flex-wrap items-center p-12 md:flex-row lg:w-4/5'>
         <div className='w-full p-6 sm:w-1/2'>
           <h2 className='mb-3 text-3xl font-bold leading-none text-gray-800'>Space exploration with React Three Fiber</h2>
@@ -96,6 +96,11 @@ export default function Page() {
               <Common color={'#f0f8ff'} />
             </Suspense>
           </View>
+          <div className="mt-4 text-center">
+            <a href="/rocket" className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">
+              View Full Screen Rocket
+            </a>
+          </div>
         </div>
       </div>
     </>

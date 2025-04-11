@@ -1,6 +1,6 @@
 'use client'
 
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, Billboard, Text } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useMemo, useRef, useState } from 'react'
@@ -67,15 +67,56 @@ export function Dog(props) {
   return <primitive object={scene} {...props} />
 }
 
-export function Rocket(props) {
+export function Rocket({ route = '/', ...props }) {
   const { scene } = useGLTF('/h-iia_-_launch_vehicle_-_rocket.glb')
+  const router = useRouter()
+  const [labelHovered, setLabelHover] = useState(false)
+  const groupRef = useRef()
+  
+  useCursor(labelHovered)
   
   useFrame((state, delta) => {
-    // Slight hovering animation
-    scene.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.1
-    // Slow rotation
-    scene.rotation.y += delta * 0.2
+    if (groupRef.current) {
+      // Apply hovering animation to the group
+      groupRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.1
+      // Apply rotation to the group
+      groupRef.current.rotation.y += delta * 0.2
+    }
   })
 
-  return <primitive object={scene} {...props} />
+  return (
+    <group ref={groupRef} {...props}>
+      <primitive object={scene} />
+      
+      {/* HOME Label */}
+      <Billboard
+        position={[6, 10, 2]}
+        follow={true}
+        lockX={false}
+        lockY={false}
+        lockZ={false}
+      >
+        <mesh
+          onClick={(e) => { e.stopPropagation(); router.push(route); }}
+          onPointerOver={(e) => { e.stopPropagation(); setLabelHover(true); }}
+          onPointerOut={() => setLabelHover(false)}
+        >
+          <planeGeometry args={[3, 1]} />
+          <meshBasicMaterial color="#FFFF00" transparent opacity={0} />
+          <Text
+            position={[0, 0, 1]}
+            fontSize={1.2}
+            color="#ebcb4c"
+            anchorX="center"
+            anchorY="middle"
+            fontWeight={800}
+            fontStyle="italic"
+            letterSpacing={0.05}
+          >
+            NEXT
+          </Text>
+        </mesh>
+      </Billboard>
+    </group>
+  )
 }
