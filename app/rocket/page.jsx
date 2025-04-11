@@ -27,6 +27,7 @@ const PerspectiveCamera = dynamic(() => import('@react-three/drei').then((mod) =
 
 export default function RocketPage() {
   const [showContactForm, setShowContactForm] = useState(false)
+  const [showProductsCard, setShowProductsCard] = useState(false)
 
   return (
     <div className='flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-b from-black to-gray-800 text-white'>
@@ -42,7 +43,12 @@ export default function RocketPage() {
       <View className='h-screen w-screen' orbit={false}>
         <Suspense fallback={null}>
           <Scene />
-          <Rocket scale={0.6} position={[0, -10, 0]} onToggleContactForm={() => setShowContactForm(prev => !prev)} />
+          <Rocket
+            scale={0.6}
+            position={[0, -10, 0]}
+            onToggleContactForm={() => setShowContactForm(prev => !prev)}
+            onToggleProductsCard={() => setShowProductsCard(prev => !prev)}
+          />
           <Common color='#000' />
         </Suspense>
       </View>
@@ -138,6 +144,136 @@ export default function RocketPage() {
         </form>
       </div>
 
+      {/* Our Products Card */}
+      <div className={`fixed inset-0 flex items-center justify-center z-30 ${showProductsCard ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+        <div className={`bg-gray-900/95 backdrop-blur-md p-10 rounded-lg z-30 w-3/4 max-w-3xl border border-[#ebcb4c]/30 shadow-[0_0_15px_rgba(235,203,76,0.3)]
+          transform transition-all duration-500 ease-in-out ${showProductsCard
+            ? 'opacity-100 scale-100'
+            : 'opacity-0 scale-95'}`}
+        >
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-2xl font-bold text-[#ebcb4c] italic tracking-wider" style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }}>
+            <span className="inline-block animate-pulse-slow">O</span>
+            <span className="inline-block">U</span>
+            <span className="inline-block">R</span>
+            <span className="inline-block"> </span>
+            <span className="inline-block ml-2">P</span>
+            <span className="inline-block">R</span>
+            <span className="inline-block">O</span>
+            <span className="inline-block">D</span>
+            <span className="inline-block">U</span>
+            <span className="inline-block">C</span>
+            <span className="inline-block">T</span>
+            <span className="inline-block">S</span>
+          </h2>
+          <button
+            className="text-[#ebcb4c] hover:text-white transition-colors transform hover:rotate-90 duration-300"
+            onClick={() => setShowProductsCard(false)}
+            aria-label="Close products card"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        
+        <div className="text-white overflow-y-auto max-h-[70vh] markdown-content">
+   
+
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-[#ebcb4c] mb-3 text-center">Closer Agent (Sales & Revenue)</h2>
+            <div className="space-y-4">
+              <div>
+                <span className="font-medium text-[#6c97a5]">Lead Intelligence:</span>
+                <span className="ml-1">Auto-qualifies and researches potential customers.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Closing Support:</span>
+                <span className="ml-1">Summarizes past conversations for better sales outcomes.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Qualifying Bot:</span>
+                <span className="ml-1">Manages initial customer interactions and schedules appointments.</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-[#ebcb4c] mb-3 text-center">Assistant Agent (Executive Support)</h2>
+            <div className="space-y-4">
+              <div>
+                <span className="font-medium text-[#6c97a5]">Email Sorting:</span>
+                <span className="ml-1">Automatically manages and categorizes incoming emails.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Calendar Management:</span>
+                <span className="ml-1">Optimizes schedules and handles appointment changes efficiently.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Booking Management:</span>
+                <span className="ml-1">Automates travel and reservation tasks.</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-[#ebcb4c] mb-3 text-center">Workflow Agent (Operations & Productivity)</h2>
+            <div className="space-y-4">
+              <div>
+                <span className="font-medium text-[#6c97a5]">System Creator Bot:</span>
+                <span className="ml-1">Creates and maintains standard procedures and checklists.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Office Manager Bot:</span>
+                <span className="ml-1">Manages daily tasks such as scheduling and expense tracking.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Customer Support Bot:</span>
+                <span className="ml-1">Handles routine support inquiries, allowing teams to focus on complex issues.</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-[#ebcb4c] mb-3 text-center">Amplifier Agent (Marketing & Content Creation)</h2>
+            <div className="space-y-4">
+              <div>
+                <span className="font-medium text-[#6c97a5">Content Analysis:</span>
+                <span className="ml-1">Reviews content to identify successful strategies.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Content Checker:</span>
+                <span className="ml-1">Ensures consistency with brand voice and style.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Content Creation:</span>
+                <span className="ml-1">Generates engaging multi-format content to reach wider audiences.</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-8">
+            <h2 className="text-xl font-semibold text-[#ebcb4c] mb-3 text-center">Money Agent (Financial Management)</h2>
+            <div className="space-y-4">
+              <div>
+                <span className="font-medium text-[#6c97a5]">Cash Flow Bot:</span>
+                <span className="ml-1">Real-time cash monitoring and forecasting.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Payment Bot:</span>
+                <span className="ml-1">Streamlines invoice processing and financial entries.</span>
+              </div>
+              <div>
+                <span className="font-medium text-[#6c97a5]">Fraud Detection Bot:</span>
+                <span className="ml-1">Identifies and prevents unusual financial activities.</span>
+              </div>
+            </div>
+          </div>
+
+          <p className="mt-8 text-[#ebcb4c] font-bold text-lg text-center">Contact us today to learn how our AI products can transform your business!</p>
+        </div>
+      </div>
+      </div>
     </div>
   )
 }

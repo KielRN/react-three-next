@@ -67,14 +67,15 @@ export function Dog(props) {
   return <primitive object={scene} {...props} />
 }
 
-export function Rocket({ route = '/', onToggleContactForm, ...props }) {
+export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard, ...props }) {
   const { scene } = useGLTF('/h-iia_-_launch_vehicle_-_rocket.glb')
   const router = useRouter()
   const [nextHovered, setNextHovered] = useState(false)
   const [contactHovered, setContactHovered] = useState(false)
+  const [productsHovered, setProductsHovered] = useState(false)
   const groupRef = useRef()
   
-  useCursor(nextHovered || contactHovered)
+  useCursor(nextHovered || contactHovered || productsHovered)
   
   useFrame((state, delta) => {
     if (groupRef.current) {
@@ -150,6 +151,40 @@ export function Rocket({ route = '/', onToggleContactForm, ...props }) {
             font="/Fonts/HesDeadJim-apj9.ttf"
           >
             CONTACT
+          </Text>
+        </mesh>
+      </Billboard>
+
+      {/* OUR PRODUCTS Label */}
+      <Billboard
+        position={[4, 16, 2]} // Positioned above the rocket
+        follow={true}
+        lockX={false}
+        lockY={false}
+        lockZ={false}
+      >
+        <mesh
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleProductsCard && onToggleProductsCard(); // Use the passed prop
+          }}
+          onPointerOver={(e) => { e.stopPropagation(); setProductsHovered(true); }}
+          onPointerOut={() => setProductsHovered(false)}
+        >
+          <planeGeometry args={[4, 1]} />
+          <meshBasicMaterial color="#FFFF00" transparent opacity={0} />
+          <Text
+            position={[0, 0, 1]}
+            fontSize={1.2}
+            color={productsHovered ? "#FFFFFF" : "#ebcb4c"} // Change to white on hover
+            anchorX="center"
+            anchorY="middle"
+            fontWeight={800}
+            fontStyle="italic"
+            letterSpacing={0.05}
+            font="/Fonts/HesDeadJim-apj9.ttf"
+          >
+            OUR PRODUCTS
           </Text>
         </mesh>
       </Billboard>
