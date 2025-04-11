@@ -66,3 +66,16 @@ export function Dog(props) {
 
   return <primitive object={scene} {...props} />
 }
+
+export function Rocket(props) {
+  const { scene } = useGLTF('/h-iia_-_launch_vehicle_-_rocket.glb')
+  
+  useFrame((state, delta) => {
+    // Slight hovering animation
+    scene.position.y = Math.sin(state.clock.getElapsedTime() * 0.5) * 0.1
+    // Slow rotation
+    scene.rotation.y += delta * 0.2
+  })
+
+  return <primitive object={scene} {...props} />
+}

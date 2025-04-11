@@ -6,6 +6,7 @@ import { Suspense } from 'react'
 const Logo = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
 const Dog = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Dog), { ssr: false })
 const Duck = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
+const Rocket = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Rocket), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
@@ -75,6 +76,26 @@ export default function Page() {
             have multiple views with a single, performant canvas. These views will follow their tracking elements,
             scroll along, resize, etc.
           </p>
+        </div>
+      </div>
+
+      {/* third row - rocket */}
+      <div className='mx-auto flex w-full flex-col flex-wrap items-center p-12 md:flex-row lg:w-4/5'>
+        <div className='w-full p-6 sm:w-1/2'>
+          <h2 className='mb-3 text-3xl font-bold leading-none text-gray-800'>Space exploration with React Three Fiber</h2>
+          <p className='mb-8 text-gray-600'>
+            This rocket model demonstrates how to integrate more complex 3D assets into your React Three Fiber scenes. The
+            subtle animations applied to the rocket create a realistic hovering effect, showing how you can bring your 3D
+            models to life with just a few lines of code.
+          </p>
+        </div>
+        <div className='relative my-12 h-64 w-full py-6 sm:w-1/2 md:mb-40'>
+          <View orbit className='relative h-full sm:h-64 sm:w-full'>
+            <Suspense fallback={null}>
+              <Rocket scale={1.5} position={[0, -1, 0]} />
+              <Common color={'#f0f8ff'} />
+            </Suspense>
+          </View>
         </div>
       </div>
     </>
