@@ -112,6 +112,7 @@ export function Rocket({ route = '/', ...props }) {
             fontWeight={800}
             fontStyle="italic"
             letterSpacing={0.05}
+            font="/Fonts/HesDeadJim-apj9.ttf"
           >
             NEXT
           </Text>

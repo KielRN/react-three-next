@@ -1,7 +1,8 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
+import { useThree } from '@react-three/fiber'
 
 // Dynamically import components with SSR disabled
 const Rocket = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Rocket), { ssr: false })
@@ -34,12 +35,55 @@ export default function RocketPage() {
       
       <View className='h-screen w-screen' orbit={false}>
         <Suspense fallback={null}>
+          <Scene />
           <Rocket scale={0.6} position={[0, -10, 0]} />
-          <PerspectiveCamera makeDefault position={[0, 15, 25]} fov={40} />
-          <OrbitControls makeDefault enableDamping dampingFactor={0.21} target={[0, 5, 0]} />
           <Common color='#000' />
         </Suspense>
       </View>
     </div>
+  )
+}
+
+// Move camera setup to a dedicated component with camera reset logic
+function Scene() {
+  const controlsRef = useRef()
+  const { camera } = useThree()
+  
+  useEffect(() => {
+    // Function to reset the camera and controls
+    const resetView = () => {
+      if (camera) {
+        camera.position.set(0, 15, 25)
+        camera.updateProjectionMatrix()
+      }
+      
+      if (controlsRef.current) {
+        controlsRef.current.target.set(0, 5, 0)
+        controlsRef.current.update()
+      }
+    }
+    
+    // Reset camera when component mounts
+    resetView()
+    
+    // Reset when returning to the page
+    window.addEventListener('focus', resetView)
+    
+    return () => {
+      window.removeEventListener('focus', resetView)
+    }
+  }, [camera])
+  
+  return (
+    <>
+      <PerspectiveCamera makeDefault position={[0, 15, 25]} fov={40} />
+      <OrbitControls 
+        ref={controlsRef}
+        makeDefault 
+        enableDamping 
+        dampingFactor={0.21} 
+        target={[0, 5, 0]}
+      />
+    </>
   )
 }
