@@ -67,13 +67,14 @@ export function Dog(props) {
   return <primitive object={scene} {...props} />
 }
 
-export function Rocket({ route = '/', ...props }) {
+export function Rocket({ route = '/', onToggleContactForm, ...props }) {
   const { scene } = useGLTF('/h-iia_-_launch_vehicle_-_rocket.glb')
   const router = useRouter()
-  const [labelHovered, setLabelHover] = useState(false)
+  const [nextHovered, setNextHovered] = useState(false)
+  const [contactHovered, setContactHovered] = useState(false)
   const groupRef = useRef()
   
-  useCursor(labelHovered)
+  useCursor(nextHovered || contactHovered)
   
   useFrame((state, delta) => {
     if (groupRef.current) {
@@ -98,15 +99,15 @@ export function Rocket({ route = '/', ...props }) {
       >
         <mesh
           onClick={(e) => { e.stopPropagation(); router.push(route); }}
-          onPointerOver={(e) => { e.stopPropagation(); setLabelHover(true); }}
-          onPointerOut={() => setLabelHover(false)}
+          onPointerOver={(e) => { e.stopPropagation(); setNextHovered(true); }}
+          onPointerOut={() => setNextHovered(false)}
         >
           <planeGeometry args={[3, 1]} />
           <meshBasicMaterial color="#FFFF00" transparent opacity={0} />
           <Text
             position={[0, 0, 1]}
             fontSize={1.2}
-            color="#ebcb4c"
+            color={nextHovered ? "#FFFFFF" : "#ebcb4c"}
             anchorX="center"
             anchorY="middle"
             fontWeight={800}
@@ -115,6 +116,40 @@ export function Rocket({ route = '/', ...props }) {
             font="/Fonts/HesDeadJim-apj9.ttf"
           >
             NEXT
+          </Text>
+        </mesh>
+      </Billboard>
+
+      {/* CONTACT Label */}
+      <Billboard
+        position={[-8, 5, 2]} // Positioned lower and to the left of NEXT
+        follow={true}
+        lockX={false}
+        lockY={false}
+        lockZ={false}
+      >
+        <mesh
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggleContactForm && onToggleContactForm(); // Use the passed prop
+          }}
+          onPointerOver={(e) => { e.stopPropagation(); setContactHovered(true); }}
+          onPointerOut={() => setContactHovered(false)}
+        >
+          <planeGeometry args={[3, 1]} />
+          <meshBasicMaterial color="#FFFF00" transparent opacity={0} />
+          <Text
+            position={[0, 0, 1]}
+            fontSize={1.2}
+            color={contactHovered ? "#FFFFFF" : "#ebcb4c"} // Change to white on hover
+            anchorX="center"
+            anchorY="middle"
+            fontWeight={800}
+            fontStyle="italic"
+            letterSpacing={0.05}
+            font="/Fonts/HesDeadJim-apj9.ttf"
+          >
+            CONTACT
           </Text>
         </mesh>
       </Billboard>
