@@ -3,10 +3,10 @@
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 
-const Logo = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
-const Dog = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Dog), { ssr: false })
-const Duck = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Duck), { ssr: false })
-const Rocket = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Rocket), { ssr: false })
+const Logo = dynamic(() => import('@/components/canvas/3dModels').then((mod) => mod.Logo), { ssr: false })
+const Dog = dynamic(() => import('@/components/canvas/3dModels').then((mod) => mod.Dog), { ssr: false })
+const Duck = dynamic(() => import('@/components/canvas/3dModels').then((mod) => mod.Duck), { ssr: false })
+const Rocket = dynamic(() => import('@/components/canvas/3dModels').then((mod) => mod.Rocket), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (

@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { ProductCard } from '@/templates/ProductCard'
 import { useProductCard } from '@/templates/hooks/useProductCard'
 
-const Blob = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Blob), { ssr: false })
+const Blob = dynamic(() => import('@/components/canvas/3dModels').then((mod) => mod.Blob), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (

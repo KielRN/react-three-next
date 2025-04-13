@@ -108,7 +108,7 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           <Text
             position={[0, 0, 1]}
             fontSize={1.2}
-            color={nextHovered ? "#FFFFFF" : "#ebcb4c"}
+            color={nextHovered ? "#FFFFFF" : "#ffd600"}
             anchorX="center"
             anchorY="middle"
             fontWeight={800}
@@ -142,7 +142,7 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           <Text
             position={[0, 0, 1]}
             fontSize={1.2}
-            color={contactHovered ? "#FFFFFF" : "#ebcb4c"} // Change to white on hover
+            color={contactHovered ? "#FFFFFF" : "#ffd600"} // Change to white on hover
             anchorX="center"
             anchorY="middle"
             fontWeight={800}
@@ -176,7 +176,7 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           <Text
             position={[0, 0, 1]}
             fontSize={1.2}
-            color={productsHovered ? "#FFFFFF" : "#ebcb4c"} // Change to white on hover
+            color={productsHovered ? "#FFFFFF" : "#ffd600"} // Change to white on hover
             anchorX="center"
             anchorY="middle"
             fontWeight={800}

@@ -6,7 +6,7 @@ import { useThree } from '@react-three/fiber'
 import { useTypewriter } from '@/templates/hooks/useTypewriter'
 
 // Dynamically import components with SSR disabled
-const Rocket = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Rocket), { ssr: false })
+const Rocket = dynamic(() => import('@/components/canvas/3dModels').then((mod) => mod.Rocket), { ssr: false })
 const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.View), {
   ssr: false,
   loading: () => (
