@@ -1,0 +1,8 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "startCommand": "npm start",
+  "healthcheckPath": "/",
+  "healthcheckTimeout": 3,
+  "autoStart": true
+}

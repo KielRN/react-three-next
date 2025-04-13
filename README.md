@@ -66,6 +66,35 @@ Thanks to [tunnel-rat](https://github.com/pmndrs/tunnel-rat) the starter can por
 - `yarn build` - Next build
 - `yarn start` - Next start
 
+### :rocket: Deployment on Railway
+
+This project is configured for easy deployment on [Railway.com](https://railway.com/).
+
+#### Deploy to Railway
+
+1. Push your code to a GitHub repository
+2. Go to [Railway.com](https://railway.com/)
+3. Create a new project and select "Deploy from GitHub repo"
+4. Select your repository
+5. Railway will automatically detect the Next.js configuration and deploy your project
+
+#### Environment Variables
+
+For proper functioning of your application, you may need to set these environment variables in Railway:
+
+- `NODE_ENV`: Set to `production` for production deployment
+- `NEXT_PUBLIC_BASE_URL`: Set to your Railway app's URL (available after first deployment)
+
+You can add environment variables in Railway by navigating to your project settings and clicking on the "Variables" tab.
+
+#### Custom Domain (Optional)
+
+To set up a custom domain for your Railway project:
+1. Go to your project settings
+2. Navigate to the "Domains" tab
+3. Click "Generate Domain" or "Add Custom Domain"
+4. Follow the instructions to configure your DNS settings
+
 ### ⬛ Stack
 
 - [`create-r3f-app`](https://github.com/utsuboco/create-r3f-app) &ndash; Command line tool to simplify the installation.
