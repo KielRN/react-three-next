@@ -35,12 +35,13 @@ export function ContactForm({
   successMessage = "Your message has been sent!"
 }) {
   // Use the form submission hook
-  const { 
-    submitForm, 
-    isSubmitting, 
-    isSuccess, 
-    error: submissionError, 
-    resetForm 
+  const {
+    submitForm,
+    isSubmitting,
+    isSuccess,
+    error: submissionError,
+    resetForm,
+    responseData
   } = useFormSubmission(hookUrl)
 
   // Form state
@@ -164,10 +165,8 @@ export function ContactForm({
           }), {})
         });
         
-        // Auto close after success if desired
-        setTimeout(() => {
-          onClose();
-        }, 3000);
+        // Form remains open after submission to show the response
+        // User will need to manually close the form
       }
     } catch (error) {
       setErrorMessage('An unexpected error occurred. Please try again.');
@@ -244,15 +243,44 @@ export function ContactForm({
           </svg>
         </button>
       </div>
-      
       {isSuccess ? (
-        <div className="text-center p-6" role="status" aria-live="polite">
-          <div className="text-green-400 mb-4">
+        <div className="text-left p-6" role="status" aria-live="polite">
+          <div className="text-green-400 mb-4 text-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <p className="text-xl font-bold" style={dynamicStyles.title}>{successMessage}</p>
+          
+          {/* Format and display the response message */}
+          {(() => {
+            const message =
+              responseData?.message ||
+              responseData?.response ||
+              (typeof responseData === 'string' ? responseData : successMessage);
+              
+            // Check if message is a string and contains line breaks
+            if (typeof message === 'string' && message.includes('\n')) {
+              // Split by line breaks and render each paragraph
+              return message.split('\n').map((line, index) =>
+                line.trim() ? (
+                  <p
+                    key={index}
+                    className={index === 0 ? "text-xl font-bold mb-3" : "text-base mb-2"}
+                    style={index === 0 ? dynamicStyles.title : null}
+                  >
+                    {line}
+                  </p>
+                ) : <br key={index} />
+              );
+            } else {
+              // Render as a single paragraph if no line breaks
+              return (
+                <p className="text-xl font-bold" style={dynamicStyles.title}>
+                  {message}
+                </p>
+              );
+            }
+          })()}
         </div>
       ) : (
         <form onSubmit={handleSubmit} noValidate>
