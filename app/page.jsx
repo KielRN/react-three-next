@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
+import { ContactForm } from '@/templates/ContactForm'
 import { useTypewriter } from '@/templates/hooks/useTypewriter'
 
 // Dynamically import components with SSR disabled
@@ -53,97 +54,20 @@ export default function RocketPage() {
           <Common color='#000' />
         </Suspense>
       </View>
-      <div className={`absolute right-10 bottom-20 bg-gray-900/90 backdrop-blur-md p-8 rounded-lg z-20 w-96 border border-[#ebcb4c]/30 shadow-[0_0_15px_rgba(235,203,76,0.3)]
-        transform transition-all duration-500 ease-in-out ${showContactForm
-          ? 'opacity-100 translate-x-0 scale-100'
-          : 'opacity-0 translate-x-20 scale-95 pointer-events-none'}`}
-      >
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-[#ebcb4c] italic tracking-wider" style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }}>
-            <span className="inline-block animate-pulse-slow">C</span>
-            <span className="inline-block">O</span>
-            <span className="inline-block">N</span>
-            <span className="inline-block">T</span>
-            <span className="inline-block">A</span>
-            <span className="inline-block">C</span>
-            <span className="inline-block">T</span>
-            <span className="inline-block"> </span>
-            <span className="inline-block ml-2">U</span>
-            <span className="inline-block">S</span>
-          </h2>
-          <button
-            className="text-[#ebcb4c] hover:text-white transition-colors transform hover:rotate-90 duration-300"
-            onClick={() => setShowContactForm(false)}
-            aria-label="Close contact form"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        
-        <form onSubmit={(e) => {
-          e.preventDefault();
-          // Placeholder for future hook
-          console.log('Form submitted');
-          // Show success message or close form
-          setShowContactForm(false);
-        }}>
-          <div className="mb-5 transform transition-all duration-300 hover:translate-x-1">
-            <label className="block text-[#ebcb4c] text-sm font-bold mb-2 tracking-wider" style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }} htmlFor="name">
-              NAME
-            </label>
-            <input
-              className="bg-gray-800 border-2 border-gray-700 focus:border-[#ebcb4c] text-white rounded-md w-full py-3 px-4
-                transition-all duration-300 focus:outline-none focus:shadow-[0_0_8px_rgba(235,203,76,0.5)] hover:border-gray-600"
-              id="name"
-              type="text"
-              required
-              placeholder="Your name"
-            />
-          </div>
-          
-          <div className="mb-5 transform transition-all duration-300 hover:translate-x-1">
-            <label className="block text-[#ebcb4c] text-sm font-bold mb-2 tracking-wider" style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }} htmlFor="email">
-              EMAIL
-            </label>
-            <input
-              className="bg-gray-800 border-2 border-gray-700 focus:border-[#ebcb4c] text-white rounded-md w-full py-3 px-4
-                transition-all duration-300 focus:outline-none focus:shadow-[0_0_8px_rgba(235,203,76,0.5)] hover:border-gray-600"
-              id="email"
-              type="email"
-              required
-              placeholder="your.email@example.com"
-            />
-          </div>
-          
-          <div className="mb-6 transform transition-all duration-300 hover:translate-x-1">
-            <label className="block text-[#ebcb4c] text-sm font-bold mb-2 tracking-wider" style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }} htmlFor="message">
-              MESSAGE
-            </label>
-            <textarea
-              className="bg-gray-800 border-2 border-gray-700 focus:border-[#ebcb4c] text-white rounded-md w-full py-3 px-4
-                transition-all duration-300 focus:outline-none focus:shadow-[0_0_8px_rgba(235,203,76,0.5)] hover:border-gray-600 min-h-[120px]"
-              id="message"
-              rows="4"
-              required
-              placeholder="Your message here..."
-            ></textarea>
-          </div>
-          
-          <div className="text-center">
-            <button
-              className="bg-[#ebcb4c] hover:bg-[#f6da6a] text-gray-900 font-bold py-3 px-6 rounded-md
-                focus:outline-none focus:shadow-outline w-full transition-all duration-300
-                transform hover:scale-105 active:scale-95 shadow-[0_0_10px_rgba(235,203,76,0.3)]"
-              type="submit"
-              style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }}
-            >
-              SEND MESSAGE
-            </button>
-          </div>
-        </form>
-      </div>
+      {/* Contact form component */}
+      <ContactForm
+        isVisible={showContactForm}
+        onClose={() => setShowContactForm(false)}
+        hookUrl="https://hook.us2.make.com/1mi5cr795cdvdhhefio25qf81rbbepyt"
+        title="CONTACT US"
+        position="right"
+        theme={{
+          primary: "#ebcb4c",
+          background: "bg-gray-900/90",
+          border: "border-[#ebcb4c]/30",
+          shadow: "shadow-[0_0_15px_rgba(235,203,76,0.3)]"
+        }}
+      />
 
       {/* Our Products Card */}
       <div className={`fixed inset-0 flex items-center justify-center z-30 ${showProductsCard ? 'pointer-events-auto' : 'pointer-events-none'}`}>
