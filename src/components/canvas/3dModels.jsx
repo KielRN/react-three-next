@@ -1,6 +1,6 @@
 'use client'
 
-import { useGLTF, Billboard, Text } from '@react-three/drei'
+import { useGLTF, Billboard, Text, RoundedBox } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useMemo, useRef, useState } from 'react'
@@ -103,10 +103,14 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           onPointerOver={(e) => { e.stopPropagation(); setNextHovered(true); }}
           onPointerOut={() => setNextHovered(false)}
         >
-          <planeGeometry args={[3, 1]} />
-          <meshBasicMaterial color="#FFFF00" transparent opacity={0} />
+          <RoundedBox args={[3.5, 1.5, 0.1]} radius={0.3} smoothness={4}>
+            <meshBasicMaterial color={nextHovered ? "#84adb9" : "#6c97a5"} transparent opacity={0.9} />
+          </RoundedBox>
+          <RoundedBox args={[3.6, 1.6, 0.05]} radius={0.35} smoothness={4} position={[0, 0, -0.01]}>
+            <meshBasicMaterial color="#ffd600" transparent opacity={0.3} />
+          </RoundedBox>
           <Text
-            position={[0, 0, 1]}
+            position={[0, 0, 0.15]}
             fontSize={1.2}
             color={nextHovered ? "#FFFFFF" : "#ffd600"}
             anchorX="center"
@@ -137,10 +141,14 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           onPointerOver={(e) => { e.stopPropagation(); setContactHovered(true); }}
           onPointerOut={() => setContactHovered(false)}
         >
-          <planeGeometry args={[3, 1]} />
-          <meshBasicMaterial color="#FFFF00" transparent opacity={0} />
+          <RoundedBox args={[4.7, 1.5, 0.1]} radius={0.3} smoothness={4}>
+            <meshBasicMaterial color={contactHovered ? "#84adb9" : "#6c97a5"} transparent opacity={0.9} />
+          </RoundedBox>
+          <RoundedBox args={[4.8, 1.6, 0.05]} radius={0.35} smoothness={4} position={[0, 0, -0.01]}>
+            <meshBasicMaterial color="#ffd600" transparent opacity={0.3} />
+          </RoundedBox>
           <Text
-            position={[0, 0, 1]}
+            position={[0, 0, 0.15]}
             fontSize={1.2}
             color={contactHovered ? "#FFFFFF" : "#ffd600"} // Change to white on hover
             anchorX="center"
@@ -171,10 +179,14 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           onPointerOver={(e) => { e.stopPropagation(); setProductsHovered(true); }}
           onPointerOut={() => setProductsHovered(false)}
         >
-          <planeGeometry args={[4, 1]} />
-          <meshBasicMaterial color="#FFFF00" transparent opacity={0} />
+          <RoundedBox args={[8.5, 1.5, 0.1]} radius={0.3} smoothness={4}>
+            <meshBasicMaterial color={productsHovered ? "#84adb9" : "#6c97a5"} transparent opacity={0.9} />
+          </RoundedBox>
+          <RoundedBox args={[8.6, 1.6, 0.05]} radius={0.35} smoothness={4} position={[0, 0, -0.01]}>
+            <meshBasicMaterial color="#ffd600" transparent opacity={0.3} />
+          </RoundedBox>
           <Text
-            position={[0, 0, 1]}
+            position={[0, 0, 0.15]}
             fontSize={1.2}
             color={productsHovered ? "#FFFFFF" : "#ffd600"} // Change to white on hover
             anchorX="center"
