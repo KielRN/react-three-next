@@ -1,0 +1,34 @@
+import { getAllBlogPosts, getAllTags, getBlogPostsByTag } from '../../lib/blog';
+import BlogHeader from '../../src/components/blog/BlogHeader';
+import BlogList from '../../src/components/blog/BlogList';
+
+export const metadata = {
+  title: 'Blog | Texas AI Consulting',
+  description: 'Explore the latest insights, tutorials, and news about AI, web development, and digital innovation.',
+  openGraph: {
+    title: 'Blog | Texas AI Consulting',
+    description: 'Explore the latest insights, tutorials, and news about AI, web development, and digital innovation.',
+    url: 'https://texasai.consulting/blog',
+    type: 'website',
+  },
+};
+
+export default async function BlogPage({ searchParams }) {
+  const tag = searchParams?.tag || null;
+  const allTags = await getAllTags();
+  const posts = tag ? await getBlogPostsByTag(tag) : await getAllBlogPosts();
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <BlogHeader />
+      
+      <main className="container mx-auto px-4 py-12 max-w-6xl">
+        <BlogList
+          posts={posts}
+          allTags={allTags}
+          activeTag={tag}
+        />
+      </main>
+    </div>
+  );
+}

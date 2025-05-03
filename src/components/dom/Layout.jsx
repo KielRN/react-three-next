@@ -2,6 +2,8 @@
 
 import { useRef } from 'react'
 import dynamic from 'next/dynamic'
+import Navigation from './Navigation'
+
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false })
 
 const Layout = ({ children }) => {
@@ -18,7 +20,10 @@ const Layout = ({ children }) => {
         touchAction: 'auto',
       }}
     >
-      {children}
+      <Navigation />
+      <div className="pt-16">
+        {children}
+      </div>
       <Scene
         style={{
           position: 'fixed',
