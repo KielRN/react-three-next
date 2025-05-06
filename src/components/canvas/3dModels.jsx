@@ -103,16 +103,33 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           onPointerOver={(e) => { e.stopPropagation(); setNextHovered(true); }}
           onPointerOut={() => setNextHovered(false)}
         >
-          <RoundedBox args={[3.5, 1.5, 0.1]} radius={0.3} smoothness={4}>
-            <meshBasicMaterial color={nextHovered ? "#84adb9" : "#6c97a5"} transparent opacity={0.9} />
+          {/* Star Trek-inspired angled box with glow effect */}
+          <RoundedBox args={[3.5, 1.5, 0.1]} radius={0.1} smoothness={4} position={[0, 0, 0]}>
+            <meshBasicMaterial color={nextHovered ? "#0e2042" : "black"} transparent opacity={0.9} />
           </RoundedBox>
-          <RoundedBox args={[3.6, 1.6, 0.05]} radius={0.35} smoothness={4} position={[0, 0, -0.01]}>
-            <meshBasicMaterial color="#ffd600" transparent opacity={0.3} />
+          {/* Border with glow effect */}
+          <RoundedBox args={[3.6, 1.6, 0.05]} radius={0.15} smoothness={4} position={[0, 0, -0.01]}>
+            <meshStandardMaterial
+              color="#2c75ff"
+              emissive="#2c75ff"
+              emissiveIntensity={nextHovered ? 2 : 1}
+              transparent
+              opacity={0.7}
+            />
           </RoundedBox>
+          {/* Bottom accent bar */}
+          <mesh position={[0, -0.6, 0.06]}>
+            <boxGeometry args={[2.5, 0.1, 0.05]} />
+            <meshStandardMaterial
+              color="#ffcc00"
+              emissive="#ffcc00"
+              emissiveIntensity={2}
+            />
+          </mesh>
           <Text
             position={[0, 0, 0.15]}
             fontSize={1.2}
-            color={nextHovered ? "#FFFFFF" : "#ffd600"}
+            color={nextHovered ? "#2c75ff" : "#ffcc00"}
             anchorX="center"
             anchorY="middle"
             fontWeight={800}
@@ -141,16 +158,33 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           onPointerOver={(e) => { e.stopPropagation(); setContactHovered(true); }}
           onPointerOut={() => setContactHovered(false)}
         >
-          <RoundedBox args={[4.7, 1.5, 0.1]} radius={0.3} smoothness={4}>
-            <meshBasicMaterial color={contactHovered ? "#84adb9" : "#6c97a5"} transparent opacity={0.9} />
+          {/* Star Trek-inspired angled box with glow effect */}
+          <RoundedBox args={[4.7, 1.5, 0.1]} radius={0.1} smoothness={4}>
+            <meshBasicMaterial color={contactHovered ? "#0e2042" : "black"} transparent opacity={0.9} />
           </RoundedBox>
-          <RoundedBox args={[4.8, 1.6, 0.05]} radius={0.35} smoothness={4} position={[0, 0, -0.01]}>
-            <meshBasicMaterial color="#ffd600" transparent opacity={0.3} />
+          {/* Border with glow effect */}
+          <RoundedBox args={[4.8, 1.6, 0.05]} radius={0.15} smoothness={4} position={[0, 0, -0.01]}>
+            <meshStandardMaterial
+              color="#2c75ff"
+              emissive="#2c75ff"
+              emissiveIntensity={contactHovered ? 2 : 1}
+              transparent
+              opacity={0.7}
+            />
           </RoundedBox>
+          {/* Bottom accent bar */}
+          <mesh position={[0, -0.6, 0.06]}>
+            <boxGeometry args={[3.5, 0.1, 0.05]} />
+            <meshStandardMaterial
+              color="#ffcc00"
+              emissive="#ffcc00"
+              emissiveIntensity={2}
+            />
+          </mesh>
           <Text
             position={[0, 0, 0.15]}
             fontSize={1.2}
-            color={contactHovered ? "#FFFFFF" : "#ffd600"} // Change to white on hover
+            color={contactHovered ? "#2c75ff" : "#ffcc00"} // Star Trek colors
             anchorX="center"
             anchorY="middle"
             fontWeight={800}
@@ -179,16 +213,33 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           onPointerOver={(e) => { e.stopPropagation(); setProductsHovered(true); }}
           onPointerOut={() => setProductsHovered(false)}
         >
-          <RoundedBox args={[8.5, 1.5, 0.1]} radius={0.3} smoothness={4}>
-            <meshBasicMaterial color={productsHovered ? "#84adb9" : "#6c97a5"} transparent opacity={0.9} />
+          {/* Star Trek-inspired angled box with glow effect */}
+          <RoundedBox args={[8.5, 1.5, 0.1]} radius={0.1} smoothness={4}>
+            <meshBasicMaterial color={productsHovered ? "#0e2042" : "black"} transparent opacity={0.9} />
           </RoundedBox>
-          <RoundedBox args={[8.6, 1.6, 0.05]} radius={0.35} smoothness={4} position={[0, 0, -0.01]}>
-            <meshBasicMaterial color="#ffd600" transparent opacity={0.3} />
+          {/* Border with glow effect */}
+          <RoundedBox args={[8.6, 1.6, 0.05]} radius={0.15} smoothness={4} position={[0, 0, -0.01]}>
+            <meshStandardMaterial
+              color="#2c75ff"
+              emissive="#2c75ff"
+              emissiveIntensity={productsHovered ? 2 : 1}
+              transparent
+              opacity={0.7}
+            />
           </RoundedBox>
+          {/* Bottom accent bar */}
+          <mesh position={[0, -0.6, 0.06]}>
+            <boxGeometry args={[6, 0.1, 0.05]} />
+            <meshStandardMaterial
+              color="#ffcc00"
+              emissive="#ffcc00"
+              emissiveIntensity={2}
+            />
+          </mesh>
           <Text
             position={[0, 0, 0.15]}
             fontSize={1.2}
-            color={productsHovered ? "#FFFFFF" : "#ffd600"} // Change to white on hover
+            color={productsHovered ? "#2c75ff" : "#ffcc00"} // Star Trek colors
             anchorX="center"
             anchorY="middle"
             fontWeight={800}

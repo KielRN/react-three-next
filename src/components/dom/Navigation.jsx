@@ -83,7 +83,7 @@ export default function Navigation() {
                  boxShadow: '0 0 10px rgba(44, 117, 255, 0.4)',
                  animation: 'border-pulse 3s infinite'
                }}>
-            <img src="/img/Texas-AI-Consulting-Logo1000x1000.png" alt="Texas AI Consulting Logo" className="h-24 w-auto" />
+            <img src="/img/New-Texas-AI-Logo-V2-Full-Large.png" alt="Texas AI Consulting Logo" className="h-24 w-auto" />
           </div>
         </Link>
 
@@ -96,12 +96,12 @@ export default function Navigation() {
               href={link.path}
               className={`relative font-medium transition-all duration-300 font-hesdeadjim text-lg uppercase tracking-wider px-4 py-2 ${
                 pathname === link.path
-                  ? 'text-[#ffcc00] bg-[#0e2042] border-b-2 border-[#ffcc00]'
-                  : 'text-[#2c75ff] hover:text-[#ffcc00] hover:bg-[#0e2042] hover:border-b-2 hover:border-[#ffcc00]'
+                  ? 'text-[#2c75ff] bg-[#0e2042] border-b-2 border-[#2c75ff]'
+                  : 'text-[#ffcc00] hover:text-[#2c75ff] hover:bg-[#0e2042] hover:border-b-2 hover:border-[#2c75ff]'
               }`}
               style={{
                 clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
-                textShadow: pathname === link.path ? '0 0 5px rgba(255, 204, 0, 0.7)' : '0 0 5px rgba(44, 117, 255, 0.7)'
+                textShadow: pathname === link.path ? '0 0 5px rgba(44, 117, 255, 0.7)' : '0 0 5px rgba(255, 204, 0, 0.7)'
               }}
             >
               {link.name}
@@ -144,11 +144,11 @@ export default function Navigation() {
                 href={link.path}
                 className={`font-medium block py-3 px-4 font-hesdeadjim uppercase tracking-wide text-center transition-all duration-300 ${
                   pathname === link.path
-                    ? 'text-[#ffcc00] bg-[#0e2042] border-l-2 border-[#ffcc00]'
-                    : 'text-[#2c75ff] hover:text-[#ffcc00] hover:bg-[#0e2042] hover:border-l-2 hover:border-[#ffcc00]'
+                    ? 'text-[#2c75ff] bg-[#0e2042] border-l-2 border-[#2c75ff]'
+                    : 'text-[#ffcc00] hover:text-[#2c75ff] hover:bg-[#0e2042] hover:border-l-2 hover:border-[#2c75ff]'
                 }`}
                 style={{
-                  textShadow: pathname === link.path ? '0 0 5px rgba(255, 204, 0, 0.7)' : '0 0 5px rgba(44, 117, 255, 0.7)'
+                  textShadow: pathname === link.path ? '0 0 5px rgba(44, 117, 255, 0.7)' : '0 0 5px rgba(255, 204, 0, 0.7)'
                 }}
                 onClick={() => setIsMenuOpen(false)}
               >

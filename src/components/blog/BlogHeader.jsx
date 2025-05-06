@@ -2,23 +2,54 @@
 
 import Link from 'next/link';
 
+// LCARS decoration component for the header
+const LCARSHeaderDecoration = () => (
+  <div className="flex items-center space-x-2 mb-6">
+    <div className="h-8 w-20 bg-[#ffcc00] rounded-sm" style={{boxShadow: '0 0 10px rgba(255, 204, 0, 0.7)'}}></div>
+    <div className="h-16 w-3 bg-[#2c75ff] rounded-sm" style={{boxShadow: '0 0 10px rgba(44, 117, 255, 0.7)'}}></div>
+    <div className="h-8 w-12 bg-[#ffcc00] rounded-sm" style={{boxShadow: '0 0 10px rgba(255, 204, 0, 0.7)'}}></div>
+    <div className="h-16 w-40 bg-[#2c75ff] rounded-sm" style={{boxShadow: '0 0 10px rgba(44, 117, 255, 0.7)'}}></div>
+  </div>
+);
+
 export default function BlogHeader({ title = "Blog", description = "Explore our latest insights and tutorials" }) {
   return (
-    <div className="bg-gradient-to-r from-gray-800 to-gray-900 text-white py-16">
+    <div className="text-white py-16" style={{
+      backgroundImage: 'linear-gradient(to right, rgba(0,10,30,0.9), rgba(0,0,0,0.95))',
+      borderBottom: '2px solid #2c75ff',
+      boxShadow: '0 0 15px rgba(44, 117, 255, 0.5)'
+    }}>
       <div className="container mx-auto px-4 max-w-4xl">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#ebcb4c] font-hesdeadjim">{title}</h1>
-        <p className="text-xl opacity-90 mb-8">{description}</p>
+        <LCARSHeaderDecoration />
+        
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#2c75ff] font-hesdeadjim"
+          style={{textShadow: '0 0 10px rgba(44, 117, 255, 0.7)'}}>
+          {title}
+        </h1>
+        
+        <p className="text-xl opacity-90 mb-8 text-gray-200">{description}</p>
         
         <div className="flex items-center space-x-4">
           <Link
             href="/"
-            className="bg-gray-900 text-[#ebcb4c] hover:bg-gray-800 px-6 py-2 rounded-lg transition-colors duration-200 font-hesdeadjim"
+            className="bg-[#0e2042] text-[#ffcc00] px-8 py-2 transition-colors duration-300 font-hesdeadjim uppercase tracking-wider"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
+              textShadow: '0 0 5px rgba(255, 204, 0, 0.7)',
+              boxShadow: '0 0 10px rgba(44, 117, 255, 0.4)'
+            }}
           >
             Home
           </Link>
           <Link
             href="/blog"
-            className="text-[#ebcb4c] border border-[#ebcb4c] hover:bg-[#ebcb4c]/10 px-6 py-2 rounded-lg transition-colors duration-200 font-hesdeadjim"
+            className="text-[#2c75ff] border-2 border-[#2c75ff] hover:bg-[#2c75ff]/10 px-8 py-2 transition-colors duration-300 font-hesdeadjim uppercase tracking-wider"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
+              textShadow: '0 0 5px rgba(44, 117, 255, 0.7)',
+              boxShadow: '0 0 10px rgba(44, 117, 255, 0.4)',
+              animation: 'border-pulse 3s infinite'
+            }}
           >
             All Articles
           </Link>

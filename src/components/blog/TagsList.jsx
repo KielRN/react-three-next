@@ -26,14 +26,25 @@ export default function TagsList({ tags, activeTag = null, className = '' }) {
   };
 
   return (
-    <div className={`flex flex-wrap gap-2 ${className}`}>
-      <button 
+    <div className={`flex flex-wrap gap-3 ${className}`}>
+      <div className="hidden md:flex items-center space-x-1 mr-1">
+        <div className="h-6 w-2 bg-[#ffcc00] rounded-sm" style={{boxShadow: '0 0 5px rgba(255, 204, 0, 0.7)'}}></div>
+        <div className="h-8 w-1 bg-[#2c75ff] rounded-sm" style={{boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)'}}></div>
+      </div>
+      
+      <button
         onClick={() => router.push('/blog', undefined, { scroll: false })}
-        className={`px-3 py-1 rounded-full text-sm transition-colors font-hesdeadjim ${
+        className={`px-4 py-1 text-sm transition-colors font-hesdeadjim ${
           !selected
-            ? 'bg-[#ebcb4c] text-gray-900'
-            : 'bg-gray-800 text-[#ebcb4c] hover:bg-gray-700'
+            ? 'text-[#0e2042] bg-[#2c75ff]'
+            : 'text-[#ffcc00] bg-[#0e2042] hover:bg-[#0e2042]/80'
         }`}
+        style={{
+          clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
+          boxShadow: '0 0 8px rgba(44, 117, 255, 0.4)',
+          textShadow: !selected ? '0 0 5px rgba(14, 32, 66, 0.7)' : '0 0 5px rgba(255, 204, 0, 0.7)',
+          animation: !selected ? 'border-pulse 3s infinite' : 'none'
+        }}
       >
         All
       </button>
@@ -42,11 +53,17 @@ export default function TagsList({ tags, activeTag = null, className = '' }) {
         <button
           key={tag}
           onClick={() => handleTagClick(tag)}
-          className={`px-3 py-1 rounded-full text-sm transition-colors font-hesdeadjim ${
+          className={`px-4 py-1 text-sm transition-colors font-hesdeadjim ${
             selected === tag
-              ? 'bg-[#ebcb4c] text-gray-900'
-              : 'bg-gray-800 text-[#ebcb4c] hover:bg-gray-700'
+              ? 'text-[#0e2042] bg-[#2c75ff]'
+              : 'text-[#ffcc00] bg-[#0e2042] hover:bg-[#0e2042]/80'
           }`}
+          style={{
+            clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
+            boxShadow: '0 0 8px rgba(44, 117, 255, 0.4)',
+            textShadow: selected === tag ? '0 0 5px rgba(14, 32, 66, 0.7)' : '0 0 5px rgba(255, 204, 0, 0.7)',
+            animation: selected === tag ? 'border-pulse 3s infinite' : 'none'
+          }}
         >
           {tag}
         </button>
