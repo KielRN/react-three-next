@@ -2,17 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: 'HesDeadJim';
-  src: url('/Fonts/HesDeadJim-apj9.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
+/* Updated blog title styling to use Arial with bold, italic, all caps */
+.font-hesdeadjim {
+  font-family: Arial, sans-serif !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
 }
 
-/* Make sure the font-hesdeadjim class is properly defined */
+h1.font-hesdeadjim,
+h2.font-hesdeadjim,
+h3.font-hesdeadjim,
 .font-hesdeadjim {
-  font-family: 'HesDeadJim', Arial, sans-serif !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
 }
 
 @layer base {

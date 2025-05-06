@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         mono: ['var(--font-space-mono)', 'Space Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        'hesdeadjim': ['Arial', 'sans-serif'],
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

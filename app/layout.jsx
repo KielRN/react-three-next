@@ -1,13 +1,11 @@
 import { Layout } from '@/components/dom/Layout'
 import './global.css'
+import { Space_Mono } from 'next/font/google'
 
 export const metadata = {
   title: 'Texas AI Consulting',
   description: 'Big AI For Small Businesses in San Antonio, Austin and Central Texas',
 }
-
-// Import Space Mono font
-import { Space_Mono } from 'next/font/google'
 
 // Initialize the font with subset
 export const spaceMono = Space_Mono({
