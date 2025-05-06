@@ -26,14 +26,14 @@ export default function Navigation() {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white dark:bg-gray-900 shadow-md py-3' : 'bg-transparent py-6'
+      className={`sticky top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-gray-900 shadow-md py-3' : 'bg-gray-900 py-6'
       }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <Link href="/" className="font-bold text-xl text-blue-600 dark:text-blue-400">
-          Texas AI Consulting
+        <Link href="/" className="flex items-center">
+          <img src="/img/Texas-AI-Consulting-Logo1000x1000.png" alt="Texas AI Consulting Logo" className="h-12 w-auto" />
         </Link>
 
         {/* Desktop Navigation */}
@@ -42,10 +42,10 @@ export default function Navigation() {
             <Link
               key={link.path}
               href={link.path}
-              className={`font-medium hover:text-blue-600 dark:hover:text-blue-400 transition-colors ${
+              className={`font-medium hover:text-[#ebcb4c] transition-colors font-hesdeadjim ${
                 pathname === link.path
-                  ? 'text-blue-600 dark:text-blue-400'
-                  : 'text-gray-800 dark:text-gray-200'
+                  ? 'text-[#ebcb4c]'
+                  : 'text-[#ebcb4c]'
               }`}
             >
               {link.name}
@@ -55,7 +55,7 @@ export default function Navigation() {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden text-gray-800 dark:text-gray-200"
+          className="md:hidden text-[#ebcb4c]"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? (
@@ -72,16 +72,16 @@ export default function Navigation() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-gray-900 shadow-md">
+        <div className="md:hidden bg-gray-900 shadow-md">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 href={link.path}
-                className={`font-medium block py-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors ${
+                className={`font-medium block py-2 hover:text-[#ebcb4c] transition-colors font-hesdeadjim ${
                   pathname === link.path
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-800 dark:text-gray-200'
+                    ? 'text-[#ebcb4c]'
+                    : 'text-[#ebcb4c]'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >

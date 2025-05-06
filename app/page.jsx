@@ -33,9 +33,7 @@ export default function RocketPage() {
 
   return (
     <div className='flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-b from-black to-gray-800 text-white'>
-      <div className='absolute left-5 top-5 z-10'>
-        <img src='/img/Texas-AI-Consulting-Logo1000x1000.png' alt='Texas AI Consulting Logo' className='h-32 w-auto' />
-      </div>
+      {/* Logo removed from here and moved to navbar */}
       <div className='absolute left-5 bottom-5 z-10'>
 <img src='/img/Texas-AI-Consulting-ST-Logo-ICON.png' alt='Texas AI Consulting Logo' className='h-10 w-auto mb-2' />
         <h1 className='text-2xl font-bold'>Interactive 3D</h1>

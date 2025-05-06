@@ -10,6 +10,10 @@
   font-display: swap;
 }
 
+.font-hesdeadjim {
+  font-family: 'HesDeadJim', Arial, sans-serif;
+}
+
 @layer base {
   * {
     box-sizing: border-box;
@@ -22,6 +26,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow-x: hidden; /* Only hide horizontal overflow */
+    overflow-y: auto; /* Allow vertical scrolling */
   }
 }

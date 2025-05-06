@@ -29,10 +29,10 @@ export default function TagsList({ tags, activeTag = null, className = '' }) {
     <div className={`flex flex-wrap gap-2 ${className}`}>
       <button 
         onClick={() => router.push('/blog', undefined, { scroll: false })}
-        className={`px-3 py-1 rounded-full text-sm transition-colors ${
+        className={`px-3 py-1 rounded-full text-sm transition-colors font-hesdeadjim ${
           !selected
-            ? 'bg-blue-600 text-white'
-            : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+            ? 'bg-[#ebcb4c] text-gray-900'
+            : 'bg-gray-800 text-[#ebcb4c] hover:bg-gray-700'
         }`}
       >
         All
@@ -42,10 +42,10 @@ export default function TagsList({ tags, activeTag = null, className = '' }) {
         <button
           key={tag}
           onClick={() => handleTagClick(tag)}
-          className={`px-3 py-1 rounded-full text-sm transition-colors ${
+          className={`px-3 py-1 rounded-full text-sm transition-colors font-hesdeadjim ${
             selected === tag
-              ? 'bg-blue-600 text-white'
-              : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+              ? 'bg-[#ebcb4c] text-gray-900'
+              : 'bg-gray-800 text-[#ebcb4c] hover:bg-gray-700'
           }`}
         >
           {tag}

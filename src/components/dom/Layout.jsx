@@ -14,14 +14,14 @@ const Layout = ({ children }) => {
       ref={ref}
       style={{
         position: 'relative',
-        width: ' 100%',
+        width: '100%',
         height: '100%',
         overflow: 'auto',
         touchAction: 'auto',
       }}
     >
       <Navigation />
-      <div className="pt-16">
+      <div className="pt-0">
         {children}
       </div>
       <Scene
