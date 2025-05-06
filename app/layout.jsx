@@ -1,9 +1,9 @@
 import { Layout } from '@/components/dom/Layout'
-import '@/global.css'
+import './global.css'
 
 export const metadata = {
   title: 'Texas AI Consulting',
-  description: 'A minimal starter for Nextjs + React-three-fiber and Threejs.',
+  description: 'Big AI For Small Businesses in San Antonio, Austin and Central Texas',
 }
 
 // Import Space Mono font

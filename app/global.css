@@ -7,11 +7,12 @@
   src: url('/Fonts/HesDeadJim-apj9.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
+/* Make sure the font-hesdeadjim class is properly defined */
 .font-hesdeadjim {
-  font-family: 'HesDeadJim', Arial, sans-serif;
+  font-family: 'HesDeadJim', Arial, sans-serif !important;
 }
 
 @layer base {
