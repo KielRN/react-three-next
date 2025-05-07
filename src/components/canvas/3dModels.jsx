@@ -99,7 +99,7 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
         lockZ={false}
       >
         <mesh
-          onClick={(e) => { e.stopPropagation(); router.push(route); }}
+          onClick={(e) => { e.stopPropagation(); router.push('/blog'); }}
           onPointerOver={(e) => { e.stopPropagation(); setNextHovered(true); }}
           onPointerOut={() => setNextHovered(false)}
         >
