@@ -123,7 +123,7 @@ export function ProductCard({
   const titleChars = title.split('');
   
   return (
-    <div className={`fixed inset-0 flex items-center justify-center z-30 ${showProductsCard ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+    <div className={`fixed inset-0 flex items-start justify-center z-60 pt-36 ${showProductsCard ? 'pointer-events-auto' : 'pointer-events-none'}`}>
       <div className={`${bgColor} backdrop-blur-md p-10 rounded-lg z-30 w-3/4 max-w-3xl border ${borderColor} ${shadowColor}
         transform transition-all duration-500 ease-in-out ${showProductsCard
           ? 'opacity-100 scale-100'
