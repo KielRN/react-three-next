@@ -5,7 +5,7 @@ date: "2025-04-12"
 author: "Texas AI Team"
 excerpt: "Discover how to build engaging 3D websites that captivate users and stand out from the crowd."
 tags: ["3d", "webgl", "ux", "design", "nextjs"]
-image: "/blog-images/3d-website-header.jpg.html"
+image: "/blog-images/new-logo.png"
 ---
 
 # Creating Immersive 3D Websites with Next.js

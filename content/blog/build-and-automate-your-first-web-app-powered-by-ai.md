@@ -5,7 +5,7 @@ date: "2025-05-09"
 author: "Texas AI Team"
 excerpt: "Join our one-day workshop for small business owners and real estate agents to build and automate your first web app using AI, no coding experience required!"
 tags: ["ai", "web app", "automation", "small business", "react", "vercel", "lead generation", "workshop", "no-code"]
-image: 
+image: "/blog-images/pixel-art-class1.png"
 ---
 
 ## 🚀 Build and Automate Your First Web App—Powered by AI
