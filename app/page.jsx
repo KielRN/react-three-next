@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
 import { ContactForm } from '@/templates/ContactForm'
@@ -291,6 +292,22 @@ function ProductsContent() {
         {summaryText}
         <span className={`inline-block w-2 h-5 bg-[#ebcb4c] ml-1 ${summaryDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
       </p>
+      
+      {/* Blog button styled like navigation with enhanced visibility */}
+      <div className="mt-10 flex justify-center">
+        <Link
+          href="/blog"
+          className="relative font-medium transition-all duration-300 font-hesdeadjim text-lg uppercase tracking-wider px-6 py-3 text-[#ffcc00] hover:text-[#2c75ff] bg-[#0e2042]/70 border-2 border-[#ffcc00] hover:border-[#2c75ff]"
+          style={{
+            clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
+            textShadow: '0 0 5px rgba(255, 204, 0, 0.7)',
+            boxShadow: '0 0 15px rgba(255, 204, 0, 0.4)',
+            animation: 'border-pulse 3s infinite'
+          }}
+        >
+          Explore Our Blog
+        </Link>
+      </div>
     </>
   );
 }

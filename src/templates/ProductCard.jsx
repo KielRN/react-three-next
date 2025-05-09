@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import Link from 'next/link'
 import { useTypewriter } from '@/templates/hooks/useTypewriter'
 
 // DetailItem component to handle individual product details
@@ -87,10 +88,27 @@ function ProductsContent({ productSections, summaryText = "Contact us today to l
         />
       ))}
       
-      <p className="mt-8 text-[#ebcb4c] font-bold text-lg text-center flex items-center justify-center font-mono">
-        {displaySummaryText}
-        <span className={`inline-block w-2 h-5 bg-[#ebcb4c] ml-1 ${summaryDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
-      </p>
+      <div className="mt-8 text-center">
+        <p className="text-[#ebcb4c] font-bold text-lg flex items-center justify-center font-mono">
+          {displaySummaryText}
+          <span className={`inline-block w-2 h-5 bg-[#ebcb4c] ml-1 ${summaryDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
+        </p>
+      </div>
+      {summaryDone && (
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/blog"
+            className="relative font-medium transition-all duration-300 font-hesdeadjim text-lg uppercase tracking-wider px-4 py-2 text-[#ffcc00] hover:text-[#2c75ff] hover:bg-[#0e2042] hover:border-b-2 hover:border-[#2c75ff]"
+            style={{
+              clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
+              textShadow: '0 0 5px rgba(255, 204, 0, 0.7)'
+            }}
+            // onClick={() => setShowProductsCard(false)} // Optional: close card on click
+          >
+            Visit Our Blog
+          </Link>
+        </div>
+      )}
     </>
   );
 }
@@ -123,13 +141,14 @@ export function ProductCard({
   const titleChars = title.split('');
   
   return (
-    <div className={`fixed inset-0 flex items-start justify-center z-60 pt-36 ${showProductsCard ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+    <div className={`fixed inset-0 flex items-start justify-center z-60 pt-36 ${showProductsCard ? 'pointer-events-auto' : 'pointer-events-none'}`}> {/* Restored pt-36 */}
       <div className={`${bgColor} backdrop-blur-md p-10 rounded-lg z-30 w-3/4 max-w-3xl border ${borderColor} ${shadowColor}
         transform transition-all duration-500 ease-in-out ${showProductsCard
           ? 'opacity-100 scale-100'
           : 'opacity-0 scale-95'}`}
       >
-        <div className="flex justify-between items-center mb-6">
+        {/* Restored p-10 */}
+        <div className="flex justify-between items-center mb-6"> {/* Removed p-6 */}
           <h2 className={`text-2xl font-bold ${titleColor} italic tracking-wider`} style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }}>
             {titleChars.map((char, index) => (
               <span key={index} className={`inline-block ${index === 0 ? 'animate-pulse-slow' : ''} ${char === ' ' ? 'ml-2' : ''}`}>
@@ -148,9 +167,10 @@ export function ProductCard({
           </button>
         </div>
         
-        <div className="text-white overflow-y-auto max-h-[70vh] markdown-content">
+        <div className="text-white overflow-y-auto max-h-[70vh] markdown-content"> {/* Restored max-h-[70vh] and removed p-6 */}
           {showProductsCard && <ProductsContent productSections={productSections} summaryText={summaryText} />}
         </div>
+        {/* LIME TEST DIV removed */}
       </div>
     </div>
   );

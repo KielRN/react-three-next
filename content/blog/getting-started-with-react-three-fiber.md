@@ -5,7 +5,7 @@ date: "2025-04-14"
 author: "Texas AI Team"
 excerpt: "Learn how to create amazing 3D web experiences with React Three Fiber in your Next.js projects."
 tags: ["react", "threejs", "3d", "nextjs", "webgl"]
-image: "/blog-images/r3f-header.jpg.html"
+image: "/blog-images/logo-tai.png.html"
 ---
 
 # Getting Started with React Three Fiber
