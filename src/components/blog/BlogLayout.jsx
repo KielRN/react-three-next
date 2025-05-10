@@ -51,7 +51,17 @@ export default function BlogLayout({ post, content }) {
             boxShadow: '0 0 15px rgba(44, 117, 255, 0.5)',
             animation: 'border-pulse 3s infinite'
           }}>
-          <div className="w-full h-full bg-gradient-to-r from-[#0e2042] to-gray-900"></div>
+          {post.image ? (
+            <Image
+              src={post.image}
+              alt={post.title || "Blog post header image"}
+              fill
+              style={{ objectFit: 'cover' }}
+              priority
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-r from-[#0e2042] to-gray-900"></div>
+          )}
         </div>
         
         <div className="flex items-center mb-2">

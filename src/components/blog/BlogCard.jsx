@@ -15,7 +15,17 @@ export default function BlogCard({ post }) {
       }}>
       <Link href={`/blog/${post.slug}`} className="block">
         <div className="relative h-48 w-full">
-          <div className="w-full h-full bg-gradient-to-r from-[#0e2042] to-gray-900" />
+          {post.image ? (
+            <Image
+              src={post.image}
+              alt={post.title || "Blog post featured image"}
+              fill
+              style={{ objectFit: 'cover' }}
+              className="transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-r from-[#0e2042] to-gray-900" />
+          )}
         </div>
         
         <div className="p-6">
