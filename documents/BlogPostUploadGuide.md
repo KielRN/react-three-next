@@ -24,7 +24,7 @@ date: "YYYY-MM-DD"
 author: "Texas AI Team"
 excerpt: "A brief description of your blog post (1-2 sentences)"
 tags: ["tag1", "tag2", "tag3"]
-image: "/blog-images/your-image-name.jpg.html"
+image: "/blog-images/your-image-name.jpg"
 ---
 ```
 
@@ -36,11 +36,11 @@ image: "/blog-images/your-image-name.jpg.html"
 - **author**: Usually "Texas AI Team" or specific author name
 - **excerpt**: A brief summary that will appear in blog listings
 - **tags**: An array of relevant tags in square brackets
-- **image**: Optional path to header placeholder (if omitted, no header will be displayed). **IMPORTANT**:
-  - Always use forward slashes (/) not backslashes (\) for paths
-  - Image paths must end with `.html` suffix (e.g., `"/blog-images/your-image.jpg.html"`)
-  - These are not actual images but HTML placeholder files with styled content
-  - The blog post doesn't display the actual image but uses the path as a reference
+- **image**: Optional path to the header image for the blog post (if omitted, no header image will be displayed). **IMPORTANT**:
+  - Place all blog post images in the `/public/blog-images/` directory.
+  - Always use forward slashes (/) not backslashes (\) for paths.
+  - Reference the image directly, e.g., `"/blog-images/your-image.jpg"` or `"/blog-images/your-image.png"`.
+  - The actual image file will be displayed as the header.
 
 ## Content Formatting
 
@@ -64,7 +64,7 @@ More content here.
 
 [Link text](https://example.com)
 
-![Image alt text](/path/to/image.jpg)
+![Image alt text](/blog-images/your-actual-image.jpg)
 
 ```
 
@@ -80,7 +80,7 @@ date: "2025-04-14"
 author: "Texas AI Team"
 excerpt: "Learn how to create amazing 3D web experiences with React Three Fiber in your Next.js projects."
 tags: ["react", "threejs", "3d", "nextjs", "webgl"]
-image: "/blog-images/r3f-header.jpg.html"
+image: "/blog-images/actual-image-example.jpg"
 ---
 
 # Getting Started with React Three Fiber
@@ -106,46 +106,11 @@ Traditional Three.js code can be verbose and imperative. With React Three Fiber,
    - YAML parsing errors: Often caused by using backslashes in paths, which are treated as escape characters in YAML
    - Formatting issues: Verify your Markdown syntax is correct
 
-4. **Adding Header References**:
-   - Create placeholder HTML files in `/public/blog-images/` directory
-   - These files should follow the format of existing placeholder HTML files
-   - They don't actually display images but serve as styled placeholders
-   - Example structure:
-     ```html
-     <!DOCTYPE html>
-     <html>
-     <head>
-       <title>Your Header Title</title>
-       <style>
-         body, html {
-           margin: 0;
-           padding: 0;
-           width: 100%;
-           height: 100%;
-           display: flex;
-           justify-content: center;
-           align-items: center;
-           background: linear-gradient(135deg, #4f46e5, #2563eb);
-           color: white;
-           font-family: system-ui, sans-serif;
-           text-align: center;
-         }
-         .placeholder {
-           padding: 2rem;
-           border-radius: 8px;
-           background-color: rgba(0, 0, 0, 0.2);
-         }
-       </style>
-     </head>
-     <body>
-       <div class="placeholder">
-         <h1>Your Header Title</h1>
-         <p>Description of your blog post</p>
-       </div>
-     </body>
-     </html>
-     ```
-   - Reference these placeholder files in your frontmatter as `/blog-images/your-file.html`
+4. **Adding Header Images**:
+   - Place your actual image files (e.g., `.jpg`, `.png`, `.webp`) in the `/public/blog-images/` directory.
+   - In the frontmatter, set the `image` field to the path of your image, like: `image: "/blog-images/your-chosen-image.jpg"`.
+   - This image will be used as the header for your blog post.
+   - Ensure your image is optimized for the web to maintain good page load speeds.
 
 ## Testing Your Blog Post
 
