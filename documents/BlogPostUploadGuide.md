@@ -68,6 +68,30 @@ More content here.
 
 ```
 
+## Embedding Videos
+
+You can embed videos (e.g., from YouTube, Vimeo) directly into your blog post using HTML `&lt;iframe&gt;` tags.
+
+1.  **Get the Embed Code**: Go to the video platform (like YouTube), click the "Share" button, and then select "Embed". Copy the provided `&lt;iframe&gt;` code.
+2.  **Paste into Markdown**: Paste the `&lt;iframe&gt;` code directly into your Markdown file where you want the video to appear.
+3.  **Customize (Optional)**: You can adjust the `width` and `height` attributes in the `&lt;iframe&gt;` tag to control the video player size.
+
+**Example (YouTube):**
+
+```html
+&lt;iframe 
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/YOUR_VIDEO_ID_HERE" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen&gt;
+&lt;/iframe&gt;
+```
+
+Replace `YOUR_VIDEO_ID_HERE` with the actual ID of the YouTube video.
 ## Example Blog Post
 
 Here's a complete example of a properly formatted blog post:

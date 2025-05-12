@@ -39,6 +39,17 @@ function helloWorld() {
 
 ![Alt text for an image](/path/to/image.jpg)
 
+{/* <!-- Example of embedding a YouTube video --> */}
+&lt;iframe 
+  width="560" 
+  height="315" 
+  src="https://www.youtube.com/embed/VIDEO_ID_HERE" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen&gt;
+&lt;/iframe&gt;
 ## Another Section
 
 Continue with more content sections as needed. Organize your blog post with clear headings and subheadings to make it easy to read and navigate.
