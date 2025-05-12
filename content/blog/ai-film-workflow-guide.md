@@ -9,18 +9,19 @@ image: "/blog-images/fishing-mars.png"
 ---
 
 # Creating an AI-Generated Film: A Step-by-Step Workflow
-
-&lt;iframe 
+---
+<iframe 
   width="560" 
   height="315" 
-  src="https://www.youtube.com/embed/6UFFR2BLr5U&t=42s" 
+  src="https://www.youtube.com/embed/6UFFR2BLr5U?t=42" 
   title="How I Made a Time Travel Movie with Kling, Runway Act-One, ElevenLabs, & Suno | AI Workflow Tutorial" 
   frameborder="0" 
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
   referrerpolicy="strict-origin-when-cross-origin" 
-  allowfullscreen&gt;
-&lt;/iframe&gt;
+  allowfullscreen>
+</iframe>
 
+---
 Imagine making an entire movie using just AI tools and your creativity. Sounds futuristic, right? In this guide, I'll walk you through how to produce an AI-driven film, inspired by a practical workflow from a recent project, "Time Dispatch." I'll share the exact techniques and prompts you can use, leveraging tools like Kling AI, Runway Act-One, ElevenLabs, and Suno.
 
 ## Writing Your Script
