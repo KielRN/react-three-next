@@ -57,7 +57,7 @@ export default function RocketPage() {
       <ContactForm
         isVisible={showContactForm}
         onClose={() => setShowContactForm(false)}
-        hookUrl="https://hook.us2.make.com/1mi5cr795cdvdhhefio25qf81rbbepyt"
+        hookUrl={process.env.NEXT_PUBLIC_CONTACT_WEBHOOK}
         title="CONTACT US"
         position="right"
         theme={{
