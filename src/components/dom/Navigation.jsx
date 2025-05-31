@@ -60,6 +60,7 @@ export default function Navigation() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'Portfolio', path: '/portfolio' },
     { name: 'Blog', path: '/blog' },
     // Add other navigation links as needed
   ]
