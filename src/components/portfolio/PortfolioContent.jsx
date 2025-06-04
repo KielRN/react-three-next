@@ -111,20 +111,27 @@ const ProjectCard = ({ project }) => {
 const portfolioProjects = [
   {
     id: 1,
+    title: "TINTI Documentary",
+    description: "An emotionally charged documentary website that captures the resilient spirit of Puerto Rico during one of its most critical moments in recent history.",
+    image: "/img/tinti-documentary.png",
+    url: "https://tintidocumental.com"
+  },
+  {
+    id: 2,
     title: "Tommy Zion E-commerce",
     description: "A modern e-commerce platform built with Next.js and Shopify, featuring a seamless shopping experience with secure payment processing.",
     image: "/img/tommy-zion.png",
     url: "https://tommy-zion-ecommerce-v2-production.up.railway.app/"
   },
   {
-    id: 2,
+    id: 3,
     title: "Sam Texas Realtor",
     description: "A professional real estate website showcasing property listings, neighborhood information, and seamless client contact options.",
     image: "/img/sam-texas-realtor.png",
     url: "https://samtexasrealtor.com/"
   },
   {
-    id: 3,
+    id: 4,
     title: "Cervera Construction",
     description: "A construction company website highlighting services, past projects, and company information with an elegant, responsive design.",
     image: "/img/cervera-construction.png",
