@@ -137,6 +137,14 @@ const portfolioProjects = [
     image: "/img/cervera-construction.png",
     url: "https://cerveraconstruction.com/"
   }
+,
+  {
+    id: 5,
+    title: "GQ Masonry",
+    description: "A San Antonio based contractor specializing in masonry services. Website includes a portfolio of their work and contact information.",
+    image: "/img/gqmasonry.jpg",
+    url: "https://gqmasonry.com/"
+  }
 ]
 
 // Main Portfolio Content component
