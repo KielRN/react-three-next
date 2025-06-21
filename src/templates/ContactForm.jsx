@@ -186,6 +186,7 @@ export function ContactForm({
       case 'center':
         return {
           container: 'inset-0 flex items-center justify-center',
+          formWrapper: 'w-96',
           animation: isVisible
             ? 'opacity-100 scale-100'
             : 'opacity-0 scale-95 pointer-events-none'
@@ -211,14 +212,9 @@ export function ContactForm({
     submitButton: { backgroundColor: theme.primary }
   };
   
-  return (
-    <div 
-      className={`absolute ${positionClasses.container} ${theme.background} backdrop-blur-md p-8 rounded-lg z-20 w-96 ${theme.border} ${theme.shadow}
-      transform transition-all duration-500 ease-in-out ${positionClasses.animation}`}
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="contact-form-title"
-    >
+  // Form content shared between both layout types
+  const renderFormContent = () => (
+    <>
       <div className="flex justify-between items-center mb-6">
         <h2 
           id="contact-form-title"
@@ -448,6 +444,35 @@ export function ContactForm({
           </div>
         </form>
       )}
+    </>
+  );
+  
+  // For center position, we need a nested structure
+  if (position === 'center') {
+    return (
+      <div
+        className={`absolute ${positionClasses.container} z-20 transform transition-all duration-500 ease-in-out ${positionClasses.animation}`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contact-form-title"
+      >
+        <div className={`${positionClasses.formWrapper} ${theme.background} backdrop-blur-md p-8 rounded-lg ${theme.border} ${theme.shadow}`}>
+          {renderFormContent()}
+        </div>
+      </div>
+    );
+  }
+  
+  // For left and right positions, use the original structure
+  return (
+    <div 
+      className={`absolute ${positionClasses.container} ${theme.background} backdrop-blur-md p-8 rounded-lg z-20 w-96 ${theme.border} ${theme.shadow}
+      transform transition-all duration-500 ease-in-out ${positionClasses.animation}`}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="contact-form-title"
+    >
+      {renderFormContent()}
     </div>
   );
 }

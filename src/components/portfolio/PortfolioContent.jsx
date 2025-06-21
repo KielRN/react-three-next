@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState } from 'react'
+import { ContactForm } from '@/templates/ContactForm'
 
 // LCARS decoration component for the header
 const LCARSHeaderDecoration = () => (
@@ -149,8 +150,10 @@ const portfolioProjects = [
 
 // Main Portfolio Content component
 export default function PortfolioContent() {
+  const [showContactForm, setShowContactForm] = useState(false)
+
   return (
-    <div className="min-h-screen bg-gray-900 w-full overflow-x-hidden -mt-[1px]">
+    <div className="relative min-h-screen bg-gray-900 w-full overflow-x-hidden -mt-[1px]">
       <PortfolioHeader />
       
       <main className="container mx-auto px-4 py-12 max-w-6xl">
@@ -171,8 +174,8 @@ export default function PortfolioContent() {
             <p className="text-gray-300 mb-6 text-lg">
               Let's discuss how we can bring your vision to life with cutting-edge technology and innovative design.
             </p>
-            <Link
-              href="/"
+            <button
+              onClick={() => setShowContactForm(true)}
               className="inline-block bg-[#0e2042] text-[#ffcc00] px-8 py-3 transition-colors duration-300 font-hesdeadjim uppercase tracking-wider hover:bg-[#2c75ff] hover:text-white"
               style={{
                 clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
@@ -181,10 +184,23 @@ export default function PortfolioContent() {
               }}
             >
               Contact Us
-            </Link>
+            </button>
           </div>
         </div>
       </main>
+      <ContactForm
+        isVisible={showContactForm}
+        onClose={() => setShowContactForm(false)}
+        hookUrl={process.env.NEXT_PUBLIC_CONTACT_WEBHOOK}
+        title="CONTACT US"
+        position="center"
+        theme={{
+          primary: "#ebcb4c",
+          background: "bg-gray-900/90",
+          border: "border-[#ebcb4c]/30",
+          shadow: "shadow-[0_0_15px_rgba(235,203,76,0.3)]"
+        }}
+      />
     </div>
   )
 }
