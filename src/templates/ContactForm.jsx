@@ -26,7 +26,7 @@ export function ContactForm({
   theme = {
     primary: "#ebcb4c",
     background: "bg-gray-900/90",
-    border: "border-[#ebcb4c]/30",
+    border: "border-4 border-[#ebcb4c]/60",
     shadow: "shadow-[0_0_15px_rgba(235,203,76,0.3)]"
   },
   submitButtonText = "SEND MESSAGE",

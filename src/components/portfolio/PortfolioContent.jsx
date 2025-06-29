@@ -145,6 +145,13 @@ const portfolioProjects = [
     description: "A San Antonio based contractor specializing in masonry services. Website includes a portfolio of their work and contact information.",
     image: "/img/gqmasonry.jpg",
     url: "https://gqmasonry.com/"
+  },
+  {
+    id: 6,
+    title: "Dragon Blade Movie",
+    description: "A promotional website for an upcoming action film currently in preproduction, featuring story details, character profiles, and production updates.",
+    image: "/img/dragon-blade-movie-website.jpg",
+    url: "https://taco-ninja-landing-production.up.railway.app/"
   }
 ]
 
@@ -176,11 +183,11 @@ export default function PortfolioContent() {
             </p>
             <button
               onClick={() => setShowContactForm(true)}
-              className="inline-block bg-[#0e2042] text-[#ffcc00] px-8 py-3 transition-colors duration-300 font-hesdeadjim uppercase tracking-wider hover:bg-[#2c75ff] hover:text-white"
+              className="inline-block bg-[#cc0000] text-[#ffcc00] px-8 py-3 transition-colors duration-300 font-hesdeadjim uppercase tracking-wider hover:bg-[#e60000] hover:text-white"
               style={{
                 clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
                 textShadow: '0 0 5px rgba(255, 204, 0, 0.7)',
-                boxShadow: '0 0 10px rgba(44, 117, 255, 0.4)'
+                boxShadow: '0 0 10px rgba(204, 0, 0, 0.6)'
               }}
             >
               Contact Us
@@ -197,7 +204,7 @@ export default function PortfolioContent() {
         theme={{
           primary: "#ebcb4c",
           background: "bg-gray-900/90",
-          border: "border-[#ebcb4c]/30",
+          border: "border-4 border-[#ebcb4c]/60",
           shadow: "shadow-[0_0_15px_rgba(235,203,76,0.3)]"
         }}
       />
