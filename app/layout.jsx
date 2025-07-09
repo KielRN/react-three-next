@@ -24,13 +24,13 @@ export default function RootLayout({ children }) {
       */}
       <head>
         {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7JF9BLJXN"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-S46TGFXZQF"></script>
         <script dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-B7JF9BLJXN');
+            gtag('config', 'G-S46TGFXZQF');
           `
         }} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
