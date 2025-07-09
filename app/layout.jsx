@@ -23,6 +23,16 @@ export default function RootLayout({ children }) {
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
       <head>
+        {/* Google tag (gtag.js) */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7JF9BLJXN"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-B7JF9BLJXN');
+          `
+        }} />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
         <link rel="apple-touch-icon" sizes="180x180" href="/img/Favicon-New-Texas-AI-Logo.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/img/Favicon-New-Texas-AI-Logo.png" />
