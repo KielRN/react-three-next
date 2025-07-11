@@ -3,7 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '../../../lib/blogUtils';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+import dynamic from 'next/dynamic';
+
+// Dynamically import MDXRemote with SSR disabled
+const MDXRemote = dynamic(() => import('next-mdx-remote/rsc'), {
+  ssr: false,
+  loading: () => <p>Loading content...</p>
+});
 
 // LCARS decorative elements
 const LCARSDecoration = ({ className = '' }) => (

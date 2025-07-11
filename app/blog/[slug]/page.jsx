@@ -65,11 +65,25 @@ export default async function BlogPostPage({ params }) {
     const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
     const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
     
+    // Create a simplified post object to avoid serialization issues
+    const safePost = {
+      slug: post.slug,
+      title: post.title || '',
+      date: post.date || '',
+      author: post.author || '',
+      excerpt: post.excerpt || '',
+      tags: post.tags || [],
+      image: post.image || null,
+      isMDX: post.isMDX || false
+    };
+    
+    // Handle MDX content differently
     if (post.isMDX) {
+      // Pass the content as a string, not as a component
       return (
         <BlogPost
-          post={post}
-          mdxContent={post.content}
+          post={safePost}
+          mdxContent={post.content || ''}
           nextPost={nextPost}
           prevPost={prevPost}
         />
@@ -77,7 +91,7 @@ export default async function BlogPostPage({ params }) {
     } else {
       return (
         <BlogPost
-          post={post}
+          post={safePost}
           contentHtml={contentHtml}
           nextPost={nextPost}
           prevPost={prevPost}

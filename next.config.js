@@ -30,6 +30,16 @@ const nextConfig = {
     // Don't run ESLint during build, Railway is treating warnings as errors
     ignoreDuringBuilds: true,
   },
+  // Disable static generation and prerendering for certain paths
+  experimental: {
+    // Allow more time for the build process
+    workerThreads: true,
+    cpus: 4
+  },
+  // Increase memory limit for the build process
+  env: {
+    NODE_OPTIONS: '--max-old-space-size=4096'
+  },
   webpack(config, { isServer }) {
     if (!isServer) {
       // We're in the browser build, so we can safely exclude the sharp module
