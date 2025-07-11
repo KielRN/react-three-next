@@ -1,10 +1,10 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import DashboardLayout from '../../src/components/dashboard/DashboardLayout';
+import DashboardLayout from '../../../src/components/mini-apps/central-texas-data-centers-dashboard/DashboardLayout';
 import { useEffect, useRef } from 'react';
 
-export default function DashboardPage() {
+export default function CentralTexasDataCentersPage() {
   const searchParams = useSearchParams();
   const highlightedChart = searchParams.get('chart');
   const chartRefs = {
