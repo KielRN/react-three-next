@@ -3,13 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '../../../lib/blogUtils';
-import dynamic from 'next/dynamic';
-
-// Dynamically import MDXRemote with SSR disabled
-const MDXRemote = dynamic(() => import('next-mdx-remote/rsc'), {
-  ssr: false,
-  loading: () => <p>Loading content...</p>
-});
+// Remove dynamic import for now
 
 // LCARS decorative elements
 const LCARSDecoration = ({ className = '' }) => (
@@ -113,19 +107,15 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
           borderBottom: '2px solid #2c75ff',
           boxShadow: '0 0 15px rgba(44, 117, 255, 0.4)',
         }}>
-        {post.isMDX && mdxContent ? (
-          <MDXRemote source={mdxContent} />
-        ) : (
-          <div
-            dangerouslySetInnerHTML={{ __html: contentHtml }}
-            className="break-words"
-            style={{
-              maxWidth: '100%',
-              overflowWrap: 'break-word',
-              color: 'white'
-            }}
-          />
-        )}
+        <div
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
+          className="break-words"
+          style={{
+            maxWidth: '100%',
+            overflowWrap: 'break-word',
+            color: 'white'
+          }}
+        />
         <style jsx global>{`
           pre {
             max-width: 100%;

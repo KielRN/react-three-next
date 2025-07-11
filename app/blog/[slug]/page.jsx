@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getBlogPostBySlug, getAllBlogPosts, convertMarkdownToHtml } from '../../../lib/blog';
 import BlogPost from '../../../src/components/blog/BlogPost';
-import { MDXRemote } from 'next-mdx-remote/rsc';
+// Remove MDXRemote import
 
 // Generate metadata for the page
 export async function generateMetadata({ params }) {
@@ -46,12 +46,8 @@ export default async function BlogPostPage({ params }) {
       notFound();
     }
     
-    let contentHtml = '';
-    
-    if (!post.isMDX) {
-      // For regular markdown, convert to HTML as before
-      contentHtml = await convertMarkdownToHtml(post.content || '');
-    }
+    // Convert all content to HTML regardless of whether it's MDX or MD
+    let contentHtml = await convertMarkdownToHtml(post.content || '');
     
     // Get next and previous posts for navigation
     const allPosts = await getAllBlogPosts();
@@ -73,31 +69,18 @@ export default async function BlogPostPage({ params }) {
       author: post.author || '',
       excerpt: post.excerpt || '',
       tags: post.tags || [],
-      image: post.image || null,
-      isMDX: post.isMDX || false
+      image: post.image || null
     };
     
-    // Handle MDX content differently
-    if (post.isMDX) {
-      // Pass the content as a string, not as a component
-      return (
-        <BlogPost
-          post={safePost}
-          mdxContent={post.content || ''}
-          nextPost={nextPost}
-          prevPost={prevPost}
-        />
-      );
-    } else {
-      return (
-        <BlogPost
-          post={safePost}
-          contentHtml={contentHtml}
-          nextPost={nextPost}
-          prevPost={prevPost}
-        />
-      );
-    }
+    // Treat all posts the same way for now
+    return (
+      <BlogPost
+        post={safePost}
+        contentHtml={contentHtml}
+        nextPost={nextPost}
+        prevPost={prevPost}
+      />
+    );
   } catch (error) {
     console.error('Error rendering blog post:', error);
     notFound();
