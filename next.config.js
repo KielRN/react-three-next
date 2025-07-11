@@ -36,10 +36,6 @@ const nextConfig = {
     workerThreads: true,
     cpus: 4
   },
-  // Increase memory limit for the build process
-  env: {
-    NODE_OPTIONS: '--max-old-space-size=4096'
-  },
   webpack(config, { isServer }) {
     if (!isServer) {
       // We're in the browser build, so we can safely exclude the sharp module

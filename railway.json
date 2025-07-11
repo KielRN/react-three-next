@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "buildCommand": "NODE_OPTIONS='--max-old-space-size=4096' npm run build",
+  "buildCommand": "npm run build",
   "startCommand": "npm start",
   "healthcheckPath": "/",
   "healthcheckTimeout": 10,
   "autoStart": true,
   "builder": {
-    "memory": "4GB",
+    "memory": "2GB",
     "watchPatterns": ["**"]
   }
 }
