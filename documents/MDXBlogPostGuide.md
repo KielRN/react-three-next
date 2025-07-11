@@ -98,7 +98,7 @@ You can use any HTML elements with React-style className props for styling.
 
 ## Importing and Using React Components
 
-You can import and use React components directly in your MDX files:
+You can import and use React components directly in your MDX files, but with some important considerations for deployment:
 
 ```mdx
 ---
@@ -117,6 +117,15 @@ Here's a regular markdown paragraph.
 
 Back to regular markdown again.
 ```
+
+### Important Deployment Notes
+
+To ensure proper rendering in both development and production:
+
+1. **Keep components simple**: Complex components with many dependencies may cause issues
+2. **Prefer static content**: When possible, use static content over interactive components
+3. **Client-side rendering**: All interactive components must include the 'use client' directive
+4. **Avoid ESM-only modules**: Some modules don't work with server-side rendering
 
 ### Creating Components for MDX
 
@@ -171,6 +180,7 @@ export function CounterDemo() {
 6. **Test Locally**: Always preview your MDX post by running `npm run dev` before publishing
 7. **Consistent Component Style**: Make sure your custom components match the site's design language
 8. **Keep Components Simple**: Design components specifically for MDX with simple props
+9. **Deploy Considerations**: Be cautious about using complex visualization libraries in MDX
 
 ## Examples
 
@@ -271,7 +281,12 @@ And then go back to markdown again!
 2. **Import Errors**: Check that your import paths are correct (relative to the MDX file)
 3. **Styling Issues**: Ensure your components use the site's styling conventions
 4. **MDX Syntax Errors**: Validate your MDX syntax if the page fails to build
+5. **Deployment Failures**: If you encounter deployment errors:
+   - Simplify complex components
+   - Ensure all dependencies are in package.json
+   - Use dynamic imports with `ssr: false` for problematic components
+   - Consider converting MDX to regular markdown for simpler content
 
 ## Conclusion
 
-MDX offers a powerful way to create interactive, dynamic blog content while maintaining the simplicity of Markdown for most text content. By following this guide, you can create engaging blog posts that leverage React components for interactive elements.
+MDX offers a powerful way to create interactive, dynamic blog content while maintaining the simplicity of Markdown for most text content. By following this guide, you can create engaging blog posts that leverage React components for interactive elements while ensuring successful deployment.

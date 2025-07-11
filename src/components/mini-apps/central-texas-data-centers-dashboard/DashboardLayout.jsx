@@ -15,14 +15,13 @@ export default function DashboardLayout({ chartRefs }) {
   const [regionalComparison, setRegionalComparison] = useState([]);
   const [marketSegmentation, setMarketSegmentation] = useState([]);
   const [forecastData, setForecastData] = useState({});
-  const [texasMapData, setTexasMapData] = useState(null);
 
   useEffect(() => {
     fetch('/dashboard-data/market-capacity.json').then(res => res.json()).then(setMarketCapacity);
     fetch('/dashboard-data/regional-comparison.json').then(res => res.json()).then(setRegionalComparison);
     fetch('/dashboard-data/market-segmentation.json').then(res => res.json()).then(setMarketSegmentation);
     fetch('/dashboard-data/forecast-data.json').then(res => res.json()).then(setForecastData);
-    fetch('/dashboard-data/texas-map-data.json').then(res => res.json()).then(setTexasMapData);
+    // Map data is now embedded in the component
   }, []);
 
   return (
@@ -46,7 +45,7 @@ export default function DashboardLayout({ chartRefs }) {
             <AdvantageFactorsChart />
           </div>
           <div ref={chartRefs['map']} className="lg:col-span-3">
-            <DataCenterMap data={texasMapData} />
+            <DataCenterMap />
           </div>
         </div>
         <CallToAction />
