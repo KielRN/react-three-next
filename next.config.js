@@ -10,7 +10,15 @@ const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
   disable: process.env.NODE_ENV === 'development',
 })
+
+// Add MDX support
+const withMDX = require('@next/mdx')({
+  extension: /\.(md|mdx)$/,
+})
+
 const nextConfig = {
+  // Add pageExtensions to include md and mdx files
+  pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   // uncomment the following snippet if using styled components
   // compiler: {
   //   styledComponents: true,
@@ -60,7 +68,8 @@ const nextConfig = {
 const KEYS_TO_OMIT = ['webpackDevMiddleware', 'configOrigin', 'target', 'analyticsId', 'webpack5', 'amp', 'assetPrefix']
 
 module.exports = (_phase, { defaultConfig }) => {
-  const plugins = [[withPWA], [withBundleAnalyzer, {}]]
+  // Add withMDX to the plugins array
+  const plugins = [[withPWA], [withBundleAnalyzer, {}], [withMDX]]
 
   const wConfig = plugins.reduce((acc, [plugin, config]) => plugin({ ...acc, ...config }), {
     ...defaultConfig,

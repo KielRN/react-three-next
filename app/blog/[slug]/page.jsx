@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getBlogPostBySlug, getAllBlogPosts, convertMarkdownToHtml } from '../../../lib/blog';
 import BlogPost from '../../../src/components/blog/BlogPost';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 // Generate metadata for the page
 export async function generateMetadata({ params }) {
@@ -45,8 +46,12 @@ export default async function BlogPostPage({ params }) {
       notFound();
     }
     
-    // Convert markdown to HTML
-    const contentHtml = await convertMarkdownToHtml(post.content || '');
+    let contentHtml = '';
+    
+    if (!post.isMDX) {
+      // For regular markdown, convert to HTML as before
+      contentHtml = await convertMarkdownToHtml(post.content || '');
+    }
     
     // Get next and previous posts for navigation
     const allPosts = await getAllBlogPosts();
@@ -60,25 +65,27 @@ export default async function BlogPostPage({ params }) {
     const nextPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
     const prevPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
     
-    return (
-      <BlogPost
-        post={post}
-        contentHtml={contentHtml}
-        nextPost={nextPost}
-        prevPost={prevPost}
-      />
-    );
+    if (post.isMDX) {
+      return (
+        <BlogPost
+          post={post}
+          mdxContent={post.content}
+          nextPost={nextPost}
+          prevPost={prevPost}
+        />
+      );
+    } else {
+      return (
+        <BlogPost
+          post={post}
+          contentHtml={contentHtml}
+          nextPost={nextPost}
+          prevPost={prevPost}
+        />
+      );
+    }
   } catch (error) {
     console.error('Error rendering blog post:', error);
     notFound();
   }
-  
-  return (
-    <BlogPost
-      post={post}
-      contentHtml={contentHtml}
-      nextPost={nextPost}
-      prevPost={prevPost}
-    />
-  );
 }

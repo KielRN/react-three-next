@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '../../../lib/blogUtils';
+import { MDXRemote } from 'next-mdx-remote/rsc';
 
 // LCARS decorative elements
 const LCARSDecoration = ({ className = '' }) => (
@@ -13,7 +14,7 @@ const LCARSDecoration = ({ className = '' }) => (
   </div>
 );
 
-export default function BlogLayout({ post, content }) {
+export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, prevPost }) {
   return (
     <div className="container mx-auto px-4 py-0 max-w-4xl">
       {/* Back to blog link */}
@@ -106,15 +107,19 @@ export default function BlogLayout({ post, content }) {
           borderBottom: '2px solid #2c75ff',
           boxShadow: '0 0 15px rgba(44, 117, 255, 0.4)',
         }}>
-        <div
-          dangerouslySetInnerHTML={{ __html: content }}
-          className="break-words"
-          style={{
-            maxWidth: '100%',
-            overflowWrap: 'break-word',
-            color: 'white'
-          }}
-        />
+        {post.isMDX && mdxContent ? (
+          <MDXRemote source={mdxContent} />
+        ) : (
+          <div
+            dangerouslySetInnerHTML={{ __html: contentHtml }}
+            className="break-words"
+            style={{
+              maxWidth: '100%',
+              overflowWrap: 'break-word',
+              color: 'white'
+            }}
+          />
+        )}
         <style jsx global>{`
           pre {
             max-width: 100%;
