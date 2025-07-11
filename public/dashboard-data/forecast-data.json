@@ -1,0 +1,15 @@
+{
+  "capacityGrowth": 518,
+  "investment": {
+    "name": "Through 2028",
+    "value": 20
+  },
+  "landDevelopment": {
+    "name": "For Data Centers",
+    "value": 3500
+  },
+  "jobCreation": {
+    "name": "Construction & Operations",
+    "value": 15000
+  }
+}

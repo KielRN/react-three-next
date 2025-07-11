@@ -1,0 +1,10 @@
+{
+  "type": "Topology",
+  "objects": {
+    "counties": {
+      "type": "GeometryCollection",
+      "geometries": []
+    }
+  },
+  "arcs": []
+}

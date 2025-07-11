@@ -1,0 +1,32 @@
+[
+  {
+    "year": 2020,
+    "operational": 160,
+    "underConstruction": 85,
+    "planned": 120
+  },
+  {
+    "year": 2022,
+    "operational": 320,
+    "underConstruction": 210,
+    "planned": 450
+  },
+  {
+    "year": 2024,
+    "operational": 646,
+    "underConstruction": 664,
+    "planned": 1229
+  },
+  {
+    "year": 2026,
+    "operational": 1450,
+    "underConstruction": 950,
+    "planned": 1600
+  },
+  {
+    "year": 2028,
+    "operational": 2800,
+    "underConstruction": 1200,
+    "planned": 2000
+  }
+]

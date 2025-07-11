@@ -62,6 +62,7 @@ export default function Navigation() {
     { name: 'Home', path: '/' },
     { name: 'Portfolio', path: '/portfolio' },
     { name: 'Blog', path: '/blog' },
+    { name: 'Apps', path: '/apps' },
     // Add other navigation links as needed
   ]
 

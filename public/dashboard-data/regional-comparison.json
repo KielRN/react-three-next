@@ -1,0 +1,23 @@
+[
+  {
+    "metrics": [
+      { "factor": "Market Status", "austin": 8, "sanantonio": 7, "waco": 4 },
+      { "factor": "Land Availability", "austin": 4, "sanantonio": 8, "waco": 9 },
+      { "factor": "Power Costs", "austin": 6, "sanantonio": 7, "waco": 8 },
+      { "factor": "Key Projects", "austin": 7, "sanantonio": 8, "waco": 5 },
+      { "factor": "Growth Trajectory", "austin": 8, "sanantonio": 9, "waco": 7 }
+    ]
+  },
+  {
+    "name": "Austin",
+    "color": "#2c75ff"
+  },
+  {
+    "name": "San Antonio",
+    "color": "#ffcc00"
+  },
+  {
+    "name": "Waco",
+    "color": "#ff6c00"
+  }
+]

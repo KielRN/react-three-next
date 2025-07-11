@@ -1,0 +1,20 @@
+[
+  {
+    "year": 2024,
+    "total": 646,
+    "segments": [
+      { "name": "Hyperscale", "value": 410, "color": "#2c75ff" },
+      { "name": "Colocation", "value": 215, "color": "#ffcc00" },
+      { "name": "Edge Computing", "value": 21, "color": "#ff6c00" }
+    ]
+  },
+  {
+    "year": 2028,
+    "total": 4000,
+    "segments": [
+      { "name": "Hyperscale", "value": 2800, "color": "#2c75ff" },
+      { "name": "Colocation", "value": 1000, "color": "#ffcc00" },
+      { "name": "Edge Computing", "value": 200, "color": "#ff6c00" }
+    ]
+  }
+]
