@@ -5,6 +5,7 @@ import { Space_Mono } from 'next/font/google'
 export const metadata = {
   title: 'Texas AI Consulting',
   description: 'Big AI For Small Businesses in San Antonio, Austin and Central Texas',
+  metadataBase: new URL('https://texasaiconsulting.com'),
 }
 
 // Initialize the font with subset
