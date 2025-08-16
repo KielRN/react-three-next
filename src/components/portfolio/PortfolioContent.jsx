@@ -144,14 +144,14 @@ const portfolioProjects = [
     title: "GQ Masonry",
     description: "A San Antonio based contractor specializing in masonry services. Website includes a portfolio of their work and contact information.",
     image: "/img/gqmasonry.jpg",
-    url: "https://gqmasonry.com/"
+    url: "https://gq-masonry.web.app/"
   },
   {
     id: 6,
     title: "Dragon Blade Movie",
     description: "A promotional website for an upcoming action film currently in preproduction, featuring story details, character profiles, and production updates.",
     image: "/img/dragon-blade-movie-website.jpg",
-    url: "https://taco-ninja-landing-production.up.railway.app/"
+    url: "https://dragonblademovie.com/"
   }
 ]
 
