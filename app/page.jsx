@@ -39,6 +39,14 @@ export default function RocketPage() {
 <img src='/img/Texas-AI-Consulting-ST-Logo-ICON.png' alt='Texas AI Consulting Logo' className='h-10 w-auto mb-2' />
         <h1 className='text-2xl font-bold'>Interactive 3D</h1>
         <p className='text-sm'>Drag to rotate • Scroll to zoom • Click to return home</p>
+        <div className='text-xs mt-2 space-x-3'>
+          <Link href='/blog/privacy-policy-2025' className='text-gray-300 hover:text-white underline transition-colors'>
+            Privacy Policy
+          </Link>
+          <Link href='/blog/terms-of-use-2025' className='text-gray-300 hover:text-white underline transition-colors'>
+            Terms of Use
+          </Link>
+        </div>
       </div>
       
       <View className='h-screen w-screen' orbit={false}>
