@@ -30,6 +30,8 @@ To harness vibe marketing, it’s important to set up the right AI environment. 
 * **Specialized AI Utilities:** There are many purpose-built AI tools for text, audio, video, etc. We’ll mention several in the workflows below – e.g. 11Labs for text-to-speech, **Vapy** for voice agents, **Tavus** for video avatars, **Runway ML** for generative video, **Arc Ads** for AI-generated ads, and more. The key is to pick tools that integrate well and serve your campaign’s needs.
 
 With concepts clear and tools at hand, let’s dive into concrete **vibe marketing workflows** you can create today. Each example below illustrates how AI can automate or augment a marketing tactic – often turning what used to be hours of work into a one-click or hands-free operation.
+![Vibe Marketing Workflows Overview](/blog-images/vibe-marketing-workflows.jpg)
+
 
 ## 1\. Automated Faceless Content Creation (Short-Form Video)
 
