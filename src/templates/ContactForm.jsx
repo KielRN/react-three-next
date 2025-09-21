@@ -42,7 +42,7 @@ export function ContactForm({
     error: submissionError,
     resetForm,
     responseData
-  } = useFormSubmission(hookUrl)
+  } = useFormSubmission('/api/contact')
 
   // Form state
   const [formValues, setFormValues] = useState({
