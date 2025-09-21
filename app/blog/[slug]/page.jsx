@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { getBlogPostBySlug, getAllBlogPosts, convertMarkdownToHtml } from '../../../lib/blog';
 import BlogPost from '../../../src/components/blog/BlogPost';
-// Remove MDXRemote import
+import { serialize } from 'next-mdx-remote/serialize';
 
 // Generate metadata for the page
 export async function generateMetadata({ params }) {
@@ -38,16 +38,52 @@ export async function generateStaticParams() {
 }
 
 export default async function BlogPostPage({ params }) {
+  console.log('BlogPostPage called with slug:', params.slug);
   try {
+    console.log('About to call getBlogPostBySlug...');
     const post = await getBlogPostBySlug(params.slug);
+    console.log('getBlogPostBySlug returned:', post ? 'data' : 'null');
     
     if (!post) {
       console.log(`Post not found for slug: ${params.slug}`);
       notFound();
     }
     
-    // Convert all content to HTML regardless of whether it's MDX or MD
-    let contentHtml = await convertMarkdownToHtml(post.content || '');
+    // Debug the post content
+    console.log('BlogPostPage - Post received:', {
+      slug: post.slug,
+      isMDX: post.isMDX,
+      hasContent: !!post.content,
+      contentLength: post.content?.length || 0,
+      contentPreview: post.content?.substring(0, 200) || 'NO CONTENT',
+      postKeys: Object.keys(post),
+      contentType: typeof post.content,
+      contentTrimmed: post.content?.trim().length || 0
+    });
+
+    let contentHtml = '';
+    let mdxSource = null;
+    
+    if (post.isMDX) {
+      // For MDX content, serialize it for next-mdx-remote
+      try {
+        console.log('Attempting to serialize MDX content, length:', post.content?.length);
+        if (!post.content || post.content.trim() === '') {
+          throw new Error('No content to serialize');
+        }
+        mdxSource = await serialize(post.content);
+        console.log('MDX serialization successful:', !!mdxSource);
+      } catch (error) {
+        console.error('MDX serialization failed:', error);
+        // Fallback to HTML rendering
+        if (post.content) {
+          contentHtml = await convertMarkdownToHtml(post.content);
+        }
+      }
+    } else {
+      // For regular markdown, convert to HTML as before
+      contentHtml = await convertMarkdownToHtml(post.content || '');
+    }
     
     // Get next and previous posts for navigation
     const allPosts = await getAllBlogPosts();
@@ -69,14 +105,15 @@ export default async function BlogPostPage({ params }) {
       author: post.author || '',
       excerpt: post.excerpt || '',
       tags: post.tags || [],
-      image: post.image || null
+      image: post.image || null,
+      isMDX: post.isMDX
     };
     
-    // Treat all posts the same way for now
     return (
       <BlogPost
         post={safePost}
         contentHtml={contentHtml}
+        mdxContent={mdxSource}
         nextPost={nextPost}
         prevPost={prevPost}
       />

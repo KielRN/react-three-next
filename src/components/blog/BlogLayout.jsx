@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '../../../lib/blogUtils';
-// Remove dynamic import for now
+import { MDXRemote } from 'next-mdx-remote';
 
 // LCARS decorative elements
 const LCARSDecoration = ({ className = '' }) => (
@@ -15,6 +15,14 @@ const LCARSDecoration = ({ className = '' }) => (
 );
 
 export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, prevPost }) {
+  // Debug logging
+  console.log('BlogLayout Debug:', {
+    isMDX: post.isMDX,
+    hasMdxSource: !!mdxContent,
+    contentHtmlLength: contentHtml?.length || 0,
+    mdxSourceKeys: mdxContent ? Object.keys(mdxContent) : 'none'
+  });
+
   return (
     <div className="container mx-auto px-4 py-0 max-w-4xl">
       {/* Back to blog link */}
@@ -107,15 +115,43 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
           borderBottom: '2px solid #2c75ff',
           boxShadow: '0 0 15px rgba(44, 117, 255, 0.4)',
         }}>
-        <div
-          dangerouslySetInnerHTML={{ __html: contentHtml }}
-          className="break-words"
-          style={{
-            maxWidth: '100%',
-            overflowWrap: 'break-word',
-            color: 'white'
-          }}
-        />
+        
+        {/* Debug info - commented out for production */}
+        {/* 
+        <div style={{ color: 'red', fontSize: '12px', marginBottom: '20px', padding: '10px', backgroundColor: '#333' }}>
+          <strong>DEBUG INFO:</strong><br/>
+          isMDX: {String(post.isMDX)}<br/>
+          mdxSource exists: {mdxContent ? 'YES' : 'NO'}<br/>
+          contentHtml length: {contentHtml?.length || 0}<br/>
+          {mdxContent && `mdxSource keys: ${Object.keys(mdxContent).join(', ')}`}
+        </div>
+        */}
+
+        {post.isMDX && mdxContent ? (
+          <div>
+            <MDXRemote {...mdxContent} />
+          </div>
+        ) : contentHtml ? (
+          <div>
+            <div
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
+              className="break-words"
+              style={{
+                maxWidth: '100%',
+                overflowWrap: 'break-word',
+                color: 'white'
+              }}
+            />
+          </div>
+        ) : (
+          <div style={{ color: 'red', padding: '20px' }}>
+            <p>No content to display!</p>
+            <p>post.isMDX: {String(post.isMDX)}</p>
+            <p>mdxSource: {mdxContent ? 'exists' : 'null'}</p>
+            <p>contentHtml: {contentHtml ? 'exists' : 'null'}</p>
+          </div>
+        )}
+        
         <style jsx global>{`
           pre {
             max-width: 100%;
@@ -205,8 +241,84 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
             margin: 1.5rem 0;
             border-radius: 0.5rem;
           }
+
+          .prose table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: rgba(14, 32, 66, 0.4);
+            border-radius: 0.5rem;
+            overflow: hidden;
+          }
+          
+          .prose th {
+            background-color: #0e2042 !important;
+            color: #ffcc00 !important;
+            font-family: 'HesDeadJim', Arial, sans-serif !important;
+            font-weight: bold;
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid #2c75ff;
+          }
+          
+          .prose td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(44, 117, 255, 0.2);
+            color: white !important;
+          }
+          
+          .prose tr:nth-child(even) {
+            background-color: rgba(44, 117, 255, 0.05);
+          }
+          
+          .prose tr:hover {
+            background-color: rgba(44, 117, 255, 0.1);
+          }
+          
+          .prose strong {
+            color: #ffcc00 !important;
+            font-weight: bold;
+          }
+          
+          .prose em {
+            color: #2c75ff !important;
+            font-style: italic;
+          }
         `}</style>
       </article>
+
+      {/* Navigation */}
+      {(nextPost || prevPost) && (
+        <nav className="flex justify-between items-center mt-12 pt-8 border-t border-[#2c75ff]/30">
+          <div className="flex-1">
+            {prevPost && (
+              <Link
+                href={`/blog/${prevPost.slug}`}
+                className="group flex flex-col items-start p-4 bg-[#0e2042]/50 rounded-lg border border-[#2c75ff]/30 hover:border-[#ffcc00]/50 transition-colors"
+              >
+                <span className="text-sm text-gray-400 mb-1">Previous</span>
+                <span className="text-[#2c75ff] group-hover:text-[#ffcc00] font-semibold transition-colors">
+                  {prevPost.title}
+                </span>
+              </Link>
+            )}
+          </div>
+          
+          <div className="flex-1 flex justify-end">
+            {nextPost && (
+              <Link
+                href={`/blog/${nextPost.slug}`}
+                className="group flex flex-col items-end p-4 bg-[#0e2042]/50 rounded-lg border border-[#2c75ff]/30 hover:border-[#ffcc00]/50 transition-colors"
+              >
+                <span className="text-sm text-gray-400 mb-1">Next</span>
+                <span className="text-[#2c75ff] group-hover:text-[#ffcc00] font-semibold transition-colors text-right">
+                  {nextPost.title}
+                </span>
+              </Link>
+            )}
+          </div>
+        </nav>
+      )}
     </div>
   );
 }
