@@ -24,7 +24,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   
-  // Debug logging
+  // Debug logging -- commented
   console.log('BlogLayout Debug:', {
     isMDX: post.isMDX,
     hasMdxSource: !!mdxContent,
