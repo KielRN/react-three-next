@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '../../../lib/blogUtils';
-import { MDXRemote } from 'next-mdx-remote';
+// import { MDXRemote } from 'next-mdx-remote';
 
 // LCARS decorative elements
 const LCARSDecoration = ({ className = '' }) => (
@@ -165,7 +165,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
         
         {post.isMDX && mdxContent ? (
           <div>
-            <MDXRemote {...mdxContent} />
+            <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
           </div>
         ) : contentHtml ? (
           <div>

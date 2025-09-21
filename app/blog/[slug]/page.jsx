@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { getBlogPostBySlug, getAllBlogPosts, convertMarkdownToHtml } from '../../../lib/blog';
 import BlogPost from '../../../src/components/blog/BlogPost';
-import { serialize } from 'next-mdx-remote/serialize';
 
 // Generate metadata for the page
 export async function generateMetadata({ params }) {
@@ -61,29 +60,8 @@ export default async function BlogPostPage({ params }) {
       contentTrimmed: post.content?.trim().length || 0
     });
 
-    let contentHtml = '';
-    let mdxSource = null;
-    
-    if (post.isMDX) {
-      // For MDX content, serialize it for next-mdx-remote
-      try {
-        console.log('Attempting to serialize MDX content, length:', post.content?.length);
-        if (!post.content || post.content.trim() === '') {
-          throw new Error('No content to serialize');
-        }
-        mdxSource = await serialize(post.content);
-        console.log('MDX serialization successful:', !!mdxSource);
-      } catch (error) {
-        console.error('MDX serialization failed:', error);
-        // Fallback to HTML rendering
-        if (post.content) {
-          contentHtml = await convertMarkdownToHtml(post.content);
-        }
-      }
-    } else {
-      // For regular markdown, convert to HTML as before
-      contentHtml = await convertMarkdownToHtml(post.content || '');
-    }
+    // Convert all content to HTML (temporarily disable MDX)
+    const contentHtml = await convertMarkdownToHtml(post.content || '');
     
     // Get next and previous posts for navigation
     const allPosts = await getAllBlogPosts();
@@ -106,14 +84,14 @@ export default async function BlogPostPage({ params }) {
       excerpt: post.excerpt || '',
       tags: post.tags || [],
       image: post.image || null,
-      isMDX: post.isMDX
+      isMDX: false // Force to false to avoid MDX processing
     };
     
     return (
       <BlogPost
         post={safePost}
         contentHtml={contentHtml}
-        mdxContent={mdxSource}
+        mdxContent={null}
         nextPost={nextPost}
         prevPost={prevPost}
       />
