@@ -63,6 +63,7 @@ export default function Navigation() {
     { name: 'Portfolio', path: '/portfolio' },
     { name: 'Blog', path: '/blog' },
     { name: 'Apps', path: '/apps' },
+    { name: 'Pricing', path: '/blog/texas-ai-pricing-2025' },
     // Add other navigation links as needed
   ]
 
@@ -85,7 +86,7 @@ export default function Navigation() {
                  boxShadow: '0 0 10px rgba(44, 117, 255, 0.4)',
                  animation: 'border-pulse 3s infinite'
                }}>
-            <img src="/img/New-Texas-AI-Logo-V2-Full-Large.png" alt="Texas AI Consulting Logo" className="h-24 w-auto" />
+            <img src="/img/New-Texas-AI-Logo-V2-Full-Large.png" alt="Texas AI Consulting Logo" className="h-24 w-48 object-contain" />
           </div>
         </Link>
 
