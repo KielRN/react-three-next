@@ -2,7 +2,7 @@
 title: "Guide to Vibe Marketing with AI Tools"
 slug: "guide-to-vibe-marketing-with-ai-tools"
 date: "2025-09-20"
-author: "Elliott"
+author: "Eliud-Elliott-Lamboy"
 excerpt: "A comprehensive guide to vibe marketing - a modern, AI-powered approach that emphasizes rapid execution and emotional resonance. Learn how one marketer with AI can accomplish what once took a full team."
 tags: ["AI", "Marketing", "Automation", "Vibe Marketing", "AI Tools"]
 image: "/blog-images/vibe-marketing-jpg.jpg"

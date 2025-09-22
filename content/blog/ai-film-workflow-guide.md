@@ -2,7 +2,7 @@
 title: "Creating an AI-Generated Film: A Step-by-Step Workflow"
 slug: "ai-generated-film-guide"
 date: "2025-05-12"
-author: "Elliott Lamboy"
+author: "Eliud-Elliott-Lamboy"
 excerpt: "Learn how to create an AI-generated film using Kling AI, Runway Act-One, ElevenLabs, and Suno, from scriptwriting to final production."
 tags: ["AI filmmaking", "Runway Act-One", "ElevenLabs", "Kling AI", "Suno"]
 image: "/blog-images/fishing-mars.png"

@@ -2,7 +2,7 @@
 title: "Creating Immersive 3D Websites with Next.js"
 slug: "creating-immersive-3d-websites"
 date: "2025-04-12"
-author: "Texas AI Team"
+author: "Eliud-Elliott-Lamboy"
 excerpt: "Discover how to build engaging 3D websites that captivate users and stand out from the crowd."
 tags: ["3d", "webgl", "ux", "design", "nextjs"]
 image: "/blog-images/new-logo.png"

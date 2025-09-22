@@ -4,7 +4,7 @@ slug: "central-texas-data-centers-2025"
 date: "2025-07-09"
 excerpt: "Discover how Central Texas has become America's fastest-growing data center hub. Our comprehensive market analysis reveals investment opportunities across Austin, San Antonio & Waco's booming digital infrastructure landscape, with projections through 2028."
 image: "/blog-images/infographic-central-texas-data-centers.png"
-author: "Texas AI Consulting"
+author: "Eliud-Elliott-Lamboy"
 tags: ["data centers", "market analysis", "Austin", "San Antonio", "Waco", "commercial real estate", "digital infrastructure", "hyperscale", "colocation", "edge computing"]
 ---
 

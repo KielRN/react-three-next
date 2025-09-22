@@ -2,7 +2,7 @@
 title: "Getting Started with React Three Fiber"
 slug: "getting-started-with-react-three-fiber"
 date: "2025-04-14"
-author: "Texas AI Team"
+author: "Eliud-Elliott-Lamboy"
 excerpt: "Learn how to create amazing 3D web experiences with React Three Fiber in your Next.js projects."
 tags: ["react", "threejs", "3d", "nextjs", "webgl"]
 image: "/blog-images/logo-tai.png"
