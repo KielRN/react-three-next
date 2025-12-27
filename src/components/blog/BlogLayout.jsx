@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '../../../lib/blogUtils';
-import TypewriterText from '@/components/blog/TypewriterText';
+import TypewriterText from './TypewriterText';
 import { MDXRemote } from 'next-mdx-remote';
 
 // LCARS decorative elements

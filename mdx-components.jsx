@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import TypewriterText from '@/components/blog/TypewriterText'
+import TypewriterText from './src/components/blog/TypewriterText'
 
 export function useMDXComponents(components) {
   return {

@@ -1,12 +1,8 @@
 'use client'
 
 import React from 'react';
-import { useTypewriter } from '@/templates/hooks/useTypewriter';
+import { useTypewriter } from '../../templates/hooks/useTypewriter';
 
-/**
- * A reusable component that renders text with a typewriter effect.
- * Preserves SEO by including the full text in an invisible element.
- */
 /**
  * A reusable component that renders text with a typewriter effect.
  * Preserves SEO by including the full text in an invisible element.
