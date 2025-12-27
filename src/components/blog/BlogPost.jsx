@@ -1,4 +1,4 @@
-'use client'
+
 
 import BlogLayout from './BlogLayout';
 
@@ -13,6 +13,7 @@ export default function BlogPost({ post, contentHtml, mdxContent, nextPost, prev
           nextPost={nextPost}
           prevPost={prevPost}
         />
+        {/* <div className="text-white p-10">Minimal Test Render</div> */}
       </div>
     </div>
   );

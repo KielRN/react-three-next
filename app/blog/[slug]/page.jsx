@@ -65,15 +65,8 @@ export default async function BlogPostPage({ params }) {
     let mdxSource = null;
 
     if (post.isMDX) {
-      // For MDX, we pass the raw content to be handled by MDXRemote in the client component
-      // But since we can't serialize functions/components easily, we'll compile it here if needed
-      // or just pass the string if using MDXRemote on the client.
-      // Given we use next-mdx-remote, we usually compile on server if using 'next-mdx-remote/rsc'
-      // or serialize if using 'next-mdx-remote/serialize'.
-      // Let's check imports. We need serialize from 'next-mdx-remote/serialize'.
-
-      const { serialize } = await import('next-mdx-remote/serialize');
-      mdxSource = await serialize(post.content || '');
+      // For MDX, we pass the raw content string to be handled by MDXRemote (RSC) in BlogLayout
+      mdxSource = post.content || '';
     } else {
       contentHtml = await convertMarkdownToHtml(post.content || '');
     }
