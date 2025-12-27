@@ -1,18 +1,22 @@
 'use client'
 
+
 import Link from 'next/link';
+import { useTypewriter } from '@/templates/hooks/useTypewriter';
 
 // LCARS decoration component for the header
 const LCARSHeaderDecoration = () => (
   <div className="flex items-center space-x-2 mb-6">
-    <div className="h-8 w-20 bg-[#ffcc00] rounded-sm" style={{boxShadow: '0 0 10px rgba(255, 204, 0, 0.7)'}}></div>
-    <div className="h-16 w-3 bg-[#2c75ff] rounded-sm" style={{boxShadow: '0 0 10px rgba(44, 117, 255, 0.7)'}}></div>
-    <div className="h-8 w-12 bg-[#ffcc00] rounded-sm" style={{boxShadow: '0 0 10px rgba(255, 204, 0, 0.7)'}}></div>
-    <div className="h-16 w-40 bg-[#2c75ff] rounded-sm" style={{boxShadow: '0 0 10px rgba(44, 117, 255, 0.7)'}}></div>
+    <div className="h-8 w-20 bg-[#ffcc00] rounded-sm" style={{ boxShadow: '0 0 10px rgba(255, 204, 0, 0.7)' }}></div>
+    <div className="h-16 w-3 bg-[#2c75ff] rounded-sm" style={{ boxShadow: '0 0 10px rgba(44, 117, 255, 0.7)' }}></div>
+    <div className="h-8 w-12 bg-[#ffcc00] rounded-sm" style={{ boxShadow: '0 0 10px rgba(255, 204, 0, 0.7)' }}></div>
+    <div className="h-16 w-40 bg-[#2c75ff] rounded-sm" style={{ boxShadow: '0 0 10px rgba(44, 117, 255, 0.7)' }}></div>
   </div>
 );
 
 export default function BlogHeader({ title = "Blog", description = "Explore our latest insights and tutorials" }) {
+  const { displayText, isDone } = useTypewriter(title, 40, 200);
+
   return (
     <div className="text-white py-16" style={{
       backgroundImage: 'linear-gradient(to right, rgba(0,10,30,0.9), rgba(0,0,0,0.95))',
@@ -21,14 +25,23 @@ export default function BlogHeader({ title = "Blog", description = "Explore our 
     }}>
       <div className="container mx-auto px-4 max-w-4xl">
         <LCARSHeaderDecoration />
-        
+
+        {/* Title with typewriter effect */}
         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-[#2c75ff] font-hesdeadjim"
-          style={{textShadow: '0 0 10px rgba(44, 117, 255, 0.7)'}}>
-          {title}
+          style={{ textShadow: '0 0 10px rgba(44, 117, 255, 0.7)' }}>
+
+          {/* SR-only full text for SEO/Accessibility */}
+          <span className="sr-only">{title}</span>
+
+          {/* Visible typewriter effect */}
+          <span aria-hidden="true">
+            {displayText}
+            <span className={`inline-block w-3 h-8 md:h-10 bg-[#2c75ff] ml-2 mb-1 align-middle ${isDone ? 'animate-blink-slow' : 'opacity-100'}`}></span>
+          </span>
         </h1>
-        
+
         <p className="text-xl opacity-90 mb-8 text-gray-200">{description}</p>
-        
+
         <div className="flex items-center space-x-4">
           <Link
             href="/"

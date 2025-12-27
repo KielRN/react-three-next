@@ -68,6 +68,21 @@ More content here.
 
 ```
 
+## Special Components
+
+### Typewriter Effect
+
+You can add a "typewriter" typing effect to your blog posts using the `<TypewriterText />` component. This is available automatically in all MDX files.
+
+```jsx
+<TypewriterText text="Your text here" speed={30} delay={0} className="text-color-class" />
+```
+
+- **text**: The text to display.
+- **speed**: (Optional) Typing speed in ms (default: 30).
+- **delay**: (Optional) Delay before typing starts in ms (default: 0).
+- **className**: (Optional) CSS classes for styling (e.g. text color, font weight).
+
 ## Embedding Videos
 
 You can embed videos (e.g., from YouTube, Vimeo) directly into your blog post using HTML `&lt;iframe&gt;` tags.

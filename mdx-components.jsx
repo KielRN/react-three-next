@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import TypewriterText from '@/components/blog/TypewriterText'
 
 export function useMDXComponents(components) {
   return {
@@ -7,20 +8,20 @@ export function useMDXComponents(components) {
     // Use existing blog styling to maintain consistency
     h1: ({ children }) => (
       <h1 className="text-3xl md:text-4xl font-bold text-[#2c75ff] font-hesdeadjim"
-        style={{textShadow: '0 0 10px rgba(44, 117, 255, 0.7)'}}>
-        {children}
+        style={{ textShadow: '0 0 10px rgba(44, 117, 255, 0.7)' }}>
+        <TypewriterText text={children} />
       </h1>
     ),
     h2: ({ children }) => (
       <h2 className="text-2xl md:text-3xl font-bold text-[#2c75ff] font-hesdeadjim"
-        style={{textShadow: '0 0 8px rgba(44, 117, 255, 0.7)'}}>
-        {children}
+        style={{ textShadow: '0 0 8px rgba(44, 117, 255, 0.7)' }}>
+        <TypewriterText text={children} speed={25} delay={500} />
       </h2>
     ),
     h3: ({ children }) => (
       <h3 className="text-xl md:text-2xl font-bold text-[#2c75ff] font-hesdeadjim"
-        style={{textShadow: '0 0 6px rgba(44, 117, 255, 0.7)'}}>
-        {children}
+        style={{ textShadow: '0 0 6px rgba(44, 117, 255, 0.7)' }}>
+        <TypewriterText text={children} speed={20} delay={800} />
       </h3>
     ),
     a: ({ href, children }) => {
@@ -57,6 +58,8 @@ export function useMDXComponents(components) {
     blockquote: ({ children }) => (
       <blockquote className="border-l-4 border-[#ffcc00] pl-4 py-2 my-4 bg-[#0e2042]/40 rounded-r-lg text-white">{children}</blockquote>
     ),
+    // Custom components available in MDX
+    TypewriterText,
     // Keep all other components as is
     ...components,
   }

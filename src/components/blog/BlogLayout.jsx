@@ -4,14 +4,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDate } from '../../../lib/blogUtils';
-// import { MDXRemote } from 'next-mdx-remote';
+import TypewriterText from '@/components/blog/TypewriterText';
+import { MDXRemote } from 'next-mdx-remote';
 
 // LCARS decorative elements
 const LCARSDecoration = ({ className = '' }) => (
   <div className={`flex items-center space-x-1 ${className}`}>
-    <div className="h-6 w-2 bg-[#ffcc00] rounded-sm" style={{boxShadow: '0 0 5px rgba(255, 204, 0, 0.7)'}}></div>
-    <div className="h-10 w-1 bg-[#2c75ff] rounded-sm" style={{boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)'}}></div>
-    <div className="h-4 w-3 bg-[#ffcc00] rounded-sm" style={{boxShadow: '0 0 5px rgba(255, 204, 0, 0.7)'}}></div>
+    <div className="h-6 w-2 bg-[#ffcc00] rounded-sm" style={{ boxShadow: '0 0 5px rgba(255, 204, 0, 0.7)' }}></div>
+    <div className="h-10 w-1 bg-[#2c75ff] rounded-sm" style={{ boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)' }}></div>
+    <div className="h-4 w-3 bg-[#ffcc00] rounded-sm" style={{ boxShadow: '0 0 5px rgba(255, 204, 0, 0.7)' }}></div>
   </div>
 );
 
@@ -23,7 +24,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-  
+
   // Debug logging -- commented
   console.log('BlogLayout Debug:', {
     isMDX: post.isMDX,
@@ -99,7 +100,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
           Back to Blog
         </Link>
       </div>
-      
+
       {/* Blog header */}
       <header className="mb-8">
         <div className="relative w-full h-64 md:h-96 mb-6 rounded-lg overflow-hidden border-l-2 border-t-2 border-[#2c75ff]"
@@ -119,22 +120,22 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
             <div className="w-full h-full bg-gradient-to-r from-[#0e2042] to-gray-900"></div>
           )}
         </div>
-        
+
         <div className="flex items-center mb-2">
-          <div className="h-6 w-4 bg-[#2c75ff] rounded-sm mr-2" style={{boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)'}}></div>
+          <div className="h-6 w-4 bg-[#2c75ff] rounded-sm mr-2" style={{ boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)' }}></div>
           <h1 className="text-3xl md:text-4xl font-bold text-[#2c75ff] font-hesdeadjim"
-            style={{textShadow: '0 0 10px rgba(44, 117, 255, 0.7)'}}>
-            {post.title}
+            style={{ textShadow: '0 0 10px rgba(44, 117, 255, 0.7)' }}>
+            <TypewriterText text={post.title} />
           </h1>
         </div>
-        
+
         <div className="flex items-center text-gray-300 mb-6 ml-6 border-l-2 border-[#ffcc00] pl-3"
-          style={{boxShadow: '0 0 5px rgba(255, 204, 0, 0.3)'}}>
+          style={{ boxShadow: '0 0 5px rgba(255, 204, 0, 0.3)' }}>
           <span>{formatDate(post.date)}</span>
           <span className="mx-2 text-[#ffcc00]">•</span>
           <span>{post.author}</span>
         </div>
-        
+
         {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-6">
             {post.tags.map((tag) => (
@@ -154,7 +155,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
           </div>
         )}
       </header>
-      
+
       {/* Blog content */}
       <article className="prose prose-lg max-w-none bg-gray-900 p-6 rounded-lg dark:prose-invert prose-p:text-white prose-li:text-white prose-headings:font-bold prose-a:text-[#2c75ff] prose-img:rounded-lg overflow-visible prose-pre:overflow-x-auto prose-pre:max-w-full"
         style={{
@@ -162,10 +163,33 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
           borderBottom: '2px solid #2c75ff',
           boxShadow: '0 0 15px rgba(44, 117, 255, 0.4)',
         }}>
-        
+
         {post.isMDX && mdxContent ? (
           <div>
-            <div dangerouslySetInnerHTML={{ __html: contentHtml }} />
+            <MDXRemote
+              {...mdxContent}
+              components={{
+                h1: ({ children }) => (
+                  <h1 className="text-3xl md:text-4xl font-bold text-[#2c75ff] font-hesdeadjim"
+                    style={{ textShadow: '0 0 10px rgba(44, 117, 255, 0.7)' }}>
+                    <TypewriterText text={children} />
+                  </h1>
+                ),
+                h2: ({ children }) => (
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#2c75ff] font-hesdeadjim"
+                    style={{ textShadow: '0 0 8px rgba(44, 117, 255, 0.7)' }}>
+                    <TypewriterText text={children} speed={25} delay={500} />
+                  </h2>
+                ),
+                h3: ({ children }) => (
+                  <h3 className="text-xl md:text-2xl font-bold text-[#2c75ff] font-hesdeadjim"
+                    style={{ textShadow: '0 0 6px rgba(44, 117, 255, 0.7)' }}>
+                    <TypewriterText text={children} speed={20} delay={800} />
+                  </h3>
+                ),
+                TypewriterText
+              }}
+            />
           </div>
         ) : contentHtml ? (
           <div>
@@ -187,7 +211,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
             <p>contentHtml: {contentHtml ? 'exists' : 'null'}</p>
           </div>
         )}
-        
+
         <style jsx global>{`
           pre {
             max-width: 100%;
@@ -339,7 +363,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
               </Link>
             )}
           </div>
-          
+
           <div className="flex-1 flex justify-end">
             {nextPost && (
               <Link
@@ -361,50 +385,50 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
         <div className="bg-gray-800/50 rounded-lg p-8 border border-[#2c75ff]/30"
           style={{
             borderLeft: '2px solid #2c75ff',
-            borderBottom: '2px solid #2c75ff', 
+            borderBottom: '2px solid #2c75ff',
             boxShadow: '0 0 15px rgba(44, 117, 255, 0.4)'
           }}>
-          
+
           <div className="flex items-center mb-6">
-            <div className="h-6 w-4 bg-[#2c75ff] rounded-sm mr-2" 
-              style={{boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)'}}></div>
+            <div className="h-6 w-4 bg-[#2c75ff] rounded-sm mr-2"
+              style={{ boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)' }}></div>
             <h2 className="text-2xl font-bold text-[#ffcc00] font-hesdeadjim"
-              style={{textShadow: '0 0 10px rgba(255, 204, 0, 0.7)'}}>
+              style={{ textShadow: '0 0 10px rgba(255, 204, 0, 0.7)' }}>
               Have Questions About This Article?
             </h2>
           </div>
-          
+
           <p className="text-gray-300 mb-8 text-lg leading-relaxed">
             Get in touch with our team to discuss this topic further or explore how we can help with your project.
           </p>
-          
+
           {/* Inline Contact Form */}
           <div className="bg-gray-900/80 p-6 rounded-lg border border-[#2c75ff]/40"
             style={{
               boxShadow: '0 0 10px rgba(44, 117, 255, 0.2)'
             }}>
             <h3 className="text-xl font-bold text-[#2c75ff] font-hesdeadjim mb-6"
-              style={{textShadow: '0 0 8px rgba(44, 117, 255, 0.7)'}}>
+              style={{ textShadow: '0 0 8px rgba(44, 117, 255, 0.7)' }}>
               Send Us a Message
             </h3>
-            
+
             {submitStatus === 'success' && (
               <div className="mb-6 p-4 bg-green-900/50 border border-green-700 rounded-md text-green-300">
                 Thanks for your message! We'll get back to you soon.
               </div>
             )}
-            
+
             {submitStatus === 'error' && (
               <div className="mb-6 p-4 bg-red-900/50 border border-red-700 rounded-md text-red-300">
                 Sorry, there was an error sending your message. Please try again.
               </div>
             )}
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-bold mb-2 text-[#2c75ff] font-hesdeadjim tracking-wider"
-                    style={{textShadow: '0 0 5px rgba(44, 117, 255, 0.5)'}}>
+                    style={{ textShadow: '0 0 5px rgba(44, 117, 255, 0.5)' }}>
                     NAME
                   </label>
                   <input
@@ -419,7 +443,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
                 </div>
                 <div>
                   <label className="block text-sm font-bold mb-2 text-[#2c75ff] font-hesdeadjim tracking-wider"
-                    style={{textShadow: '0 0 5px rgba(44, 117, 255, 0.5)'}}>
+                    style={{ textShadow: '0 0 5px rgba(44, 117, 255, 0.5)' }}>
                     EMAIL
                   </label>
                   <input
@@ -433,10 +457,10 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-bold mb-2 text-[#2c75ff] font-hesdeadjim tracking-wider"
-                  style={{textShadow: '0 0 5px rgba(44, 117, 255, 0.5)'}}>
+                  style={{ textShadow: '0 0 5px rgba(44, 117, 255, 0.5)' }}>
                   MESSAGE
                 </label>
                 <textarea
@@ -449,7 +473,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
                   required
                 ></textarea>
               </div>
-              
+
               <div className="text-center">
                 <button
                   type="submit"

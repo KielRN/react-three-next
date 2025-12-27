@@ -82,4 +82,12 @@ Summarize the key points of your blog post and provide any final thoughts or cal
 
 ---
 
+## Special Effects
+
+You can use the `TypewriterText` component to add a typewriter effect to any part of your text:
+
+<TypewriterText text="This text will be typed out!" className="text-[#ffcc00] font-bold" />
+
+---
+
 *Note: This template includes common Markdown elements you might use in a blog post. You can remove or modify this template as needed for your specific blog content.*
