@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
+import Script from 'next/script'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
 import { ContactForm } from '@/templates/ContactForm'
@@ -36,7 +37,7 @@ export default function RocketPage() {
     <div className='flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-b from-black to-gray-800 text-white'>
       {/* Logo removed from here and moved to navbar */}
       <div className='absolute left-5 bottom-5 z-10'>
-<img src='/img/Texas-AI-Consulting-ST-Logo-ICON.png' alt='Texas AI Consulting Logo' className='h-10 w-auto mb-2' />
+        <img src='/img/Texas-AI-Consulting-ST-Logo-ICON.png' alt='Texas AI Consulting Logo' className='h-10 w-auto mb-2' />
         <h1 className='text-2xl font-bold'>Interactive 3D</h1>
         <p className='text-sm'>Drag to rotate • Scroll to zoom • Click to return home</p>
         <div className='text-xs mt-2 space-x-3'>
@@ -48,7 +49,7 @@ export default function RocketPage() {
           </Link>
         </div>
       </div>
-      
+
       <View className='h-screen w-screen' orbit={false}>
         <Suspense fallback={null}>
           <Scene />
@@ -108,12 +109,32 @@ export default function RocketPage() {
               </svg>
             </button>
           </div>
-          
+
           <div className="text-white overflow-y-auto max-h-[70vh] markdown-content">
             {showProductsCard && <ProductsContent />}
           </div>
         </div>
       </div>
+
+      <iframe
+        src="https://link.texasaiconsulting.com/widget/form/m2QtgBWrIRiB0n3BnPwz"
+        style={{ display: 'none', width: '100%', height: '100%', border: 'none', borderRadius: '3px' }}
+        id="polite-slide-in-right-m2QtgBWrIRiB0n3BnPwz"
+        data-layout="{'id':'POLITE_SLIDE_IN','minimizedTitle':'','isLeftAligned':false,'isRightAligned':true,'allowMinimize':false}"
+        data-trigger-type="showAfter"
+        data-trigger-value="5"
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="leadCollected"
+        data-deactivation-value=""
+        data-form-name="TX_AI_Website Form"
+        data-height="1222"
+        data-layout-iframe-id="polite-slide-in-right-m2QtgBWrIRiB0n3BnPwz"
+        data-form-id="m2QtgBWrIRiB0n3BnPwz"
+        title="TX_AI_Website Form"
+      >
+      </iframe>
+      <Script src="https://link.texasaiconsulting.com/js/form_embed.js" />
     </div>
   )
 }
@@ -122,7 +143,7 @@ export default function RocketPage() {
 function Scene() {
   const controlsRef = useRef()
   const { camera } = useThree()
-  
+
   useEffect(() => {
     // Function to reset the camera and controls
     const resetView = () => {
@@ -130,32 +151,32 @@ function Scene() {
         camera.position.set(0, 15, 25)
         camera.updateProjectionMatrix()
       }
-      
+
       if (controlsRef.current) {
         controlsRef.current.target.set(0, 5, 0)
         controlsRef.current.update()
       }
     }
-    
+
     // Reset camera when component mounts
     resetView()
-    
+
     // Reset when returning to the page
     window.addEventListener('focus', resetView)
-    
+
     return () => {
       window.removeEventListener('focus', resetView)
     }
   }, [camera])
-  
+
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 15, 25]} fov={40} />
-      <OrbitControls 
+      <OrbitControls
         ref={controlsRef}
-        makeDefault 
-        enableDamping 
-        dampingFactor={0.21} 
+        makeDefault
+        enableDamping
+        dampingFactor={0.21}
         target={[0, 5, 0]}
       />
     </>
@@ -170,15 +191,15 @@ function DetailItem({ detail, index, sectionIndex, baseDelay, isVisible }) {
     15,
     baseDelay + (300 * index)
   );
-  
+
   const { displayText: contentText, isDone: contentDone } = useTypewriter(
     isVisible && labelDone ? detail.text : '',
     15,
     0 // Start immediately after label is done
   );
-  
+
   if (!isVisible) return null;
-  
+
   return (
     <div className="flex items-start">
       <div className="flex-1">
@@ -195,20 +216,20 @@ function DetailItem({ detail, index, sectionIndex, baseDelay, isVisible }) {
 function TypedSection({ title, details, startDelay, sectionIndex }) {
   const { displayText: titleText, isDone: titleDone } = useTypewriter(title, 30, startDelay);
   const [showDetails, setShowDetails] = useState(false);
-  
+
   useEffect(() => {
     if (titleDone) {
       setShowDetails(true);
     }
   }, [titleDone]);
-  
+
   return (
     <div className="mb-8">
       <h2 className="text-xl font-semibold text-[#ebcb4c] mb-3 text-center flex items-center justify-center font-mono">
         {titleText}
         <span className={`inline-block w-2 h-5 bg-[#ebcb4c] ml-1 ${titleDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
       </h2>
-      
+
       <div className="space-y-4">
         {details.map((detail, index) => (
           <DetailItem
@@ -227,7 +248,7 @@ function TypedSection({ title, details, startDelay, sectionIndex }) {
 
 // ProductsContent component with typewriter effect
 function ProductsContent() {
-  
+
   // Final summary message
   const { displayText: summaryText, isDone: summaryDone } = useTypewriter(
     "Contact us today to learn how our AI products can transform your business!",
@@ -295,12 +316,12 @@ function ProductsContent() {
           sectionIndex={index}
         />
       ))}
-      
+
       <p className="mt-8 text-[#ebcb4c] font-bold text-lg text-center flex items-center justify-center font-mono">
         {summaryText}
         <span className={`inline-block w-2 h-5 bg-[#ebcb4c] ml-1 ${summaryDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
       </p>
-      
+
       {/* Blog button styled like navigation with enhanced visibility */}
       <div className="mt-10 flex justify-center">
         <Link
