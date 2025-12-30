@@ -6,7 +6,22 @@ module.exports = {
     extend: {
       fontFamily: {
         mono: ['var(--font-space-mono)', 'Space Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
-        'hesdeadjim': ['Arial', 'sans-serif'],
+        // Update to match 'Arial Black' preference from GoHighLevel design
+        'hesdeadjim': ['Arial Black', 'Arial Bold', 'sans-serif'],
+      },
+      colors: {
+        'ai-primary': '#000000',
+        'ai-surface-dark': '#1a1a1a',
+        'ai-navy': '#0e2042',
+        'ai-gold': '#ebcb4c',
+        'ai-gold-bright': '#ffcc00',
+        'ai-gold-hover': '#d4b53f',
+        'ai-blue': '#2c75ff',
+        'ai-blue-hover': '#1a5ecc',
+        'ai-cyan': '#6c97a5',
+        'ai-card-light': '#f4f4f4',
+        'ai-text-dark': '#111111',
+        'ai-text-muted': '#555555',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',

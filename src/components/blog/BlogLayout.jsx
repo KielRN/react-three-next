@@ -10,9 +10,9 @@ import BlogStyles from './BlogStyles';
 // LCARS decorative elements
 const LCARSDecoration = ({ className = '' }) => (
   <div className={`flex items-center space-x-1 ${className}`}>
-    <div className="h-6 w-2 bg-[#ffcc00] rounded-sm" style={{ boxShadow: '0 0 5px rgba(255, 204, 0, 0.7)' }}></div>
-    <div className="h-10 w-1 bg-[#2c75ff] rounded-sm" style={{ boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)' }}></div>
-    <div className="h-4 w-3 bg-[#ffcc00] rounded-sm" style={{ boxShadow: '0 0 5px rgba(255, 204, 0, 0.7)' }}></div>
+    <div className="h-6 w-2 bg-ai-gold-bright rounded-sm shadow-[0_0_5px_rgba(255,204,0,0.7)]"></div>
+    <div className="h-10 w-1 bg-ai-blue rounded-sm shadow-[0_0_5px_rgba(44,117,255,0.7)]"></div>
+    <div className="h-4 w-3 bg-ai-gold-bright rounded-sm shadow-[0_0_5px_rgba(255,204,0,0.7)]"></div>
   </div>
 );
 
@@ -20,20 +20,17 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
   // Custom components for MDX
   const mdxComponents = {
     h1: ({ children }) => (
-      <h1 className="text-3xl md:text-4xl font-bold text-[#2c75ff] font-hesdeadjim"
-        style={{ textShadow: '0 0 10px rgba(44, 117, 255, 0.7)' }}>
+      <h1 className="text-3xl md:text-4xl font-bold text-ai-blue font-hesdeadjim drop-shadow-[0_0_10px_rgba(44,117,255,0.7)]">
         <TypewriterText text={children} />
       </h1>
     ),
     h2: ({ children }) => (
-      <h2 className="text-2xl md:text-3xl font-bold text-[#2c75ff] font-hesdeadjim"
-        style={{ textShadow: '0 0 8px rgba(44, 117, 255, 0.7)' }}>
+      <h2 className="text-2xl md:text-3xl font-bold text-ai-blue font-hesdeadjim drop-shadow-[0_0_8px_rgba(44,117,255,0.7)]">
         <TypewriterText text={children} speed={25} delay={500} />
       </h2>
     ),
     h3: ({ children }) => (
-      <h3 className="text-xl md:text-2xl font-bold text-[#2c75ff] font-hesdeadjim"
-        style={{ textShadow: '0 0 6px rgba(44, 117, 255, 0.7)' }}>
+      <h3 className="text-xl md:text-2xl font-bold text-ai-blue font-hesdeadjim drop-shadow-[0_0_6px_rgba(44,117,255,0.7)]">
         <TypewriterText text={children} speed={20} delay={800} />
       </h3>
     ),
@@ -47,11 +44,9 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
         <LCARSDecoration className="mr-3" />
         <Link
           href="/blog"
-          className="text-[#ffcc00] bg-[#0e2042] px-4 py-1 flex items-center font-hesdeadjim"
+          className="text-ai-gold-bright bg-ai-navy px-4 py-1 flex items-center font-hesdeadjim shadow-[0_0_8px_rgba(44,117,255,0.4)] drop-shadow-[0_0_5px_rgba(255,204,0,0.7)]"
           style={{
             clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
-            textShadow: '0 0 5px rgba(255, 204, 0, 0.7)',
-            boxShadow: '0 0 8px rgba(44, 117, 255, 0.4)'
           }}
         >
           <svg
@@ -72,11 +67,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
 
       {/* Blog header */}
       <header className="mb-8">
-        <div className="relative w-full h-64 md:h-96 mb-6 rounded-lg overflow-hidden border-l-2 border-t-2 border-[#2c75ff]"
-          style={{
-            boxShadow: '0 0 15px rgba(44, 117, 255, 0.5)',
-            animation: 'border-pulse 3s infinite'
-          }}>
+        <div className="relative w-full h-64 md:h-96 mb-6 rounded-lg overflow-hidden border-l-2 border-t-2 border-ai-blue shadow-[0_0_15px_rgba(44,117,255,0.5)]">
           {post.image ? (
             <Image
               src={post.image}
@@ -86,22 +77,20 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
               priority
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-r from-[#0e2042] to-gray-900"></div>
+            <div className="w-full h-full bg-gradient-to-r from-ai-navy to-gray-900"></div>
           )}
         </div>
 
         <div className="flex items-center mb-2">
-          <div className="h-6 w-4 bg-[#2c75ff] rounded-sm mr-2" style={{ boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)' }}></div>
-          <h1 className="text-3xl md:text-4xl font-bold text-[#2c75ff] font-hesdeadjim"
-            style={{ textShadow: '0 0 10px rgba(44, 117, 255, 0.7)' }}>
+          <div className="h-6 w-4 bg-ai-blue rounded-sm mr-2 shadow-[0_0_5px_rgba(44,117,255,0.7)]"></div>
+          <h1 className="text-3xl md:text-4xl font-bold text-ai-blue font-hesdeadjim drop-shadow-[0_0_10px_rgba(44,117,255,0.7)]">
             <TypewriterText text={post.title} />
           </h1>
         </div>
 
-        <div className="flex items-center text-gray-300 mb-6 ml-6 border-l-2 border-[#ffcc00] pl-3"
-          style={{ boxShadow: '0 0 5px rgba(255, 204, 0, 0.3)' }}>
+        <div className="flex items-center text-gray-300 mb-6 ml-6 border-l-2 border-ai-gold pl-3 shadow-[0_0_5px_rgba(255,204,0,0.3)]">
           <span>{formatDate(post.date)}</span>
-          <span className="mx-2 text-[#ffcc00]">•</span>
+          <span className="mx-2 text-ai-gold">•</span>
           <span>{post.author}</span>
         </div>
 
@@ -111,11 +100,9 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
               <Link
                 key={tag}
                 href={`/blog?tag=${tag}`}
-                className="px-3 py-1 bg-[#0e2042] text-[#ffcc00] text-sm transition-colors font-hesdeadjim"
+                className="px-3 py-1 bg-ai-navy text-ai-gold-bright text-sm transition-colors font-hesdeadjim shadow-[0_0_8px_rgba(44,117,255,0.4)] drop-shadow-[0_0_5px_rgba(255,204,0,0.7)]"
                 style={{
                   clipPath: 'polygon(0 0, 100% 0, 92% 100%, 8% 100%)',
-                  textShadow: '0 0 5px rgba(255, 204, 0, 0.7)',
-                  boxShadow: '0 0 8px rgba(44, 117, 255, 0.4)',
                 }}
               >
                 {tag}
@@ -126,13 +113,7 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
       </header>
 
       {/* Blog content */}
-      <article className="prose prose-lg max-w-none bg-gray-900 p-6 rounded-lg dark:prose-invert prose-p:text-white prose-li:text-white prose-headings:font-bold prose-a:text-[#2c75ff] prose-img:rounded-lg overflow-visible prose-pre:overflow-x-auto prose-pre:max-w-full"
-        style={{
-          borderLeft: '2px solid #2c75ff',
-          borderBottom: '2px solid #2c75ff',
-          boxShadow: '0 0 15px rgba(44, 117, 255, 0.4)',
-        }}>
-
+      <article className="prose prose-lg max-w-none bg-ai-surface-dark p-6 rounded-lg dark:prose-invert prose-p:text-white prose-li:text-white prose-headings:font-bold prose-a:text-ai-blue prose-img:rounded-lg overflow-visible prose-pre:overflow-x-auto prose-pre:max-w-full border-l-2 border-b-2 border-ai-blue shadow-[0_0_15px_rgba(44,117,255,0.4)]">
         {post.isMDX && mdxContent ? (
           <div>
             <MDXRemote
@@ -163,15 +144,15 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
 
       {/* Navigation */}
       {(nextPost || prevPost) && (
-        <nav className="flex justify-between items-center mt-12 pt-8 border-t border-[#2c75ff]/30">
+        <nav className="flex justify-between items-center mt-12 pt-8 border-t border-ai-blue/30">
           <div className="flex-1">
             {prevPost && (
               <Link
                 href={`/blog/${prevPost.slug}`}
-                className="group flex flex-col items-start p-4 bg-[#0e2042]/50 rounded-lg border border-[#2c75ff]/30 hover:border-[#ffcc00]/50 transition-colors"
+                className="group flex flex-col items-start p-4 bg-ai-navy/50 rounded-lg border border-ai-blue/30 hover:border-ai-gold/50 transition-colors"
               >
                 <span className="text-sm text-gray-400 mb-1">Previous</span>
-                <span className="text-[#2c75ff] group-hover:text-[#ffcc00] font-semibold transition-colors">
+                <span className="text-ai-blue group-hover:text-ai-gold font-semibold transition-colors">
                   {prevPost.title}
                 </span>
               </Link>
@@ -182,10 +163,10 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
             {nextPost && (
               <Link
                 href={`/blog/${nextPost.slug}`}
-                className="group flex flex-col items-end p-4 bg-[#0e2042]/50 rounded-lg border border-[#2c75ff]/30 hover:border-[#ffcc00]/50 transition-colors"
+                className="group flex flex-col items-end p-4 bg-ai-navy/50 rounded-lg border border-ai-blue/30 hover:border-ai-gold/50 transition-colors"
               >
                 <span className="text-sm text-gray-400 mb-1">Next</span>
-                <span className="text-[#2c75ff] group-hover:text-[#ffcc00] font-semibold transition-colors text-right">
+                <span className="text-ai-blue group-hover:text-ai-gold font-semibold transition-colors text-right">
                   {nextPost.title}
                 </span>
               </Link>
@@ -195,19 +176,11 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
       )}
 
       {/* Contact section */}
-      <section className="mt-16 pt-12 border-t border-[#2c75ff]/30">
-        <div className="bg-gray-800/50 rounded-lg p-8 border border-[#2c75ff]/30"
-          style={{
-            borderLeft: '2px solid #2c75ff',
-            borderBottom: '2px solid #2c75ff',
-            boxShadow: '0 0 15px rgba(44, 117, 255, 0.4)'
-          }}>
-
+      <section className="mt-16 pt-12 border-t border-ai-blue/30">
+        <div className="bg-gray-800/50 rounded-lg p-8 border border-ai-blue/30 border-l-2 border-b-2 border-ai-blue shadow-[0_0_15px_rgba(44,117,255,0.4)]">
           <div className="flex items-center mb-6">
-            <div className="h-6 w-4 bg-[#2c75ff] rounded-sm mr-2"
-              style={{ boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)' }}></div>
-            <h2 className="text-2xl font-bold text-[#ffcc00] font-hesdeadjim"
-              style={{ textShadow: '0 0 10px rgba(255, 204, 0, 0.7)' }}>
+            <div className="h-6 w-4 bg-ai-blue rounded-sm mr-2 shadow-[0_0_5px_rgba(44,117,255,0.7)]"></div>
+            <h2 className="text-2xl font-bold text-ai-gold font-hesdeadjim drop-shadow-[0_0_10px_rgba(255,204,0,0.7)]">
               Have Questions About This Article?
             </h2>
           </div>
