@@ -18,6 +18,8 @@ export default function ROICalculator() {
     uncollectedBilling: '', // For Option 1
     missedCallsPerDay: '', // For Option 2
     averageTicketValue: '', // For Option 2
+    consentTransactional: false,
+    consentMarketing: false,
   });
 
   const [results, setResults] = useState(null);
@@ -26,10 +28,10 @@ export default function ROICalculator() {
   const [missedCallsCost, setMissedCallsCost] = useState(null);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : value,
     }));
 
     // Auto-calculate missed calls cost when relevant fields change
@@ -144,6 +146,11 @@ export default function ROICalculator() {
       return;
     }
 
+    if (!formData.consentTransactional || !formData.consentMarketing) {
+      setSubmitMessage('Please accept both consent agreements to continue.');
+      return;
+    }
+
     if (!results) {
       setSubmitMessage('Please calculate ROI first.');
       return;
@@ -162,6 +169,8 @@ export default function ROICalculator() {
         city: formData.city,
         state: formData.state,
         zip: formData.zip,
+        consentTransactional: formData.consentTransactional,
+        consentMarketing: formData.consentMarketing,
         calculationType: formData.calculationType,
         revenueType: formData.revenueType,
         grossRevenue: formData.grossRevenue,
@@ -198,6 +207,8 @@ export default function ROICalculator() {
             city: '',
             state: '',
             zip: '',
+            consentTransactional: false,
+            consentMarketing: false,
             calculationType: 'billing',
             revenueType: 'monthly',
             grossRevenue: '',
@@ -244,6 +255,26 @@ export default function ROICalculator() {
             <p className="text-xl text-gray-300">
               Calculate the potential return on investment when integrating AI into your business operations.
             </p>
+          </div>
+
+          {/* Disclaimer Notice */}
+          <div
+            className="mb-6 p-4 bg-yellow-900/20 border-l-4 border-yellow-500 rounded"
+            style={{ boxShadow: '0 0 10px rgba(234, 179, 8, 0.2)' }}
+          >
+            <div className="flex items-start">
+              <span className="text-yellow-500 text-2xl mr-3">⚠️</span>
+              <div>
+                <h3 className="text-lg font-semibold text-yellow-400 mb-2">Important Notice</h3>
+                <p className="text-gray-300 text-sm leading-relaxed">
+                  The calculations provided by this ROI calculator are purely estimates based on current market trends,
+                  industry averages, and general assumptions. Actual results may vary significantly depending on your
+                  specific business circumstances, implementation approach, market conditions, and various other factors.
+                  These estimates should not be considered guaranteed outcomes or financial advice. For a detailed and
+                  accurate assessment tailored to your business, please contact us for a personalized consultation.
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Main Form */}
@@ -526,6 +557,56 @@ export default function ROICalculator() {
                     )}
                   </>
                 )}
+              </div>
+            </div>
+
+            {/* Consent Checkboxes */}
+            <div
+              className="bg-[#0e2042] p-6 rounded-lg border-l-4 border-[#2c75ff]"
+              style={{ boxShadow: '0 0 15px rgba(44, 117, 255, 0.3)' }}
+            >
+              <h2 className="text-2xl font-semibold text-[#ebcb4c] mb-4 font-hesdeadjim">
+                Consent & Communication Preferences
+              </h2>
+              <div className="space-y-4">
+                <label className="flex items-start space-x-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    name="consentTransactional"
+                    checked={formData.consentTransactional}
+                    onChange={handleInputChange}
+                    required
+                    className="w-5 h-5 mt-1 text-[#2c75ff] bg-gray-800 border-[#2c75ff] rounded focus:ring-[#2c75ff] focus:ring-2"
+                  />
+                  <span className="text-gray-300 text-sm leading-relaxed">
+                    By checking this box, I consent to receive transactional messages related to my account, orders, or services I have requested. These messages may include appointment reminders, order confirmations, and account notifications among others. Message frequency may vary. Message & Data rates may apply. Reply HELP for help or STOP to opt-out. <span className="text-[#ebcb4c]">*</span>
+                  </span>
+                </label>
+
+                <label className="flex items-start space-x-3 cursor-pointer group">
+                  <input
+                    type="checkbox"
+                    name="consentMarketing"
+                    checked={formData.consentMarketing}
+                    onChange={handleInputChange}
+                    required
+                    className="w-5 h-5 mt-1 text-[#2c75ff] bg-gray-800 border-[#2c75ff] rounded focus:ring-[#2c75ff] focus:ring-2"
+                  />
+                  <span className="text-gray-300 text-sm leading-relaxed">
+                    By checking this box, I consent to receive marketing and promotional messages, including special offers, discounts, new product updates among others. Message frequency may vary. Message & Data rates may apply. Reply HELP for help or STOP to opt-out. <span className="text-[#ebcb4c]">*</span>
+                  </span>
+                </label>
+
+                <p className="text-xs text-gray-400 mt-4">
+                  By submitting this form, you also agree to our{' '}
+                  <a href="/blog/terms-of-use-2025" className="text-[#2c75ff] hover:text-[#ebcb4c] underline">
+                    Terms of Use
+                  </a>{' '}
+                  and{' '}
+                  <a href="/blog/privacy-policy-2025" className="text-[#2c75ff] hover:text-[#ebcb4c] underline">
+                    Privacy Policy
+                  </a>.
+                </p>
               </div>
             </div>
 

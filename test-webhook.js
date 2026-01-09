@@ -9,6 +9,8 @@ const testData = {
   city: "Austin",
   state: "TX",
   zip: "78701",
+  consentTransactional: true,
+  consentMarketing: true,
   calculationType: "billing",
   revenueType: "monthly",
   grossRevenue: "50000",
@@ -38,6 +40,8 @@ const testData2 = {
   city: "San Antonio",
   state: "TX",
   zip: "78205",
+  consentTransactional: true,
+  consentMarketing: true,
   calculationType: "missed-calls",
   revenueType: "yearly",
   grossRevenue: "500000",
@@ -111,6 +115,7 @@ async function runTests() {
   console.log('\nNote: Updated data structure includes:');
   console.log('- firstName & lastName (instead of name)');
   console.log('- phone, city, state, zip fields');
+  console.log('- consentTransactional & consentMarketing fields');
 }
 
 runTests();
