@@ -8,6 +8,16 @@
 
 const apps = [
   {
+    id: 'roi-calculator',
+    title: 'AI Integration ROI Calculator',
+    description: 'Calculate the potential return on investment when integrating AI into your business. Analyze uncollected billing recovery and missed call opportunities.',
+    image: '/blog-images/infographic-central-texas-data-centers.png', // TODO: Replace with ROI calculator image
+    path: '/apps/roi-calculator',
+    category: 'tools',
+    tags: ['roi', 'calculator', 'ai integration', 'business'],
+    featured: true
+  },
+  {
     id: 'central-texas-data-centers',
     title: 'Central Texas Data Center Dashboard',
     description: 'Interactive dashboard visualizing the data center market in Central Texas with forecasts and market analysis.',
