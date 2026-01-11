@@ -87,16 +87,17 @@ The blog system supports both `.md` and `.mdx` files:
 
 **Blog Components**:
 - [src/components/blog/BlogHeader.jsx](src/components/blog/BlogHeader.jsx) - Compact header with LCARS decorations, typewriter effect, and navigation
-- [src/components/blog/BlogList.jsx](src/components/blog/BlogList.jsx) - Blog grid with compact inline filter section
+- [src/components/blog/BlogList.jsx](src/components/blog/BlogList.jsx) - Blog grid with collapsible filter section (reversed array for newest first display)
 - [src/components/blog/TagsList.jsx](src/components/blog/TagsList.jsx) - Minimal tag filter buttons
 - [src/components/blog/BlogCard.jsx](src/components/blog/BlogCard.jsx) - Individual blog post cards in 3-column grid
 - [src/components/blog/BlogLayout.jsx](src/components/blog/BlogLayout.jsx) - Individual post layout with prev/next navigation
 
 **Blog Layout Design Principles**:
-- **Compact filter section**: Small tags at the top to maximize content space
-- **Posts sorted newest first**: Latest content appears at the top
+- **Collapsible filter section**: Tags hidden by default with "SHOW FILTERS" toggle button to maximize content space
+- **Posts sorted newest first**: BlogList reverses the posts array to ensure latest content appears at the top
 - **Reduced header padding**: Less vertical space for header elements
 - **3-column responsive grid**: 1 column mobile, 2 tablet, 3 desktop
+- **Active filter indicator**: Shows active tag in button when filter is collapsed
 
 **Blog post frontmatter format:**
 ```yaml

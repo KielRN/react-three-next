@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import BlogCard from './BlogCard';
 import TagsList from './TagsList';
 
@@ -18,22 +18,34 @@ const LCARSSectionHeader = ({ title }) => (
 );
 
 export default function BlogList({ posts, allTags, activeTag }) {
+  // Reverse the posts array to show newest first
+  const reversedPosts = [...posts].reverse();
+  const [showFilter, setShowFilter] = useState(false);
+
   return (
     <div className="relative">
-      {/* Tags filter - Compact inline version */}
-      <div className="mb-4 pb-3 border-b border-ai-blue/30">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-semibold text-ai-blue/80 font-hesdeadjim mr-1">
-            FILTER:
-          </span>
-          <TagsList tags={allTags} activeTag={activeTag} />
-        </div>
+      {/* Collapsible Tags filter */}
+      <div className="mb-6">
+        <button
+          onClick={() => setShowFilter(!showFilter)}
+          className="flex items-center gap-2 text-sm font-semibold text-ai-blue hover:text-ai-gold transition-colors font-hesdeadjim mb-2"
+        >
+          <span className={`transform transition-transform ${showFilter ? 'rotate-90' : ''}`}>▶</span>
+          {showFilter ? 'HIDE FILTERS' : 'SHOW FILTERS'}
+          {activeTag && <span className="text-ai-gold text-xs">({activeTag})</span>}
+        </button>
+
+        {showFilter && (
+          <div className="pl-6 pt-2 pb-3 border-l-2 border-ai-blue/30">
+            <TagsList tags={allTags} activeTag={activeTag} />
+          </div>
+        )}
       </div>
 
       {/* Blog posts grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {posts.length > 0 ? (
-          posts.map((post) => (
+        {reversedPosts.length > 0 ? (
+          reversedPosts.map((post) => (
             <Suspense key={post.slug} fallback={
               <div className="h-80 bg-ai-navy animate-pulse rounded-lg border-l border-b border-ai-blue shadow-[0_0_10px_rgba(44,117,255,0.3)]"></div>
             }>
