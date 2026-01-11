@@ -80,9 +80,23 @@ The blog system supports both `.md` and `.mdx` files:
 - **Server-side utilities**: [lib/blog.js](lib/blog.js) contains `'use server'` functions for reading blog posts
 - **Key functions**:
   - `getBlogPostBySlug(slug)` - Fetches single post, auto-detects .md vs .mdx
-  - `getAllBlogPosts()` - Returns all posts sorted by date
+  - `getAllBlogPosts()` - Returns all posts sorted by date (newest first using `compareDesc`)
   - `getAllTags()` - Extracts unique tags from all posts
   - `getBlogPostsByTag(tag)` - Filters posts by tag
+  - `sortBlogPostsByDate(posts)` - Utility in [lib/blogUtils.js](lib/blogUtils.js) that sorts posts newest first
+
+**Blog Components**:
+- [src/components/blog/BlogHeader.jsx](src/components/blog/BlogHeader.jsx) - Compact header with LCARS decorations, typewriter effect, and navigation
+- [src/components/blog/BlogList.jsx](src/components/blog/BlogList.jsx) - Blog grid with compact inline filter section
+- [src/components/blog/TagsList.jsx](src/components/blog/TagsList.jsx) - Minimal tag filter buttons
+- [src/components/blog/BlogCard.jsx](src/components/blog/BlogCard.jsx) - Individual blog post cards in 3-column grid
+- [src/components/blog/BlogLayout.jsx](src/components/blog/BlogLayout.jsx) - Individual post layout with prev/next navigation
+
+**Blog Layout Design Principles**:
+- **Compact filter section**: Small tags at the top to maximize content space
+- **Posts sorted newest first**: Latest content appears at the top
+- **Reduced header padding**: Less vertical space for header elements
+- **3-column responsive grid**: 1 column mobile, 2 tablet, 3 desktop
 
 **Blog post frontmatter format:**
 ```yaml

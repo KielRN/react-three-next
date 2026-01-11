@@ -22,7 +22,7 @@ export default async function BlogPage({ searchParams }) {
     <div className="min-h-screen bg-ai-surface-dark w-full overflow-x-hidden -mt-[1px]">
       <BlogHeader />
 
-      <main className="container mx-auto px-4 pt-6 pb-12 max-w-6xl overflow-hidden">
+      <main className="container mx-auto px-4 pt-4 pb-12 max-w-6xl overflow-hidden">
         <BlogList
           posts={posts}
           allTags={allTags}

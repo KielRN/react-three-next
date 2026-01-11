@@ -26,19 +26,18 @@ export default function TagsList({ tags, activeTag = null, className = '' }) {
   };
 
   return (
-    <div className={`flex flex-wrap gap-2 ${className}`}>
+    <div className={`flex flex-wrap gap-1.5 ${className}`}>
       <button
         onClick={() => router.push('/blog', undefined, { scroll: false })}
-        className={`px-3 py-1 text-xs transition-colors font-hesdeadjim uppercase ${
+        className={`px-2.5 py-0.5 text-[10px] transition-all font-hesdeadjim uppercase ${
           !selected
             ? 'text-[#0e2042] bg-[#2c75ff]'
-            : 'text-[#ffcc00] bg-[#0e2042] hover:bg-[#0e2042]/80'
+            : 'text-[#ffcc00]/90 bg-[#0e2042] hover:bg-[#0e2042]/80 hover:text-[#ffcc00]'
         }`}
         style={{
-          clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
-          boxShadow: '0 0 8px rgba(44, 117, 255, 0.4)',
-          textShadow: !selected ? '0 0 5px rgba(14, 32, 66, 0.7)' : '0 0 5px rgba(255, 204, 0, 0.7)',
-          animation: !selected ? 'border-pulse 3s infinite' : 'none'
+          clipPath: 'polygon(0 0, 100% 0, 92% 100%, 8% 100%)',
+          boxShadow: !selected ? '0 0 6px rgba(44, 117, 255, 0.5)' : 'none',
+          textShadow: !selected ? '0 0 3px rgba(14, 32, 66, 0.7)' : '0 0 3px rgba(255, 204, 0, 0.5)'
         }}
       >
         All
@@ -48,16 +47,15 @@ export default function TagsList({ tags, activeTag = null, className = '' }) {
         <button
           key={tag}
           onClick={() => handleTagClick(tag)}
-          className={`px-3 py-1 text-xs transition-colors font-hesdeadjim uppercase ${
+          className={`px-2.5 py-0.5 text-[10px] transition-all font-hesdeadjim uppercase ${
             selected === tag
               ? 'text-[#0e2042] bg-[#2c75ff]'
-              : 'text-[#ffcc00] bg-[#0e2042] hover:bg-[#0e2042]/80'
+              : 'text-[#ffcc00]/90 bg-[#0e2042] hover:bg-[#0e2042]/80 hover:text-[#ffcc00]'
           }`}
           style={{
-            clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
-            boxShadow: '0 0 8px rgba(44, 117, 255, 0.4)',
-            textShadow: selected === tag ? '0 0 5px rgba(14, 32, 66, 0.7)' : '0 0 5px rgba(255, 204, 0, 0.7)',
-            animation: selected === tag ? 'border-pulse 3s infinite' : 'none'
+            clipPath: 'polygon(0 0, 100% 0, 92% 100%, 8% 100%)',
+            boxShadow: selected === tag ? '0 0 6px rgba(44, 117, 255, 0.5)' : 'none',
+            textShadow: selected === tag ? '0 0 3px rgba(14, 32, 66, 0.7)' : '0 0 3px rgba(255, 204, 0, 0.5)'
           }}
         >
           {tag}
