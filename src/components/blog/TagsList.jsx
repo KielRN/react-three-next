@@ -26,15 +26,10 @@ export default function TagsList({ tags, activeTag = null, className = '' }) {
   };
 
   return (
-    <div className={`flex flex-wrap gap-3 ${className}`}>
-      <div className="hidden md:flex items-center space-x-1 mr-1">
-        <div className="h-6 w-2 bg-[#ffcc00] rounded-sm" style={{boxShadow: '0 0 5px rgba(255, 204, 0, 0.7)'}}></div>
-        <div className="h-8 w-1 bg-[#2c75ff] rounded-sm" style={{boxShadow: '0 0 5px rgba(44, 117, 255, 0.7)'}}></div>
-      </div>
-      
+    <div className={`flex flex-wrap gap-2 ${className}`}>
       <button
         onClick={() => router.push('/blog', undefined, { scroll: false })}
-        className={`px-4 py-1 text-sm transition-colors font-hesdeadjim ${
+        className={`px-3 py-1 text-xs transition-colors font-hesdeadjim uppercase ${
           !selected
             ? 'text-[#0e2042] bg-[#2c75ff]'
             : 'text-[#ffcc00] bg-[#0e2042] hover:bg-[#0e2042]/80'
@@ -48,12 +43,12 @@ export default function TagsList({ tags, activeTag = null, className = '' }) {
       >
         All
       </button>
-      
+
       {tags.map((tag) => (
         <button
           key={tag}
           onClick={() => handleTagClick(tag)}
-          className={`px-4 py-1 text-sm transition-colors font-hesdeadjim ${
+          className={`px-3 py-1 text-xs transition-colors font-hesdeadjim uppercase ${
             selected === tag
               ? 'text-[#0e2042] bg-[#2c75ff]'
               : 'text-[#ffcc00] bg-[#0e2042] hover:bg-[#0e2042]/80'

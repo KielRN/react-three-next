@@ -20,14 +20,22 @@ const LCARSSectionHeader = ({ title }) => (
 export default function BlogList({ posts, allTags, activeTag }) {
   return (
     <div className="relative bg-gradient-to-b from-ai-surface-dark/30 to-transparent shadow-[inset_0_3px_10px_rgba(44,117,255,0.2)]">
-      {/* Tags filter */}
-      <div className="mb-10 p-6 border-l-2 border-ai-blue shadow-[0_0_15px_rgba(44,117,255,0.3)]">
-        <LCARSSectionHeader title="Filter by topic" />
-        <TagsList tags={allTags} activeTag={activeTag} />
+      {/* Tags filter - Compact version at top */}
+      <div className="mb-6 p-4 border-l-2 border-ai-blue shadow-[0_0_15px_rgba(44,117,255,0.3)]">
+        <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center mr-2">
+            <div className="h-6 w-2 bg-ai-gold-bright rounded-sm shadow-[0_0_5px_rgba(255,204,0,0.7)]"></div>
+            <div className="h-8 w-1 bg-ai-blue rounded-sm ml-1 shadow-[0_0_5px_rgba(44,117,255,0.7)]"></div>
+          </div>
+          <span className="text-sm font-semibold text-ai-blue font-hesdeadjim drop-shadow-[0_0_5px_rgba(44,117,255,0.7)] mr-2">
+            FILTER:
+          </span>
+          <TagsList tags={allTags} activeTag={activeTag} className="flex-1" />
+        </div>
       </div>
 
       {/* Blog posts grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.length > 0 ? (
           posts.map((post) => (
             <Suspense key={post.slug} fallback={
