@@ -91,6 +91,7 @@ The blog system supports both `.md` and `.mdx` files:
 - [src/components/blog/TagsList.jsx](src/components/blog/TagsList.jsx) - Minimal tag filter buttons
 - [src/components/blog/BlogCard.jsx](src/components/blog/BlogCard.jsx) - Individual blog post cards in 3-column grid
 - [src/components/blog/BlogLayout.jsx](src/components/blog/BlogLayout.jsx) - Individual post layout with prev/next navigation
+- [src/components/blog/ContactForm.jsx](src/components/blog/ContactForm.jsx) - Embedded contact form (1300px height for full mobile display)
 
 **Blog Layout Design Principles**:
 - **Collapsible filter section**: Tags hidden by default with "SHOW FILTERS" toggle button to maximize content space

@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 export default function ContactForm() {
     return (
-        <div className="w-full h-[800px] md:h-[1300px] bg-white rounded-lg overflow-hidden">
+        <div className="w-full h-[1600px] md:h-[1400px] bg-white rounded-lg overflow-hidden">
             <iframe
                 src="https://link.texasaiconsulting.com/widget/form/m2QtgBWrIRiB0n3BnPwz"
                 style={{ width: '100%', height: '100%', border: 'none', borderRadius: '3px' }}
