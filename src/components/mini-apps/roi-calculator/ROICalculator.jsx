@@ -6,7 +6,7 @@ export default function ROICalculator() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     // Step 1: Calculator Type
-    calculationType: '', // 'billing' or 'missed-calls'
+    calculationType: '', // 'billing', 'missed-calls', or 'reputation'
 
     // Step 2: Business Context
     industry: '',
@@ -23,6 +23,11 @@ export default function ROICalculator() {
     missedCallsPerDay: '',
     averageTicketValue: '',
     currentFollowUpMethod: '', // 'manual', 'voicemail', 'none'
+
+    // Step 2c: Reputation specific
+    currentStarRating: '',
+    monthlyWebsiteTraffic: '',
+    averageSaleValue: '',
 
     // Step 3: Contact Information
     firstName: '',
@@ -183,6 +188,74 @@ export default function ROICalculator() {
         currentMethod: formData.currentFollowUpMethod,
         industryFactor: industryMultiplier
       };
+    } else {
+      // Option 3: Reputation/Review ROI
+      const currentRating = parseFloat(formData.currentStarRating) || 0;
+      const monthlyTraffic = parseFloat(formData.monthlyWebsiteTraffic) || 0;
+      const saleValue = parseFloat(formData.averageSaleValue) || 0;
+
+      // Calculate period-adjusted traffic
+      const period = formData.revenueType === 'monthly' ? 1 : 12;
+      const periodTraffic = monthlyTraffic * period;
+
+      // Industry-specific baseline conversion rates at current rating
+      const baselineConversionRates = {
+        '5.0': 0.05,
+        '4.5': 0.042,
+        '4.0': 0.033,
+        '3.5': 0.025,
+        '3.0': 0.018,
+        '2.5': 0.012
+      };
+
+      // Target rating is 0.5 stars higher (capped at 5.0)
+      const targetRating = Math.min(currentRating + 0.5, 5.0);
+      const ratingImprovement = targetRating - currentRating;
+
+      // Get current conversion rate
+      const currentConversionRate = baselineConversionRates[currentRating.toFixed(1)] || 0.025;
+
+      // Calculate improved conversion rate
+      // Each 0.5 star improvement increases conversion by 15-25% (average 20%)
+      const conversionImprovement = ratingImprovement > 0 ? 0.20 : 0;
+      const improvedConversionRate = currentConversionRate * (1 + conversionImprovement);
+
+      // Current revenue
+      const currentConversions = periodTraffic * currentConversionRate;
+      const currentRevenue = currentConversions * saleValue;
+
+      // Potential revenue with improved rating
+      const improvedConversions = periodTraffic * improvedConversionRate;
+      const improvedRevenue = improvedConversions * saleValue;
+
+      // Additional revenue from improvement
+      potentialRevenue = improvedRevenue - currentRevenue;
+
+      // Reputation management service cost
+      let baseCost = 500; // $500/month for reputation management service
+      estimatedCost = formData.revenueType === 'monthly' ? baseCost : baseCost * 12;
+
+      roi = potentialRevenue > 0 ? ((potentialRevenue - estimatedCost) / estimatedCost) * 100 : 0;
+
+      details = {
+        currentRating,
+        targetRating,
+        ratingImprovement,
+        monthlyTraffic,
+        periodTraffic,
+        currentConversionRate: currentConversionRate * 100,
+        improvedConversionRate: improvedConversionRate * 100,
+        conversionIncrease: conversionImprovement * 100,
+        currentConversions,
+        improvedConversions,
+        additionalConversions: improvedConversions - currentConversions,
+        averageSaleValue: saleValue,
+        currentRevenue,
+        improvedRevenue,
+        additionalRevenue: potentialRevenue,
+        netGain: potentialRevenue - estimatedCost,
+        industryFactor: industryMultiplier
+      };
     }
 
     return {
@@ -222,10 +295,14 @@ export default function ROICalculator() {
           return formData.industry && formData.employeeCount &&
                  formData.grossRevenue && formData.uncollectedBilling &&
                  formData.collectionMethod;
-        } else {
+        } else if (formData.calculationType === 'missed-calls') {
           return formData.industry && formData.employeeCount &&
                  formData.grossRevenue && formData.missedCallsPerDay &&
                  formData.averageTicketValue && formData.currentFollowUpMethod;
+        } else {
+          return formData.industry && formData.employeeCount &&
+                 formData.grossRevenue && formData.currentStarRating &&
+                 formData.monthlyWebsiteTraffic && formData.averageSaleValue;
         }
       case 3:
         return formData.firstName && formData.lastName && formData.email &&
@@ -276,10 +353,16 @@ export default function ROICalculator() {
               uncollectedBilling: formData.uncollectedBilling,
               collectionMethod: formData.collectionMethod
             }
-          : {
+          : formData.calculationType === 'missed-calls'
+          ? {
               missedCallsPerDay: formData.missedCallsPerDay,
               averageTicketValue: formData.averageTicketValue,
               currentFollowUpMethod: formData.currentFollowUpMethod
+            }
+          : {
+              currentStarRating: formData.currentStarRating,
+              monthlyWebsiteTraffic: formData.monthlyWebsiteTraffic,
+              averageSaleValue: formData.averageSaleValue
             }
         ),
 
@@ -314,6 +397,9 @@ export default function ROICalculator() {
             missedCallsPerDay: '',
             averageTicketValue: '',
             currentFollowUpMethod: '',
+            currentStarRating: '',
+            monthlyWebsiteTraffic: '',
+            averageSaleValue: '',
             firstName: '',
             lastName: '',
             email: '',
@@ -685,6 +771,47 @@ export default function ROICalculator() {
                       </div>
                     </div>
                   </label>
+
+                  <label
+                    className={`block p-6 rounded-lg border-2 cursor-pointer transition-all hover:border-[#2c75ff] ${
+                      formData.calculationType === 'reputation'
+                        ? 'border-[#2c75ff] bg-white'
+                        : 'border-gray-300 bg-white'
+                    }`}
+                    style={
+                      formData.calculationType === 'reputation'
+                        ? { boxShadow: '0 0 20px rgba(44, 117, 255, 0.3)' }
+                        : {}
+                    }
+                  >
+                    <div className="flex items-start">
+                      <input
+                        type="radio"
+                        name="calculationType"
+                        value="reputation"
+                        checked={formData.calculationType === 'reputation'}
+                        onChange={handleInputChange}
+                        className="w-6 h-6 mt-1 text-[#2c75ff] flex-shrink-0"
+                      />
+                      <div className="ml-4">
+                        <h3 className="text-xl font-bold text-[#2c75ff] mb-2">
+                          Review ROI & Reputation Impact
+                        </h3>
+                        <p className="text-gray-800 mb-3">
+                          Do you know the dollar value of a star? Calculate how improving your online reputation directly impacts revenue.
+                        </p>
+                        <div className="bg-[#e8e8e8] p-4 rounded border border-[#2c75ff]/30">
+                          <p className="text-sm text-gray-700 mb-2 font-semibold">AI can help you:</p>
+                          <ul className="text-sm text-gray-800 space-y-1">
+                            <li>• Monitor and respond to reviews automatically 24/7</li>
+                            <li>• Generate review requests at optimal times</li>
+                            <li>• Increase conversion rates by up to 20% with better ratings</li>
+                            <li>• Turn negative reviews into positive outcomes</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </label>
                 </div>
               </div>
 
@@ -973,6 +1100,80 @@ export default function ROICalculator() {
                           </div>
                         </div>
                       )}
+                    </>
+                  )}
+
+                  {/* Reputation-specific questions */}
+                  {formData.calculationType === 'reputation' && (
+                    <>
+                      <div className="pt-4 border-t-2 border-gray-300">
+                        <h3 className="text-xl font-semibold text-black mb-4 font-hesdeadjim">// About Your Online Reputation</h3>
+                      </div>
+
+                      <div>
+                        <label className="block text-gray-800 mb-2 font-semibold">
+                          What's your current star rating?
+                        </label>
+                        <select
+                          name="currentStarRating"
+                          value={formData.currentStarRating}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-4 py-3 bg-white text-gray-900 border-2 border-gray-300 rounded focus:outline-none focus:border-[#2c75ff]"
+                        >
+                          <option value="">Select your rating...</option>
+                          <option value="5.0">5.0 Stars (Excellent)</option>
+                          <option value="4.5">4.5 Stars (Very Good)</option>
+                          <option value="4.0">4.0 Stars (Good)</option>
+                          <option value="3.5">3.5 Stars (Average)</option>
+                          <option value="3.0">3.0 Stars (Below Average)</option>
+                          <option value="2.5">2.5 Stars or lower</option>
+                        </select>
+                        <p className="text-sm text-gray-600 mt-2">
+                          Your average rating across Google, Yelp, Facebook, etc.
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="block text-gray-800 mb-2 font-semibold">
+                          What's your average monthly website traffic?
+                        </label>
+                        <input
+                          type="number"
+                          name="monthlyWebsiteTraffic"
+                          value={formData.monthlyWebsiteTraffic}
+                          onChange={handleInputChange}
+                          placeholder="1000"
+                          required
+                          min="0"
+                          className="w-full px-4 py-3 bg-white text-gray-900 border-2 border-gray-300 rounded focus:outline-none focus:border-[#2c75ff]"
+                        />
+                        <p className="text-sm text-gray-600 mt-2">
+                          Number of unique visitors to your website or online presence per month
+                        </p>
+                      </div>
+
+                      <div>
+                        <label className="block text-gray-800 mb-2 font-semibold">
+                          What's your average sale value?
+                        </label>
+                        <div className="relative">
+                          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 text-xl">$</span>
+                          <input
+                            type="number"
+                            name="averageSaleValue"
+                            value={formData.averageSaleValue}
+                            onChange={handleInputChange}
+                            placeholder="500"
+                            required
+                            min="0"
+                            className="w-full pl-8 pr-4 py-3 bg-white text-gray-900 border-2 border-gray-300 rounded focus:outline-none focus:border-[#2c75ff]"
+                          />
+                        </div>
+                        <p className="text-sm text-gray-600 mt-2">
+                          Average transaction value when someone becomes a customer
+                        </p>
+                      </div>
                     </>
                   )}
                 </div>
@@ -1415,6 +1616,67 @@ export default function ROICalculator() {
                           Based on your {formData.industry.replace('-', ' ')} industry and {formData.currentFollowUpMethod} follow-up approach,
                           AI-powered call-back systems could convert approximately{' '}
                           <span className="text-[#ebcb4c] font-bold">{results.details.conversionRate.toFixed(1)}%</span> of missed calls into sales.
+                        </p>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-700">
+                        <span className="font-semibold">Current Star Rating:</span>
+                        <span className="text-xl text-[#2c75ff]">
+                          {results.details.currentRating.toFixed(1)} ⭐
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-700">
+                        <span className="font-semibold">Target Rating (After AI):</span>
+                        <span className="text-xl text-[#ebcb4c]">
+                          {results.details.targetRating.toFixed(1)} ⭐
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-700">
+                        <span className="font-semibold">Monthly Website Traffic:</span>
+                        <span className="text-xl text-gray-300">
+                          {results.details.monthlyTraffic.toLocaleString()} visitors
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-700">
+                        <span className="font-semibold">Current Conversion Rate:</span>
+                        <span className="text-xl text-red-400">
+                          {results.details.currentConversionRate.toFixed(2)}%
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-700">
+                        <span className="font-semibold">Improved Conversion Rate:</span>
+                        <span className="text-xl text-green-400">
+                          {results.details.improvedConversionRate.toFixed(2)}%
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-700">
+                        <span className="font-semibold">Conversion Rate Increase:</span>
+                        <span className="text-xl text-[#ebcb4c]">
+                          +{results.details.conversionIncrease.toFixed(0)}%
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-700">
+                        <span className="font-semibold">Additional Conversions ({results.revenueType}):</span>
+                        <span className="text-xl text-[#2c75ff]">
+                          +{results.details.additionalConversions.toFixed(0)} sales
+                        </span>
+                      </div>
+                      <div className="flex justify-between items-center py-3 border-b border-gray-700">
+                        <span className="font-semibold">Average Sale Value:</span>
+                        <span className="text-xl">
+                          {formatCurrency(results.details.averageSaleValue)}
+                        </span>
+                      </div>
+                      <div className="bg-blue-900/20 p-4 rounded mt-4">
+                        <p className="text-sm text-gray-300 mb-3">
+                          <span className="text-[#ebcb4c] font-bold text-lg">Increasing your rating by {results.details.ratingImprovement.toFixed(1)} stars typically increases conversion by {results.details.conversionIncrease.toFixed(0)}%.</span>
+                        </p>
+                        <p className="text-sm text-gray-300">
+                          Based on your {formData.industry.replace('-', ' ')} industry with {results.details.monthlyTraffic.toLocaleString()} monthly visitors,
+                          AI-powered reputation management could generate an additional{' '}
+                          <span className="text-[#ebcb4c] font-bold">{formatCurrency(results.details.additionalRevenue)}</span> in revenue per {results.revenueType === 'monthly' ? 'month' : 'year'}.
                         </p>
                       </div>
                     </>

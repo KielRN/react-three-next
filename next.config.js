@@ -37,6 +37,16 @@ const nextConfig = {
     cpus: 4
   },
   webpack(config, { isServer }) {
+    // Configure cache to handle missing directories gracefully
+    config.cache = {
+      type: 'filesystem',
+      buildDependencies: {
+        config: [__filename],
+      },
+      // Ensure cache directories are created properly
+      compression: 'gzip',
+    }
+
     if (!isServer) {
       // We're in the browser build, so we can safely exclude the sharp module
       config.externals.push('sharp')

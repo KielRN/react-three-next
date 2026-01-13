@@ -42,3 +42,6 @@ report.*.json
 
 # .vscode Debugging
 .vscode/*-debug-profile
+
+# Windows null device file (created by redirect to nul)
+nul
