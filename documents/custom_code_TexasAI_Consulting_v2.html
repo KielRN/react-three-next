@@ -1,0 +1,576 @@
+<!-- 
+    =========================================
+    GHL BUILDER INSTALLATION INSTRUCTIONS
+    =========================================
+    To prevent spacing/padding issues (white gaps on sides):
+
+    1. SECTION SETTINGS (Green Box):
+       - "Allow Rows to take entire width" -> ON (Toggle GREEN)
+       - Padding Top/Bottom -> 0px
+       - Margin Top/Bottom -> 0px
+
+    2. ROW SETTINGS (Blue Box):
+       - "Section is Full Width" -> ON
+       - Padding Top/Bottom -> 0px
+       - Margin Top/Bottom -> 0px
+       - Max Width -> 100% (if available)
+
+    3. COLUMN SETTINGS (Pink/Purple Box):
+       - Padding all sides -> 0px
+       - Margin all sides -> 0px
+
+    This custom code handles its own internal padding via the .section-5678 class.
+    Any GHL padding will add EXTRA space you don't want.
+    =========================================
+-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S46TGFXZQF"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  // Cross-domain configuration ensures the session 
+  // doesn't "break" when moving from your main site to GHL
+  gtag('config', 'G-S46TGFXZQF', {
+    'linker': {
+      'domains': ['texasaiconsulting.com']
+    }
+  });
+</script>
+
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  /* =========================================
+     5678 NON-CONFLICTING CSS SYSTEM v3
+     Uses namespace classes to avoid GHL conflicts
+     Theme: Texas AI "Command Center"
+     =========================================
+     
+     BEST PRACTICES FOR GHL CUSTOM CSS:
+     1. DO NOT include <meta name="viewport"> tags. GHL handles this. Adding one breaks the page scaling.
+     2. DO NOT include global <link rel="icon"> tags. This conflicts with GHL site settings.
+     3. STRICTLY SCOPE all variables and styles. 
+        - BAD:  :root { ... } or p { ... }
+        - GOOD: .section-5678 { ... } or .section-5678 p { ... }
+     4. Use PIXELS (px) for font-sizes, not REM. GHL root font size varies/unreliable.
+     ========================================= */
+
+  /* CSS Variables */
+  .section-5678 {
+    /* Color Palette - Texas AI */
+    --color-primary-5678: #000000;
+    /* Deep Space / Black Background */
+    --color-surface-dark-5678: #1a1a1a;
+    /* Dark Surface */
+    --color-navy-5678: #0e2042;
+    /* Glass Navy for buttons */
+    --color-white-5678: #FFFFFF;
+    /* Pure White */
+    --color-gold-5678: #ebcb4c;
+    /* Texas Gold - Primary Accent */
+    --color-gold-bright-5678: #ffcc00;
+    /* Bright Yellow/Gold for buttons */
+    --color-gold-hover-5678: #d4b53f;
+    /* Darker Gold */
+    --color-blue-5678: #2c75ff;
+    /* Tech Blue - Secondary Accent */
+    --color-blue-hover-5678: #1a5ecc;
+    /* Darker Blue */
+    --color-cyan-5678: #6c97a5;
+    /* Cyan Slate */
+
+    --color-card-light-5678: #f4f4f4;
+    /* Light Card Background for high readability */
+    --color-text-dark-5678: #111111;
+    /* Ink Black Text for readabilty */
+    --color-text-muted-5678: #555555;
+
+    /* Typography */
+    --font-heading-5678: 'Arial Black', 'Arial Bold', sans-serif;
+    /* He's Dead Jim Style */
+    --font-body-5678: 'Space Mono', monospace;
+    /* Tech/Data aesthetic */
+  }
+
+  /* =========================================
+     ANIMATIONS
+     ========================================= */
+  @keyframes border-pulse-5678 {
+
+    0%,
+    100% {
+      box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+    }
+
+    50% {
+      box-shadow: 0 0 25px rgba(255, 204, 0, 0.7), 0 0 35px rgba(255, 204, 0, 0.3);
+    }
+  }
+
+  @keyframes fadeInUp-5678 {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 40px, 0);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .animate-fade-up-5678 {
+    animation: fadeInUp-5678 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  /* =========================================
+     NAMESPACED TYPOGRAPHY
+     ========================================= */
+
+  /* Wrapper for all custom components - The "Command Center" Frame */
+  .section-5678 {
+    font-family: var(--font-body-5678);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--color-primary-5678);
+    /* Dark Background */
+    color: var(--color-white-5678);
+    padding: 60px 20px;
+  }
+
+  /* Utility Class for He's Dead Jim Font Style */
+  .font-hesdeadjim-5678,
+  .section-5678 h1,
+  .section-5678 h2,
+  .section-5678 h3,
+  .section-5678 h4 {
+    font-family: var(--font-heading-5678);
+    font-weight: 900;
+    font-style: italic;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--color-gold-5678);
+  }
+
+  .section-5678 p {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Text Utilities */
+  .section-5678 .text-gradient-5678 {
+    background: linear-gradient(135deg, var(--color-gold-5678), var(--color-blue-5678));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+
+  /* =========================================
+     LAYOUT: CMD CENTER (Dark Bg -> Light Card)
+     ========================================= */
+
+  .section-container-5678 {
+    max-width: 1000px;
+    margin: 0 auto;
+    /* The Light Card "Paper" */
+    background-color: var(--color-card-light-5678);
+    color: var(--color-text-dark-5678);
+    padding: 60px 50px;
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(235, 203, 76, 0.15);
+    /* Subtle Gold Glow */
+    border: 1px solid rgba(235, 203, 76, 0.3);
+  }
+
+  /* Reset headings inside the light card to be dark */
+  .section-container-5678 h1,
+  .section-container-5678 h2,
+  .section-container-5678 h3 {
+    color: var(--color-primary-5678);
+    text-shadow: 2px 2px 0px rgba(235, 203, 76, 0.4);
+    /* Gold shadow for depth */
+  }
+
+  .grid-5678 {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .button-group-5678 {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  /* Sub-cards inside the main container */
+  .card-5678 {
+    flex: 1;
+    min-width: 280px;
+    background: #ffffff;
+    padding: 30px;
+    border: 1px solid #e0e0e0;
+    border-left: 5px solid var(--color-blue-5678);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card-5678:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-5678.heritage-card-5678 {
+    border-left-color: var(--color-gold-5678);
+  }
+
+  .card-5678.blue-card-5678 {
+    border-left-color: var(--color-blue-5678);
+  }
+
+  /* =========================================
+     BUTTONS - "Data Pad" Style
+     ========================================= */
+  .btn-5678 {
+    position: relative;
+    display: inline-block;
+    padding: 16px 36px;
+    font-family: var(--font-heading-5678);
+    font-weight: 800;
+    font-style: italic;
+    font-size: 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    /* Colors */
+    color: var(--color-gold-bright-5678);
+    background-color: rgba(14, 32, 66, 0.85);
+    /* Glass Navy */
+    border: 2px solid var(--color-gold-bright-5678);
+
+    /* Shape - Angled "Data Pad" */
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+
+    /* Glow Effects */
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+
+    /* Animation */
+    animation: border-pulse-5678 3s infinite;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .btn-5678:hover {
+    color: var(--color-blue-5678);
+    border-color: var(--color-blue-5678);
+    text-shadow: 0 0 8px rgba(44, 117, 255, 0.7);
+    box-shadow: 0 0 20px rgba(44, 117, 255, 0.5);
+    transform: scale(1.05);
+    animation: none;
+    /* Stop pulse on hover */
+  }
+
+  .btn-5678:active {
+    transform: scale(0.95);
+  }
+
+  /* Blue Variant */
+  .btn-blue-5678 {
+    color: var(--color-blue-5678);
+    border-color: var(--color-blue-5678);
+    text-shadow: 0 0 8px rgba(44, 117, 255, 0.7);
+    box-shadow: 0 0 15px rgba(44, 117, 255, 0.4);
+    animation: none;
+  }
+
+  .btn-blue-5678:hover {
+    color: var(--color-gold-bright-5678);
+    border-color: var(--color-gold-bright-5678);
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+  }
+
+  /* Ghost/Outline Variant */
+  .btn-ghost-5678 {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: none;
+    box-shadow: none;
+    animation: none;
+  }
+
+  .btn-ghost-5678:hover {
+    border-color: var(--color-white-5678);
+    color: var(--color-white-5678);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  }
+
+  /* =========================================
+     ROBUST SOLID GOLD SYSTEM (v3.2)
+     ========================================= */
+
+  /* 1. Standalone Button Class (Apply directly to buttons) */
+  .btn-solid-5678 {
+    color: #1a1a1a !important;
+    background-color: #ebcb4c !important;
+    /* Texas Gold */
+    border: 2px solid #ebcb4c !important;
+    font-family: 'Arial Black', sans-serif !important;
+    font-weight: 900 !important;
+    font-style: italic !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    padding: 16px 36px !important;
+    text-align: center !important;
+    box-shadow: 0 0 15px rgba(235, 203, 76, 0.4) !important;
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%) !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+  }
+
+  .btn-solid-5678:hover {
+    background-color: #d4b53f !important;
+    /* Darker Gold */
+    border-color: #d4b53f !important;
+    box-shadow: 0 0 25px rgba(235, 203, 76, 0.6) !important;
+    transform: scale(1.03) !important;
+  }
+
+  /* =========================================
+     FORM SYSTEM WRAPPER (v1.0)
+     Apply THIS class (.form-system-5678) to your 
+     GHL Form Container instead of the button class.
+     ========================================= */
+
+  /* 1. Target the Submit Button inside the system */
+  .form-system-5678 .form-btn {
+    /* Inherits Solid Gold Styles */
+    color: #1a1a1a !important;
+    background-color: #ebcb4c !important;
+    border: 2px solid #ebcb4c !important;
+    font-family: 'Arial Black', sans-serif !important;
+    font-weight: 900 !important;
+    font-style: italic !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    padding: 16px 36px !important;
+    text-align: center !important;
+    box-shadow: 0 0 15px rgba(235, 203, 76, 0.4) !important;
+    clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%) !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+  }
+
+  .form-system-5678 .form-btn:hover {
+    background-color: #d4b53f !important;
+    border-color: #d4b53f !important;
+    box-shadow: 0 0 25px rgba(235, 203, 76, 0.6) !important;
+    transform: scale(1.03) !important;
+  }
+
+  /* Remove GHL default pulse/shadows */
+  .form-system-5678 .form-btn:before,
+  .form-system-5678 .form-btn:after {
+    display: none !important;
+  }
+
+  /* 2. Target Inputs */
+  .form-system-5678 .form-input {
+    background-color: #1a1a1a !important;
+    border: 1px solid rgba(235, 203, 76, 0.3) !important;
+    color: #FFFFFF !important;
+    font-family: 'Space Mono', monospace !important;
+    padding: 12px !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .form-system-5678 .form-input:focus {
+    border-color: #ebcb4c !important;
+    box-shadow: 0 0 10px rgba(235, 203, 76, 0.5) !important;
+    outline: none !important;
+  }
+
+  /* 3. Target Labels */
+  .form-system-5678 label {
+    font-family: 'Arial Black', sans-serif !important;
+    font-weight: 900 !important;
+    font-style: italic !important;
+    text-transform: uppercase !important;
+    color: #ebcb4c !important;
+    font-size: 14px !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+  }
+
+  /* 4. Navigation Steps */
+  .form-system-5678 .form-step .form-heading {
+    font-family: 'Arial Black', sans-serif !important;
+    text-transform: uppercase !important;
+    font-style: italic !important;
+  }
+
+  .form-system-5678 .form-step .active {
+    color: #2c75ff !important;
+  }
+
+  .form-system-5678 .divider-form {
+    background: #2c75ff !important;
+    height: 3px !important;
+  }
+
+  /* =========================================
+     RESPONSIVE TYPOGRAPHY UTILITIES
+     ========================================= */
+  .text-hero-5678 {
+    font-size: 56px;
+    line-height: 1.1;
+  }
+
+  .text-subhero-5678 {
+    font-size: 32px;
+    line-height: 1.2;
+  }
+
+  .text-section-title-5678 {
+    font-size: 24px;
+    line-height: 1.3;
+  }
+
+  .text-card-title-5678 {
+    font-size: 20px;
+    line-height: 1.4;
+  }
+
+  .text-body-large-5678 {
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .text-body-5678 {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .text-meta-5678 {
+    font-size: 14px;
+  }
+
+  /* =========================================
+     FORM ELEMENTS
+     ========================================= */
+  .input-5678 {
+    width: 100%;
+    padding: 15px;
+    background: #2d2d2d;
+    border: 2px solid #444444;
+    color: var(--color-white-5678);
+    font-family: var(--font-body-5678);
+    font-size: 16px;
+    /* Prevent zoom on mobile */
+    transition: all 0.3s ease;
+  }
+
+  .input-5678:focus {
+    outline: none;
+    border-color: var(--color-gold-5678);
+    box-shadow: 0 0 10px rgba(235, 203, 76, 0.5);
+  }
+
+  .input-5678::placeholder {
+    color: #888888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* =========================================
+     GLOBAL GHL OVERRIDES
+     ========================================= */
+  /* Universal Background Overrides */
+  body,
+  .bg-fixed,
+  .hl_wrapper,
+  .hl_page-preview--content {
+    background-color: #000000 !important;
+  }
+
+
+
+  /* =========================================
+     RESPONSIVE
+     ========================================= */
+  @media (max-width: 768px) {
+    .section-5678 {
+      padding: 40px 15px;
+    }
+
+    /* Typography Adjustments for Mobile */
+    .text-hero-5678 {
+      font-size: 36px !important;
+      /* Force smaller size on mobile */
+    }
+
+    .text-subhero-5678 {
+      font-size: 24px !important;
+    }
+
+    .text-section-title-5678 {
+      font-size: 21px !important;
+    }
+
+    .text-card-title-5678 {
+      font-size: 18px !important;
+    }
+
+    /* Bump body text size for readability on small screens if needed */
+    .text-body-5678,
+    .section-5678 p,
+    .section-5678 li {
+      font-size: 17px !important;
+      /* Slightly larger for legibility */
+      line-height: 1.7;
+    }
+
+    .text-meta-5678 {
+      font-size: 14px !important;
+    }
+
+    .section-container-5678 {
+      padding: 30px 20px;
+    }
+
+    .grid-5678 {
+      flex-direction: column;
+    }
+
+    .button-group-5678 {
+      flex-direction: column;
+    }
+
+    .btn-5678 {
+      width: 100%;
+      text-align: center;
+      clip-path: none;
+      /* Simplify on mobile */
+      border-radius: 4px;
+      font-size: 16px;
+      /* slightly smaller button text */
+      padding: 14px 20px;
+    }
+  }
+</style>
