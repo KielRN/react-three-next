@@ -804,10 +804,10 @@ export default function ROICalculator() {
                         <div className="bg-[#e8e8e8] p-4 rounded border border-[#2c75ff]/30">
                           <p className="text-sm text-gray-700 mb-2 font-semibold">AI can help you:</p>
                           <ul className="text-sm text-gray-800 space-y-1">
-                            <li>• Monitor and respond to reviews automatically 24/7</li>
-                            <li>• Generate review requests at optimal times</li>
-                            <li>• Increase conversion rates by up to 20% with better ratings</li>
-                            <li>• Turn negative reviews into positive outcomes</li>
+                            <li>&#8226; Monitor and respond to reviews automatically 24/7</li>
+                            <li>&#8226; Generate review requests at optimal times</li>
+                            <li>&#8226; Increase conversion rates by up to 20% with better ratings</li>
+                            <li>&#8226; Turn negative reviews into positive outcomes</li>
                           </ul>
                         </div>
                       </div>
