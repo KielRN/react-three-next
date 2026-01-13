@@ -143,7 +143,7 @@ export default function ROICalculator() {
         currentMethod: formData.collectionMethod,
         industryFactor: industryMultiplier
       };
-    } else {
+    } else if (formData.calculationType === 'missed-calls') {
       // Option 2: Missed Calls
       const missedCalls = parseFloat(formData.missedCallsPerDay) || 0;
       const ticketValue = parseFloat(formData.averageTicketValue) || 0;
@@ -773,6 +773,7 @@ export default function ROICalculator() {
                   </label>
 
                   <label
+                    data-testid="reputation-option"
                     className={`block p-6 rounded-lg border-2 cursor-pointer transition-all hover:border-[#2c75ff] ${
                       formData.calculationType === 'reputation'
                         ? 'border-[#2c75ff] bg-white'
@@ -1573,7 +1574,7 @@ export default function ROICalculator() {
                         </p>
                       </div>
                     </>
-                  ) : (
+                  ) : results.type === 'missed-calls' ? (
                     <>
                       <div className="flex justify-between items-center py-3 border-b border-gray-700">
                         <span className="font-semibold">Missed Calls Per Day:</span>
