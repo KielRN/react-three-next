@@ -1,0 +1,25 @@
+# robots.txt for Texas AI Consulting
+# https://texasaiconsulting.com
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow access to private and system files
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Allow specific bots full access
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Sitemap location
+Sitemap: https://texasaiconsulting.com/sitemap.xml

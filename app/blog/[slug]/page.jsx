@@ -12,18 +12,37 @@ export async function generateMetadata({ params }) {
     };
   }
 
+  const imageUrl = post.image || '/img/Texas-AI-Consulting-ST-Logo-ICON.png';
+
   return {
-    title: `${post.title} | Texas AI Consulting Blog`,
-    description: post.excerpt,
+    title: `${post.title}`,
+    description: post.excerpt || 'Read the latest insights about AI and business automation from Texas AI Consulting.',
+    keywords: post.tags || [],
+    authors: [{ name: post.author || 'Texas AI Consulting' }],
     openGraph: {
       title: post.title,
-      description: post.excerpt,
-      url: `https://texasai.consulting/blog/${post.slug}`,
+      description: post.excerpt || 'Read the latest insights about AI and business automation from Texas AI Consulting.',
+      url: `https://texasaiconsulting.com/blog/${post.slug}`,
       type: 'article',
       publishedTime: post.date,
-      authors: [post.author],
-      tags: post.tags,
-      images: post.image ? [{ url: post.image }] : [],
+      authors: [post.author || 'Texas AI Consulting'],
+      tags: post.tags || [],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+      siteName: 'Texas AI Consulting',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt || 'Read the latest insights about AI and business automation.',
+      images: [imageUrl],
+      creator: '@texasaiconsulting',
     },
   };
 }

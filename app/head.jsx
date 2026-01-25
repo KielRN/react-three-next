@@ -1,8 +1,8 @@
-const title = 'React Three Next Starter'
-const url = 'https://react-three-next.vercel.app/'
-const description = 'The easiest and fastest way to create a 3D website using React Three Fiber and NextJS'
-const author = 'Author'
-const twitter = '@pmndrs'
+const title = 'Texas AI Consulting | AI Solutions for Small Business'
+const url = 'https://texasaiconsulting.com'
+const description = 'Big AI For Small Businesses in San Antonio, Austin and Central Texas. Transform your business with AI-powered sales, operations, and marketing automation.'
+const author = 'Texas AI Consulting'
+const twitter = '@texasaiconsulting'
 
 export default function Head() {
   return (
@@ -20,42 +20,51 @@ export default function Head() {
       <meta name='description' content={description} />
       <meta
         name='keywords'
-        content='Software Engineer,Product Manager,Project Manager,Data Scientist,Computer Scientist'
+        content='AI consulting, artificial intelligence, small business AI, Texas AI, San Antonio AI, Austin AI, Central Texas, AI automation, sales automation, marketing automation, business intelligence, AI agents, machine learning, ChatGPT for business, AI integration'
       />
       <meta name='robots' content='index,follow' />
       <meta name='distribution' content='web' />
-      {/* 
+      <meta name='geo.region' content='US-TX' />
+      <meta name='geo.placename' content='San Antonio, Austin' />
+
+      {/*
       Facebook Open Graph meta tags
         documentation: https://developers.facebook.com/docs/sharing/opengraph */}
       <meta property='og:title' content={title} />
-      <meta property='og:type' content='site' />
+      <meta property='og:type' content='website' />
       <meta property='og:url' content={url} />
-      <meta property='og:image' content={'/icons/share.png'} />
-      <meta property='og:site_name' content={title} />
+      <meta property='og:image' content={`${url}/img/Texas-AI-Consulting-ST-Logo-ICON.png`} />
+      <meta property='og:image:width' content='1200' />
+      <meta property='og:image:height' content='630' />
+      <meta property='og:site_name' content='Texas AI Consulting' />
       <meta property='og:description' content={description} />
+      <meta property='og:locale' content='en_US' />
 
-      <link rel='apple-touch-icon' href='/icons/apple-touch-icon.png' />
-      <link rel='apple-touch-icon' sizes='16x16' href='/icons/favicon-16x16.png' />
-      <link rel='apple-touch-icon' sizes='32x32' href='/icons/favicon-32x32.png' />
-      <link rel='apple-touch-icon' sizes='180x180' href='/icons/apple-touch-icon.png' />
+      <link rel='apple-touch-icon' href='/img/Favicon-New-Texas-AI-Logo.png' />
+      <link rel='apple-touch-icon' sizes='16x16' href='/img/Favicon-New-Texas-AI-Logo.png' />
+      <link rel='apple-touch-icon' sizes='32x32' href='/img/Favicon-New-Texas-AI-Logo.png' />
+      <link rel='apple-touch-icon' sizes='180x180' href='/img/Favicon-New-Texas-AI-Logo.png' />
       <link rel='manifest' href='/manifest.json' />
-      <link rel='mask-icon' color='#000000' href='/icons/safari-pinned-tab.svg' />
+      <link rel='mask-icon' color='#ebcb4c' href='/safari-pinned-tab.svg' />
       <link rel='apple-touch-startup-image' href='/startup.png' />
 
       {/* Meta Tags for HTML pages on Mobile */}
-      {/* <meta name="format-detection" content="telephone=yes"/>
-        <meta name="HandheldFriendly" content="true"/>  */}
+      <meta name='format-detection' content='telephone=yes' />
+      <meta name='HandheldFriendly' content='true' />
       <meta name='viewport' content='width=device-width, minimum-scale=1, initial-scale=1.0' />
-      <meta name='theme-color' content='#000' />
-      <link rel='shortcut icon' href='/icons/apple-touch-icon.png' />
-<link rel='icon' href='/img/Texas-AI-Consulting-ST-Logo-FAVICON.png' />
+      <meta name='theme-color' content='#ebcb4c' />
+      <link rel='shortcut icon' href='/img/Favicon-New-Texas-AI-Logo.png' />
+      <link rel='icon' href='/img/Texas-AI-Consulting-ST-Logo-FAVICON.png' />
 
-      {/* 
-      Twitter Summary card
-        documentation: https://dev.twitter.com/cards/getting-started
-        Be sure validate your Twitter card markup on the documentation site. */}
-      <meta name='twitter:card' content='summary' />
+      {/*
+      Twitter Card
+        documentation: https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/markup */}
+      <meta name='twitter:card' content='summary_large_image' />
       <meta name='twitter:site' content={twitter} />
+      <meta name='twitter:title' content={title} />
+      <meta name='twitter:description' content={description} />
+      <meta name='twitter:image' content={`${url}/img/Texas-AI-Consulting-ST-Logo-ICON.png`} />
+      <meta name='twitter:creator' content={twitter} />
     </>
   )
 }
