@@ -18,20 +18,6 @@ Who is this mystery employee? **The gaps in your business that let money walk ou
 
 Let me show you the three biggest money leaks—and how to plug them for less than the cost of a cell phone bill.
 
-## Watch The Video
-
-<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%', margin: '2rem 0' }}>
-  <iframe
-    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
-    src="https://www.youtube.com/embed/J5UXl7jxNjo"
-    title="The Revenue Leak - Texas AI Consulting"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerPolicy="strict-origin-when-cross-origin"
-    allowFullScreen>
-  </iframe>
-</div>
-
 ---
 
 ## The $126,000 Problem Nobody Talks About
