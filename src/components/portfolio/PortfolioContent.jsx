@@ -152,6 +152,13 @@ const portfolioProjects = [
     description: "A promotional website for an upcoming action film currently in preproduction, featuring story details, character profiles, and production updates.",
     image: "/img/dragon-blade-movie-website.jpg",
     url: "https://dragonblademovie.com/"
+  },
+  {
+    id: 7,
+    title: "5678 Dance Life",
+    description: "An innovative platform connecting dance enthusiasts with vetted instructors for private lessons—anywhere in the U.S. Like Uber for dance instructors, offering Salsa, Bachata, Ballroom, and more.",
+    image: "/img/5678-dance-life.png",
+    url: "https://5678dancelife.com"
   }
 ]
 
