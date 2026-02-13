@@ -80,7 +80,7 @@ export default function ElliottResumePage() {
                 <div>
                   <p className="text-xl font-bold text-yellow-400">U.S. MILITARY VETERAN</p>
                   <p className="text-lg">21 Years of Service | 1992 - November 2013</p>
-                  <p className="text-sm text-gray-300 mt-1">U.S. Army • Air National Guard • U.S. Air Force Reserve</p>
+                  <p className="text-sm text-gray-300 mt-1">Air Force</p>
                 </div>
                 <span className="text-4xl">🎖️</span>
               </div>
