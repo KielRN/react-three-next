@@ -18,8 +18,7 @@ const LCARSSectionHeader = ({ title }) => (
 );
 
 export default function BlogList({ posts, allTags, activeTag }) {
-  // Reverse the posts array to show newest first
-  const reversedPosts = [...posts].reverse();
+  // Posts are already sorted newest-first by sortBlogPostsByDate
   const [showFilter, setShowFilter] = useState(false);
 
   return (
@@ -44,8 +43,8 @@ export default function BlogList({ posts, allTags, activeTag }) {
 
       {/* Blog posts grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {reversedPosts.length > 0 ? (
-          reversedPosts.map((post) => (
+        {posts.length > 0 ? (
+          posts.map((post) => (
             <Suspense key={post.slug} fallback={
               <div className="h-80 bg-ai-navy animate-pulse rounded-lg border-l border-b border-ai-blue shadow-[0_0_10px_rgba(44,117,255,0.3)]"></div>
             }>
