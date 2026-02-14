@@ -75,8 +75,10 @@ export default function ElliottResumePage() {
 
             {/* Military Service Banner */}
             <div className="bg-gradient-to-r from-red-800 via-blue-900 to-red-800 text-white py-6 px-8">
-              <div className="flex items-center justify-center gap-4 text-center">
-                <span className="text-4xl">🛡️</span>
+              <div className="flex items-center justify-center gap-6 text-center">
+                <div className="flex-shrink-0">
+                  <img src="/img/usaf-logo.png" alt="US Air Force" className="w-16 h-16 object-contain" />
+                </div>
                 <div>
                   <p className="text-xl font-bold text-yellow-400">U.S. MILITARY VETERAN</p>
                   <p className="text-lg">21 Years of Service | 1992 - November 2013</p>
@@ -286,7 +288,7 @@ export default function ElliottResumePage() {
                       Flight Nurse
                     </h3>
                     <p className="text-lg text-blue-800 font-semibold">United States Air Force Reserve</p>
-                    <p className="text-sm text-blue-700">332d Air Expeditionary Wing (Red Tail Squadron) • Andrews AFB, TX</p>
+                    <p className="text-sm text-blue-700">459 Aeromedical Evacuation Squadron (AFRC) • Andrews AFB</p>
                   </div>
                   <span className="bg-blue-900 text-white px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
                     July 2009 – November 2013
@@ -411,7 +413,9 @@ export default function ElliottResumePage() {
 
               <div className="grid md:grid-cols-2 gap-6 mb-6">
                 <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-lg shadow-lg text-white">
-                  <div className="text-3xl mb-3">🤖</div>
+                  <div className="mb-3 flex items-center justify-center w-12 h-12 bg-white rounded">
+                    <img src="/img/ibm-logo.png" alt="IBM" className="w-10 h-10 object-contain" />
+                  </div>
                   <h3 className="text-xl font-bold mb-2">IBM AI Engineering Professional Certificate</h3>
                   <p className="text-sm text-blue-100 mb-4">Completed January 2024</p>
                   <ul className="text-sm space-y-1 text-blue-100 mb-4">
@@ -433,7 +437,9 @@ export default function ElliottResumePage() {
                 </div>
 
                 <div className="bg-gradient-to-br from-purple-600 to-purple-800 p-6 rounded-lg shadow-lg text-white">
-                  <div className="text-3xl mb-3">💻</div>
+                  <div className="mb-3 flex items-center justify-center w-12 h-12 bg-white rounded">
+                    <img src="/img/ibm-logo.png" alt="IBM" className="w-10 h-10 object-contain" />
+                  </div>
                   <h3 className="text-xl font-bold mb-2">IBM Full Stack Software Developer Professional Certificate</h3>
                   <p className="text-sm text-purple-100 mb-4">Completed September 2023</p>
                   <ul className="text-sm space-y-1 text-purple-100 mb-4">
@@ -525,21 +531,196 @@ export default function ElliottResumePage() {
       {/* Print Styles */}
       <style jsx global>{`
         @media print {
-          body {
+          @page {
+            size: letter;
+            margin: 0.5in;
+          }
+
+          html, body {
+            height: auto;
+            overflow: visible;
             print-color-adjust: exact;
             -webkit-print-color-adjust: exact;
+            font-size: 11pt;
           }
+
           .print\\:hidden {
             display: none !important;
           }
-          .print\\:shadow-none {
+
+          /* Compact all spacing */
+          .p-8 {
+            padding: 0.5rem !important;
+          }
+
+          .p-6 {
+            padding: 0.4rem !important;
+          }
+
+          .py-6 {
+            padding-top: 0.4rem !important;
+            padding-bottom: 0.4rem !important;
+          }
+
+          .mb-8, .mb-6, .mb-4, .mb-3, .mb-2 {
+            margin-bottom: 0.3rem !important;
+          }
+
+          .space-y-2 > * + * {
+            margin-top: 0.2rem !important;
+          }
+
+          .space-y-3 > * + * {
+            margin-top: 0.25rem !important;
+          }
+
+          .gap-6, .gap-4 {
+            gap: 0.3rem !important;
+          }
+
+          /* Remove decorative elements */
+          .shadow-xl, .shadow-lg, .shadow-md, .shadow-2xl {
             box-shadow: none !important;
           }
-          * {
-            break-inside: avoid;
+
+          .rounded-2xl, .rounded-xl, .rounded-lg {
+            border-radius: 0 !important;
           }
-          h1, h2, h3 {
+
+          .border {
+            border: 1px solid #ddd !important;
+          }
+
+          /* Compact headings */
+          h1 {
+            font-size: 1.5rem !important;
+            margin-bottom: 0.2rem !important;
+          }
+
+          h2 {
+            font-size: 1.2rem !important;
+            margin-bottom: 0.3rem !important;
+          }
+
+          h3 {
+            font-size: 1rem !important;
+            margin-bottom: 0.2rem !important;
+          }
+
+          /* Compact text */
+          .text-4xl {
+            font-size: 1.5rem !important;
+          }
+
+          .text-3xl {
+            font-size: 1.2rem !important;
+          }
+
+          .text-2xl {
+            font-size: 1.1rem !important;
+          }
+
+          .text-xl {
+            font-size: 0.95rem !important;
+          }
+
+          .text-lg {
+            font-size: 0.9rem !important;
+          }
+
+          /* Compact certification cards */
+          .grid.md\\:grid-cols-2 {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 0.3rem !important;
+          }
+
+          .grid.md\\:grid-cols-3 {
+            grid-template-columns: 1fr 1fr 1fr !important;
+            gap: 0.3rem !important;
+          }
+
+          /* Remove background colors to save ink */
+          .bg-gradient-to-r,
+          .bg-gradient-to-br,
+          .bg-blue-50,
+          .bg-red-50,
+          .bg-gray-50,
+          .from-yellow-50 {
+            background: white !important;
+          }
+
+          /* Keep only essential colors */
+          .bg-\\[\\#0e2042\\],
+          .from-red-800,
+          .via-blue-900,
+          .to-red-800 {
+            background: #0e2042 !important;
+          }
+
+          .from-blue-600,
+          .to-blue-800,
+          .from-purple-600,
+          .to-purple-800 {
+            background: white !important;
+            border: 1px solid #333 !important;
+            color: #000 !important;
+          }
+
+          .from-blue-600 *,
+          .to-blue-800 *,
+          .from-purple-600 *,
+          .to-purple-800 * {
+            color: #000 !important;
+          }
+
+          /* Compact lists */
+          ul, ol {
+            margin: 0.2rem 0 !important;
+            padding-left: 1.2rem !important;
+          }
+
+          li {
+            margin-bottom: 0.15rem !important;
+            line-height: 1.3 !important;
+          }
+
+          /* Hide ribbons image in print to save space */
+          img[alt="Military Service Ribbons"] {
+            max-height: 60px !important;
+          }
+
+          /* Compact profile image */
+          .w-40.h-40 {
+            width: 80px !important;
+            height: 80px !important;
+          }
+
+          /* Prevent page breaks */
+          h1, h2, h3, h4, h5, h6 {
             page-break-after: avoid;
+            page-break-inside: avoid;
+          }
+
+          .pb-8 {
+            padding-bottom: 0.3rem !important;
+            page-break-inside: avoid;
+          }
+
+          /* Ensure content flows properly */
+          .container {
+            max-width: 100% !important;
+            padding: 0 !important;
+          }
+
+          /* Remove extra spacing */
+          .-mx-8, .-mx-4 {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+          }
+
+          .px-8, .px-4 {
+            padding-left: 0.3rem !important;
+            padding-right: 0.3rem !important;
           }
         }
       `}</style>
