@@ -80,9 +80,9 @@ export default function ElliottResumePage() {
                   <img src="/img/usaf-logo.png" alt="US Air Force" className="w-16 h-16 object-contain" />
                 </div>
                 <div>
-                  <p className="text-xl font-bold text-yellow-400">U.S. MILITARY VETERAN</p>
-                  <p className="text-lg">21 Years of Service | 1992 - November 2013</p>
-                  <p className="text-sm text-gray-300 mt-1">Air Force</p>
+                  <p className="text-xl font-bold text-yellow-400">RETIRED U.S. AIR FORCE RESERVIST</p>
+                  <p className="text-lg">21 Years of Military Service | 3 Combat Deployments</p>
+                  <p className="text-sm text-gray-300 mt-1">1992 - November 2013</p>
                 </div>
                 <span className="text-4xl">🎖️</span>
               </div>
@@ -94,12 +94,21 @@ export default function ElliottResumePage() {
                 <span className="text-3xl">🏆</span>
                 Professional Summary
               </h2>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                Performance-driven Registered Nurse and AI Engineer with over 20 years of healthcare experience and 21 years of distinguished military service (1992-2013).
-                <span className="font-bold text-[#0e2042]"> Awarded the Air Force Air Medal for flying combat missions</span> as a Flight Nurse with the legendary 332d Air Expeditionary Wing (Red Tail Squadron) in Iraq.
-                Combining deep clinical expertise with advanced AI and software development capabilities to drive innovation in healthcare technology. Passionate about integrating cutting-edge technologies
-                with clinical workflows to improve patient outcomes and empower healthcare teams through intelligent automation and data-driven solutions.
-              </p>
+              <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
+                <p>
+                  <span className="font-bold text-[#0e2042]">Retired Air Force Reservist</span> with 21 years of military service including 3 combat deployments (1 to Iraq, 2 to Afghanistan).
+                  <span className="font-bold text-[#0e2042]"> Throughout my military career, I simultaneously maintained a full-time civilian nursing career</span>—essentially serving two full-time roles in service of my country.
+                  This dual commitment spanned from 1992 to 2013, combining bedside clinical expertise with military medical leadership under the most demanding conditions.
+                </p>
+                <p>
+                  <span className="font-bold text-[#0e2042]">Awarded the Air Force Air Medal</span> for flying over 20 combat aeromedical evacuation missions as a Flight Nurse with the 459th Aeromedical Evacuation Squadron.
+                  Delivered critical care to wounded service members in austere combat environments while simultaneously working as a civilian Registered Nurse across multiple healthcare systems.
+                </p>
+                <p>
+                  Now combining 20+ years of clinical healthcare expertise with advanced AI and software development capabilities to drive innovation in healthcare technology.
+                  Passionate about integrating cutting-edge AI solutions with clinical workflows to improve patient outcomes and empower healthcare teams through intelligent automation and data-driven decision support.
+                </p>
+              </div>
             </div>
 
             {/* Military Honors & Awards */}
@@ -110,69 +119,22 @@ export default function ElliottResumePage() {
               </h2>
 
               {/* Ribbons Display */}
-              <div className="flex justify-center mb-8">
-                <div className="bg-white p-6 rounded-lg shadow-xl">
+              <div className="flex justify-center mb-4">
+                <div className="bg-white p-4 rounded-lg shadow-md">
                   <img
-                    src="/img/ribbons-transparent.png"
+                    src="/img/ribbons-v2.png"
                     alt="Military Service Ribbons"
                     className="max-w-full h-auto"
-                    style={{ maxHeight: '150px' }}
+                    style={{ maxHeight: '120px' }}
                   />
                 </div>
               </div>
 
-              {/* Awards List */}
-              <div className="bg-white p-6 rounded-lg shadow-lg">
-                <ul className="space-y-3 text-gray-800">
-                  <li className="flex items-start gap-3">
-                    <span className="text-blue-900 font-bold min-w-[20px]">•</span>
-                    <div>
-                      <strong className="text-blue-900">Air Force Air Medal</strong> with 5 Oak Leaf Clusters — Awarded for meritorious achievement while participating in aerial combat missions over Iraq with the 332d Air Expeditionary Wing (Red Tail Squadron)
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-purple-900 font-bold min-w-[20px]">•</span>
-                    <div>
-                      <strong className="text-purple-900">Air Force Outstanding Unit Award</strong> with 5 Oak Leaf Clusters — Recognized for exceptionally meritorious service and outstanding achievement
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-yellow-900 font-bold min-w-[20px]">•</span>
-                    <div>
-                      <strong className="text-yellow-900">Air Force Meritorious Service Medal</strong> with 1 Service Star — For outstanding non-combat meritorious achievement or service
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-green-900 font-bold min-w-[20px]">•</span>
-                    <div>
-                      <strong className="text-green-900">National Defense Service Medal</strong> with 1 Service Star — Awarded for honorable active military service during designated periods of national emergency
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-red-900 font-bold min-w-[20px]">•</span>
-                    <div>
-                      <strong className="text-red-900">Iraq Campaign Ribbon</strong> with 2 Campaign Stars — For participation in military operations in the Iraq theater of operations
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-indigo-900 font-bold min-w-[20px]">•</span>
-                    <div>
-                      <strong className="text-indigo-900">Air Force Expeditionary Service Ribbon</strong> — For deployment to forward operating locations in support of contingency operations
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-blue-900 font-bold min-w-[20px]">•</span>
-                    <div>
-                      <strong className="text-blue-900">Global War on Terrorism Service Medal</strong> — For supporting operations to combat terrorism on a global scale
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-teal-900 font-bold min-w-[20px]">•</span>
-                    <div>
-                      <strong className="text-teal-900">AF Overseas Ribbon - Short Tour</strong> — For completion of overseas tour of duty at designated locations
-                    </div>
-                  </li>
-                </ul>
+              {/* Awards List - DD214 Style */}
+              <div className="bg-white px-4 py-3 rounded border border-gray-300">
+                <p className="text-xs text-gray-700 leading-relaxed">
+                  <span className="font-semibold">13. DECORATIONS, MEDALS, BADGES, CITATIONS AND CAMPAIGN RIBBONS AWARDED OR AUTHORIZED</span> (All periods of service): Air Medal, AF Outstanding Unit Award with 5 oak leaf clusters, Air Reserve Forces Meritorious Service Medal with 3 oak leaf clusters, National Defense Service Medal with 1 service star, Iraq Campaign Medal with 1 service star, Global War on Terrorism Service Medal, AF Overseas Short Tour Ribbon, Air Force Expeditionary Service Ribbon (with Gold Border) with 2 oak leaf clusters, Air Force Longevity Service Award Ribbon with 1 oak leaf cluster, Small Arms Expert Marksmanship Ribbon with 1 service star, Air Force Training Ribbon.
+                </p>
               </div>
             </div>
 
@@ -289,6 +251,7 @@ export default function ElliottResumePage() {
                     </h3>
                     <p className="text-lg text-blue-800 font-semibold">United States Air Force Reserve</p>
                     <p className="text-sm text-blue-700">459 Aeromedical Evacuation Squadron (AFRC) • Andrews AFB</p>
+                    <p className="text-xs text-blue-600 italic mt-1">⚠️ Military service performed concurrently with civilian nursing positions</p>
                   </div>
                   <span className="bg-blue-900 text-white px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
                     July 2009 – November 2013
@@ -341,6 +304,7 @@ export default function ElliottResumePage() {
                   <div>
                     <h3 className="text-xl font-bold text-blue-900">Nurse Team Leader</h3>
                     <p className="text-lg text-blue-800 font-semibold">Maryland Air National Guard, Baltimore, MD</p>
+                    <p className="text-xs text-blue-600 italic mt-1">⚠️ Military service performed concurrently with civilian nursing positions</p>
                   </div>
                   <span className="bg-blue-900 text-white px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
                     September 2003 – February 2006
@@ -361,6 +325,7 @@ export default function ElliottResumePage() {
                     </h3>
                     <p className="text-lg text-red-800 font-semibold">U.S. Army Task Force 44th Med</p>
                     <p className="text-sm text-red-700">Bagram Air Base, Afghanistan</p>
+                    <p className="text-xs text-red-600 italic mt-1">⚠️ Combat deployment during concurrent military/civilian career</p>
                   </div>
                   <span className="bg-red-900 text-white px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
                     February 2003 – May 2003
