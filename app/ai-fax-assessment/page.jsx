@@ -469,6 +469,139 @@ export default function AIFaxAssessmentPage() {
     }
 
     /* =============================================
+       MODULE — TRUST & REFERENCES
+       ============================================= */
+    const References = () => {
+        const healthcareRefs = [
+            {
+                org: 'Methodist Healthcare System',
+                orgDetail: 'San Antonio Division — HCA Enterprise',
+                contact: 'Talley Fritsch',
+                title: 'Cons Technical Analyst',
+                phone: '(210) 461-6060',
+                duration: 'August 2024 – Present',
+                highlights: [
+                    'Created the STRACC CRUD application — a React-based automation system deployed on HCA on-premise IIS infrastructure.',
+                    'Built an end-to-end data pipeline ingesting STRAC clinician CSV data, archiving via SQL Server, and automating profile creation on the NETBOX Lenel S2 access-control server via XML payload.',
+                    'Implemented Windows Authentication via Microsoft Entra ID (RBAC) for HIPAA-compliant security.',
+                ],
+            },
+            {
+                org: 'Methodist Healthcare System',
+                orgDetail: 'Application Development & BI Team',
+                contact: 'Jeffrey Payne',
+                title: 'Sr. Technical Analyst — App Dev Team',
+                phone: '(210) 575-0469',
+                duration: 'August 2024 – Present',
+                highlights: [
+                    'Built and maintained ETL pipelines following the MEDITECH EHR → OpenGate → Data Repository → SQL Server → SSRS architecture.',
+                    'Led the complete SafetyNET annual report pipeline for the STRAC Southwest Texas Crisis Collaborative (22-county TSA-P region).',
+                    'Developed .NET 8 enterprise applications for internal workflow management within strict HIPAA compliance requirements.',
+                ],
+            },
+        ]
+
+        const additionalRefs = [
+            {
+                org: '5678 Dance Life',
+                contact: 'Lee Rios',
+                desc: 'End-to-end architecture and development of a nationwide marketplace platform with AI-assisted automation workflows.',
+                duration: '2025 – Present',
+            },
+            {
+                org: 'Tommy Zion Productions',
+                contact: 'Tommy Zion',
+                desc: 'Full-stack web development, GoHighLevel e-commerce integration, and AI-driven post-production for the Impostor sci-fi short film.',
+                duration: '2024 – Present',
+            },
+        ]
+
+        return (
+            <section className="relative py-20 md:py-28 bg-gradient-to-b from-[#050a14] to-black overflow-hidden">
+                {/* Subtle decoration */}
+                <div className="absolute top-20 right-0 w-[300px] h-[300px] bg-[#ebcb4c]/3 rounded-full blur-[120px] pointer-events-none" />
+
+                <div className="container mx-auto px-6 md:px-12 relative z-10">
+                    <FadeInSection>
+                        <SectionHeading
+                            eyebrow="Verified References"
+                            title="Enterprise Healthcare Track Record"
+                            subtitle="Our work inside large hospital systems speaks directly to the challenges facing rural healthcare administrators."
+                        />
+                    </FadeInSection>
+
+                    {/* Primary healthcare references */}
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-12">
+                        {healthcareRefs.map((ref, i) => (
+                            <FadeInSection key={i} delay={0.12 * (i + 1)}>
+                                <GlowCard className="h-full" glowColor="rgba(44,117,255,0.12)">
+                                    {/* Header */}
+                                    <div className="flex items-start gap-4 mb-5 pb-5 border-b border-white/5">
+                                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-[#2c75ff]/20 to-[#2c75ff]/5 border border-[#2c75ff]/20 flex items-center justify-center">
+                                            <svg className="w-6 h-6 text-[#2c75ff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 0h.008v.008h-.008V7.5zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <h3 className="font-hesdeadjim text-base md:text-lg text-white tracking-wide">{ref.org}</h3>
+                                            <p className="text-[#2c75ff] text-xs uppercase tracking-wider mt-0.5">{ref.orgDetail}</p>
+                                        </div>
+                                    </div>
+
+                                    {/* Contact & Duration */}
+                                    <div className="flex flex-wrap gap-x-6 gap-y-2 mb-5 text-sm">
+                                        <div className="flex items-center gap-2 text-gray-400">
+                                            <svg className="w-4 h-4 text-[#ebcb4c]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                                            <span><strong className="text-white">{ref.contact}</strong>, {ref.title}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-gray-400">
+                                            <svg className="w-4 h-4 text-[#ebcb4c]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                                            <span>{ref.phone}</span>
+                                        </div>
+                                        <div className="flex items-center gap-2 text-gray-400">
+                                            <svg className="w-4 h-4 text-[#ebcb4c]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                            <span>{ref.duration}</span>
+                                        </div>
+                                    </div>
+
+                                    {/* Highlights */}
+                                    <ul className="space-y-3">
+                                        {ref.highlights.map((h, j) => (
+                                            <li key={j} className="flex items-start gap-3 text-sm text-gray-400 leading-relaxed">
+                                                <svg className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#2c75ff]" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                                                <span>{h}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </GlowCard>
+                            </FadeInSection>
+                        ))}
+                    </div>
+
+                    {/* Additional references */}
+                    <FadeInSection delay={0.3}>
+                        <div className="max-w-4xl mx-auto">
+                            <p className="text-center text-gray-500 text-xs uppercase tracking-[0.2em] mb-6">Additional Client References Available Upon Request</p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                {additionalRefs.map((ref, i) => (
+                                    <div key={i} className="p-5 rounded-xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors">
+                                        <div className="flex items-center justify-between mb-2">
+                                            <h4 className="text-white font-bold text-sm">{ref.org}</h4>
+                                            <span className="text-gray-500 text-xs">{ref.duration}</span>
+                                        </div>
+                                        <p className="text-gray-400 text-xs leading-relaxed mb-2">{ref.desc}</p>
+                                        <p className="text-gray-500 text-xs">Contact: {ref.contact}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </FadeInSection>
+                </div>
+            </section>
+        )
+    }
+
+    /* =============================================
        MODULE 5 — FINANCIAL & PROCUREMENT
        ============================================= */
     const Financial = () => {
@@ -624,6 +757,7 @@ export default function AIFaxAssessmentPage() {
             <Problem />
             <Offer />
             <WhyUs />
+            <References />
             <Financial />
             <FormSection />
             <Footer />
