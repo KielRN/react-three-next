@@ -40,9 +40,9 @@ export default function RocketPage() {
     <div className='flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-b from-black to-gray-800 text-white'>
       {/* Logo removed from here and moved to navbar */}
       <div className='absolute left-5 bottom-5 z-10'>
-        <img src='/img/Texas-AI-Consulting-ST-Logo-ICON.png' alt='Texas AI Consulting Logo' className='h-10 w-auto mb-2' />
-        <h1 className='text-2xl font-bold'>Interactive 3D</h1>
-        <p className='text-sm'>Drag to rotate • Scroll to zoom • Click to return home</p>
+        <img src='/img/vethub-logo.svg' alt='VetHub Logo' className='h-10 w-auto mb-2' />
+        <p className='text-sm font-semibold tracking-widest uppercase text-[#ebcb4c]'>★ Veteran Owned Business ★</p>
+        <p className='text-xs tracking-wider uppercase text-gray-300 mt-0.5'>Texas State VetHub <span className='text-[#ebcb4c] font-bold'>Certified</span></p>
         <div className='text-xs mt-2 space-x-3'>
           <Link href='/blog/privacy-policy-2025' className='text-gray-300 hover:text-white underline transition-colors'>
             Privacy Policy
