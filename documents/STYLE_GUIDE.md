@@ -9,7 +9,8 @@ The application uses a high-contrast dark theme with premium accents (Gold and B
 ### Primary Colors
 | Color Name | Hex Code | Usage |
 |:--- |:--- |:--- |
-| **Texas Gold** | `#ebcb4c` | Primary accent, Headers, Borders, Shadows, Glow effects |
+| **Texas Gold** | `#ebcb4c` | Primary accent, Headers, Borders, Shadows, Glow effects, "TEXAS AI" logo text |
+| **Deep Navy Blue** | `#043b68` | "CONSULTING" logo text |
 | **Tech Blue** | `#2c75ff` | Hover states, Secondary accents, Links |
 | **Cyan Slate** | `#6c97a5` | Labels, Secondary text info |
 
@@ -46,6 +47,17 @@ The application uses a mix of Monospace for technical details and Arial Black/Bo
 - **.font-hesdeadjim**:
   - CSS Class defined in `global.css`
   - Properties: `Arial, sans-serif`, `bold`, `italic`, `uppercase`, `letter-spacing: 1px`.
+
+### Logo Typography
+The Texas AI Consulting logo uses two distinct font and color pairings:
+
+| Text | Font | Color | Hex Code |
+|:--- |:--- |:--- |:--- |
+| **TEXAS AI** | `He'sdeadjim` | Texas Gold | `#ebcb4c` |
+| **CONSULTING** | `Atures 700 PERSONAL USE ONLY` | Deep Navy Blue | `#043b68` |
+
+- **"TEXAS AI"**: Rendered in the **He'sdeadjim** display font using the brand's signature **Texas Gold** (`#ebcb4c`) yellow.
+- **"CONSULTING"**: Rendered in the **Atures 700 PERSONAL USE ONLY** font using **Deep Navy Blue** (`#043b68`).
 
 ---
 

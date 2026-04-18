@@ -727,7 +727,7 @@ export default function AIFaxAssessmentPage() {
                     <div className="text-center md:text-right text-sm text-gray-500">
                         <p className="font-hesdeadjim tracking-wide text-gray-400">TXAI CONSULTING LLC</p>
                         <p className="mt-1">
-                            San Antonio, TX &nbsp;|&nbsp; <a href="tel:210-664-4093" className="text-gray-400 hover:text-[#2c75ff] transition-colors">210-664-4093</a> &nbsp;|&nbsp; <a href="mailto:contact@texasaiconsulting.com" className="text-gray-400 hover:text-[#2c75ff] transition-colors">contact@texasaiconsulting.com</a>
+                            San Antonio, TX &nbsp;|&nbsp; <a href="tel:210-550-7258" className="text-gray-400 hover:text-[#2c75ff] transition-colors">210-550-7258</a> &nbsp;|&nbsp; <a href="mailto:contact@texasaiconsulting.com" className="text-gray-400 hover:text-[#2c75ff] transition-colors">contact@texasaiconsulting.com</a>
                         </p>
                         <p className="mt-3">
                             <Link href="/" className="inline-flex items-center gap-2 text-[#2c75ff] hover:text-[#ebcb4c] transition-colors text-xs uppercase tracking-[0.1em] font-bold">
