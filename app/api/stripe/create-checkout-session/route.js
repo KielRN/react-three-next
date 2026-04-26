@@ -2,9 +2,8 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { STRIPE_CONFIG } from '../../../funnels/growth-platform/stripe-config'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-
 export async function POST(req) {
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
   try {
     const body = await req.json()
     const { planType, customerInfo } = body
