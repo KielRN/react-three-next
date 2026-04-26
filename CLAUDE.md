@@ -135,6 +135,72 @@ image: "/path/to/image.jpg"
 
 - [.prettierrc](.prettierrc) - Code formatting with single quotes, no semicolons, 120 char line width
 
+## Integrations
+
+### GHL (GoHighLevel) CRM
+
+[lib/ghl.js](lib/ghl.js) provides a Node.js API client mirroring Python skills (`ghl_ops_sync.py`, `ghl_sales.py`). Key functions:
+
+- `upsertContact({ email, firstName, lastName, phone, companyName, tags })` — create or update a contact, deduplicates by email
+- `createOpportunity({ pipelineName, oppName, contactId, stageName, value })` — add an opportunity to a named pipeline, resolves pipeline/stage by fuzzy name match
+- `updateOpportunity({ oppId, stageId, status, monetaryValue, name })` — move a deal stage or update status (`open`, `won`, `lost`, `abandoned`)
+- `getPipelines()` / `resolvePipelineAndStage(pipelineName, stageName)` — internal helpers
+
+Required env vars: `GHL_API_KEY`, `GHL_LOCATION_ID`
+
+### Stripe Payments (Growth Platform Funnel)
+
+The `/funnels/growth-platform` route is a self-contained sales funnel with Stripe embedded checkout:
+
+- [app/funnels/growth-platform/page.jsx](app/funnels/growth-platform/page.jsx) — landing/pricing page
+- [app/funnels/growth-platform/checkout/page.jsx](app/funnels/growth-platform/checkout/page.jsx) — checkout flow
+- [app/funnels/growth-platform/agreement/page.jsx](app/funnels/growth-platform/agreement/page.jsx) — MSA agreement pages
+- [app/funnels/growth-platform/stripe-config.js](app/funnels/growth-platform/stripe-config.js) — price IDs and product config
+- [app/api/stripe/create-checkout-session/route.js](app/api/stripe/create-checkout-session/route.js) — creates Stripe session
+- [app/api/stripe/webhook/route.js](app/api/stripe/webhook/route.js) — handles Stripe events
+
+Stripe is currently in **test/sandbox mode**. Required env vars:
+
+```
+STRIPE_SECRET_KEY                 # sk_test_... or sk_live_...
+STRIPE_WEBHOOK_SECRET             # whsec_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY  # pk_test_... or pk_live_...
+NEXT_PUBLIC_GP_PRODUCT_ID         # prod_...
+NEXT_PUBLIC_GP_PRICE_MONTHLY      # recurring monthly
+NEXT_PUBLIC_GP_PRICE_ANNUAL       # recurring yearly
+NEXT_PUBLIC_GP_PRICE_SETUP        # one-time setup fee
+```
+
+**Critical operational rules:**
+
+1. **Test/live keys cannot mix with the wrong-mode price IDs.** A `sk_test_` key with a live `price_…` ID returns `resource_missing: No such price …`, the API returns 500, and on Railway the body is stripped — the frontend used to show "Unexpected end of JSON input" with no detail (now surfaces the real status/body).
+2. **`NEXT_PUBLIC_*` env vars are inlined at build time.** Adding or changing them on Railway requires a **redeploy**, not just a restart.
+3. **Always update the hardcoded fallbacks in `stripe-config.js`** to match the currently active mode. Keep the inactive-mode IDs in the comment block at the top for easy cutover.
+4. **The setup fee is a one-time price** (no `recurring` block); it's added as a second line item in subscription mode and billed on the first invoice.
+
+**To create new products/prices** (test or live), use the `.agent/skills/manage_stripe_products` skill — it includes a parameterized `create_stripe_products.js` script that refuses to run with mismatched key/mode, prints copy-paste-ready env var lines, and walks through the full wiring update (local `.env`, fallbacks, Railway).
+
+### Contact Form & Webhooks
+
+[app/api/contact/route.js](app/api/contact/route.js) proxies form submissions to a Make.com webhook (`NEXT_PUBLIC_CONTACT_WEBHOOK`). The ROI calculator posts to a GHL webhook (`NEXT_PUBLIC_ROI_CALCULATOR_WEBHOOK`).
+
+## Required Environment Variables
+
+Copy `.env.example` to `.env` and populate:
+
+```
+NEXT_PUBLIC_CONTACT_WEBHOOK=      # Make.com webhook URL
+NEXT_PUBLIC_ROI_CALCULATOR_WEBHOOK=  # GHL webhook URL
+GHL_API_KEY=                      # GoHighLevel API key
+GHL_LOCATION_ID=                  # GHL location ID
+STRIPE_SECRET_KEY=                # sk_test_... or sk_live_...
+STRIPE_WEBHOOK_SECRET=            # whsec_...
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=  # pk_test_... or pk_live_...
+NEXT_PUBLIC_GP_PRICE_MONTHLY=     # Stripe price ID
+NEXT_PUBLIC_GP_PRICE_ANNUAL=      # Stripe price ID
+NEXT_PUBLIC_GP_PRICE_SETUP=       # Stripe price ID
+```
+
 ## Deployment
 
 Configured for Railway deployment:

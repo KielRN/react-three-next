@@ -40,9 +40,15 @@ export default function GrowthPlatformCheckout() {
           customerInfo: customerInfo
         }),
       })
-      
-      const data = await response.json()
-      if (data.error) throw new Error(data.error)
+
+      const text = await response.text()
+      let data = {}
+      try { data = text ? JSON.parse(text) : {} } catch (_) { /* non-JSON body */ }
+
+      if (!response.ok || data.error) {
+        throw new Error(data.error || `Checkout init failed (${response.status}). ${text ? text.slice(0, 200) : 'Empty response from server.'}`)
+      }
+      if (!data.clientSecret) throw new Error('No clientSecret returned from server.')
       setClientSecret(data.clientSecret)
     } catch (err) {
       console.error('Checkout error:', err)

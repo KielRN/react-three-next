@@ -1,24 +1,25 @@
 /**
  * Stripe Configuration for Growth Platform Funnel
- * 
- * LIVE price IDs (created via Stripe MCP):
+ *
+ * Defaults below are TEST-mode IDs (project is currently in sandbox).
+ * Override with env vars in Railway for production once LIVE keys are switched on.
+ *
+ * LIVE price IDs (kept here for reference — set as Railway env vars when going live):
  *   Monthly:   price_1TNgYEJMSxLnpBGhsSLhZc80
  *   Annual:    price_1TNgYFJMSxLnpBGhwQ3pNrOu
  *   Setup Fee: price_1TNgYGJMSxLnpBGhFEJR5kp5
- * 
- * For TEST MODE: Create matching products/prices in Stripe Dashboard
- * (toggle to "Test mode") and update the IDs below.
+ *   Product:   prod_UMP13Mlblhjkya
  */
 
 export const STRIPE_CONFIG = {
-  // Product
-  productId: process.env.NEXT_PUBLIC_GP_PRODUCT_ID || 'prod_UMP13Mlblhjkya',
+  // Product (TEST default)
+  productId: process.env.NEXT_PUBLIC_GP_PRODUCT_ID || 'prod_UMQN23LppN8Kvg',
 
-  // Prices — use env vars so test/live can be swapped easily
+  // Prices — use env vars to swap test/live
   prices: {
-    monthly: process.env.NEXT_PUBLIC_GP_PRICE_MONTHLY || 'price_1TNgYEJMSxLnpBGhsSLhZc80',
-    annual: process.env.NEXT_PUBLIC_GP_PRICE_ANNUAL || 'price_1TNgYFJMSxLnpBGhwQ3pNrOu',
-    setupFee: process.env.NEXT_PUBLIC_GP_PRICE_SETUP || 'price_1TNgYGJMSxLnpBGhFEJR5kp5',
+    monthly: process.env.NEXT_PUBLIC_GP_PRICE_MONTHLY || 'price_1TNhWsJFaot9vPJChhY8TESi',
+    annual: process.env.NEXT_PUBLIC_GP_PRICE_ANNUAL || 'price_1TNhWsJFaot9vPJCCXTM8PMx',
+    setupFee: process.env.NEXT_PUBLIC_GP_PRICE_SETUP || 'price_1TNhWsJFaot9vPJCdreEMcxZ',
   },
 
   // Display pricing
