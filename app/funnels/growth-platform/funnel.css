@@ -1,0 +1,507 @@
+/* =========================================
+   TxAI COMMAND CENTER THEME — Funnel Edition
+   Ported from TxAI_GHL_Custom_CSS_3_2026.html
+   ========================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+/* ── CSS Variables ──────────────────────────────────────────── */
+.section-txai {
+  --color-primary-txai: #000000;
+  --color-surface-dark-txai: #1a1a1a;
+  --color-navy-txai: #0e2042;
+  --color-white-txai: #FFFFFF;
+  --color-gold-txai: #ebcb4c;
+  --color-gold-bright-txai: #ffcc00;
+  --color-gold-hover-txai: #d4b53f;
+  --color-blue-txai: #2c75ff;
+  --color-blue-hover-txai: #1a5ecc;
+  --color-cyan-txai: #6c97a5;
+  --color-card-light-txai: #f4f4f4;
+  --color-text-dark-txai: #111111;
+  --color-text-muted-txai: #555555;
+  --font-heading-txai: 'Arial Black', 'Arial Bold', sans-serif;
+  --font-body-txai: 'Space Mono', monospace;
+}
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes border-pulse-txai {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
+  50% { box-shadow: 0 0 25px rgba(255, 204, 0, 0.7), 0 0 35px rgba(255, 204, 0, 0.3); }
+}
+
+@keyframes fadeInUp-txai {
+  from { opacity: 0; transform: translate3d(0, 40px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.animate-fade-up-txai {
+  animation: fadeInUp-txai 0.8s ease-out forwards;
+  opacity: 0;
+}
+
+/* ── Base Section ───────────────────────────────────────────── */
+.section-txai {
+  font-family: var(--font-body-txai);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--color-primary-txai);
+  color: var(--color-white-txai);
+  padding: 60px 20px;
+}
+
+/* ── Headings ───────────────────────────────────────────────── */
+.font-hesdeadjim-txai,
+.section-txai h1,
+.section-txai h2,
+.section-txai h3,
+.section-txai h4 {
+  font-family: var(--font-heading-txai);
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--color-gold-txai);
+}
+
+.section-txai p {
+  margin-bottom: 1.5rem;
+}
+
+.section-txai .text-gradient-txai {
+  background: linear-gradient(135deg, var(--color-gold-txai), var(--color-blue-txai));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* ── Light Card Container ───────────────────────────────────── */
+.section-container-txai {
+  max-width: 1000px;
+  margin: 0 auto;
+  background-color: var(--color-card-light-txai);
+  color: var(--color-text-dark-txai);
+  padding: 60px 50px;
+  border-radius: 4px;
+  box-shadow: 0 0 30px rgba(235, 203, 76, 0.15);
+  border: 1px solid rgba(235, 203, 76, 0.3);
+}
+
+.section-container-txai h1,
+.section-container-txai h2,
+.section-container-txai h3 {
+  color: var(--color-primary-txai);
+  text-shadow: 2px 2px 0px rgba(235, 203, 76, 0.4);
+}
+
+/* ── Grid & Layout ──────────────────────────────────────────── */
+.grid-txai {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.button-group-txai {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* ── Cards ──────────────────────────────────────────────────── */
+.card-txai {
+  flex: 1;
+  min-width: 280px;
+  background: #ffffff;
+  padding: 30px;
+  border: 1px solid #e0e0e0;
+  border-left: 5px solid var(--color-blue-txai);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-txai:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-txai.heritage-card-txai { border-left-color: var(--color-gold-txai); }
+.card-txai.blue-card-txai { border-left-color: var(--color-blue-txai); }
+
+/* ── Buttons ────────────────────────────────────────────────── */
+.btn-txai {
+  position: relative;
+  display: inline-block;
+  padding: 16px 36px;
+  font-family: var(--font-heading-txai);
+  font-weight: 800;
+  font-style: italic;
+  font-size: 18px;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-gold-bright-txai);
+  background-color: rgba(14, 32, 66, 0.85);
+  border: 2px solid var(--color-gold-bright-txai);
+  clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+  text-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+  animation: border-pulse-txai 3s infinite;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-txai:hover {
+  color: var(--color-blue-txai);
+  border-color: var(--color-blue-txai);
+  text-shadow: 0 0 8px rgba(44, 117, 255, 0.7);
+  box-shadow: 0 0 20px rgba(44, 117, 255, 0.5);
+  transform: scale(1.05);
+  animation: none;
+}
+
+.btn-txai:active { transform: scale(0.95); }
+
+.btn-blue-txai {
+  color: var(--color-blue-txai);
+  border-color: var(--color-blue-txai);
+  text-shadow: 0 0 8px rgba(44, 117, 255, 0.7);
+  box-shadow: 0 0 15px rgba(44, 117, 255, 0.4);
+  animation: none;
+}
+
+.btn-blue-txai:hover {
+  color: var(--color-gold-bright-txai);
+  border-color: var(--color-gold-bright-txai);
+  text-shadow: 0 0 8px rgba(255, 204, 0, 0.7);
+  box-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+}
+
+.btn-ghost-txai {
+  background-color: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.8);
+  text-shadow: none;
+  box-shadow: none;
+  animation: none;
+}
+
+.btn-ghost-txai:hover {
+  border-color: var(--color-white-txai);
+  color: var(--color-white-txai);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Solid Gold Button */
+.btn-solid-txai {
+  color: #1a1a1a !important;
+  background-color: #ebcb4c !important;
+  border: 2px solid #ebcb4c !important;
+  font-family: 'Arial Black', sans-serif !important;
+  font-weight: 900 !important;
+  font-style: italic !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  padding: 16px 36px !important;
+  text-align: center !important;
+  box-shadow: 0 0 15px rgba(235, 203, 76, 0.4) !important;
+  clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%) !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+.btn-solid-txai:hover {
+  background-color: #d4b53f !important;
+  border-color: #d4b53f !important;
+  box-shadow: 0 0 25px rgba(235, 203, 76, 0.6) !important;
+  transform: scale(1.03) !important;
+}
+
+/* ── Form Elements ──────────────────────────────────────────── */
+.input-txai {
+  width: 100%;
+  padding: 15px;
+  background: #2d2d2d;
+  border: 2px solid #444444;
+  color: var(--color-white-txai);
+  font-family: var(--font-body-txai);
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-txai:focus {
+  outline: none;
+  border-color: var(--color-gold-txai);
+  box-shadow: 0 0 10px rgba(235, 203, 76, 0.5);
+}
+
+.input-txai::placeholder {
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Light-mode form inputs (inside section-container) */
+.input-light-txai {
+  width: 100%;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 2px solid #d0d0d0;
+  border-radius: 6px;
+  color: #111111;
+  font-family: var(--font-body-txai);
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-light-txai:focus {
+  outline: none;
+  border-color: var(--color-blue-txai);
+  box-shadow: 0 0 0 3px rgba(44, 117, 255, 0.15);
+}
+
+.input-light-txai::placeholder {
+  color: #999;
+}
+
+/* ── 2-Step Order Form ──────────────────────────────────────── */
+.order-form-steps {
+  display: flex;
+  border-bottom: 2px solid #e0e0e0;
+  margin-bottom: 30px;
+}
+
+.order-form-step {
+  flex: 1;
+  padding: 16px 20px;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.order-form-step.active {
+  border-bottom-color: var(--color-blue-txai);
+  color: var(--color-blue-txai);
+}
+
+.order-form-step.active .step-title {
+  color: var(--color-blue-txai);
+  font-weight: bold;
+}
+
+.order-form-step .step-title {
+  font-family: var(--font-heading-txai);
+  font-style: italic;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: #666;
+  margin: 0 0 4px 0;
+}
+
+.order-form-step .step-subtitle {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Step content areas */
+.step-content {
+  display: none;
+}
+
+.step-content.active {
+  display: block;
+  animation: fadeInUp-txai 0.4s ease-out forwards;
+}
+
+/* CTA Buttons for order form */
+.btn-cta-txai {
+  width: 100%;
+  padding: 18px;
+  font-family: var(--font-heading-txai);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-cta-txai.primary {
+  background: var(--color-blue-txai);
+  color: white;
+}
+
+.btn-cta-txai.primary:hover {
+  background: var(--color-blue-hover-txai);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(44, 117, 255, 0.4);
+}
+
+.btn-cta-txai.gold {
+  background: linear-gradient(135deg, #ebcb4c, #d4b53f);
+  color: #1a1a1a;
+}
+
+.btn-cta-txai.gold:hover {
+  background: linear-gradient(135deg, #d4b53f, #c0a135);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(235, 203, 76, 0.4);
+}
+
+.btn-cta-txai:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ── Pricing Cards ──────────────────────────────────────────── */
+.pricing-option {
+  border: 2px solid #d0d0d0;
+  padding: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.pricing-option:hover {
+  border-color: var(--color-blue-txai);
+}
+
+.pricing-option.selected {
+  border-color: var(--color-gold-txai);
+  background: #fffbeb;
+  box-shadow: 0 0 0 1px var(--color-gold-txai);
+}
+
+.pricing-option.monthly { background: #f8fafc; }
+.pricing-option.annual { background: #fffbeb; }
+
+.pricing-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pricing-badge.blue {
+  background: var(--color-blue-txai);
+  color: white;
+}
+
+.pricing-badge.gold {
+  background: var(--color-gold-txai);
+  color: #1a1a1a;
+}
+
+/* ── MSA Page Styles ────────────────────────────────────────── */
+.msa-content {
+  max-width: 800px;
+  margin: 0 auto;
+  color: #e0e0e0;
+  font-family: var(--font-body-txai);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.msa-content h1 {
+  font-size: 1.8rem;
+  color: var(--color-gold-txai);
+  border-bottom: 2px solid var(--color-gold-txai);
+  padding-bottom: 15px;
+}
+
+.msa-content h2, .msa-content h3 {
+  color: var(--color-gold-txai);
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+.msa-content strong { color: #ffffff; }
+
+.msa-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 15px 0;
+}
+
+.msa-content th, .msa-content td {
+  padding: 10px 15px;
+  border: 1px solid #333;
+  text-align: left;
+}
+
+.msa-content th {
+  background: rgba(235, 203, 76, 0.1);
+  color: var(--color-gold-txai);
+}
+
+/* ── Typography Utilities ───────────────────────────────────── */
+.text-hero-txai { font-size: 56px; line-height: 1.1; }
+.text-subhero-txai { font-size: 32px; line-height: 1.2; }
+.text-section-title-txai { font-size: 24px; line-height: 1.3; }
+.text-card-title-txai { font-size: 20px; line-height: 1.4; }
+.text-body-large-txai { font-size: 18px; line-height: 1.6; }
+.text-body-txai { font-size: 16px; line-height: 1.6; }
+.text-meta-txai { font-size: 14px; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .section-txai { padding: 40px 15px; }
+
+  .text-hero-txai { font-size: 36px !important; }
+  .text-subhero-txai { font-size: 24px !important; }
+  .text-section-title-txai { font-size: 21px !important; }
+  .text-card-title-txai { font-size: 18px !important; }
+
+  .text-body-txai, .section-txai p, .section-txai li {
+    font-size: 17px !important;
+    line-height: 1.7;
+  }
+
+  .section-container-txai { padding: 30px 20px; }
+  .grid-txai { flex-direction: column; }
+  .button-group-txai { flex-direction: column; }
+
+  .btn-txai {
+    width: 100%;
+    text-align: center;
+    clip-path: none;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 14px 20px;
+  }
+
+  .btn-solid-txai {
+    clip-path: none !important;
+    border-radius: 4px !important;
+  }
+
+  .order-form-steps { flex-direction: column; }
+  .order-form-step { border-bottom: none; border-left: 3px solid transparent; }
+  .order-form-step.active { border-left-color: var(--color-blue-txai); }
+}
