@@ -2,10 +2,13 @@ import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { upsertContact, createOpportunity } from '../../../../lib/ghl'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY)
+}
 
 export async function POST(req) {
+  const stripe = getStripe()
+  const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET
   const body = await req.text()
   const sig = req.headers.get('stripe-signature')
 
