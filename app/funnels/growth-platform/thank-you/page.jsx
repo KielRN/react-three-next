@@ -76,7 +76,7 @@ function ThankYouContent() {
           <div className="card-txai blue-card-txai" style={{ flex: 1 }}>
             <h5>SCHEDULE KICKOFF</h5>
             <p style={{ fontSize: '13px' }}>Book your Week 1 onboarding strategy session with our team.</p>
-            <button className="btn-solid-txai" style={{ fontSize: '14px', padding: '10px 20px' }}>BOOK NOW</button>
+            <a href="https://link.texasaiconsulting.com/widget/booking/QvjdHXPK68aTVKU30GOG" target="_blank" rel="noopener noreferrer" className="btn-solid-txai" style={{ fontSize: '14px', padding: '10px 20px', display: 'inline-block', textDecoration: 'none' }}>BOOK NOW</a>
           </div>
           <div className="card-txai heritage-card-txai" style={{ flex: 1 }}>
             <h5>CHECK EMAIL</h5>
