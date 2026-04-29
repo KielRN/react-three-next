@@ -7,7 +7,8 @@ import TrustBadges from '../components/TrustBadges'
 import { STRIPE_CONFIG } from '../stripe-config'
 
 // Initialize Stripe outside component to avoid re-creation
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
+const STRIPE_PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+const stripePromise = STRIPE_PK ? loadStripe(STRIPE_PK) : null
 
 export default function GrowthPlatformCheckout() {
   const [customerInfo, setCustomerInfo] = useState(null)
@@ -63,6 +64,9 @@ export default function GrowthPlatformCheckout() {
 
     async function mountCheckout() {
       try {
+        if (!stripePromise) {
+          throw new Error('Stripe configuration error. Please contact support.')
+        }
         const stripe = await stripePromise
         if (!stripe || destroyed) return
 
