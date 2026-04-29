@@ -1,16 +1,12 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
-import {
-  EmbeddedCheckoutProvider,
-  EmbeddedCheckout
-} from '@stripe/react-stripe-js'
 import FunnelHeader from '../components/FunnelHeader'
 import TrustBadges from '../components/TrustBadges'
 import { STRIPE_CONFIG } from '../stripe-config'
 
-// Initialize Stripe
+// Initialize Stripe outside component to avoid re-creation
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || '')
 
 export default function GrowthPlatformCheckout() {
@@ -18,6 +14,9 @@ export default function GrowthPlatformCheckout() {
   const [step, setStep] = useState(1) // 1: Contact, 2: Payment
   const [clientSecret, setClientSecret] = useState('')
   const [error, setError] = useState('')
+  const [checkoutReady, setCheckoutReady] = useState(false)
+  const checkoutContainerRef = useRef(null)
+  const checkoutInstanceRef = useRef(null)
 
   // Load from session storage
   useEffect(() => {
@@ -55,6 +54,50 @@ export default function GrowthPlatformCheckout() {
       setError(err.message)
     }
   }, [customerInfo])
+
+  // Mount Stripe Embedded Checkout using the new createEmbeddedCheckoutPage API
+  useEffect(() => {
+    if (!clientSecret || !checkoutContainerRef.current) return
+
+    let destroyed = false
+
+    async function mountCheckout() {
+      try {
+        const stripe = await stripePromise
+        if (!stripe || destroyed) return
+
+        // Use the new API method (replaces deprecated initEmbeddedCheckout)
+        const checkout = await stripe.createEmbeddedCheckoutPage({
+          clientSecret,
+        })
+
+        if (destroyed) {
+          checkout.destroy()
+          return
+        }
+
+        checkoutInstanceRef.current = checkout
+        checkout.mount(checkoutContainerRef.current)
+        setCheckoutReady(true)
+      } catch (err) {
+        console.error('Stripe mount error:', err)
+        if (!destroyed) {
+          setError(err.message || 'Failed to load payment form. Please refresh and try again.')
+        }
+      }
+    }
+
+    mountCheckout()
+
+    return () => {
+      destroyed = true
+      if (checkoutInstanceRef.current) {
+        checkoutInstanceRef.current.destroy()
+        checkoutInstanceRef.current = null
+      }
+      setCheckoutReady(false)
+    }
+  }, [clientSecret])
 
   const handleStep1Complete = (e) => {
     e.preventDefault()
@@ -146,14 +189,11 @@ export default function GrowthPlatformCheckout() {
           )}
 
           <div style={{ minHeight: '400px' }}>
-            {clientSecret ? (
-              <EmbeddedCheckoutProvider
-                stripe={stripePromise}
-                options={{ clientSecret }}
-              >
-                <EmbeddedCheckout />
-              </EmbeddedCheckoutProvider>
-            ) : (
+            {/* Stripe Embedded Checkout mounts here */}
+            <div ref={checkoutContainerRef} />
+            
+            {/* Show spinner while loading */}
+            {!checkoutReady && !error && (
               <div style={{ textAlign: 'center', padding: '100px 0' }}>
                 <div style={{ 
                   display: 'inline-block', width: '40px', height: '40px', 
@@ -170,7 +210,7 @@ export default function GrowthPlatformCheckout() {
           
           <div style={{ textAlign: 'center', marginTop: '20px' }}>
             <p style={{ fontSize: '12px', color: '#888' }}>
-              🔒 256-Bit SSL Encrypted Standard. 100% Secure & Private.
+              🔒 256-Bit SSL Encrypted Standard. 100% Secure &amp; Private.
             </p>
           </div>
         </div>
