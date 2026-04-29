@@ -53,14 +53,13 @@ export async function POST(req) {
           businessName: customerInfo.businessName,
           industry: customerInfo.industry,
           source: 'growth-platform-funnel',
-          signature: customerInfo.signature,
         }
       })
     }
 
     // 2. Create Embedded Checkout Session
     const session = await stripe.checkout.sessions.create({
-      ui_mode: 'embedded',
+      ui_mode: 'embedded_page',
       customer: customer.id,
       line_items: lineItems,
       mode: 'subscription', // Note: one-time setup fee can be added to subscription mode line items

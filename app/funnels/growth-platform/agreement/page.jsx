@@ -16,9 +16,9 @@ export default function GrowthPlatformAgreement() {
     phone: '',
     businessName: '',
     industry: 'Other',
-    signature: '',
     termsAccepted: false,
   })
+  const [phoneError, setPhoneError] = useState('')
   const [plan, setPlan] = useState('monthly')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -38,15 +38,34 @@ export default function GrowthPlatformAgreement() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
+    if (name === 'phone') {
+      // Strip non-digit characters
+      const digits = value.replace(/\D/g, '').slice(0, 10)
+      setFormData(prev => ({ ...prev, phone: digits }))
+      setPhoneError(digits.length > 0 && digits.length < 10 ? 'Phone number must be 10 digits' : '')
+      return
+    }
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }))
   }
 
+  // Format phone for display: (XXX) XXX-XXXX
+  const formatPhone = (digits) => {
+    if (!digits) return ''
+    if (digits.length <= 3) return `(${digits}`
+    if (digits.length <= 6) return `(${digits.slice(0,3)}) ${digits.slice(3)}`
+    return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!formData.termsAccepted) return
+    if (formData.phone.length !== 10) {
+      setPhoneError('Phone number must be 10 digits')
+      return
+    }
     
     setIsSubmitting(true)
     
@@ -110,8 +129,11 @@ export default function GrowthPlatformAgreement() {
                 <label style={{ fontSize: '12px', fontWeight: 'bold' }}>PHONE NUMBER</label>
                 <input 
                   type="tel" name="phone" required className="input-light-txai"
-                  placeholder="(210) 555-0199" value={formData.phone} onChange={handleChange}
+                  placeholder="(210) 555-0199" value={formatPhone(formData.phone)} onChange={handleChange}
+                  pattern="\(\d{3}\) \d{3}-\d{4}"
+                  title="Please enter a valid 10-digit phone number"
                 />
+                {phoneError && <span style={{ color: '#dc2626', fontSize: '11px', marginTop: '4px', display: 'block' }}>{phoneError}</span>}
               </div>
               <div>
                 <label style={{ fontSize: '12px', fontWeight: 'bold' }}>BUSINESS NAME</label>
@@ -158,12 +180,6 @@ export default function GrowthPlatformAgreement() {
                 <span style={{ fontSize: '13px' }}>I have read and agree to the Master Services Agreement.</span>
               </label>
 
-              <label style={{ fontSize: '12px', fontWeight: 'bold', display: 'block', color: '#888' }}>ELECTRONIC SIGNATURE (TYPE FULL NAME)</label>
-              <input 
-                type="text" name="signature" required className="input-txai"
-                style={{ background: '#000', border: '1px solid #333' }}
-                placeholder="JOHN DOE" value={formData.signature} onChange={handleChange}
-              />
             </div>
           </div>
 
