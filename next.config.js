@@ -30,6 +30,13 @@ const nextConfig = {
     // Don't run ESLint during build, Railway is treating warnings as errors
     ignoreDuringBuilds: true,
   },
+  env: {
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_GP_PRODUCT_ID: process.env.NEXT_PUBLIC_GP_PRODUCT_ID,
+    NEXT_PUBLIC_GP_PRICE_MONTHLY: process.env.NEXT_PUBLIC_GP_PRICE_MONTHLY,
+    NEXT_PUBLIC_GP_PRICE_ANNUAL: process.env.NEXT_PUBLIC_GP_PRICE_ANNUAL,
+    NEXT_PUBLIC_GP_PRICE_SETUP: process.env.NEXT_PUBLIC_GP_PRICE_SETUP,
+  },
   // Disable static generation and prerendering for certain paths
   experimental: {
     // Allow more time for the build process
