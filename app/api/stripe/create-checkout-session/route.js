@@ -67,12 +67,16 @@ export async function POST(req) {
       metadata: {
         planType,
         businessName: customerInfo.businessName,
+        ghlOpportunityId: customerInfo.opportunityId || '',
+        ghlContactId: customerInfo.contactId || '',
       },
       payment_method_types: ['card'],
       subscription_data: {
         metadata: {
           planType,
           businessName: customerInfo.businessName,
+          ghlOpportunityId: customerInfo.opportunityId || '',
+          ghlContactId: customerInfo.contactId || '',
         }
       }
     })

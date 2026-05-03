@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import Stripe from 'stripe'
-import { upsertContact, createOpportunity } from '../../../../lib/ghl'
+import { upsertContact, createOpportunity, moveOpportunityToStage } from '../../../../lib/ghl'
 
 export async function POST(req) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -76,16 +76,34 @@ async function handleCheckoutCompleted(session) {
 
     console.log(`GHL Contact synced: ${contactResult.contactId}`)
 
-    // Step B: Create/Update Opportunity in "Growth Platform" pipeline
-    // This resolves the pipeline and moves to "Payment Received"
+    // Step B: Move (or create) the "Growth Platform" opportunity to "Payment Received"
     const oppValue = planType === 'annual' ? 1164 : 1188 // Projected annual value
+    const oppName = `${businessName || customerName} - Growth License`
+    const existingOppId = metadata.ghlOpportunityId || ''
+
+    if (existingOppId) {
+      try {
+        await moveOpportunityToStage({
+          oppId: existingOppId,
+          pipelineName: 'Growth Platform',
+          stageName: 'Payment Received',
+          monetaryValue: oppValue,
+          name: oppName,
+        })
+        console.log(`GHL Opportunity ${existingOppId} moved to "Payment Received"`)
+        return
+      } catch (moveErr) {
+        // Opp may have been deleted in GHL — fall through to create
+        console.warn(`Could not move opportunity ${existingOppId}, will create new:`, moveErr.message)
+      }
+    }
 
     const oppResult = await createOpportunity({
       pipelineName: 'Growth Platform',
-      oppName: `${businessName || customerName} - Growth License`,
+      oppName,
       contactId: contactResult.contactId,
       stageName: 'Payment Received',
-      value: oppValue
+      value: oppValue,
     })
 
     console.log(`GHL Opportunity created: ${oppResult.opportunityId} in stage "Payment Received"`)

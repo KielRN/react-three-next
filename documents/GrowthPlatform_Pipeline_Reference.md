@@ -11,8 +11,8 @@
 
 | # | Stage Name | Trigger | What It Means |
 |---|------------|---------|---------------|
-| 1 | **New Lead** | Agreement form submitted (Funnel Step 2) | Contact captured via the acknowledgement form. Has reviewed terms but hasn't paid yet. |
-| 2 | **Payment Received** | Stripe checkout completed (Funnel Step 3) | Money is in. Stripe webhook fires → GHL contact upserted → opportunity created/moved here automatically. |
+| 1 | **New Lead** | Agreement form submitted (Funnel Step 2) | Contact captured via the acknowledgement form. `POST /api/ghl/agreement-lead` upserts the contact and creates the opportunity here. Has reviewed terms but hasn't paid yet. |
+| 2 | **Payment Received** | Stripe checkout completed (Funnel Step 3) | Money is in. Stripe webhook reads `ghlOpportunityId` from session metadata and **moves the existing "New Lead" opportunity** to this stage. If the metadata is missing (e.g. agreement-form GHL call failed), the webhook falls back to creating a new opportunity directly here. |
 | 3 | **Kickoff Scheduled** | You book the Week 1 call | Customer responded to welcome email and booked their kickoff. |
 | 4 | **Build-Out** | After kickoff call | Weeks 2-3 of onboarding: domain setup, email/DNS config, CRM pipelines, automations being built. |
 | 5 | **Live & Training** | Week 4 launch session | Platform delivered. Live training walkthrough completed. |
@@ -23,8 +23,8 @@
 ## Automated vs Manual Stages
 
 ### 🤖 Automated (handled by code)
-- **New Lead** — Created automatically when the agreement form is submitted on the funnel
-- **Payment Received** — Moved automatically when Stripe webhook fires
+- **New Lead** — Created automatically when the agreement form is submitted (`app/api/ghl/agreement-lead/route.js`). Best-effort: failures don't block the user from reaching checkout.
+- **Payment Received** — Moved automatically when the Stripe `checkout.session.completed` webhook fires (`app/api/stripe/webhook/route.js`). Uses `ghlOpportunityId` from Stripe session metadata to move the existing opp; creates a new one as fallback.
 
 ### 👤 Manual (you manage)
 - **Kickoff Scheduled** — Move here when client books their Week 1 call

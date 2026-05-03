@@ -59,21 +59,56 @@ export default function GrowthPlatformAgreement() {
     return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!formData.termsAccepted) return
     if (formData.phone.length !== 10) {
       setPhoneError('Phone number must be 10 digits')
       return
     }
-    
+
     setIsSubmitting(true)
-    
-    // Store in session to carry forward to checkout
-    const sessionData = { ...formData, plan }
+
+    // Read prior IDs (in case the user is resubmitting after going back)
+    let opportunityId = ''
+    let contactId = ''
+    try {
+      const prior = JSON.parse(sessionStorage.getItem('gp_customer_info') || '{}')
+      opportunityId = prior.opportunityId || ''
+      contactId = prior.contactId || ''
+    } catch (_) { /* ignore */ }
+
+    // Best-effort: register/update the lead in GHL pre-payment.
+    // Failures here must not block the user from reaching checkout —
+    // the Stripe webhook will create an opportunity as a fallback.
+    try {
+      const res = await fetch('/api/ghl/agreement-lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          businessName: formData.businessName,
+          plan,
+          opportunityId,
+        }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        opportunityId = data.opportunityId || opportunityId
+        contactId = data.contactId || contactId
+      } else {
+        console.warn('GHL agreement-lead returned', res.status)
+      }
+    } catch (err) {
+      console.warn('GHL agreement-lead call failed:', err)
+    }
+
+    const sessionData = { ...formData, plan, opportunityId, contactId }
     sessionStorage.setItem('gp_customer_info', JSON.stringify(sessionData))
-    
-    // Redirect to checkout
+
     router.push('/funnels/growth-platform/checkout')
   }
 
