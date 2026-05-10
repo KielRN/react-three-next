@@ -1,0 +1,24 @@
+{
+  "title": "Enterprise Analytics Dashboard",
+  "client": "Sample Client",
+  "date": "2026-05-10",
+  "status": "review",
+  "description": "Full analytics dashboard redesign with dark theme, responsive layouts, and real-time KPI widgets.",
+  "screens": [
+    {
+      "file": "screens/desktop-dashboard.png",
+      "label": "Desktop — Dashboard",
+      "width": 1440,
+      "height": 900,
+      "notes": "Main dashboard view with sidebar navigation, KPI cards, and analytics charts."
+    },
+    {
+      "file": "screens/mobile-dashboard.png",
+      "label": "Mobile — Dashboard",
+      "width": 390,
+      "height": 844,
+      "notes": "Mobile-optimized layout with stacked cards and collapsed navigation."
+    }
+  ],
+  "tags": ["dashboard", "dark-theme", "responsive", "analytics"]
+}

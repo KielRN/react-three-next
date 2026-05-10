@@ -56,6 +56,7 @@ The project uses `@/*` path alias (configured in [jsconfig.json](jsconfig.json))
   - [app/blog/](app/blog/) - Blog listing and individual post routes
   - [app/api/contact/](app/api/contact/) - Contact form API route
   - Other routes: `/apps`, `/portfolio`, `/elliott-card`, `/blob`
+  - [app/mock-ups/](app/mock-ups/) - Client mockup review pages (`noindex, nofollow`)
 
 - [src/components/](src/components/) - React components organized by type
   - `canvas/` - 3D React Three Fiber components (Scene, View, 3D models)
