@@ -49,6 +49,9 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  // Hide nav entirely on mockup pages for immersive client review
+  if (pathname?.startsWith('/mock-ups')) return null
+
   // Add scroll event listener
   useEffect(() => {
     const handleScroll = () => {

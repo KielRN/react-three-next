@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 export default function MockupGallery({ screens, slug }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isLightbox, setIsLightbox] = useState(false)
   const [isZoomed, setIsZoomed] = useState(false)
   const [imageLoaded, setImageLoaded] = useState({})
+  const activeImgRef = useRef(null)
 
   const active = screens[activeIndex]
 
@@ -33,6 +34,14 @@ export default function MockupGallery({ screens, slug }) {
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [handleKeyDown])
+
+  // Catch images already complete when React mounts (cached or fast-served)
+  useEffect(() => {
+    const el = activeImgRef.current
+    if (el?.complete && el.naturalWidth > 0) {
+      setImageLoaded((prev) => prev[activeIndex] ? prev : { ...prev, [activeIndex]: true })
+    }
+  }, [activeIndex])
 
   // Determine device type from dimensions
   const getDeviceType = (screen) => {
@@ -74,6 +83,7 @@ export default function MockupGallery({ screens, slug }) {
                 </div>
               )}
               <img
+                ref={activeImgRef}
                 src={imageUrl(active)}
                 alt={active.label}
                 className={`w-full transition-opacity duration-500 ${imageLoaded[activeIndex] ? 'opacity-100' : 'opacity-0'}`}

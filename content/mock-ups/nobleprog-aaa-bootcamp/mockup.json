@@ -1,0 +1,24 @@
+{
+  "title": "NobleProg — AAA Bootcamp Course Detail Page",
+  "client": "NobleProg Texas",
+  "date": "2026-05-10",
+  "status": "review",
+  "description": "Course detail page for 'AAA Bootcamp — Launch an AI Automation Agency'. Sat 11 Jul 2026 · 7 hours · $1,475 · Guaranteed. Linked from the Build & Sell track on the recommended courses page. Live HTML at /NobleProg/mockups/aaa-bootcamp.html.",
+  "screens": [
+    {
+      "file": "screens/desktop-above-fold.png",
+      "label": "Desktop — Above Fold",
+      "width": 1440,
+      "height": 900,
+      "notes": "Course title, green hook quote, ROI leverage box. Right sidebar: sticky booking card with $1,475 price, date, duration, status, and large Register now button."
+    },
+    {
+      "file": "screens/desktop-full-page.png",
+      "label": "Desktop — Full Page",
+      "width": 1440,
+      "height": 2200,
+      "notes": "Four artifact cards (Offer Doc, Discovery Script, SOW Template, Working Agent). Who This Is For / NOT For audience grid. Software 3.0 dark frame section. Footer."
+    }
+  ],
+  "tags": ["nobleprog", "course-detail", "aaa-bootcamp", "ai-training"]
+}

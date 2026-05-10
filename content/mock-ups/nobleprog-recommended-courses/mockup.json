@@ -1,0 +1,24 @@
+{
+  "title": "NobleProg — Recommended AI Training Page",
+  "client": "NobleProg Texas",
+  "date": "2026-05-10",
+  "status": "review",
+  "description": "Upcoming public training page replacement — Version A (Three Tracks). Matches NobleProg site design: Poppins font, #005390 nav blue, #0B7D5C register green. Live HTML at /NobleProg/mockups/recommended-courses.html.",
+  "screens": [
+    {
+      "file": "screens/desktop-above-fold.png",
+      "label": "Desktop — Above Fold",
+      "width": 1440,
+      "height": 900,
+      "notes": "Hero h1, registration note, Track 1 Start Here table with first two rows. Sidebar shows Training Status, How to Register, and Nothing for Me cards."
+    },
+    {
+      "file": "screens/desktop-full-page.png",
+      "label": "Desktop — Full Page",
+      "width": 1440,
+      "height": 3444,
+      "notes": "All three tracks: Start Here (4 courses at $750), Build & Sell (6 courses at $1,475), Skill Pivot (3 courses). Trust strip and contact CTA at bottom. Footer with 4-column layout."
+    }
+  ],
+  "tags": ["nobleprog", "course-listing", "ai-training", "version-a"]
+}
