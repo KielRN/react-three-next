@@ -60,8 +60,8 @@ export default function TermsOfUsePage() {
                 contact@texasaiconsulting.com
               </a>{' '}
               or call{' '}
-              <a className='text-[#2c75ff] underline' href='tel:+12109722543'>
-                +1 210-972-2543
+              <a className='text-[#2c75ff] underline' href='tel:+12105507258'>
+                +1 210-550-7258
               </a>{' '}
               during business hours.
             </p>
@@ -234,8 +234,8 @@ export default function TermsOfUsePage() {
               <p className='font-semibold text-[#0e2042]'>Texas AI Consulting</p>
               <p>
                 Phone:{' '}
-                <a className='text-[#2c75ff] underline' href='tel:+12109722543'>
-                  +1 210-972-2543
+                <a className='text-[#2c75ff] underline' href='tel:+12105507258'>
+                  +1 210-550-7258
                 </a>
               </p>
               <p>

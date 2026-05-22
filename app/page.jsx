@@ -2,7 +2,6 @@
 
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import Script from 'next/script'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
 import { ContactForm } from '@/templates/ContactForm'
@@ -119,25 +118,6 @@ export default function RocketPage() {
         </div>
       </div>
 
-      <iframe
-        src="https://link.texasaiconsulting.com/widget/form/m2QtgBWrIRiB0n3BnPwz"
-        style={{ display: 'none', width: '100%', height: '100%', border: 'none', borderRadius: '3px' }}
-        id="polite-slide-in-right-m2QtgBWrIRiB0n3BnPwz"
-        data-layout="{'id':'POLITE_SLIDE_IN','minimizedTitle':'','isLeftAligned':false,'isRightAligned':true,'allowMinimize':false}"
-        data-trigger-type="showAfter"
-        data-trigger-value="5"
-        data-activation-type="alwaysActivated"
-        data-activation-value=""
-        data-deactivation-type="leadCollected"
-        data-deactivation-value=""
-        data-form-name="TX_AI_Website Form"
-        data-height="1222"
-        data-layout-iframe-id="polite-slide-in-right-m2QtgBWrIRiB0n3BnPwz"
-        data-form-id="m2QtgBWrIRiB0n3BnPwz"
-        title="TX_AI_Website Form"
-      >
-      </iframe>
-      <Script src="https://link.texasaiconsulting.com/js/form_embed.js" />
     </div>
   )
 }
