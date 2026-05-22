@@ -44,10 +44,10 @@ export default function RocketPage() {
         <p className='text-sm font-semibold tracking-widest uppercase text-[#ebcb4c]'>★ Veteran Owned Business ★</p>
         <p className='text-xs tracking-wider uppercase text-gray-300 mt-0.5'>Texas State VetHub <span className='text-[#ebcb4c] font-bold'>Certified</span></p>
         <div className='text-xs mt-2 space-x-3'>
-          <Link href='/blog/privacy-policy-2025' className='text-gray-300 hover:text-white underline transition-colors'>
+          <Link href='/privacy-policy' className='text-gray-300 hover:text-white underline transition-colors'>
             Privacy Policy
           </Link>
-          <Link href='/blog/terms-of-use-2025' className='text-gray-300 hover:text-white underline transition-colors'>
+          <Link href='/terms-of-use' className='text-gray-300 hover:text-white underline transition-colors'>
             Terms of Use
           </Link>
         </div>

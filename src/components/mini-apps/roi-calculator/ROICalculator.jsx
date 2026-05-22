@@ -1392,11 +1392,11 @@ export default function ROICalculator() {
 
                       <p className="text-xs text-gray-600 mt-4">
                         By submitting this form, you also agree to our{' '}
-                        <a href="/blog/terms-of-use-2025" className="text-[#2c75ff] hover:text-[#ebcb4c] underline">
+                        <a href="/terms-of-use" className="text-[#2c75ff] hover:text-[#ebcb4c] underline">
                           Terms of Use
                         </a>{' '}
                         and{' '}
-                        <a href="/blog/privacy-policy-2025" className="text-[#2c75ff] hover:text-[#ebcb4c] underline">
+                        <a href="/privacy-policy" className="text-[#2c75ff] hover:text-[#ebcb4c] underline">
                           Privacy Policy
                         </a>.
                       </p>
