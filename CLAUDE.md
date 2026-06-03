@@ -181,6 +181,46 @@ NEXT_PUBLIC_GP_PRICE_SETUP        # one-time setup fee
 
 **To create new products/prices** (test or live), use the `.agent/skills/manage_stripe_products` skill — it includes a parameterized `create_stripe_products.js` script that refuses to run with mismatched key/mode, prints copy-paste-ready env var lines, and walks through the full wiring update (local `.env`, fallbacks, Railway).
 
+### Stripe Payments (Reviews Service Funnel)
+
+The `/funnels/reviews` route is a self-contained sales funnel for the Texas AI Reviews Service. It uses a **separate Stripe account** (`acct_1SjkDhJ1tlU9uDio`) from the Growth Platform funnel, with isolated `REV_*` credentials so the two funnels share zero Stripe state.
+
+- [app/funnels/reviews/page.jsx](app/funnels/reviews/page.jsx) — landing page (hero, problem/solution, timeline, FAQ)
+- [app/funnels/reviews/pricing/page.jsx](app/funnels/reviews/pricing/page.jsx) — 3-tier pricing with monthly/annual toggle
+- [app/funnels/reviews/demo/page.jsx](app/funnels/reviews/demo/page.jsx) — demo lead-capture (posts to `/api/contact` with `source: 'reviews_funnel_demo'`)
+- [app/funnels/reviews/checkout/page.jsx](app/funnels/reviews/checkout/page.jsx) — Stripe embedded checkout (subscription mode + 10-day trial)
+- [app/funnels/reviews/thank-you/page.jsx](app/funnels/reviews/thank-you/page.jsx) — post-purchase confirmation
+- [app/funnels/reviews/stripe-config.js](app/funnels/reviews/stripe-config.js) — tier definitions, price IDs, display copy
+- [app/funnels/reviews-test-live/](app/funnels/reviews-test-live/) — LIVE-mode smoke test mirror (red TEST PAGE banner, `noindex,nofollow`, $1.50/$5.50 dummy prices)
+- [app/api/stripe/create-checkout-session-reviews/route.js](app/api/stripe/create-checkout-session-reviews/route.js) — production API route
+- [app/api/stripe/create-checkout-session-reviews-test-live/route.js](app/api/stripe/create-checkout-session-reviews-test-live/route.js) — test-live API route
+- [app/api/stripe/webhook-reviews/route.js](app/api/stripe/webhook-reviews/route.js) — Stripe webhook handler; short-circuits events with `metadata.source === 'reviews_funnel_test_live'` (no GHL writes for test purchases)
+- [lib/stripe-reviews.js](lib/stripe-reviews.js) — Stripe SDK singleton bound to `REV_STRIPE_SECRET_KEY`
+
+Required env vars:
+
+```
+REV_STRIPE_SECRET_KEY                          # sk_test_... or sk_live_...
+REV_STRIPE_WEBHOOK_SECRET                      # whsec_... (from /api/stripe/webhook-reviews)
+NEXT_PUBLIC_REV_STRIPE_PUBLISHABLE_KEY         # pk_test_... or pk_live_...
+
+# Production products (3 tiers × 2 cadences = 6 prices)
+NEXT_PUBLIC_REV_PRODUCT_STARTER
+NEXT_PUBLIC_REV_PRODUCT_GROWTH
+NEXT_PUBLIC_REV_PRODUCT_PRO
+NEXT_PUBLIC_REV_PRICE_STARTER_MONTHLY / _ANNUAL
+NEXT_PUBLIC_REV_PRICE_GROWTH_MONTHLY  / _ANNUAL
+NEXT_PUBLIC_REV_PRICE_PRO_MONTHLY     / _ANNUAL
+
+# Test-live dummy products (LIVE-mode only; set at cutover)
+NEXT_PUBLIC_REV_TL_PRODUCT_STARTER / _GROWTH / _PRO
+NEXT_PUBLIC_REV_TL_PRICE_STARTER_MONTHLY / _ANNUAL  (and growth, pro)
+```
+
+**Fulfillment:** webhook upserts a GHL contact and creates an opportunity in the **"Reviews Service"** pipeline (must be created manually in GHL with these 5 stages: `Trial Started`, `Trial Ending Soon`, `Active Subscription`, `Trial Ended No Conversion`, `Churned`).
+
+**To create products** for the Reviews funnel: use `.agent/skills/manage_stripe_products/scripts/create_reviews_products.js --mode=<test|live> --prefix=<REV|REV_TL>`. The same operational rules from the Growth Platform section apply (test/live mode mismatch refused, NEXT_PUBLIC_* require redeploy, fallbacks must match active mode).
+
 ### Contact Form & Webhooks
 
 [app/api/contact/route.js](app/api/contact/route.js) proxies form submissions to a Make.com webhook (`NEXT_PUBLIC_CONTACT_WEBHOOK`). The ROI calculator posts to a GHL webhook (`NEXT_PUBLIC_ROI_CALCULATOR_WEBHOOK`).
