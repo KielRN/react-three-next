@@ -6,7 +6,7 @@ const PIPELINE_NAME = 'Reviews Service'
 
 export async function POST(req) {
   const stripe = getStripeReviews()
-  const endpointSecret = process.env.REV_STRIPE_WEBHOOK_SECRET
+  const endpointSecret = process.env.STRIPE_REVIEWS_WEBHOOK_SECRET
   const body = await req.text()
   const sig = req.headers.get('stripe-signature')
 

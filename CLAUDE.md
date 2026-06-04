@@ -183,7 +183,7 @@ NEXT_PUBLIC_GP_PRICE_SETUP        # one-time setup fee
 
 ### Stripe Payments (Reviews Service Funnel)
 
-The `/funnels/reviews` route is a self-contained sales funnel for the Texas AI Reviews Service. It uses a **separate Stripe account** (`acct_1SjkDhJ1tlU9uDio`) from the Growth Platform funnel, with isolated `REV_*` credentials so the two funnels share zero Stripe state.
+The `/funnels/reviews` route is a self-contained sales funnel for the Texas AI Reviews Service. It **reuses the shared Stripe account** (same `STRIPE_SECRET_KEY` and `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` as the Growth Platform funnel). The two funnels stay separated by using distinct product/price IDs (`NEXT_PUBLIC_REV_*`) and a distinct webhook endpoint (`/api/stripe/webhook-reviews`) with its own signing secret.
 
 - [app/funnels/reviews/page.jsx](app/funnels/reviews/page.jsx) — landing page (hero, problem/solution, timeline, FAQ)
 - [app/funnels/reviews/pricing/page.jsx](app/funnels/reviews/pricing/page.jsx) — 3-tier pricing with monthly/annual toggle
@@ -197,12 +197,10 @@ The `/funnels/reviews` route is a self-contained sales funnel for the Texas AI R
 - [app/api/stripe/webhook-reviews/route.js](app/api/stripe/webhook-reviews/route.js) — Stripe webhook handler; short-circuits events with `metadata.source === 'reviews_funnel_test_live'` (no GHL writes for test purchases)
 - [lib/stripe-reviews.js](lib/stripe-reviews.js) — Stripe SDK singleton bound to `REV_STRIPE_SECRET_KEY`
 
-Required env vars:
+Required env vars (in addition to the shared `STRIPE_SECRET_KEY` / `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` used by the Growth Platform funnel):
 
 ```
-REV_STRIPE_SECRET_KEY                          # sk_test_... or sk_live_...
-REV_STRIPE_WEBHOOK_SECRET                      # whsec_... (from /api/stripe/webhook-reviews)
-NEXT_PUBLIC_REV_STRIPE_PUBLISHABLE_KEY         # pk_test_... or pk_live_...
+STRIPE_REVIEWS_WEBHOOK_SECRET                  # whsec_... (from the /api/stripe/webhook-reviews endpoint)
 
 # Production products (3 tiers × 2 cadences = 6 prices)
 NEXT_PUBLIC_REV_PRODUCT_STARTER

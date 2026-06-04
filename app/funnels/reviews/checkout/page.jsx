@@ -6,7 +6,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import ReviewsFunnelHeader from '../components/ReviewsFunnelHeader'
 import { REVIEWS_STRIPE_CONFIG } from '../stripe-config'
 
-const STRIPE_PK = process.env.NEXT_PUBLIC_REV_STRIPE_PUBLISHABLE_KEY
+const STRIPE_PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 const stripePromise = STRIPE_PK ? loadStripe(STRIPE_PK) : null
 
 function CheckoutInner() {
@@ -61,7 +61,7 @@ function CheckoutInner() {
       try {
         if (!stripePromise) {
           throw new Error(
-            'Stripe configuration error (NEXT_PUBLIC_REV_STRIPE_PUBLISHABLE_KEY missing). Please contact support.',
+            'Stripe configuration error (NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY missing). Please contact support.',
           )
         }
         const stripe = await stripePromise

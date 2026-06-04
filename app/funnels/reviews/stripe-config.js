@@ -6,14 +6,15 @@
  * so the API route can detect "not configured" and return a clear 500 error
  * instead of silently calling Stripe with a bad ID.
  *
- * To populate real TEST-mode IDs:
- *   1. Set REV_STRIPE_SECRET_KEY=sk_test_... in react-three-next/.env
- *   2. Run: node .agent/skills/manage_stripe_products/scripts/create_reviews_products.js --mode=test --prefix=REV
+ * To populate real product/price IDs:
+ *   1. Confirm STRIPE_SECRET_KEY=sk_test_... or sk_live_... is set in react-three-next/.env
+ *      (Reviews reuses the same Stripe account as the Growth Platform funnel).
+ *   2. Run: node .agent/skills/manage_stripe_products/scripts/create_reviews_products.js --mode=<test|live> --prefix=REV
  *   3. Either:
- *      a) Replace the fallback strings below with the real TEST IDs the script prints, OR
+ *      a) Replace the fallback strings below with the real IDs the script prints, OR
  *      b) Set the NEXT_PUBLIC_REV_* env vars in react-three-next/.env (build-time inlined).
  *
- * CRITICAL: Fallbacks MUST match the currently active mode of REV_STRIPE_SECRET_KEY.
+ * CRITICAL: Fallbacks MUST match the currently active mode of STRIPE_SECRET_KEY.
  * Mixing test/live keys with the wrong-mode price IDs returns:
  *   "No such price: price_..."
  * — same failure mode documented in [[project_stripe_setup]].
@@ -32,22 +33,22 @@
 
 export const REVIEWS_STRIPE_CONFIG = {
   products: {
-    starter: process.env.NEXT_PUBLIC_REV_PRODUCT_STARTER || 'prod_FILL_FROM_TASK_2_STARTER',
-    growth: process.env.NEXT_PUBLIC_REV_PRODUCT_GROWTH || 'prod_FILL_FROM_TASK_2_GROWTH',
-    pro: process.env.NEXT_PUBLIC_REV_PRODUCT_PRO || 'prod_FILL_FROM_TASK_2_PRO',
+    starter: process.env.NEXT_PUBLIC_REV_PRODUCT_STARTER || 'prod_UdrcxSmD0OJbBO',
+    growth: process.env.NEXT_PUBLIC_REV_PRODUCT_GROWTH || 'prod_UdrcC4kQwT981T',
+    pro: process.env.NEXT_PUBLIC_REV_PRODUCT_PRO || 'prod_Udrc2OFNvQcmYA',
   },
   prices: {
     starter: {
-      monthly: process.env.NEXT_PUBLIC_REV_PRICE_STARTER_MONTHLY || 'price_FILL_FROM_TASK_2_STARTER_MONTHLY',
-      annual: process.env.NEXT_PUBLIC_REV_PRICE_STARTER_ANNUAL || 'price_FILL_FROM_TASK_2_STARTER_ANNUAL',
+      monthly: process.env.NEXT_PUBLIC_REV_PRICE_STARTER_MONTHLY || 'price_1TeZtaJMSxLnpBGh40GjQsCC',
+      annual: process.env.NEXT_PUBLIC_REV_PRICE_STARTER_ANNUAL || 'price_1TeZtbJMSxLnpBGhM5cNJ00u',
     },
     growth: {
-      monthly: process.env.NEXT_PUBLIC_REV_PRICE_GROWTH_MONTHLY || 'price_FILL_FROM_TASK_2_GROWTH_MONTHLY',
-      annual: process.env.NEXT_PUBLIC_REV_PRICE_GROWTH_ANNUAL || 'price_FILL_FROM_TASK_2_GROWTH_ANNUAL',
+      monthly: process.env.NEXT_PUBLIC_REV_PRICE_GROWTH_MONTHLY || 'price_1TeZtbJMSxLnpBGhlGiSMS0d',
+      annual: process.env.NEXT_PUBLIC_REV_PRICE_GROWTH_ANNUAL || 'price_1TeZtbJMSxLnpBGhVucOHFcP',
     },
     pro: {
-      monthly: process.env.NEXT_PUBLIC_REV_PRICE_PRO_MONTHLY || 'price_FILL_FROM_TASK_2_PRO_MONTHLY',
-      annual: process.env.NEXT_PUBLIC_REV_PRICE_PRO_ANNUAL || 'price_FILL_FROM_TASK_2_PRO_ANNUAL',
+      monthly: process.env.NEXT_PUBLIC_REV_PRICE_PRO_MONTHLY || 'price_1TeZtbJMSxLnpBGh6XKh5ukr',
+      annual: process.env.NEXT_PUBLIC_REV_PRICE_PRO_ANNUAL || 'price_1TeZtcJMSxLnpBGhHl8IMQH1',
     },
   },
 
