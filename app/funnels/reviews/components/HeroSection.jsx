@@ -64,18 +64,18 @@ export default function HeroSection() {
         <div
           style={{
             aspectRatio: '16 / 9',
-            background: 'linear-gradient(135deg, #ebcb4c 0%, #2c75ff 100%)',
             borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#fff',
-            fontWeight: 'bold',
-            fontSize: '14px',
-            letterSpacing: '0.1em',
+            overflow: 'hidden',
+            boxShadow: '0 10px 30px rgba(14, 32, 66, 0.15)',
           }}
         >
-          [VIDEO PLACEHOLDER]
+          <iframe
+            src='https://www.youtube.com/embed/Wj2QqMCQ15A'
+            title='Texas AI Reviews Service'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+            allowFullScreen
+            style={{ width: '100%', height: '100%', border: 0 }}
+          />
         </div>
       </div>
     </section>
