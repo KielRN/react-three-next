@@ -67,6 +67,7 @@ export async function POST(req) {
         company: customerInfo.company || '',
       },
       subscription_data: {
+        trial_period_days: 10,
         metadata: {
           tier,
           billing,

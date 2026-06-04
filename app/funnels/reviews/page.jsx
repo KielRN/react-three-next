@@ -39,8 +39,10 @@ export default function ReviewsLandingPage() {
           >
             Start 10-Day Free Trial
           </Link>
-          <Link
-            href='/funnels/reviews/demo'
+          <a
+            href='https://link.texasaiconsulting.com/widget/booking/uuJHOQrN5564Px31JrBi'
+            target='_blank'
+            rel='noreferrer'
             style={{
               background: 'transparent',
               color: '#ebcb4c',
@@ -52,7 +54,7 @@ export default function ReviewsLandingPage() {
             }}
           >
             Book a Demo
-          </Link>
+          </a>
         </div>
       </section>
     </main>

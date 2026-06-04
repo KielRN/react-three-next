@@ -40,8 +40,10 @@ export default function HeroSection() {
             >
               Start 10-Day Free Trial
             </Link>
-            <Link
-              href='/funnels/reviews/demo'
+            <a
+              href='https://link.texasaiconsulting.com/widget/booking/uuJHOQrN5564Px31JrBi'
+              target='_blank'
+              rel='noreferrer'
               style={{
                 background: '#fff',
                 color: '#0e2042',
@@ -53,7 +55,7 @@ export default function HeroSection() {
               }}
             >
               Book a Demo
-            </Link>
+            </a>
           </div>
           <p style={{ marginTop: '24px', fontSize: '13px', color: '#888' }}>
             No credit card surprise. Cancel anytime during your 10-day trial.

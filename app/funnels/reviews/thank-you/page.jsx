@@ -1,14 +1,7 @@
-'use client'
-
-import { Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import ReviewsFunnelHeader from '../components/ReviewsFunnelHeader'
 
-function ThankYouInner() {
-  const searchParams = useSearchParams()
-  const sessionId = searchParams.get('session_id')
-
+export default function ReviewsThankYouPage() {
   return (
     <main>
       <ReviewsFunnelHeader currentStep={3} />
@@ -94,17 +87,7 @@ function ThankYouInner() {
         >
           Back to Texas AI
         </Link>
-
-        {sessionId && <p style={{ marginTop: '32px', fontSize: '12px', color: '#aaa' }}>Reference: {sessionId}</p>}
       </section>
     </main>
-  )
-}
-
-export default function ReviewsThankYouPage() {
-  return (
-    <Suspense fallback={<div style={{ padding: '80px', textAlign: 'center' }}>Loading…</div>}>
-      <ThankYouInner />
-    </Suspense>
   )
 }
