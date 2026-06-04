@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getStripeReviews } from '../../../../lib/stripe-reviews'
-import { upsertContact, createOpportunity } from '../../../../lib/ghl'
+import { upsertContact, createOpportunity, moveOpportunityToStage } from '../../../../lib/ghl'
 
 const PIPELINE_NAME = 'Reviews Service'
 
@@ -94,6 +94,21 @@ async function handleCheckoutCompleted(session) {
     value: oppValue,
   })
   console.log(`[reviews-webhook] GHL opportunity created: ${oppResult.opportunityId} (Trial Started)`)
+
+  // Persist the GHL oppId on the Stripe subscription so future webhook events
+  // for this subscription (trial_will_end, invoice.paid, deleted) can find
+  // the opportunity and move it through the pipeline.
+  if (session.subscription && oppResult?.opportunityId) {
+    try {
+      const stripe = getStripeReviews()
+      await stripe.subscriptions.update(session.subscription, {
+        metadata: { ghlOpportunityId: oppResult.opportunityId },
+      })
+      console.log(`[reviews-webhook] stored ghlOpportunityId on subscription ${session.subscription}`)
+    } catch (err) {
+      console.warn(`[reviews-webhook] could not write ghlOpportunityId to ${session.subscription}:`, err.message)
+    }
+  }
 }
 
 async function handleTrialWillEnd(subscription) {
@@ -104,6 +119,7 @@ async function handleTrialWillEnd(subscription) {
   }
   await upsertContact({ email, tags: ['reviews-service', 'trial-ending-soon'] })
   console.log(`[reviews-webhook] tagged ${email} as trial-ending-soon`)
+  await moveOpp(subscription, 'Trial Ending Soon')
 }
 
 async function handleInvoicePaid(invoice) {
@@ -117,6 +133,17 @@ async function handleInvoicePaid(invoice) {
   }
   await upsertContact({ email, tags: ['reviews-service', 'active-subscriber'] })
   console.log(`[reviews-webhook] tagged ${email} as active-subscriber (trial converted)`)
+
+  // Invoices don't carry subscription.metadata directly — fetch the sub.
+  if (invoice.subscription) {
+    const stripe = getStripeReviews()
+    try {
+      const subscription = await stripe.subscriptions.retrieve(invoice.subscription)
+      await moveOpp(subscription, 'Active Subscription')
+    } catch (err) {
+      console.warn(`[reviews-webhook] could not retrieve sub ${invoice.subscription} for stage move:`, err.message)
+    }
+  }
 }
 
 async function handleSubscriptionDeleted(subscription) {
@@ -126,9 +153,11 @@ async function handleSubscriptionDeleted(subscription) {
   const wasInTrial =
     subscription.status === 'canceled' && subscription.trial_end && Date.now() / 1000 < subscription.trial_end
   const tag = wasInTrial ? 'trial-ended-no-conversion' : 'churned'
+  const stage = wasInTrial ? 'Trial Ended No Conversion' : 'Churned'
 
   await upsertContact({ email, tags: ['reviews-service', tag] })
   console.log(`[reviews-webhook] tagged ${email} as ${tag}`)
+  await moveOpp(subscription, stage)
 }
 
 async function handlePaymentFailed(invoice) {
@@ -136,6 +165,29 @@ async function handlePaymentFailed(invoice) {
   if (!email) return
   await upsertContact({ email, tags: ['reviews-service', 'payment-failed'] })
   console.log(`[reviews-webhook] tagged ${email} as payment-failed`)
+  // No stage move — Stripe retries automatically and the eventual deleted event
+  // will route through Churned if all retries fail.
+}
+
+/**
+ * Move the opportunity associated with a Stripe subscription to a named stage.
+ * Reads ghlOpportunityId from the subscription's metadata (set on
+ * checkout.session.completed). Tolerant of missing oppId (logs and continues).
+ */
+async function moveOpp(subscription, stageName) {
+  const oppId = subscription?.metadata?.ghlOpportunityId
+  if (!oppId) {
+    console.warn(
+      `[reviews-webhook] no ghlOpportunityId on subscription ${subscription?.id} — skipping move to "${stageName}"`,
+    )
+    return
+  }
+  try {
+    await moveOpportunityToStage({ oppId, pipelineName: PIPELINE_NAME, stageName })
+    console.log(`[reviews-webhook] moved opp ${oppId} → ${stageName}`)
+  } catch (err) {
+    console.warn(`[reviews-webhook] could not move opp ${oppId} → "${stageName}":`, err.message)
+  }
 }
 
 function computeOppValue(tier, billing) {
