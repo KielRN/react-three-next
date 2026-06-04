@@ -1,13 +1,21 @@
 'use client'
 
 import { useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import Navigation from './Navigation'
+import { ReviewsTransmissionBar } from './ReviewsPromo'
 
 const Scene = dynamic(() => import('@/components/canvas/Scene'), { ssr: false })
 
 const Layout = ({ children }) => {
   const ref = useRef()
+  const pathname = usePathname()
+
+  // Show the priority transmission bar everywhere except inside the reviews funnel
+  // and the immersive mock-up pages.
+  const hideTransmissionBar =
+    pathname?.startsWith('/funnels/reviews') || pathname?.startsWith('/mock-ups')
 
   return (
     <div
@@ -21,6 +29,7 @@ const Layout = ({ children }) => {
       }}
     >
       <Navigation />
+      {!hideTransmissionBar && <ReviewsTransmissionBar />}
       <div className="pt-0">
         {children}
       </div>

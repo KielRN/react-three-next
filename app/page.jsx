@@ -1,11 +1,10 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import Link from 'next/link'
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useThree } from '@react-three/fiber'
-import { ContactForm } from '@/templates/ContactForm'
-import { useTypewriter } from '@/templates/hooks/useTypewriter'
+// import { ContactForm } from '@/templates/ContactForm' // GHL chat widget — re-enable below to turn on
+import { ReviewsHud, ReviewsBriefing, ProductsCard, VetHubSeal } from '@/components/dom/ReviewsPromo'
 
 // Note: metadata export doesn't work in client components
 // All metadata is defined in layout.jsx for this page
@@ -32,92 +31,47 @@ const OrbitControls = dynamic(() => import('@react-three/drei').then((mod) => mo
 const PerspectiveCamera = dynamic(() => import('@react-three/drei').then((mod) => mod.PerspectiveCamera), { ssr: false })
 
 export default function RocketPage() {
-  const [showContactForm, setShowContactForm] = useState(false)
   const [showProductsCard, setShowProductsCard] = useState(false)
 
   return (
-    <div className='flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-b from-black to-gray-800 text-white'>
-      {/* Logo removed from here and moved to navbar */}
-      <div className='absolute bottom-5 left-5 z-10'>
-        <img src='/img/vethub-logo.svg' alt='VetHub Logo' className='mb-2 h-10 w-auto' />
-        <p className='text-sm font-semibold uppercase tracking-widest text-ai-gold'>★ Veteran Owned Business ★</p>
-        <p className='mt-0.5 text-xs uppercase tracking-wider text-gray-300'>Texas State VetHub <span className='font-bold text-ai-gold'>Certified</span></p>
-        <div className='mt-2 space-x-3 text-xs'>
-          <Link href='/privacy-policy' className='text-gray-300 underline transition-colors hover:text-white'>
-            Privacy Policy
-          </Link>
-          <Link href='/terms-of-use' className='text-gray-300 underline transition-colors hover:text-white'>
-            Terms of Use
-          </Link>
-        </div>
-      </div>
+    <div
+      className='relative flex w-screen flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-black to-gray-800 text-white'
+      style={{ height: 'calc(100dvh - 178px)', minHeight: '520px' }}
+    >
+      {/* Above-rocket HUD promoting Reviews */}
+      <ReviewsHud />
 
-      <View className='h-screen w-screen' orbit={false}>
+      {/* Below-rocket Mission Briefing CTA */}
+      <ReviewsBriefing />
+
+      {/* Bottom-left: Veteran-owned trust seal */}
+      <VetHubSeal />
+
+      <View className='size-full' orbit={false}>
         <Suspense fallback={null}>
           <Scene />
           <Rocket
             scale={0.6}
             position={[0, -10, 0]}
-            onToggleContactForm={() => setShowContactForm(prev => !prev)}
             onToggleProductsCard={() => setShowProductsCard(prev => !prev)}
           />
           <Common color='#000' />
         </Suspense>
       </View>
-      {/* Contact form component */}
-      <ContactForm
-        isVisible={showContactForm}
-        onClose={() => setShowContactForm(false)}
-        hookUrl={process.env.NEXT_PUBLIC_CONTACT_WEBHOOK}
-        title="CONTACT US"
-        position="right"
-        theme={{
-          primary: "#ebcb4c",
-          background: "bg-gray-900/90",
-          border: "border-[#ebcb4c]/30",
-          shadow: "shadow-[0_0_15px_rgba(235,203,76,0.3)]"
-        }}
+
+      {/* Redesigned Products Card with Reviews hero */}
+      <ProductsCard
+        isVisible={showProductsCard}
+        onClose={() => setShowProductsCard(false)}
       />
 
-      {/* Our Products Card */}
-      <div className={`fixed inset-0 z-30 flex items-center justify-center ${showProductsCard ? 'pointer-events-auto' : 'pointer-events-none'}`}>
-        <div className={`bg-gray-900/95 backdrop-blur-md p-10 rounded-lg z-30 w-3/4 max-w-3xl border border-[#ebcb4c]/30 shadow-[0_0_15px_rgba(235,203,76,0.3)]
-          transform transition-all duration-500 ease-in-out ${showProductsCard
-            ? 'scale-100 opacity-100'
-            : 'scale-95 opacity-0'}`}
-        >
-          <div className="mb-6 flex items-center justify-between">
-            <h2 className="text-2xl font-bold italic tracking-wider text-ai-gold" style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }}>
-              <span className="inline-block animate-pulse-slow">O</span>
-              <span className="inline-block">U</span>
-              <span className="inline-block">R</span>
-              <span className="inline-block"> </span>
-              <span className="ml-2 inline-block">P</span>
-              <span className="inline-block">R</span>
-              <span className="inline-block">O</span>
-              <span className="inline-block">D</span>
-              <span className="inline-block">U</span>
-              <span className="inline-block">C</span>
-              <span className="inline-block">T</span>
-              <span className="inline-block">S</span>
-            </h2>
-            <button
-              className="text-ai-gold transition-colors duration-300 hover:rotate-90 hover:text-white"
-              onClick={() => setShowProductsCard(false)}
-              aria-label="Close products card"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="markdown-content max-h-[70vh] overflow-y-auto text-white">
-            {showProductsCard && <ProductsContent />}
-          </div>
-        </div>
-      </div>
-
+      {/*
+        GHL LeadConnector chat widget — disabled.
+        To re-enable: uncomment the `ContactForm` import at the top of this file
+        and uncomment the line below. CSS positioning overrides live in
+        app/global.css under "GHL LeadConnector chat widget".
+      */}
+      {/* <ContactForm /> */}
     </div>
   )
 }
@@ -166,160 +120,3 @@ function Scene() {
   )
 }
 
-// DetailItem component to handle individual product details
-function DetailItem({ detail, index, sectionIndex, baseDelay, isVisible }) {
-  // Separate typewriter effects for label and content
-  const { displayText: labelText, isDone: labelDone } = useTypewriter(
-    isVisible ? detail.label : '',
-    15,
-    baseDelay + (300 * index)
-  );
-
-  const { displayText: contentText, isDone: contentDone } = useTypewriter(
-    isVisible && labelDone ? detail.text : '',
-    15,
-    0 // Start immediately after label is done
-  );
-
-  if (!isVisible) return null;
-
-  return (
-    <div className="flex items-start">
-      <div className="flex-1">
-        <span className="font-mono font-medium text-ai-cyan">{labelText}</span>
-        {labelDone && <span className="font-mono">: </span>}
-        <span className="ml-1 font-mono">{contentText}</span>
-      </div>
-      <span className={`ml-1 inline-block h-4 w-2 self-center bg-ai-gold ${labelDone && contentDone ? 'opacity-0' : 'animate-blink-slow'}`}></span>
-    </div>
-  );
-}
-
-// TypedSection component to handle each product section
-function TypedSection({ title, details, startDelay, sectionIndex }) {
-  const { displayText: titleText, isDone: titleDone } = useTypewriter(title, 30, startDelay);
-  const [showDetails, setShowDetails] = useState(false);
-
-  useEffect(() => {
-    if (titleDone) {
-      setShowDetails(true);
-    }
-  }, [titleDone]);
-
-  return (
-    <div className="mb-8">
-      <h2 className="mb-3 flex items-center justify-center text-center font-mono text-xl font-semibold text-ai-gold">
-        {titleText}
-        <span className={`ml-1 inline-block h-5 w-2 bg-ai-gold ${titleDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
-      </h2>
-
-      <div className="space-y-4">
-        {details.map((detail, index) => (
-          <DetailItem
-            key={`${sectionIndex}-${index}`}
-            detail={detail}
-            index={index}
-            sectionIndex={sectionIndex}
-            baseDelay={startDelay}
-            isVisible={showDetails}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// ProductsContent component with typewriter effect
-function ProductsContent() {
-
-  // Final summary message
-  const { displayText: summaryText, isDone: summaryDone } = useTypewriter(
-    "Contact us today to learn how our AI products can transform your business!",
-    30,
-    5500 // Start after earlier content has likely finished
-  );
-
-  // Product sections data
-  const productSections = [
-    {
-      title: "Closer Agent (Sales & Revenue)",
-      startDelay: 300,
-      details: [
-        { label: "Lead Intelligence", text: "Auto-qualifies and researches potential customers." },
-        { label: "Closing Support", text: "Summarizes past conversations for better sales outcomes." },
-        { label: "Qualifying Bot", text: "Manages initial customer interactions and schedules appointments." }
-      ]
-    },
-    {
-      title: "Assistant Agent (Executive Support)",
-      startDelay: 1500,
-      details: [
-        { label: "Email Sorting", text: "Automatically manages and categorizes incoming emails." },
-        { label: "Calendar Management", text: "Optimizes schedules and handles appointment changes efficiently." },
-        { label: "Booking Management", text: "Automates travel and reservation tasks." }
-      ]
-    },
-    {
-      title: "Workflow Agent (Operations & Productivity)",
-      startDelay: 2700,
-      details: [
-        { label: "System Creator Bot", text: "Creates and maintains standard procedures and checklists." },
-        { label: "Office Manager Bot", text: "Manages daily tasks such as scheduling and expense tracking." },
-        { label: "Customer Support Bot", text: "Handles routine support inquiries, allowing teams to focus on complex issues." }
-      ]
-    },
-    {
-      title: "Amplifier Agent (Marketing & Content Creation)",
-      startDelay: 3900,
-      details: [
-        { label: "Content Analysis", text: "Reviews content to identify successful strategies." },
-        { label: "Content Checker", text: "Ensures consistency with brand voice and style." },
-        { label: "Content Creation", text: "Generates engaging multi-format content to reach wider audiences." }
-      ]
-    },
-    {
-      title: "Money Agent (Financial Management)",
-      startDelay: 5100,
-      details: [
-        { label: "Cash Flow Bot", text: "Real-time cash monitoring and forecasting." },
-        { label: "Payment Bot", text: "Streamlines invoice processing and financial entries." },
-        { label: "Fraud Detection Bot", text: "Identifies and prevents unusual financial activities." }
-      ]
-    }
-  ];
-
-  return (
-    <>
-      {productSections.map((section, index) => (
-        <TypedSection
-          key={index}
-          title={section.title}
-          details={section.details}
-          startDelay={section.startDelay}
-          sectionIndex={index}
-        />
-      ))}
-
-      <p className="mt-8 flex items-center justify-center text-center font-mono text-lg font-bold text-ai-gold">
-        {summaryText}
-        <span className={`ml-1 inline-block h-5 w-2 bg-ai-gold ${summaryDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
-      </p>
-
-      {/* Blog button styled like navigation with enhanced visibility */}
-      <div className="mt-10 flex justify-center">
-        <Link
-          href="/blog"
-          className="relative border-2 border-ai-gold-bright bg-[#0e2042]/70 px-6 py-3 font-hesdeadjim text-lg font-medium uppercase tracking-wider text-ai-gold-bright transition-all duration-300 hover:border-ai-blue hover:text-ai-blue"
-          style={{
-            clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
-            textShadow: '0 0 5px rgba(255, 204, 0, 0.7)',
-            boxShadow: '0 0 15px rgba(255, 204, 0, 0.4)',
-            animation: 'border-pulse 3s infinite'
-          }}
-        >
-          Explore Our Blog
-        </Link>
-      </div>
-    </>
-  );
-}

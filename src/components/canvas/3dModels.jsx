@@ -67,15 +67,15 @@ export function Dog(props) {
   return <primitive object={scene} {...props} />
 }
 
-export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard, ...props }) {
+export function Rocket({ route = '/', onToggleProductsCard, ...props }) {
   const { scene } = useGLTF('/h-iia_-_launch_vehicle_-_rocket.glb')
   const router = useRouter()
   const [nextHovered, setNextHovered] = useState(false)
-  const [contactHovered, setContactHovered] = useState(false)
+  const [roiHovered, setRoiHovered] = useState(false)
   const [productsHovered, setProductsHovered] = useState(false)
   const groupRef = useRef()
-  
-  useCursor(nextHovered || contactHovered || productsHovered)
+
+  useCursor(nextHovered || roiHovered || productsHovered)
   
   useFrame((state, delta) => {
     if (groupRef.current) {
@@ -142,7 +142,7 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
         </mesh>
       </Billboard>
 
-      {/* CONTACT Label */}
+      {/* ROI CALCULATOR Label (was CONTACT) */}
       <Billboard
         position={[-8, 5, 2]} // Positioned lower and to the left of NEXT
         follow={true}
@@ -151,30 +151,27 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
         lockZ={false}
       >
         <mesh
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggleContactForm && onToggleContactForm(); // Use the passed prop
-          }}
-          onPointerOver={(e) => { e.stopPropagation(); setContactHovered(true); }}
-          onPointerOut={() => setContactHovered(false)}
+          onClick={(e) => { e.stopPropagation(); router.push('/apps/roi-calculator'); }}
+          onPointerOver={(e) => { e.stopPropagation(); setRoiHovered(true); }}
+          onPointerOut={() => setRoiHovered(false)}
         >
           {/* Star Trek-inspired angled box with glow effect */}
-          <RoundedBox args={[4.7, 1.5, 0.1]} radius={0.1} smoothness={4}>
-            <meshBasicMaterial color={contactHovered ? "#0e2042" : "black"} transparent opacity={0.9} />
+          <RoundedBox args={[6.4, 1.5, 0.1]} radius={0.1} smoothness={4}>
+            <meshBasicMaterial color={roiHovered ? "#0e2042" : "black"} transparent opacity={0.9} />
           </RoundedBox>
           {/* Border with glow effect */}
-          <RoundedBox args={[4.8, 1.6, 0.05]} radius={0.15} smoothness={4} position={[0, 0, -0.01]}>
+          <RoundedBox args={[6.5, 1.6, 0.05]} radius={0.15} smoothness={4} position={[0, 0, -0.01]}>
             <meshStandardMaterial
               color="#2c75ff"
               emissive="#2c75ff"
-              emissiveIntensity={contactHovered ? 2 : 1}
+              emissiveIntensity={roiHovered ? 2 : 1}
               transparent
               opacity={0.7}
             />
           </RoundedBox>
           {/* Bottom accent bar */}
           <mesh position={[0, -0.6, 0.06]}>
-            <boxGeometry args={[3.5, 0.1, 0.05]} />
+            <boxGeometry args={[5, 0.1, 0.05]} />
             <meshStandardMaterial
               color="#ffcc00"
               emissive="#ffcc00"
@@ -184,7 +181,7 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
           <Text
             position={[0, 0, 0.15]}
             fontSize={1.2}
-            color={contactHovered ? "#2c75ff" : "#ffcc00"} // Star Trek colors
+            color={roiHovered ? "#2c75ff" : "#ffcc00"} // Star Trek colors
             anchorX="center"
             anchorY="middle"
             fontWeight={800}
@@ -192,7 +189,7 @@ export function Rocket({ route = '/', onToggleContactForm, onToggleProductsCard,
             letterSpacing={0.05}
             font="/Fonts/HesDeadJim-apj9.ttf"
           >
-            CONTACT
+            ROI CALC
           </Text>
         </mesh>
       </Billboard>

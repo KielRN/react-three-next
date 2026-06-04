@@ -506,10 +506,10 @@ export default function ROICalculator() {
                 </span>
               </div>
               <h1
-                className="text-5xl font-bold text-[#ebcb4c] mb-2 font-hesdeadjim"
+                className="text-[28px] sm:text-4xl md:text-5xl font-bold text-[#ebcb4c] mb-2 font-hesdeadjim leading-[1.05]"
                 style={{ textShadow: '0 0 20px rgba(235, 203, 76, 0.6), 2px 2px 0px rgba(0, 0, 0, 0.8)' }}
               >
-                AI INTEGRATION<br />ROI CALCULATOR
+                AI Integration <span className="block sm:inline">ROI Calculator</span>
               </h1>
               <div
                 className="inline-block h-1 w-32 mt-2 mb-4"
