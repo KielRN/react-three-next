@@ -55,6 +55,31 @@ function ThankYouInner() {
           </ol>
         </div>
 
+        <div
+          style={{
+            background: '#fff7d6',
+            border: '1px solid #ebcb4c',
+            borderRadius: '8px',
+            padding: '20px',
+            marginBottom: '32px',
+            textAlign: 'left',
+            color: '#5a4500',
+          }}
+        >
+          <h3 style={{ color: '#0e2042', fontSize: '16px', margin: '0 0 8px' }}>Need to cancel?</h3>
+          <p style={{ margin: 0, lineHeight: 1.5, fontSize: '14px' }}>
+            Email{' '}
+            <a
+              href='mailto:support@texasaiconsulting.com?subject=CANCEL%20Reviews%20trial'
+              style={{ color: '#0e2042', fontWeight: 'bold' }}
+            >
+              support@texasaiconsulting.com
+            </a>{' '}
+            with the word <strong>CANCEL</strong> before day 11 to end your trial at $0. After day 11, the same address
+            cancels at the end of your current billing cycle.
+          </p>
+        </div>
+
         <Link
           href='/'
           style={{
