@@ -19,10 +19,10 @@ export default async function BlogPage({ searchParams }) {
   const posts = tag ? await getBlogPostsByTag(tag) : await getAllBlogPosts();
 
   return (
-    <div className="min-h-screen bg-ai-surface-dark w-full overflow-x-hidden -mt-[1px]">
+    <div className="-mt-px min-h-screen w-full overflow-x-hidden bg-ai-surface-dark">
       <BlogHeader />
 
-      <main className="container mx-auto px-4 pt-4 pb-12 max-w-6xl overflow-hidden">
+      <main className="container mx-auto max-w-6xl overflow-hidden px-4 pb-12 pt-4">
         <BlogList
           posts={posts}
           allTags={allTags}

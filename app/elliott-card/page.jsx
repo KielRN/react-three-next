@@ -10,14 +10,14 @@ export default function ContactCardPage() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-white">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-white">
       <Head>
         <title>Elliott Lamboy Contact Card</title>
         <meta name="description" content="Contact information for Elliott Lamboy" />
       </Head>
 
       {/* Logo at the top */}
-      <div className="mb-8 mt-8">
+      <div className="my-8">
         <img
           src="/img/New-Texas-AI-Logo-V2-Full-Large.png"
           alt="Texas AI Consulting Logo"
@@ -26,11 +26,11 @@ export default function ContactCardPage() {
       </div>
 
       {/* Contact card image */}
-      <div className="relative max-w-full max-h-full p-4">
+      <div className="relative max-h-full max-w-full p-4">
         <img
           src="/img/elliott-contact-card.png"
           alt="Elliott Lamboy Contact Card"
-          className="max-w-full max-h-[70vh] rounded-lg shadow-xl"
+          className="max-h-[70vh] max-w-full rounded-lg shadow-xl"
           style={{ objectFit: 'contain' }}
         />
       </div>

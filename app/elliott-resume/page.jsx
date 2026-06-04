@@ -26,16 +26,16 @@ export default function ElliottResumePage() {
 
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
         {/* Header with Download Button */}
-        <div className="bg-[#0e2042] text-white py-6 print:hidden">
-          <div className="container mx-auto px-4 flex justify-between items-center">
+        <div className="bg-ai-navy py-6 text-white print:hidden">
+          <div className="container mx-auto flex items-center justify-between px-4">
             <div>
               <h1 className="text-3xl font-bold">Eliud "Elliott" Lamboy</h1>
-              <p className="text-gray-300 text-lg">RN, BSN, MBA | AI Engineer | Veteran</p>
+              <p className="text-lg text-gray-300">RN, BSN, MBA | AI Engineer | Veteran</p>
             </div>
             <button
               onClick={handleDownloadPDF}
               disabled={isDownloading}
-              className="flex items-center gap-2 bg-[#ffcc00] text-[#0e2042] px-6 py-3 rounded-lg font-bold hover:bg-yellow-400 transition-all shadow-lg hover:shadow-xl disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-ai-gold-bright px-6 py-3 font-bold text-ai-navy shadow-lg transition-all hover:bg-yellow-400 hover:shadow-xl disabled:opacity-50"
             >
               <span className="text-xl">📥</span>
               {isDownloading ? 'Preparing...' : 'Download PDF'}
@@ -44,27 +44,27 @@ export default function ElliottResumePage() {
         </div>
 
         {/* Main Resume Content */}
-        <div className="container mx-auto px-4 py-8 max-w-5xl">
-          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden print:shadow-none">
+        <div className="container mx-auto max-w-5xl px-4 py-8">
+          <div className="overflow-hidden rounded-2xl bg-white shadow-2xl print:shadow-none">
 
             {/* Hero Section with Profile */}
-            <div className="bg-gradient-to-r from-[#0e2042] via-[#1a3660] to-[#0e2042] text-white p-8">
-              <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="bg-gradient-to-r from-[#0e2042] via-[#1a3660] to-[#0e2042] p-8 text-white">
+              <div className="flex flex-col items-center gap-8 md:flex-row">
                 {/* Profile Picture */}
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <img
                     src="/img/elliott-profile.jpg"
                     alt="Eliud Elliott Lamboy"
-                    className="w-40 h-40 rounded-full border-4 border-[#ffcc00] shadow-xl object-cover"
+                    className="size-40 rounded-full border-4 border-ai-gold-bright object-cover shadow-xl"
                   />
                 </div>
 
                 {/* Contact Info */}
                 <div className="flex-1 text-center md:text-left">
-                  <h1 className="text-4xl font-bold mb-2">ELIUD "ELLIOTT" LAMBOY</h1>
-                  <p className="text-2xl text-[#ffcc00] mb-4">RN, BSN, MBA</p>
-                  <div className="flex flex-col md:flex-row gap-4 text-lg">
-                    <a href="mailto:elliott@texasaiconsulting.com" className="flex items-center gap-2 hover:text-[#ffcc00] transition-colors">
+                  <h1 className="mb-2 text-4xl font-bold">ELIUD "ELLIOTT" LAMBOY</h1>
+                  <p className="mb-4 text-2xl text-ai-gold-bright">RN, BSN, MBA</p>
+                  <div className="flex flex-col gap-4 text-lg md:flex-row">
+                    <a href="mailto:elliott@texasaiconsulting.com" className="flex items-center gap-2 transition-colors hover:text-ai-gold-bright">
                       <span className="text-xl">📧</span>
                       elliott@texasaiconsulting.com
                     </a>
@@ -74,34 +74,34 @@ export default function ElliottResumePage() {
             </div>
 
             {/* Military Service Banner */}
-            <div className="bg-gradient-to-r from-red-800 via-blue-900 to-red-800 text-white py-6 px-8">
+            <div className="bg-gradient-to-r from-red-800 via-blue-900 to-red-800 px-8 py-6 text-white">
               <div className="flex items-center justify-center gap-6 text-center">
-                <div className="flex-shrink-0">
-                  <img src="/img/usaf-logo.png" alt="US Air Force" className="w-16 h-16 object-contain" />
+                <div className="shrink-0">
+                  <img src="/img/usaf-logo.png" alt="US Air Force" className="size-16 object-contain" />
                 </div>
                 <div>
                   <p className="text-xl font-bold text-yellow-400">RETIRED U.S. AIR FORCE RESERVIST</p>
                   <p className="text-lg">21 Years of Military Service | 3 Combat Deployments</p>
-                  <p className="text-sm text-gray-300 mt-1">1992 - November 2013</p>
+                  <p className="mt-1 text-sm text-gray-300">1992 - November 2013</p>
                 </div>
                 <span className="text-4xl">🎖️</span>
               </div>
             </div>
 
             {/* Professional Summary */}
-            <div className="p-8 border-b border-gray-200">
-              <h2 className="text-3xl font-bold text-[#0e2042] mb-4 flex items-center gap-2">
+            <div className="border-b border-gray-200 p-8">
+              <h2 className="mb-4 flex items-center gap-2 text-3xl font-bold text-ai-navy">
                 <span className="text-3xl">🏆</span>
                 Professional Summary
               </h2>
-              <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
+              <div className="space-y-4 text-lg leading-relaxed text-gray-700">
                 <p>
-                  <span className="font-bold text-[#0e2042]">Retired Air Force Reservist</span> with 21 years of military service including 3 combat deployments (1 to Iraq, 2 to Afghanistan).
-                  <span className="font-bold text-[#0e2042]"> Throughout my military career, I simultaneously maintained a full-time civilian nursing career</span>—essentially serving two full-time roles in service of my country.
+                  <span className="font-bold text-ai-navy">Retired Air Force Reservist</span> with 21 years of military service including 3 combat deployments (1 to Iraq, 2 to Afghanistan).
+                  <span className="font-bold text-ai-navy"> Throughout my military career, I simultaneously maintained a full-time civilian nursing career</span>—essentially serving two full-time roles in service of my country.
                   This dual commitment spanned from 1992 to 2013, combining bedside clinical expertise with military medical leadership under the most demanding conditions.
                 </p>
                 <p>
-                  <span className="font-bold text-[#0e2042]">Awarded the Air Force Air Medal</span> for flying over 20 combat aeromedical evacuation missions as a Flight Nurse with the 459th Aeromedical Evacuation Squadron.
+                  <span className="font-bold text-ai-navy">Awarded the Air Force Air Medal</span> for flying over 20 combat aeromedical evacuation missions as a Flight Nurse with the 459th Aeromedical Evacuation Squadron.
                   Delivered critical care to wounded service members in austere combat environments while simultaneously working as a civilian Registered Nurse across multiple healthcare systems.
                 </p>
                 <p>
@@ -112,52 +112,52 @@ export default function ElliottResumePage() {
             </div>
 
             {/* Military Honors & Awards */}
-            <div className="p-8 bg-gradient-to-r from-blue-50 to-red-50 border-b border-gray-200">
-              <h2 className="text-3xl font-bold text-[#0e2042] mb-6 flex items-center gap-2">
+            <div className="border-b border-gray-200 bg-gradient-to-r from-blue-50 to-red-50 p-8">
+              <h2 className="mb-6 flex items-center gap-2 text-3xl font-bold text-ai-navy">
                 <span className="text-3xl">🎖️</span>
                 Military Decorations, Medals & Badges
               </h2>
 
               {/* Ribbons Display */}
-              <div className="flex justify-center mb-4">
-                <div className="bg-white p-4 rounded-lg shadow-md">
+              <div className="mb-4 flex justify-center">
+                <div className="rounded-lg bg-white p-4 shadow-md">
                   <img
                     src="/img/ribbons-v2.png"
                     alt="Military Service Ribbons"
-                    className="max-w-full h-auto"
+                    className="h-auto max-w-full"
                     style={{ maxHeight: '120px' }}
                   />
                 </div>
               </div>
 
               {/* Awards List - DD214 Style */}
-              <div className="bg-white px-4 py-3 rounded border border-gray-300">
-                <p className="text-xs text-gray-700 leading-relaxed">
+              <div className="rounded border border-gray-300 bg-white px-4 py-3">
+                <p className="text-xs leading-relaxed text-gray-700">
                   <span className="font-semibold">13. DECORATIONS, MEDALS, BADGES, CITATIONS AND CAMPAIGN RIBBONS AWARDED OR AUTHORIZED</span> (All periods of service): Air Medal, AF Outstanding Unit Award with 5 oak leaf clusters, Air Reserve Forces Meritorious Service Medal with 3 oak leaf clusters, National Defense Service Medal with 1 service star, Iraq Campaign Medal with 1 service star, Global War on Terrorism Service Medal, AF Overseas Short Tour Ribbon, Air Force Expeditionary Service Ribbon (with Gold Border) with 2 oak leaf clusters, Air Force Longevity Service Award Ribbon with 1 oak leaf cluster, Small Arms Expert Marksmanship Ribbon with 1 service star, Air Force Training Ribbon.
                 </p>
               </div>
             </div>
 
             {/* Professional Experience */}
-            <div className="p-8 border-b border-gray-200">
-              <h2 className="text-3xl font-bold text-[#0e2042] mb-6">Professional Experience</h2>
+            <div className="border-b border-gray-200 p-8">
+              <h2 className="mb-6 text-3xl font-bold text-ai-navy">Professional Experience</h2>
 
               {/* Texas AI Consulting, LLC - Current */}
-              <div className="mb-8 pb-8 border-b border-gray-300 bg-gradient-to-r from-yellow-50 to-blue-50 -mx-8 px-8 py-4 rounded-lg">
-                <div className="flex justify-between items-start mb-3">
+              <div className="-mx-8 mb-8 rounded-lg border-b border-gray-300 bg-gradient-to-r from-yellow-50 to-blue-50 px-8 py-4 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold text-[#0e2042] flex items-center gap-2">
+                    <h3 className="flex items-center gap-2 text-2xl font-bold text-ai-navy">
                       <span className="text-2xl">🚀</span>
                       Chief Executive Officer (CEO)
                     </h3>
-                    <p className="text-xl text-[#0e2042] font-bold">Texas AI Consulting, LLC</p>
-                    <p className="text-sm text-gray-700 mt-1">State of Texas | Sole Member | VetHUB Certified</p>
+                    <p className="text-xl font-bold text-ai-navy">Texas AI Consulting, LLC</p>
+                    <p className="mt-1 text-sm text-gray-700">State of Texas | Sole Member | VetHUB Certified</p>
                   </div>
-                  <span className="bg-[#ffcc00] text-[#0e2042] px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-ai-gold-bright px-4 py-2 text-sm font-bold text-ai-navy">
                     January 2026 – Present
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-gray-700">
                   <li>Founded and established Texas AI Consulting, LLC on January 28, 2026 as a veteran-owned business</li>
                   <li>Leading AI transformation initiatives for healthcare organizations across Texas</li>
                   <li>Developing custom AI solutions that bridge clinical expertise with cutting-edge technology</li>
@@ -168,18 +168,18 @@ export default function ElliottResumePage() {
               </div>
 
               {/* Methodist Healthcare */}
-              <div className="mb-8 pb-8 border-b border-gray-300">
-                <div className="flex justify-between items-start mb-3">
+              <div className="mb-8 border-b border-gray-300 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-[#0e2042]">Senior Business Analyst</h3>
+                    <h3 className="text-xl font-bold text-ai-navy">Senior Business Analyst</h3>
                     <p className="text-lg text-gray-700">Methodist Healthcare, San Antonio Division</p>
                     <p className="text-sm text-gray-600">Application Development and Business Intelligence Team</p>
                   </div>
-                  <span className="bg-gray-200 text-gray-700 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm font-bold text-gray-700">
                     August 2024 – February 2026
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-gray-700">
                   <li>Spearheaded the implementation of a new SharePoint system, streamlining team collaboration and document management</li>
                   <li>Championed the adoption of HCA Cloud Development practices, modernizing application workflows and enabling scalable solutions</li>
                   <li>Developed backend ETL pipelines for the Pulmonary Embolism Rapid Response (PERT) Team, enabling AI-driven analysis and real-time notifications</li>
@@ -190,34 +190,34 @@ export default function ElliottResumePage() {
               </div>
 
               {/* Methodist Landmark */}
-              <div className="mb-8 pb-8 border-b border-gray-300">
-                <div className="flex justify-between items-start mb-3">
+              <div className="mb-8 border-b border-gray-300 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-[#0e2042]">Staff Nurse</h3>
+                    <h3 className="text-xl font-bold text-ai-navy">Staff Nurse</h3>
                     <p className="text-lg text-gray-700">Methodist Landmark, Emergency Department</p>
                   </div>
-                  <span className="bg-gray-200 text-gray-700 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm font-bold text-gray-700">
                     June 2023 – August 2024
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-gray-700">
                   <li>Provided exceptional emergency care to a diverse patient population</li>
                   <li>Collaborated with multidisciplinary teams to ensure optimal patient outcomes</li>
                 </ul>
               </div>
 
               {/* Travel Nurse */}
-              <div className="mb-8 pb-8 border-b border-gray-300">
-                <div className="flex justify-between items-start mb-3">
+              <div className="mb-8 border-b border-gray-300 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-[#0e2042]">Travel Nurse</h3>
+                    <h3 className="text-xl font-bold text-ai-navy">Travel Nurse</h3>
                     <p className="text-lg text-gray-700">Agency Nurse</p>
                   </div>
-                  <span className="bg-gray-200 text-gray-700 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm font-bold text-gray-700">
                     September 2018 – May 2023
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-gray-700">
                   <li>Delivered patient-centered care across various hospital systems including Meridian Health, Essentia Health, Hawaii Pacific Health, HCA, Methodist System, and Tenet Healthcare</li>
                   <li>Specialized in Cardiac Telemetry, General Progressive Care, Neuro Medical/Surgical, General Medical Surgical, and ED Holding</li>
                   <li>Gained extensive experience with Epic, Cerner, Meditech, and Meditech Expanse EHR systems</li>
@@ -225,39 +225,39 @@ export default function ElliottResumePage() {
               </div>
 
               {/* VA Audie Murphy */}
-              <div className="mb-8 pb-8 border-b border-gray-300">
-                <div className="flex justify-between items-start mb-3">
+              <div className="mb-8 border-b border-gray-300 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-[#0e2042]">Staff Nurse</h3>
+                    <h3 className="text-xl font-bold text-ai-navy">Staff Nurse</h3>
                     <p className="text-lg text-gray-700">Veterans Affairs, Audie L. Murphy, San Antonio, TX</p>
                   </div>
-                  <span className="bg-gray-200 text-gray-700 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm font-bold text-gray-700">
                     October 2009 – December 2017
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-gray-700">
                   <li>Delivered comprehensive patient education on various health topics</li>
                   <li>Consulted Polytrauma administration on software tools, documentation, and VA policies</li>
                 </ul>
               </div>
 
               {/* USAF Reserve - Flight Nurse */}
-              <div className="mb-8 pb-8 border-b border-gray-300 bg-blue-50 -mx-8 px-8 py-4 rounded-lg">
-                <div className="flex justify-between items-start mb-3">
+              <div className="-mx-8 mb-8 rounded-lg border-b border-gray-300 bg-blue-50 px-8 py-4 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-blue-900 flex items-center gap-2">
+                    <h3 className="flex items-center gap-2 text-xl font-bold text-blue-900">
                       <span className="text-2xl">🎖️</span>
                       Flight Nurse
                     </h3>
-                    <p className="text-lg text-blue-800 font-semibold">United States Air Force Reserve</p>
+                    <p className="text-lg font-semibold text-blue-800">United States Air Force Reserve</p>
                     <p className="text-sm text-blue-700">459 Aeromedical Evacuation Squadron (AFRC) • Andrews AFB</p>
-                    <p className="text-xs text-blue-600 italic mt-1">⚠️ Military service performed concurrently with civilian nursing positions</p>
+                    <p className="mt-1 text-xs italic text-blue-600">⚠️ Military service performed concurrently with civilian nursing positions</p>
                   </div>
-                  <span className="bg-blue-900 text-white px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-blue-900 px-4 py-2 text-sm font-bold text-white">
                     July 2009 – November 2013
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-blue-900 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-blue-900">
                   <li className="font-semibold">Led medical teams on over 20 combat aeromedical evacuation missions in Iraq</li>
                   <li>Provided critical care and advanced life support to stabilize critically wounded patients in austere environments</li>
                   <li>Managed life-or-death medical decisions inside cargo aircraft at altitude with limited equipment</li>
@@ -266,124 +266,124 @@ export default function ElliottResumePage() {
               </div>
 
               {/* VA Baltimore */}
-              <div className="mb-8 pb-8 border-b border-gray-300">
-                <div className="flex justify-between items-start mb-3">
+              <div className="mb-8 border-b border-gray-300 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-[#0e2042]">Staff Nurse</h3>
+                    <h3 className="text-xl font-bold text-ai-navy">Staff Nurse</h3>
                     <p className="text-lg text-gray-700">Veterans Affairs Baltimore Medical Center, Baltimore, MD</p>
                   </div>
-                  <span className="bg-gray-200 text-gray-700 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm font-bold text-gray-700">
                     January 2004 – September 2009
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-gray-700">
                   <li>Developed and implemented innovative clinical documentation templates and scheduling systems</li>
                   <li>Improved performance measures through the development of an emergency triage model</li>
                 </ul>
               </div>
 
               {/* VA Care Coordinator */}
-              <div className="mb-8 pb-8 border-b border-gray-300">
-                <div className="flex justify-between items-start mb-3">
+              <div className="mb-8 border-b border-gray-300 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-[#0e2042]">Care Coordinator</h3>
+                    <h3 className="text-xl font-bold text-ai-navy">Care Coordinator</h3>
                     <p className="text-lg text-gray-700">Veterans Affairs Medical Healthcare System, Baltimore, MD</p>
                   </div>
-                  <span className="bg-gray-200 text-gray-700 px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm font-bold text-gray-700">
                     November 2006 – June 2007
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-gray-700">
                   <li>Coordinated outpatient care and supervised the installation and use of telehealth equipment</li>
                 </ul>
               </div>
 
               {/* Maryland Air National Guard */}
-              <div className="mb-8 pb-8 border-b border-gray-300 bg-blue-50 -mx-8 px-8 py-4 rounded-lg">
-                <div className="flex justify-between items-start mb-3">
+              <div className="-mx-8 mb-8 rounded-lg border-b border-gray-300 bg-blue-50 px-8 py-4 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
                     <h3 className="text-xl font-bold text-blue-900">Nurse Team Leader</h3>
-                    <p className="text-lg text-blue-800 font-semibold">Maryland Air National Guard, Baltimore, MD</p>
-                    <p className="text-xs text-blue-600 italic mt-1">⚠️ Military service performed concurrently with civilian nursing positions</p>
+                    <p className="text-lg font-semibold text-blue-800">Maryland Air National Guard, Baltimore, MD</p>
+                    <p className="mt-1 text-xs italic text-blue-600">⚠️ Military service performed concurrently with civilian nursing positions</p>
                   </div>
-                  <span className="bg-blue-900 text-white px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-blue-900 px-4 py-2 text-sm font-bold text-white">
                     September 2003 – February 2006
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-blue-900 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-blue-900">
                   <li>Managed nursing practice and enforced infection control policies in a clinic setting</li>
                 </ul>
               </div>
 
               {/* U.S. Army Afghanistan */}
-              <div className="mb-8 pb-8 bg-red-50 -mx-8 px-8 py-4 rounded-lg">
-                <div className="flex justify-between items-start mb-3">
+              <div className="-mx-8 mb-8 rounded-lg bg-red-50 px-8 py-4 pb-8">
+                <div className="mb-3 flex items-start justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-red-900 flex items-center gap-2">
+                    <h3 className="flex items-center gap-2 text-xl font-bold text-red-900">
                       <span className="text-2xl">🛡️</span>
                       Registered Nurse
                     </h3>
-                    <p className="text-lg text-red-800 font-semibold">U.S. Army Task Force 44th Med</p>
+                    <p className="text-lg font-semibold text-red-800">U.S. Army Task Force 44th Med</p>
                     <p className="text-sm text-red-700">Bagram Air Base, Afghanistan</p>
-                    <p className="text-xs text-red-600 italic mt-1">⚠️ Combat deployment during concurrent military/civilian career</p>
+                    <p className="mt-1 text-xs italic text-red-600">⚠️ Combat deployment during concurrent military/civilian career</p>
                   </div>
-                  <span className="bg-red-900 text-white px-4 py-2 rounded-full font-bold text-sm whitespace-nowrap">
+                  <span className="whitespace-nowrap rounded-full bg-red-900 px-4 py-2 text-sm font-bold text-white">
                     February 2003 – May 2003
                   </span>
                 </div>
-                <ul className="list-disc list-inside space-y-2 text-red-900 ml-4">
+                <ul className="ml-4 list-inside list-disc space-y-2 text-red-900">
                   <li className="font-semibold">Delivered critical nursing care in a combat environment during Operation Enduring Freedom</li>
                 </ul>
               </div>
             </div>
 
             {/* Education */}
-            <div className="p-8 border-b border-gray-200 bg-gray-50">
-              <h2 className="text-3xl font-bold text-[#0e2042] mb-6">Education</h2>
+            <div className="border-b border-gray-200 bg-gray-50 p-8">
+              <h2 className="mb-6 text-3xl font-bold text-ai-navy">Education</h2>
 
               <div className="space-y-6">
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="flex justify-between items-start mb-2">
+                <div className="rounded-lg bg-white p-6 shadow-md">
+                  <div className="mb-2 flex items-start justify-between">
                     <div>
-                      <h3 className="text-xl font-bold text-[#0e2042]">Master of Business Administration (MBA)</h3>
+                      <h3 className="text-xl font-bold text-ai-navy">Master of Business Administration (MBA)</h3>
                       <p className="text-lg text-gray-700">University of Phoenix, San Antonio, TX</p>
                     </div>
-                    <span className="bg-[#ffcc00] text-[#0e2042] px-4 py-2 rounded-full font-bold text-sm">
+                    <span className="rounded-full bg-ai-gold-bright px-4 py-2 text-sm font-bold text-ai-navy">
                       2014
                     </span>
                   </div>
-                  <p className="text-gray-600 mt-2">
+                  <p className="mt-2 text-gray-600">
                     <span className="font-semibold">Honors:</span> Delta Mu Delta Honor Business Society
                   </p>
                 </div>
 
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <div className="flex justify-between items-start mb-2">
+                <div className="rounded-lg bg-white p-6 shadow-md">
+                  <div className="mb-2 flex items-start justify-between">
                     <div>
-                      <h3 className="text-xl font-bold text-[#0e2042]">Bachelor of Science in Nursing (BSN)</h3>
+                      <h3 className="text-xl font-bold text-ai-navy">Bachelor of Science in Nursing (BSN)</h3>
                       <p className="text-lg text-gray-700">University of Maryland, Baltimore, MD</p>
                     </div>
-                    <span className="bg-[#ffcc00] text-[#0e2042] px-4 py-2 rounded-full font-bold text-sm">
+                    <span className="rounded-full bg-ai-gold-bright px-4 py-2 text-sm font-bold text-ai-navy">
                       2001
                     </span>
                   </div>
-                  <p className="text-gray-600 mt-2">Nursing/Registered Nurse</p>
+                  <p className="mt-2 text-gray-600">Nursing/Registered Nurse</p>
                 </div>
               </div>
             </div>
 
             {/* Professional Certifications */}
-            <div className="p-8 border-b border-gray-200">
-              <h2 className="text-3xl font-bold text-[#0e2042] mb-6">Professional Certifications</h2>
+            <div className="border-b border-gray-200 p-8">
+              <h2 className="mb-6 text-3xl font-bold text-ai-navy">Professional Certifications</h2>
 
-              <div className="grid md:grid-cols-2 gap-6 mb-6">
-                <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-lg shadow-lg text-white">
-                  <div className="mb-3 flex items-center justify-center w-12 h-12 bg-white rounded">
-                    <img src="/img/ibm-logo.png" alt="IBM" className="w-10 h-10 object-contain" />
+              <div className="mb-6 grid gap-6 md:grid-cols-2">
+                <div className="rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 p-6 text-white shadow-lg">
+                  <div className="mb-3 flex size-12 items-center justify-center rounded bg-white">
+                    <img src="/img/ibm-logo.png" alt="IBM" className="size-10 object-contain" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">IBM AI Engineering Professional Certificate</h3>
-                  <p className="text-sm text-blue-100 mb-4">Completed January 2024</p>
-                  <ul className="text-sm space-y-1 text-blue-100 mb-4">
+                  <h3 className="mb-2 text-xl font-bold">IBM AI Engineering Professional Certificate</h3>
+                  <p className="mb-4 text-sm text-blue-100">Completed January 2024</p>
+                  <ul className="mb-4 space-y-1 text-sm text-blue-100">
                     <li>• Machine Learning with Python</li>
                     <li>• Deep Learning & Neural Networks with Keras</li>
                     <li>• Computer Vision & Image Processing</li>
@@ -395,19 +395,19 @@ export default function ElliottResumePage() {
                     href="https://coursera.org/share/a05d7f83cf949f3cdca96306708f26a4"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-yellow-300 text-sm hover:text-yellow-200 underline inline-flex items-center gap-1"
+                    className="inline-flex items-center gap-1 text-sm text-yellow-300 underline hover:text-yellow-200"
                   >
                     Verify Certificate →
                   </a>
                 </div>
 
-                <div className="bg-gradient-to-br from-purple-600 to-purple-800 p-6 rounded-lg shadow-lg text-white">
-                  <div className="mb-3 flex items-center justify-center w-12 h-12 bg-white rounded">
-                    <img src="/img/ibm-logo.png" alt="IBM" className="w-10 h-10 object-contain" />
+                <div className="rounded-lg bg-gradient-to-br from-purple-600 to-purple-800 p-6 text-white shadow-lg">
+                  <div className="mb-3 flex size-12 items-center justify-center rounded bg-white">
+                    <img src="/img/ibm-logo.png" alt="IBM" className="size-10 object-contain" />
                   </div>
-                  <h3 className="text-xl font-bold mb-2">IBM Full Stack Software Developer Professional Certificate</h3>
-                  <p className="text-sm text-purple-100 mb-4">Completed September 2023</p>
-                  <ul className="text-sm space-y-1 text-purple-100 mb-4">
+                  <h3 className="mb-2 text-xl font-bold">IBM Full Stack Software Developer Professional Certificate</h3>
+                  <p className="mb-4 text-sm text-purple-100">Completed September 2023</p>
+                  <ul className="mb-4 space-y-1 text-sm text-purple-100">
                     <li>• Cloud Computing & Web Development</li>
                     <li>• React, Node.js & Express</li>
                     <li>• Python for Data Science & AI</li>
@@ -419,15 +419,15 @@ export default function ElliottResumePage() {
                     href="https://coursera.org/share/a40cef834fbef505ec61774b9e57d777"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-yellow-300 text-sm hover:text-yellow-200 underline inline-flex items-center gap-1"
+                    className="inline-flex items-center gap-1 text-sm text-yellow-300 underline hover:text-yellow-200"
                   >
                     Verify Certificate →
                   </a>
                 </div>
               </div>
 
-              <div className="bg-white p-6 rounded-lg border border-gray-300">
-                <h3 className="text-lg font-semibold text-gray-800 mb-3">Additional Clinical Certifications</h3>
+              <div className="rounded-lg border border-gray-300 bg-white p-6">
+                <h3 className="mb-3 text-lg font-semibold text-gray-800">Additional Clinical Certifications</h3>
                 <ul className="space-y-2 text-gray-700">
                   <li>• <strong>Advanced Cardiac Life Support (ACLS)</strong> — American Heart Association (Previously Certified • September 2022)</li>
                   <li>• <strong>Pediatric Advanced Life Support (PALS)</strong> — American Heart Association (Previously Certified • August 2023)</li>
@@ -436,12 +436,12 @@ export default function ElliottResumePage() {
             </div>
 
             {/* Skills & Technologies */}
-            <div className="p-8 bg-gray-50">
-              <h2 className="text-3xl font-bold text-[#0e2042] mb-6">Skills & Technologies</h2>
+            <div className="bg-gray-50 p-8">
+              <h2 className="mb-6 text-3xl font-bold text-ai-navy">Skills & Technologies</h2>
 
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid gap-6 md:grid-cols-3">
                 <div>
-                  <h3 className="text-lg font-bold text-[#0e2042] mb-3">AI & Machine Learning</h3>
+                  <h3 className="mb-3 text-lg font-bold text-ai-navy">AI & Machine Learning</h3>
                   <ul className="space-y-2 text-gray-700">
                     <li>• Python & TensorFlow</li>
                     <li>• PyTorch & Keras</li>
@@ -452,7 +452,7 @@ export default function ElliottResumePage() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-bold text-[#0e2042] mb-3">Software Development</h3>
+                  <h3 className="mb-3 text-lg font-bold text-ai-navy">Software Development</h3>
                   <ul className="space-y-2 text-gray-700">
                     <li>• .NET & Node.js</li>
                     <li>• React & Full-Stack Dev</li>
@@ -463,7 +463,7 @@ export default function ElliottResumePage() {
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-bold text-[#0e2042] mb-3">Healthcare Systems</h3>
+                  <h3 className="mb-3 text-lg font-bold text-ai-navy">Healthcare Systems</h3>
                   <ul className="space-y-2 text-gray-700">
                     <li>• Epic, Cerner, Meditech</li>
                     <li>• SSRS & Power BI</li>
@@ -476,9 +476,9 @@ export default function ElliottResumePage() {
             </div>
 
             {/* Licenses */}
-            <div className="p-8 border-t border-gray-200">
-              <h2 className="text-3xl font-bold text-[#0e2042] mb-4">Professional Licenses</h2>
-              <div className="bg-white p-4 rounded-lg border-2 border-[#0e2042] inline-block">
+            <div className="border-t border-gray-200 p-8">
+              <h2 className="mb-4 text-3xl font-bold text-ai-navy">Professional Licenses</h2>
+              <div className="inline-block rounded-lg border-2 border-ai-navy bg-white p-4">
                 <p className="text-lg font-semibold text-gray-700">✓ Registered Nurse (RN) - Active License</p>
               </div>
             </div>
@@ -486,9 +486,9 @@ export default function ElliottResumePage() {
           </div>
 
           {/* Footer */}
-          <div className="text-center py-8 text-gray-600 print:hidden">
+          <div className="py-8 text-center text-gray-600 print:hidden">
             <p className="text-sm">© {new Date().getFullYear()} Eliud "Elliott" Lamboy. All rights reserved.</p>
-            <p className="text-xs mt-2">Veteran-Owned | Texas VetHUB Certified | Texas AI Consulting</p>
+            <p className="mt-2 text-xs">Veteran-Owned | Texas VetHUB Certified | Texas AI Consulting</p>
           </div>
         </div>
       </div>

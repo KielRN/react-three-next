@@ -38,13 +38,13 @@ export default function AppPage() {
   
   // Show loading state while redirecting
   return (
-    <div className="min-h-screen bg-gray-900 w-full overflow-x-hidden flex items-center justify-center">
+    <div className="flex min-h-screen w-full items-center justify-center overflow-x-hidden bg-gray-900">
       <div className="text-center">
-        <h1 className="text-2xl font-bold text-[#2c75ff] mb-4 font-hesdeadjim"
+        <h1 className="mb-4 font-hesdeadjim text-2xl font-bold text-ai-blue"
             style={{textShadow: '0 0 10px rgba(44, 117, 255, 0.7)'}}>
           Loading App...
         </h1>
-        <div className="w-16 h-16 border-t-4 border-b-4 border-[#2c75ff] rounded-full animate-spin mx-auto"></div>
+        <div className="mx-auto size-16 animate-spin rounded-full border-y-4 border-ai-blue"></div>
       </div>
     </div>
   );

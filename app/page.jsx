@@ -16,7 +16,7 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
   ssr: false,
   loading: () => (
     <div className='flex h-screen w-full flex-col items-center justify-center'>
-      <svg className='-ml-1 mr-3 h-5 w-5 animate-spin text-black' fill='none' viewBox='0 0 24 24'>
+      <svg className='-ml-1 mr-3 size-5 animate-spin text-black' fill='none' viewBox='0 0 24 24'>
         <circle className='opacity-25' cx='12' cy='12' r='10' stroke='currentColor' strokeWidth='4' />
         <path
           className='opacity-75'
@@ -38,15 +38,15 @@ export default function RocketPage() {
   return (
     <div className='flex h-screen w-screen flex-col items-center justify-center bg-gradient-to-b from-black to-gray-800 text-white'>
       {/* Logo removed from here and moved to navbar */}
-      <div className='absolute left-5 bottom-5 z-10'>
-        <img src='/img/vethub-logo.svg' alt='VetHub Logo' className='h-10 w-auto mb-2' />
-        <p className='text-sm font-semibold tracking-widest uppercase text-[#ebcb4c]'>★ Veteran Owned Business ★</p>
-        <p className='text-xs tracking-wider uppercase text-gray-300 mt-0.5'>Texas State VetHub <span className='text-[#ebcb4c] font-bold'>Certified</span></p>
-        <div className='text-xs mt-2 space-x-3'>
-          <Link href='/privacy-policy' className='text-gray-300 hover:text-white underline transition-colors'>
+      <div className='absolute bottom-5 left-5 z-10'>
+        <img src='/img/vethub-logo.svg' alt='VetHub Logo' className='mb-2 h-10 w-auto' />
+        <p className='text-sm font-semibold uppercase tracking-widest text-ai-gold'>★ Veteran Owned Business ★</p>
+        <p className='mt-0.5 text-xs uppercase tracking-wider text-gray-300'>Texas State VetHub <span className='font-bold text-ai-gold'>Certified</span></p>
+        <div className='mt-2 space-x-3 text-xs'>
+          <Link href='/privacy-policy' className='text-gray-300 underline transition-colors hover:text-white'>
             Privacy Policy
           </Link>
-          <Link href='/terms-of-use' className='text-gray-300 hover:text-white underline transition-colors'>
+          <Link href='/terms-of-use' className='text-gray-300 underline transition-colors hover:text-white'>
             Terms of Use
           </Link>
         </div>
@@ -80,19 +80,19 @@ export default function RocketPage() {
       />
 
       {/* Our Products Card */}
-      <div className={`fixed inset-0 flex items-center justify-center z-30 ${showProductsCard ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+      <div className={`fixed inset-0 z-30 flex items-center justify-center ${showProductsCard ? 'pointer-events-auto' : 'pointer-events-none'}`}>
         <div className={`bg-gray-900/95 backdrop-blur-md p-10 rounded-lg z-30 w-3/4 max-w-3xl border border-[#ebcb4c]/30 shadow-[0_0_15px_rgba(235,203,76,0.3)]
           transform transition-all duration-500 ease-in-out ${showProductsCard
-            ? 'opacity-100 scale-100'
-            : 'opacity-0 scale-95'}`}
+            ? 'scale-100 opacity-100'
+            : 'scale-95 opacity-0'}`}
         >
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-[#ebcb4c] italic tracking-wider" style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }}>
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-2xl font-bold italic tracking-wider text-ai-gold" style={{ fontFamily: "'Arial Black', 'Arial Bold', sans-serif" }}>
               <span className="inline-block animate-pulse-slow">O</span>
               <span className="inline-block">U</span>
               <span className="inline-block">R</span>
               <span className="inline-block"> </span>
-              <span className="inline-block ml-2">P</span>
+              <span className="ml-2 inline-block">P</span>
               <span className="inline-block">R</span>
               <span className="inline-block">O</span>
               <span className="inline-block">D</span>
@@ -102,17 +102,17 @@ export default function RocketPage() {
               <span className="inline-block">S</span>
             </h2>
             <button
-              className="text-[#ebcb4c] hover:text-white transition-colors transform hover:rotate-90 duration-300"
+              className="text-ai-gold transition-colors duration-300 hover:rotate-90 hover:text-white"
               onClick={() => setShowProductsCard(false)}
               aria-label="Close products card"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" className="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
-          <div className="text-white overflow-y-auto max-h-[70vh] markdown-content">
+          <div className="markdown-content max-h-[70vh] overflow-y-auto text-white">
             {showProductsCard && <ProductsContent />}
           </div>
         </div>
@@ -186,11 +186,11 @@ function DetailItem({ detail, index, sectionIndex, baseDelay, isVisible }) {
   return (
     <div className="flex items-start">
       <div className="flex-1">
-        <span className="font-medium text-[#6c97a5] font-mono">{labelText}</span>
+        <span className="font-mono font-medium text-ai-cyan">{labelText}</span>
         {labelDone && <span className="font-mono">: </span>}
         <span className="ml-1 font-mono">{contentText}</span>
       </div>
-      <span className={`inline-block w-2 h-4 bg-[#ebcb4c] ml-1 self-center ${labelDone && contentDone ? 'opacity-0' : 'animate-blink-slow'}`}></span>
+      <span className={`ml-1 inline-block h-4 w-2 self-center bg-ai-gold ${labelDone && contentDone ? 'opacity-0' : 'animate-blink-slow'}`}></span>
     </div>
   );
 }
@@ -208,9 +208,9 @@ function TypedSection({ title, details, startDelay, sectionIndex }) {
 
   return (
     <div className="mb-8">
-      <h2 className="text-xl font-semibold text-[#ebcb4c] mb-3 text-center flex items-center justify-center font-mono">
+      <h2 className="mb-3 flex items-center justify-center text-center font-mono text-xl font-semibold text-ai-gold">
         {titleText}
-        <span className={`inline-block w-2 h-5 bg-[#ebcb4c] ml-1 ${titleDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
+        <span className={`ml-1 inline-block h-5 w-2 bg-ai-gold ${titleDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
       </h2>
 
       <div className="space-y-4">
@@ -300,16 +300,16 @@ function ProductsContent() {
         />
       ))}
 
-      <p className="mt-8 text-[#ebcb4c] font-bold text-lg text-center flex items-center justify-center font-mono">
+      <p className="mt-8 flex items-center justify-center text-center font-mono text-lg font-bold text-ai-gold">
         {summaryText}
-        <span className={`inline-block w-2 h-5 bg-[#ebcb4c] ml-1 ${summaryDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
+        <span className={`ml-1 inline-block h-5 w-2 bg-ai-gold ${summaryDone ? 'animate-blink-slow' : 'opacity-0'}`}></span>
       </p>
 
       {/* Blog button styled like navigation with enhanced visibility */}
       <div className="mt-10 flex justify-center">
         <Link
           href="/blog"
-          className="relative font-medium transition-all duration-300 font-hesdeadjim text-lg uppercase tracking-wider px-6 py-3 text-[#ffcc00] hover:text-[#2c75ff] bg-[#0e2042]/70 border-2 border-[#ffcc00] hover:border-[#2c75ff]"
+          className="relative border-2 border-ai-gold-bright bg-[#0e2042]/70 px-6 py-3 font-hesdeadjim text-lg font-medium uppercase tracking-wider text-ai-gold-bright transition-all duration-300 hover:border-ai-blue hover:text-ai-blue"
           style={{
             clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
             textShadow: '0 0 5px rgba(255, 204, 0, 0.7)',

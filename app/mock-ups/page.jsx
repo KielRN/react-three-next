@@ -28,8 +28,8 @@ export default async function MockupsIndexPage() {
       <header className='border-b border-white/10 bg-gradient-to-r from-[#0a1628] via-[#0e2042] to-[#0a1628]'>
         <div className='mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8'>
           <div className='flex items-center gap-3'>
-            <div className='flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#ebcb4c] to-[#d4b53f] shadow-lg shadow-[#ebcb4c]/20'>
-              <span className='text-lg font-black text-[#0e2042]'>TX</span>
+            <div className='flex size-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#ebcb4c] to-[#d4b53f] shadow-lg shadow-[#ebcb4c]/20'>
+              <span className='text-lg font-black text-ai-navy'>TX</span>
             </div>
             <div>
               <h1 className='text-2xl font-bold text-white'>Mockups</h1>
@@ -44,7 +44,7 @@ export default async function MockupsIndexPage() {
         {mockups.length === 0 ? (
           <div className='flex flex-col items-center justify-center py-20 text-center'>
             <div className='mb-4 rounded-full bg-white/5 p-4'>
-              <svg className='h-8 w-8 text-white/20' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+              <svg className='size-8 text-white/20' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
                 <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1.5} d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' />
               </svg>
             </div>
@@ -71,11 +71,11 @@ export default async function MockupsIndexPage() {
                       <img
                         src={thumbUrl}
                         alt={mockup.title}
-                        className='h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105'
+                        className='size-full object-cover object-top transition-transform duration-500 group-hover:scale-105'
                       />
                     ) : (
                       <div className='flex h-full items-center justify-center'>
-                        <svg className='h-10 w-10 text-white/10' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+                        <svg className='size-10 text-white/10' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
                           <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={1} d='M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' />
                         </svg>
                       </div>
@@ -86,7 +86,7 @@ export default async function MockupsIndexPage() {
                   <div className='p-4'>
                     <div className='flex items-start justify-between gap-2'>
                       <div>
-                        <h2 className='text-sm font-semibold text-white group-hover:text-[#ebcb4c] transition-colors duration-300'>
+                        <h2 className='text-sm font-semibold text-white transition-colors duration-300 group-hover:text-ai-gold'>
                           {mockup.title}
                         </h2>
                         {mockup.client && (

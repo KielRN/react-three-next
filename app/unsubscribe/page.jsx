@@ -23,18 +23,18 @@ export const metadata = {
 export default function UnsubscribePage() {
   return (
     <div className='min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50'>
-      <header className='bg-[#0e2042] text-white py-10'>
-        <div className='container mx-auto px-4 max-w-3xl'>
-          <p className='text-xs tracking-widest uppercase text-[#ebcb4c] mb-2'>Texas AI Consulting</p>
-          <h1 className='text-3xl md:text-4xl font-bold'>Unsubscribe</h1>
-          <p className='text-gray-300 mt-2 text-sm'>
+      <header className='bg-ai-navy py-10 text-white'>
+        <div className='container mx-auto max-w-3xl px-4'>
+          <p className='mb-2 text-xs uppercase tracking-widest text-ai-gold'>Texas AI Consulting</p>
+          <h1 className='text-3xl font-bold md:text-4xl'>Unsubscribe</h1>
+          <p className='mt-2 text-sm text-gray-300'>
             Remove yourself from our email and SMS communications.
           </p>
         </div>
       </header>
 
-      <main className='container mx-auto px-4 py-10 max-w-3xl'>
-        <article className='bg-white rounded-2xl shadow-xl p-6 md:p-10 text-gray-800 leading-relaxed'>
+      <main className='container mx-auto max-w-3xl px-4 py-10'>
+        <article className='rounded-2xl bg-white p-6 leading-relaxed text-gray-800 shadow-xl md:p-10'>
           <p className='mb-6'>
             We&rsquo;re sorry to see you go. Submit the form below and we&rsquo;ll process your request immediately. You
             can also reply <strong>&ldquo;STOP&rdquo;</strong> to any SMS message to opt out of text communications.
@@ -60,13 +60,13 @@ export default function UnsubscribePage() {
             />
           </div>
 
-          <p className='text-sm text-gray-500 mt-8'>
+          <p className='mt-8 text-sm text-gray-500'>
             Having trouble? Email us at{' '}
-            <a className='text-[#2c75ff] underline' href='mailto:contact@texasaiconsulting.com'>
+            <a className='text-ai-blue underline' href='mailto:contact@texasaiconsulting.com'>
               contact@texasaiconsulting.com
             </a>{' '}
             or call{' '}
-            <a className='text-[#2c75ff] underline' href='tel:+12109722543'>
+            <a className='text-ai-blue underline' href='tel:+12109722543'>
               +1 210-972-2543
             </a>
             .
@@ -74,7 +74,7 @@ export default function UnsubscribePage() {
         </article>
 
         <div className='mt-8 text-center'>
-          <Link href='/' className='text-[#2c75ff] hover:text-[#ebcb4c] underline transition-colors'>
+          <Link href='/' className='text-ai-blue underline transition-colors hover:text-ai-gold'>
             ← Back to Home
           </Link>
         </div>
