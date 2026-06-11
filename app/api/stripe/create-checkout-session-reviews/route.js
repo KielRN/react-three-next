@@ -9,7 +9,10 @@ export async function POST(req) {
   try {
     const stripe = getStripeReviews()
     const body = await req.json()
-    const { tier, billing, customerInfo } = body
+    const { tier, billing, customerInfo, lang } = body
+    const isSpanish = lang === 'es'
+    const successPath = isSpanish ? '/funnels/reviews-es/gracias' : REVIEWS_STRIPE_CONFIG.successUrl
+    const sourceTag = isSpanish ? 'reviews_funnel_es' : 'reviews_funnel'
 
     if (!VALID_TIERS.includes(tier)) {
       return NextResponse.json(
@@ -48,7 +51,7 @@ export async function POST(req) {
         phone: customerInfo.phone,
         metadata: {
           company: customerInfo.company || '',
-          source: 'reviews_funnel',
+          source: sourceTag,
         },
       })
     }
@@ -58,12 +61,12 @@ export async function POST(req) {
       customer: customer.id,
       line_items: [{ price: priceId, quantity: 1 }],
       mode: 'subscription',
-      return_url: `${req.headers.get('origin')}${REVIEWS_STRIPE_CONFIG.successUrl}?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `${req.headers.get('origin')}${successPath}?session_id={CHECKOUT_SESSION_ID}`,
       payment_method_types: ['card'],
       metadata: {
         tier,
         billing,
-        source: 'reviews_funnel',
+        source: sourceTag,
         company: customerInfo.company || '',
       },
       subscription_data: {
@@ -71,7 +74,7 @@ export async function POST(req) {
         metadata: {
           tier,
           billing,
-          source: 'reviews_funnel',
+          source: sourceTag,
           company: customerInfo.company || '',
         },
       },

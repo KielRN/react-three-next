@@ -4,8 +4,8 @@ import { Suspense, useState, useEffect, useCallback, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { loadStripe } from '@stripe/stripe-js'
 import ReviewsFunnelHeader from '../components/ReviewsFunnelHeader'
-import CheckoutTrustBlock from '../components/CheckoutTrustBlock'
-import { REVIEWS_STRIPE_CONFIG } from '../stripe-config'
+import CheckoutTrustBlock from '../../reviews/components/CheckoutTrustBlock'
+import { REVIEWS_ES_STRIPE_CONFIG } from '../stripe-config'
 
 const STRIPE_PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 const stripePromise = STRIPE_PK ? loadStripe(STRIPE_PK) : null
@@ -14,7 +14,7 @@ function CheckoutInner() {
   const searchParams = useSearchParams()
   const tier = searchParams.get('tier') || 'growth'
   const billing = searchParams.get('billing') || 'monthly'
-  const tierDisplay = REVIEWS_STRIPE_CONFIG.display[tier]
+  const tierDisplay = REVIEWS_ES_STRIPE_CONFIG.display[tier]
   const priceLabel = billing === 'monthly' ? tierDisplay?.priceMonthly : tierDisplay?.priceAnnual
 
   const [step, setStep] = useState(1)
@@ -31,7 +31,7 @@ function CheckoutInner() {
       const response = await fetch('/api/stripe/create-checkout-session-reviews', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ tier, billing, customerInfo }),
+        body: JSON.stringify({ tier, billing, customerInfo, lang: 'es' }),
       })
       const text = await response.text()
       let data = {}
@@ -43,13 +43,13 @@ function CheckoutInner() {
       if (!response.ok || data.error) {
         throw new Error(
           data.error ||
-            `Checkout init failed (${response.status}). ${text ? text.slice(0, 200) : 'Empty response.'}`,
+            `Error al iniciar el pago (${response.status}). ${text ? text.slice(0, 200) : 'Respuesta vacía.'}`,
         )
       }
-      if (!data.clientSecret) throw new Error('No clientSecret returned from server.')
+      if (!data.clientSecret) throw new Error('El servidor no devolvió clientSecret.')
       setClientSecret(data.clientSecret)
     } catch (err) {
-      console.error('Reviews checkout error:', err)
+      console.error('Reviews-ES checkout error:', err)
       setError(err.message)
     }
   }, [tier, billing, customerInfo])
@@ -62,7 +62,7 @@ function CheckoutInner() {
       try {
         if (!stripePromise) {
           throw new Error(
-            'Stripe configuration error (NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY missing). Please contact support.',
+            'Error de configuración de Stripe (falta NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY). Por favor contacta a soporte.',
           )
         }
         const stripe = await stripePromise
@@ -78,7 +78,7 @@ function CheckoutInner() {
         setCheckoutReady(true)
       } catch (err) {
         console.error('Stripe mount error:', err)
-        if (!destroyed) setError(err.message || 'Failed to load payment form.')
+        if (!destroyed) setError(err.message || 'No se pudo cargar el formulario de pago.')
       }
     }
 
@@ -117,53 +117,53 @@ function CheckoutInner() {
           }}
         >
           <div>
-            <p style={{ margin: 0, fontSize: '13px', color: '#888' }}>YOUR PLAN</p>
+            <p style={{ margin: 0, fontSize: '13px', color: '#888' }}>TU PLAN</p>
             <p style={{ margin: 0, fontWeight: 'bold', color: '#0e2042', fontSize: '18px' }}>
-              Texas AI Reviews — {tierDisplay?.name || tier}
+              Texas AI Reseñas — {tierDisplay?.name || tier}
             </p>
             <p style={{ margin: 0, fontSize: '13px', color: '#555' }}>{tierDisplay?.volume}</p>
           </div>
           <div style={{ textAlign: 'right' }}>
             <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#0e2042' }}>{priceLabel}</p>
             <p style={{ margin: 0, fontSize: '13px', color: '#888' }}>
-              {billing === 'monthly' ? '/month' : '/year'} · 10-day free trial
+              {billing === 'monthly' ? '/mes' : '/año'} · prueba gratis de 10 días
             </p>
           </div>
         </div>
 
         <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
           <span style={{ fontWeight: step === 1 ? 'bold' : 'normal', color: step === 1 ? '#0e2042' : '#888' }}>
-            1. Your details
+            1. Tus datos
           </span>
           <span style={{ color: '#ccc' }}>→</span>
           <span style={{ fontWeight: step === 2 ? 'bold' : 'normal', color: step === 2 ? '#0e2042' : '#888' }}>
-            2. Payment
+            2. Pago
           </span>
         </div>
 
         {step === 1 && (
           <form onSubmit={handleContactSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <Field
-              label='Full name'
+              label='Nombre completo'
               required
               value={customerInfo.name}
               onChange={(v) => setCustomerInfo({ ...customerInfo, name: v })}
             />
             <Field
-              label='Email'
+              label='Correo electrónico'
               type='email'
               required
               value={customerInfo.email}
               onChange={(v) => setCustomerInfo({ ...customerInfo, email: v })}
             />
             <Field
-              label='Company'
+              label='Negocio'
               required
               value={customerInfo.company}
               onChange={(v) => setCustomerInfo({ ...customerInfo, company: v })}
             />
             <Field
-              label='Phone (optional)'
+              label='Teléfono (opcional)'
               type='tel'
               value={customerInfo.phone}
               onChange={(v) => setCustomerInfo({ ...customerInfo, phone: v })}
@@ -181,7 +181,7 @@ function CheckoutInner() {
                 cursor: 'pointer',
               }}
             >
-              Continue to Payment →
+              Continuar al Pago →
             </button>
           </form>
         )}
@@ -205,7 +205,7 @@ function CheckoutInner() {
             <div ref={checkoutContainerRef} style={{ minHeight: '400px' }} />
             {!checkoutReady && !error && (
               <div style={{ textAlign: 'center', padding: '60px 0', color: '#888' }}>
-                Securely initializing Stripe…
+                Inicializando Stripe de forma segura…
               </div>
             )}
             <button
@@ -220,12 +220,12 @@ function CheckoutInner() {
                 fontSize: '13px',
               }}
             >
-              ← Edit details
+              ← Editar datos
             </button>
           </div>
         )}
 
-        <CheckoutTrustBlock lang='en' />
+        <CheckoutTrustBlock lang='es' />
       </section>
     </main>
   )
@@ -254,9 +254,9 @@ function Field({ label, type = 'text', required, value, onChange }) {
   )
 }
 
-export default function ReviewsCheckoutPage() {
+export default function ReviewsEsCheckoutPage() {
   return (
-    <Suspense fallback={<div style={{ padding: '80px', textAlign: 'center' }}>Loading…</div>}>
+    <Suspense fallback={<div style={{ padding: '80px', textAlign: 'center' }}>Cargando…</div>}>
       <CheckoutInner />
     </Suspense>
   )

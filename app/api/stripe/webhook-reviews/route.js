@@ -62,6 +62,7 @@ async function handleCheckoutCompleted(session) {
   const tier = meta.tier || 'unknown'
   const billing = meta.billing || 'monthly'
   const company = meta.company || ''
+  const source = meta.source || ''
 
   if (!email) {
     console.warn('[reviews-webhook] checkout.session.completed without email — skipping GHL sync')
@@ -72,6 +73,7 @@ async function handleCheckoutCompleted(session) {
   const lastName = lastNameParts.join(' ')
 
   const tags = ['reviews-service', `${tier}-tier`, `billing-${billing}`, 'trial-active']
+  if (source === 'reviews_funnel_es') tags.push('language-es')
 
   const contactResult = await upsertContact({
     email,
