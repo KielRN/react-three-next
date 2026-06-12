@@ -78,7 +78,11 @@ export default function PricingCards({ billing = 'monthly', funnelBase = '/funne
             >
               Qué incluye
             </p>
-            <FeatureChecklist features={features} color={isPopular ? '#ebcb4c' : '#1a8a4f'} />
+            <FeatureChecklist
+              features={features}
+              color={isPopular ? '#ebcb4c' : '#1a8a4f'}
+              textColor={isPopular ? '#ffffff' : '#333'}
+            />
 
             <Link
               href={`${funnelBase}/pago?tier=${tierKey}&billing=${billing}`}

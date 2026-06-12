@@ -1,4 +1,4 @@
-export default function FeatureChecklist({ features, color = '#1a8a4f' }) {
+export default function FeatureChecklist({ features, color = '#1a8a4f', textColor = '#333' }) {
   return (
     <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
       {features.map((f) => (
@@ -10,7 +10,7 @@ export default function FeatureChecklist({ features, color = '#1a8a4f' }) {
             gap: '12px',
             marginBottom: '12px',
             fontSize: '14px',
-            color: '#333',
+            color: textColor,
           }}
         >
           <span
