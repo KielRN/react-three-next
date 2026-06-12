@@ -168,7 +168,10 @@ export function ReviewsBriefing() {
   return (
     <>
       {/* ===== MOBILE: stacked VetHub seal + Reviews pill (< sm) ===== */}
-      <div className='reviews-rise absolute inset-x-3 bottom-3 z-20 flex flex-col gap-2 sm:hidden' style={{ animationDelay: '500ms' }}>
+      <div
+        className='reviews-rise absolute inset-x-3 bottom-8 z-20 flex flex-col gap-2 sm:hidden'
+        style={{ animationDelay: '500ms', paddingBottom: 'env(safe-area-inset-bottom)', marginBottom: '0.5rem' }}
+      >
         {/* VetHub trust seal */}
         <div
           className='reviews-hud-pulse relative flex items-center gap-3 overflow-hidden border-2 border-ai-gold/70 bg-gradient-to-r from-[#0e2042]/90 via-black/90 to-[#0e2042]/90 px-3 py-2 backdrop-blur-md'

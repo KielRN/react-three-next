@@ -74,7 +74,6 @@ export const REVIEWS_ES_STRIPE_CONFIG = {
     'Respuestas automáticas con IA',
     'Publicación de reseñas en redes sociales',
     'Integración personalizada con tu CRM',
-    'Acceso a Zapier',
     'Usuarios ilimitados',
     'Llamada de configuración 1-a-1',
   ],

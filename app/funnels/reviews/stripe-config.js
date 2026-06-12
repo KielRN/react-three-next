@@ -95,7 +95,6 @@ export const REVIEWS_STRIPE_CONFIG = {
     'Auto AI Review Replies',
     'Social Media Review Posting',
     'Custom CRM Integration',
-    'Access to Zapier',
     'Unlimited Users',
     '1-1 Setup Call',
   ],
