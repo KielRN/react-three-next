@@ -65,10 +65,6 @@ export default function UnsubscribePage() {
             <a className='text-ai-blue underline' href='mailto:contact@texasaiconsulting.com'>
               contact@texasaiconsulting.com
             </a>{' '}
-            or call{' '}
-            <a className='text-ai-blue underline' href='tel:+12109722543'>
-              +1 210-972-2543
-            </a>
             .
           </p>
         </article>
