@@ -61,6 +61,8 @@ export async function POST(req) {
       customer: customer.id,
       line_items: [{ price: priceId, quantity: 1 }],
       mode: 'subscription',
+      automatic_tax: { enabled: true },
+      customer_update: { address: 'auto', name: 'auto' },
       return_url: `${req.headers.get('origin')}${successPath}?session_id={CHECKOUT_SESSION_ID}`,
       payment_method_types: ['card'],
       metadata: {

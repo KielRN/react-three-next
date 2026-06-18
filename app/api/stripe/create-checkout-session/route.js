@@ -63,6 +63,8 @@ export async function POST(req) {
       customer: customer.id,
       line_items: lineItems,
       mode: 'subscription', // Note: one-time setup fee can be added to subscription mode line items
+      automatic_tax: { enabled: true },
+      customer_update: { address: 'auto', name: 'auto' },
       return_url: `${req.headers.get('origin')}${STRIPE_CONFIG.successUrl}?session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         planType,
