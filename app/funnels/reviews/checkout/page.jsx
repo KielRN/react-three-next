@@ -110,25 +110,83 @@ function CheckoutInner() {
             border: '1px solid #e0e0e0',
             borderRadius: '8px',
             padding: '20px',
-            marginBottom: '32px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            marginBottom: '20px',
           }}
         >
-          <div>
-            <p style={{ margin: 0, fontSize: '13px', color: '#888' }}>YOUR PLAN</p>
-            <p style={{ margin: 0, fontWeight: 'bold', color: '#0e2042', fontSize: '18px' }}>
-              Texas AI Reviews — {tierDisplay?.name || tier}
-            </p>
-            <p style={{ margin: 0, fontSize: '13px', color: '#555' }}>{tierDisplay?.volume}</p>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              gap: '16px',
+              flexWrap: 'wrap',
+            }}
+          >
+            <div>
+              <p style={{ margin: 0, fontSize: '13px', color: '#888', letterSpacing: '0.04em' }}>YOUR PLAN</p>
+              <p style={{ margin: '2px 0 0', fontWeight: 'bold', color: '#0e2042', fontSize: '18px' }}>
+                Texas AI Reviews — {tierDisplay?.name || tier}
+              </p>
+              <p style={{ margin: '2px 0 0', fontSize: '13px', color: '#555' }}>{tierDisplay?.volume}</p>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <span
+                style={{
+                  display: 'inline-block',
+                  background: '#0e2042',
+                  color: '#ebcb4c',
+                  padding: '4px 10px',
+                  borderRadius: '999px',
+                  fontSize: '11px',
+                  fontWeight: 'bold',
+                  letterSpacing: '0.04em',
+                }}
+              >
+                10-DAY FREE TRIAL
+              </span>
+            </div>
           </div>
-          <div style={{ textAlign: 'right' }}>
-            <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#0e2042' }}>{priceLabel}</p>
-            <p style={{ margin: 0, fontSize: '13px', color: '#888' }}>
-              {billing === 'monthly' ? '/month' : '/year'} · 10-day free trial
-            </p>
+
+          <div style={{ borderTop: '1px solid #e0e0e0', margin: '16px 0', paddingTop: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
+              <span style={{ fontSize: '15px', fontWeight: 'bold', color: '#0e2042' }}>Due today</span>
+              <span style={{ fontSize: '28px', fontWeight: 'bold', color: '#1a8a4f' }}>$0.00</span>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'baseline',
+                marginTop: '6px',
+              }}
+            >
+              <span style={{ fontSize: '13px', color: '#666' }}>
+                Then {priceLabel}{billing === 'monthly' ? '/month' : '/year'} after day 10
+              </span>
+              <span style={{ fontSize: '13px', color: '#888' }}>Cancel anytime</span>
+            </div>
           </div>
+        </div>
+
+        {/* Trust bar — surfaced at the decision point, not just below the form */}
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '16px',
+            marginBottom: '32px',
+            fontSize: '13px',
+            color: '#3a3a3a',
+            fontWeight: 600,
+          }}
+        >
+          <span>🔒 256-bit secure checkout</span>
+          <span style={{ color: '#ccc' }}>•</span>
+          <span>✓ No charge for 10 days</span>
+          <span style={{ color: '#ccc' }}>•</span>
+          <span>↩ 100% money-back guarantee</span>
         </div>
 
         <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
@@ -173,16 +231,22 @@ function CheckoutInner() {
               style={{
                 background: '#0e2042',
                 color: '#ebcb4c',
-                padding: '14px',
+                padding: '16px',
                 border: 'none',
                 fontWeight: 'bold',
-                fontSize: '16px',
+                fontSize: '17px',
                 borderRadius: '6px',
                 cursor: 'pointer',
               }}
             >
-              Continue to Payment →
+              Start My 10-Day Free Trial →
             </button>
+            <p style={{ margin: '-4px 0 0', textAlign: 'center', fontSize: '13px', color: '#666' }}>
+              🔒 You won’t be charged today. Cancel anytime before day 11 — your total stays $0.
+            </p>
+            <p style={{ margin: 0, textAlign: 'center', fontSize: '12px', color: '#999' }}>
+              We never share your details. A Texas-based specialist sets up your account within 48 hours.
+            </p>
           </form>
         )}
 

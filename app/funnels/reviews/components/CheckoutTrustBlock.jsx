@@ -128,27 +128,39 @@ export default function CheckoutTrustBlock({ lang = 'en' }) {
           borderRadius: '8px',
           padding: '20px',
           marginBottom: '24px',
+          display: 'flex',
+          gap: '18px',
+          alignItems: 'center',
         }}
       >
-        <span
-          style={{
-            display: 'inline-block',
-            background: '#1a8a4f',
-            color: '#fff',
-            padding: '4px 10px',
-            borderRadius: '4px',
-            fontSize: '11px',
-            fontWeight: 'bold',
-            letterSpacing: '0.05em',
-            marginBottom: '10px',
-          }}
-        >
-          {t.guaranteeBadge}
-        </span>
-        <p style={{ margin: '0 0 6px', fontWeight: 'bold', color: '#0e2042', fontSize: '16px' }}>
-          {t.guaranteeHeadline}
-        </p>
-        <p style={{ margin: 0, color: '#2c5e3f', fontSize: '14px', lineHeight: 1.5 }}>{t.guaranteeBody}</p>
+        <Image
+          src='/img/satisfaction guarantee.webp'
+          alt='100% Satisfaction Guarantee'
+          width={96}
+          height={96}
+          style={{ flexShrink: 0, width: '88px', height: 'auto' }}
+        />
+        <div>
+          <span
+            style={{
+              display: 'inline-block',
+              background: '#1a8a4f',
+              color: '#fff',
+              padding: '4px 10px',
+              borderRadius: '4px',
+              fontSize: '11px',
+              fontWeight: 'bold',
+              letterSpacing: '0.05em',
+              marginBottom: '10px',
+            }}
+          >
+            {t.guaranteeBadge}
+          </span>
+          <p style={{ margin: '0 0 6px', fontWeight: 'bold', color: '#0e2042', fontSize: '16px' }}>
+            {t.guaranteeHeadline}
+          </p>
+          <p style={{ margin: 0, color: '#2c5e3f', fontSize: '14px', lineHeight: 1.5 }}>{t.guaranteeBody}</p>
+        </div>
       </div>
 
       <div
