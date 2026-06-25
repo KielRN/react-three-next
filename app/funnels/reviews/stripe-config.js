@@ -62,6 +62,7 @@ export const REVIEWS_STRIPE_CONFIG = {
       priceMonthlyValue: 99,
       priceAnnualValue: 990,
       popular: false,
+      excludedFeatures: ['Personalized Image Requests'],
     },
     growth: {
       key: 'growth',

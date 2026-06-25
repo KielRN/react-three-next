@@ -28,6 +28,9 @@ export default function PricingCards({ billing = 'monthly', funnelBase = '/funne
         const price = billing === 'monthly' ? tier.priceMonthly : tier.priceAnnual
         const cadence = billing === 'monthly' ? '/monthly' : '/yearly'
         const isPopular = tier.popular
+        const tierFeatures = tier.excludedFeatures?.length
+          ? features.filter((f) => !tier.excludedFeatures.includes(f))
+          : features
 
         return (
           <div
@@ -83,7 +86,7 @@ export default function PricingCards({ billing = 'monthly', funnelBase = '/funne
               What&apos;s included
             </p>
             <FeatureChecklist
-              features={features}
+              features={tierFeatures}
               color={isPopular ? '#ebcb4c' : '#1a8a4f'}
               textColor={isPopular ? '#ffffff' : '#333'}
             />
