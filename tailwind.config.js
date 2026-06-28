@@ -22,6 +22,11 @@ module.exports = {
         'ai-card-light': '#f4f4f4',
         'ai-text-dark': '#111111',
         'ai-text-muted': '#555555',
+        'lcars-amber': '#ff9f1c',
+        'lcars-violet': '#9b6dff',
+        'lcars-teal': '#1fd2c4',
+        'lcars-rust': '#cc4b37',
+        'lcars-ice': '#cfe8ff',
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
