@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Classic LCARS elbow: curves inside, flat outside -->
+  <path d="M10,10 L246,10 L246,60 L90,60 C70,60 60,70 60,90 L60,246 L10,246 Z" fill="#ff9f1c"/>
+  <rect x="75" y="15" width="50" height="30" fill="#ebcb4c"/>
+  <rect x="135" y="15" width="40" height="30" fill="#cfe8ff"/>
+
+</svg>

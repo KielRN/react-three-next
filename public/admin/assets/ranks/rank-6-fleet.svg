@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="192" height="192" rx="16" fill="#0e2042" stroke="#cfe8ff" stroke-width="2" opacity="0.3"/>
+  <circle cx="96" cy="96" r="75" fill="none" stroke="#9b6dff" stroke-width="2" stroke-dasharray="10, 5" filter="url(#glow)"/>
+  <path d="M96,35 L102,62 L130,62 L107,78 L116,105 L96,88 L76,105 L85,78 L62,62 L90,62 Z" fill="#9b6dff" filter="url(#glow)"/>
+  <!-- Chevron wings -->
+  <path d="M50,115 L96,140 L142,115 L142,125 L96,150 L50,125 Z" fill="#ebcb4c" filter="url(#glow)"/>
+  <text x="96" y="178" fill="#cfe8ff" font-family="monospace" font-size="12" text-anchor="middle">FLEET CAPTAIN</text>
+
+</svg>

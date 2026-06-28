@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <circle cx="256" cy="256" r="180" fill="none" stroke="#ebcb4c" stroke-width="3" stroke-dasharray="15,10" filter="url(#glow-heavy)"/>
+  <circle cx="256" cy="256" r="120" fill="none" stroke="#9b6dff" stroke-width="2" stroke-dasharray="5,8" filter="url(#glow)"/>
+  <!-- Particle Rays -->
+  <line x1="256" y1="256" x2="476.0" y2="256.0" stroke="#ebcb4c" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="446.52558883257655" y2="366.0" stroke="#9b6dff" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="366.0" y2="446.5255888325765" stroke="#ebcb4c" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="256.0" y2="476.0" stroke="#9b6dff" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="146.00000000000006" y2="446.52558883257655" stroke="#ebcb4c" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="65.47441116742348" y2="366.0" stroke="#9b6dff" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="36.0" y2="256.0" stroke="#ebcb4c" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="65.47441116742345" y2="146.00000000000006" stroke="#9b6dff" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="145.9999999999999" y2="65.47441116742354" stroke="#ebcb4c" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="255.99999999999997" y2="36.0" stroke="#9b6dff" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="366.0" y2="65.47441116742351" stroke="#ebcb4c" stroke-width="2" opacity="0.8"/><line x1="256" y1="256" x2="446.52558883257643" y2="145.9999999999999" stroke="#9b6dff" stroke-width="2" opacity="0.8"/>
+  <!-- Sparkling diamonds -->
+  <polygon points="406.0,256.0 414.0,256.0 406.0,264.0 398.0,256.0" fill="#cfe8ff" filter="url(#glow)"/><polygon points="362.06601717798213,362.06601717798213 370.06601717798213,362.06601717798213 362.06601717798213,370.06601717798213 354.06601717798213,362.06601717798213" fill="#cfe8ff" filter="url(#glow)"/><polygon points="256.0,406.0 264.0,406.0 256.0,414.0 248.0,406.0" fill="#cfe8ff" filter="url(#glow)"/><polygon points="149.93398282201787,362.06601717798213 157.93398282201787,362.06601717798213 149.93398282201787,370.06601717798213 141.93398282201787,362.06601717798213" fill="#cfe8ff" filter="url(#glow)"/><polygon points="106.0,256.0 114.0,256.0 106.0,264.0 98.0,256.0" fill="#cfe8ff" filter="url(#glow)"/><polygon points="149.93398282201787,149.93398282201787 157.93398282201787,149.93398282201787 149.93398282201787,157.93398282201787 141.93398282201787,149.93398282201787" fill="#cfe8ff" filter="url(#glow)"/><polygon points="255.99999999999997,106.0 264.0,106.0 255.99999999999997,114.0 247.99999999999997,106.0" fill="#cfe8ff" filter="url(#glow)"/><polygon points="362.0660171779821,149.93398282201787 370.0660171779821,149.93398282201787 362.0660171779821,157.93398282201787 354.0660171779821,149.93398282201787" fill="#cfe8ff" filter="url(#glow)"/>
+  <text x="256" y="270" fill="#ebcb4c" font-family="sans-serif" font-size="42" font-weight="900" text-anchor="middle" letter-spacing="4" filter="url(#glow-heavy)">LEVEL UP</text>
+
+</svg>

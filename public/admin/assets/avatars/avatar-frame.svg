@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Segmented LCARS Frame Ring -->
+  <circle cx="128" cy="128" r="120" fill="none" stroke="#2c75ff" stroke-width="2" stroke-dasharray="180, 20, 40, 20, 80, 20" transform="rotate(45 128 128)"/>
+  <circle cx="128" cy="128" r="114" fill="none" stroke="#ff9f1c" stroke-width="1" stroke-dasharray="5, 10" opacity="0.5"/>
+  <!-- Corner telemetry markings -->
+  <path d="M16,128 L8,128 M248,128 L240,128 M128,16 L128,8 M128,248 L128,240" stroke="#cfe8ff" stroke-width="1.5"/>
+  <rect x="18" y="118" width="10" height="20" fill="#ebcb4c" rx="2"/>
+  <rect x="228" y="118" width="10" height="20" fill="#ebcb4c" rx="2"/>
+
+</svg>

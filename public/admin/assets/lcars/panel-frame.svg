@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Outer border -->
+  <path d="M40,10 L760,10 C780,10 790,20 790,40 L790,460 C790,480 780,490 760,490 L80,490 C50,490 10,450 10,420 L10,80 C10,40 20,10 40,10 Z" fill="none" stroke="#2c75ff" stroke-width="3"/>
+  <!-- Left accent bar -->
+  <path d="M18,90 L18,400 C18,430 40,450 70,450 L75,450 L75,420 L65,420 C50,420 38,408 38,390 L38,90 Z" fill="#2c75ff"/>
+  <rect x="70" y="25" width="200" height="25" fill="#ebcb4c" rx="4"/>
+  <rect x="280" y="25" width="80" height="25" fill="#ff9f1c" rx="4"/>
+  <rect x="705" y="445" width="70" height="25" fill="#1fd2c4" rx="4"/>
+
+</svg>

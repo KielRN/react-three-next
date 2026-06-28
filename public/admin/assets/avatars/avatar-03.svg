@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="256" height="256" rx="128" fill="#0e2042" stroke="#9b6dff" stroke-width="4"/>
+  <circle cx="128" cy="128" r="90" fill="#000000" opacity="0.5"/>
+  <!-- Head outline with brain scan overlay -->
+  <path d="M90,165 C85,115 105,75 128,75 C151,75 171,115 166,165 C161,175 145,182 128,182 C111,182 95,175 90,165 Z" fill="#9b6dff" opacity="0.2"/>
+  <!-- Glowing brain waves -->
+  <path d="M110,95 Q128,80 146,95 Q128,110 110,95 Z" fill="none" stroke="#cfe8ff" stroke-width="2" filter="url(#glow)"/>
+  <path d="M115,110 Q128,98 141,110" fill="none" stroke="#9b6dff" stroke-width="2" filter="url(#glow)"/>
+  <circle cx="128" cy="140" r="15" fill="#000000" stroke="#cfe8ff" stroke-width="1"/>
+  <text x="128" y="215" fill="#cfe8ff" font-family="monospace" font-size="12" text-anchor="middle" letter-spacing="1">SCI_03</text>
+
+</svg>

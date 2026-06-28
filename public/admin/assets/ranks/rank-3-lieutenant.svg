@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="glow-heavy" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="192" height="192" rx="16" fill="#0e2042" stroke="#cfe8ff" stroke-width="2" opacity="0.3"/>
+  <circle cx="68" cy="85" r="20" fill="#ebcb4c" stroke="#cfe8ff" stroke-width="2" filter="url(#glow)"/>
+  <circle cx="124" cy="85" r="20" fill="#ebcb4c" stroke="#cfe8ff" stroke-width="2" filter="url(#glow)"/>
+  <rect x="56" y="135" width="80" height="10" fill="#ff9f1c" rx="2"/>
+  <text x="96" y="175" fill="#cfe8ff" font-family="monospace" font-size="12" text-anchor="middle">LIEUTENANT</text>
+
+</svg>
