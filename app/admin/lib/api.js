@@ -21,6 +21,7 @@ async function authedFetch(path, options = {}) {
 
 export const getMission = (week) => authedFetch(`/api/admin/mission${week ? `?week=${week}` : ''}`)
 export const getLeads = (week) => authedFetch(`/api/admin/leads${week ? `?week=${week}` : ''}`)
+export const getWeeks = () => authedFetch('/api/admin/weeks')
 export const postOutcome = (leadId, payload) =>
   authedFetch(`/api/admin/leads/${leadId}/outcome`, { method: 'POST', body: JSON.stringify(payload) })
 export const getProfile = () => authedFetch('/api/admin/profile')
