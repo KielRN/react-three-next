@@ -39,8 +39,8 @@ yarn-error.log*
 /public/workbox-*.js
 /public/sw.js
 
-# prefer yarn than npm
-package-lock.json
+# package-lock.json is committed so Railway's Docker build runs deterministic `npm ci`
+# (a floating `npm i` previously pulled a Node-incompatible dependency tree)
 
 report.*.json
 
@@ -49,3 +49,5 @@ report.*.json
 
 # Windows null device file (created by redirect to nul)
 nul
+
+.tmp
