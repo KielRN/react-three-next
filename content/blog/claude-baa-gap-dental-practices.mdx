@@ -1,0 +1,315 @@
+---
+title: "The Claude Plan Your Practice Pays For Isn't HIPAA-Covered"
+slug: "claude-baa-gap-dental-practices"
+date: "2026-08-01"
+author: "Elliott Lamboy, RN"
+excerpt: "Anthropic signs a BAA for exactly two surfaces — and Pro, Max, and Team aren't among them. Where the line sits, and the dental AI workflow that never crosses it."
+tags: ["HIPAA", "Claude", "Dental", "AI Compliance", "Patient Education"]
+image: "/blog-images/claude-dental-baa-hero.jpg"
+---
+
+# The Claude Plan Your Practice Pays For Isn't HIPAA-Covered
+
+If you're a dentist or a physician, you pay about twenty dollars a month for Claude, and you have ever typed anything about a real patient into it — this one's for you.
+
+The plan you are paying for is specifically excluded from Anthropic's Business Associate Agreement. Not a gray area. Named, in writing, on Anthropic's own privacy page.
+
+The reason almost nobody knows this is a timing accident. In January, Anthropic launched Claude for Healthcare — and put the health features on exactly the tiers that have no BAA.
+
+I want to do two things here. First, show you precisely where that line sits so you can go check your own account tonight. Second, show you the highest-value thing a dental practice can do with this technology that never touches that line at all — and it's backed by a review the ADA published this summer.
+
+## Watch The Video
+
+<div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden', maxWidth: '100%', margin: '2rem 0' }}>
+  <iframe
+    style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+    src="https://www.youtube.com/embed/i0Mct-KJO9c"
+    title="The Claude Plan Your Practice Pays For Isn't Covered by Anthropic's BAA"
+    frameBorder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerPolicy="strict-origin-when-cross-origin"
+    allowFullScreen>
+  </iframe>
+</div>
+
+---
+
+## Exactly Two Surfaces Are Covered
+
+Here is the whole rule, and it is short. Anthropic will sign a Business Associate Agreement for exactly two surfaces:
+
+1. **The first-party Claude API**
+2. **HIPAA-ready Claude Enterprise plans** — sales-assisted only; you cannot self-serve your way into one
+
+That is the entire list.
+
+Here is what is not covered. I'm going to list it plainly, because paraphrasing does you no good:
+
+![Anthropic BAA coverage — what's actually covered](/blog-images/claude-baa-coverage-table.jpg)
+
+<div className="my-8 overflow-x-auto rounded-lg border border-[#2c75ff]">
+  <table className="w-full border-collapse text-left text-white">
+    <thead>
+      <tr className="bg-[#0e2042]">
+        <th className="p-3 text-[#ffcc00] font-hesdeadjim border-b border-[#2c75ff]">Status</th>
+        <th className="p-3 text-[#ffcc00] font-hesdeadjim border-b border-[#2c75ff]">Surface</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 whitespace-nowrap">✅ <strong>Covered</strong></td>
+        <td className="p-3">Claude API (first-party) — Primary Owner signs the BAA, <em>then</em> contacts Anthropic to enable PHI</td>
+      </tr>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 whitespace-nowrap">✅ <strong>Covered</strong></td>
+        <td className="p-3">HIPAA-ready Claude Enterprise — sales-assisted; Primary Owner must activate HIPAA mode</td>
+      </tr>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 whitespace-nowrap">❌ <strong>Not covered</strong></td>
+        <td className="p-3">Claude Free · Pro · Max</td>
+      </tr>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 whitespace-nowrap">❌ <strong>Not covered</strong></td>
+        <td className="p-3">Workbench · Claude Console</td>
+      </tr>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 whitespace-nowrap">❌ <strong>Not covered</strong></td>
+        <td className="p-3">Claude Cowork</td>
+      </tr>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 whitespace-nowrap">❌ <strong>Not covered</strong></td>
+        <td className="p-3">Beta features, including Claude in Office and Claude Design</td>
+      </tr>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 whitespace-nowrap">⚠️ <strong>Conditional</strong></td>
+        <td className="p-3">MCPs / Connectors — available, but third-party data flows are <strong>not</strong> covered</td>
+      </tr>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 whitespace-nowrap">⚠️ <strong>Conditional</strong></td>
+        <td className="p-3">Claude Code — only under the BAA with zero data retention (ZDR) enabled</td>
+      </tr>
+      <tr>
+        <td className="p-3 whitespace-nowrap">⚠️ <strong>Conditional</strong></td>
+        <td className="p-3">Batch API, Files API, Skills API, Code Execution, Computer Use, Web Fetch — not covered</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+So if you're on Pro, you are not covered. If your three-provider office is on a Team plan because that seemed like the business-grade option, you are not covered. If you're on Max because you wanted the bigger usage limits, you are not covered.
+
+And I want to be careful with my language here, because this is where most people get sloppy. **Claude is not "HIPAA-compliant."** No AI product is HIPAA-compliant, because compliance is not a property a product has. What exists is a *specific configuration, operated under a signed agreement*, that can be used inside a HIPAA workflow. Anybody who tells you a tool is compliant out of the box is telling you something that cannot be true.
+
+---
+
+## Why This Catches Careful People
+
+This isn't carelessness. It's timing.
+
+On **January 11, 2026**, Anthropic launched Claude for Healthcare. Real product, real substance — connectors to PubMed (35 million+ papers), to ICD-10, to the CMS Coverage Database, to the National Provider Identifier registry. Agent Skills for FHIR development and prior authorization review. Serious infrastructure.
+
+![Anthropic's Claude for Healthcare announcement, January 11 2026](/blog-images/claude-for-healthcare-launch.jpg)
+
+And in the same launch, they shipped **personal health integrations**:
+
+![Personal health integrations shipped to Claude Pro and Max — consumer tiers with no BAA](/blog-images/claude-personal-health-integrations.jpg)
+
+- HealthEx
+- Function
+- Apple Health (iOS)
+- Android Health Connect
+
+Those went to **Claude Pro and Max**. Consumer tiers.
+
+Now — that is not a mistake on Anthropic's part. Those are consumer features, built for an individual managing their own health data, and Anthropic is explicit that they do not use that health data to train models. That is a perfectly reasonable product decision.
+
+But put yourself in the chair of a dentist who reads a headline that says *Claude for Healthcare*, opens the app she already pays for, and finds a health integration sitting right there waiting for her. Every signal in that experience says **this is for you**. Nothing in that moment says the agreement that would let you put protected health information through it does not cover this plan. She has to go find that on a separate privacy page she has no reason to be looking at.
+
+That's the gap. Nobody set a trap. It's just a gap — and it's costing people who are otherwise being careful.
+
+---
+
+## Enterprise Alone Doesn't Fix It Either
+
+Here's the layer I have not heard anybody say out loud.
+
+Getting on Enterprise does **not** automatically fix this. In Anthropic's own words: *"Standard Claude Enterprise plans do not include BAA coverage without action from a Primary Owner."*
+
+HIPAA-ready Enterprise is a separate, sales-assisted arrangement — and even once you have it, somebody has to physically go turn it on.
+
+![Three deliberate steps, and only the Primary Owner can take them](/blog-images/claude-enterprise-three-steps.jpg)
+
+**Only the Primary Owner can do this. Nobody else.**
+
+1. **Organization Settings → Data and privacy → HIPAA Compliance**
+2. **Accept Anthropic's Business Associate Agreement**
+3. **Enable HIPAA mode** — this is the switch. Without it, nothing above counts.
+
+Three deliberate steps by one specific person.
+
+So if you're the clinical lead at a practice that bought Enterprise eight months ago and you're assuming the office manager handled it — go look. Tonight. That setting is either on or it is off, and it takes about forty seconds to find out.
+
+### The Honest Tradeoff
+
+Going the API route or the HIPAA-ready Enterprise route costs real money and real setup time. For a two-operatory practice that mostly wants help writing patient emails, that is a genuinely hard sell, and I'm not going to pretend otherwise.
+
+Which brings me to the actual point.
+
+**For most of what a small practice wants to do with AI right now, you don't need a BAA. You need to not put protected health information in the prompt.** Those are different problems, and the second one is free to solve.
+
+---
+
+## One In Ten Of Your Patients
+
+Let me show you the version of this that has no compliance surface at all — and happens to be the most defensible content a dental practice can publish.
+
+Start with a number.
+
+![More than 30 million Americans — roughly 1 in 10 — live with a rare disease](/blog-images/rare-disease-thirty-million.jpg)
+
+**More than 30 million Americans are living with a rare disease.** That's roughly **one in ten**, according to the National Organization for Rare Disorders.
+
+Sit with that, because the word *rare* is doing a lot of damage here. Individually, yes, each of these conditions is rare. In aggregate, they are not rare at all.
+
+![A 2,000-patient panel with roughly 200 highlighted](/blog-images/rare-disease-patient-panel-2000.jpg)
+
+If you have a **2,000-patient panel**, the math says something like **200 of those people have one**. And most of them do not know it yet.
+
+Here is what their experience looks like:
+
+![The diagnostic odyssey — 4.7 years, 56%, 8+ specialists, under 5% treatable](/blog-images/rare-disease-odyssey-stats.jpg)
+
+<div className="my-8 overflow-x-auto rounded-lg border border-[#2c75ff]">
+  <table className="w-full border-collapse text-left text-white">
+    <tbody>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 text-2xl text-[#ffcc00] font-hesdeadjim whitespace-nowrap">4.7 years</td>
+        <td className="p-3">Average time from first symptom to accurate diagnosis</td>
+      </tr>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 text-2xl text-[#ffcc00] font-hesdeadjim whitespace-nowrap">56%</td>
+        <td className="p-3">Still undiagnosed more than six months after first medical contact</td>
+      </tr>
+      <tr className="border-b border-[#2c75ff]/30">
+        <td className="p-3 text-2xl text-[#ffcc00] font-hesdeadjim whitespace-nowrap">8+</td>
+        <td className="p-3">Specialists seen along the way</td>
+      </tr>
+      <tr>
+        <td className="p-3 text-2xl text-[#ffcc00] font-hesdeadjim whitespace-nowrap">&lt;5%</td>
+        <td className="p-3">Of the 10,000+ known rare diseases have an approved treatment</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+So this is not a small population with an exotic problem. This is a couple hundred people in your practice, in year three of a four-and-a-half-year search, being told by a series of very competent clinicians that their labs look fine.
+
+---
+
+## Why The Dental Chair Is Structurally Different
+
+Here's the part I think dentistry has genuinely not internalized. And it is not my opinion — it's in the literature.
+
+![The literature: International Journal of Oral Science and JADA, June 2026](/blog-images/dental-rare-disease-citations.jpg)
+
+**Oral manifestations may be the first, the only, or the most severe feature of a systemic disease.** That is standard teaching in oral medicine.
+
+Several rare diseases present with distinctive dental and craniofacial features early in their course — and the *International Journal of Oral Science* puts it about as plainly as a journal will:
+
+> "Dentists and oral surgeons are best placed to make early identification of such diseases."
+
+And this is not old news everybody has already absorbed. In **June 2026**, the *Journal of the American Dental Association* ran a review in its Oral Science Trends series called **"Rare Diseases: Challenges for Optimal Oral Health"** (Tim Wright and Davis Thomas), covering the literature through March 2026. The profession is actively saying this right now.
+
+But I want to give you the structural reason, because I think that's the part that actually matters — and it isn't the clinical-acuity argument.
+
+![Specialist visits are scattered one-offs; the dental recall is the only recurring appointment](/blog-images/rare-disease-odyssey-timeline.jpg)
+
+Think about the shape of a 4.7-year diagnostic odyssey. Almost every appointment in it is a one-off. You see the rheumatologist once. You see the GI once, maybe twice. Each of those specialists gets a single snapshot of a person they have never met and will probably not see again.
+
+**The six-month recall is different.** It is one of the only reliably recurring appointments in the entire odyssey. Same patient, same provider, on a schedule, for years — and looking into a part of the body that nobody else routinely examines.
+
+Twenty years at the bedside taught me that the thing that catches the zebra is almost never a smarter clinician in the room. It's the person who has seen the patient enough times to notice that something changed.
+
+Structurally, that is the dental chair. And almost nothing in dental marketing is built around it.
+
+---
+
+## The Workflow, With Zero PHI
+
+Here's what to actually do with that — and watch how it stays completely clear of everything in the first half of this article.
+
+![The zero-PHI workflow — five steps, no patient data enters the model](/blog-images/claude-zero-phi-workflow.jpg)
+
+**1. Pick one condition you actually treat** — one with oral manifestations.
+
+**2. Open Claude and use the PubMed connector** to pull the recent literature on it.
+
+**3. Ask for a one-page explainer at a 6th–8th grade reading level.** General condition information only. *No diagnosis. No treatment recommendation. No patient specifics.* Nothing about any individual human being.
+
+**4. You read it. You edit it.** This one is not optional. You are the clinician. The model does not sign anything and does not carry your license.
+
+**5. That page goes into a patient education sequence** that actually reaches people between visits.
+
+Now notice what happened. **No protected health information ever entered the model.** So the BAA question never arises — not because we found a loophole, but because we never created the exposure in the first place.
+
+That distinction is the whole game. The practices that get this wrong are not the ones being reckless. They're the ones who never drew the line between *using AI on general medical knowledge* and *using AI on a specific patient*. One of those needs a signed agreement. The other needs you to be careful about what you type.
+
+### Why This Is Worth Doing At All
+
+Patients are already bringing AI into the room. One in four U.S. adults — over 66 million people — report using AI tools for health information or advice, and among those users, **59% research before seeing a doctor and 56% research after**. Separately, the 2026 Edelman Trust Barometer found 35% of people consult an AI platform for health questions, and **74% of those are seeking a second opinion on a diagnosis**.
+
+The practice that has already published a plain-language explanation is the one that keeps that patient. The practice that gets blindsided loses them to whoever answered first.
+
+### The Honest Limit
+
+If your practice has no way to reach patients between visits, none of this matters. A patient education library nobody receives is a folder on your desktop. **The content is not the hard part. Delivery is.**
+
+---
+
+## What To Do This Week
+
+1. **Tonight:** find out which Claude plan your practice is actually on, and whether HIPAA mode is on or off. That's a forty-second check and it's the highest-value forty seconds in this article.
+2. **This week:** write one patient explainer, about one condition you see, run it through your own clinical review, and get it in front of people.
+
+If the delivery side is where you get stuck — that's the piece I build for practices. You can see how that works at [texasaiconsulting.com/funnels/growth-platform](/funnels/growth-platform). No pitch on it. Go look if it's useful to you.
+
+---
+
+## A Note On Verification
+
+Anthropic updated its BAA documentation in mid-July 2026. Everything above was re-checked against the live page on **31 July 2026**, and two points deserve a caveat:
+
+- **"Claude Team"** is listed above as not covered. Team is a commercial "Claude for Work" product and is not among the HIPAA-ready services Anthropic names as covered — but the current page does not call Team out by name in its exclusion list. Verify against your own contract.
+- **The first-party API** is covered, but not self-serve: the Primary Owner must sign the BAA *and* then contact Anthropic to have PHI use enabled.
+
+BAA terms change. Treat this article as a prompt to go read your own account settings and your own agreement — not as a substitute for either. Nothing here is legal advice.
+
+---
+
+## Sources
+
+**Anthropic (primary)**
+
+- [Business Associate Agreements (BAA) for Commercial Customers](https://privacy.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)
+- [HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans)
+- [Advancing Claude in healthcare and the life sciences](https://www.anthropic.com/news/healthcare-life-sciences)
+
+**Rare disease**
+
+- [NORD — More Than 30 Million Americans Living with Rare Diseases](https://rarediseases.org/rare-disease-day-2026/)
+- [EURORDIS Rare Barometer — time to diagnosis](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11369105/)
+
+**Dental literature**
+
+- [International Journal of Oral Science — Dental-craniofacial manifestation and treatment of rare diseases](https://www.nature.com/articles/s41368-018-0041-y)
+- [BDJ Team — Oral manifestations of systemic disease](https://www.nature.com/articles/bdjteam201812)
+- [ADA News — June JADA highlights dentists' role in rare disease management](https://adanews.ada.org/ada-news/2026/june/june-jada-highlights-dentists-role-in-rare-disease-management)
+
+**Patient behavior**
+
+- [West Health–Gallup — Millions of Americans Now Consult AI Before, After, and Sometimes Instead of, Seeing a Doctor](https://westhealth.org/news/millions-of-americans-now-consult-ai-before-after-and-sometimes-instead-of-seeing-a-doctor/)
+- [Edelman Trust Barometer 2026, via Medscape](https://www.medscape.com/viewarticle/chatbot-will-see-you-now-crisis-trust-2026a1000k73)
+
+---
+
+*Texas AI Consulting | AI systems that respect the line between general knowledge and protected health information.*
