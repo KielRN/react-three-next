@@ -14,12 +14,14 @@ A transplant team should not have to search multiple systems, assemble spreadshe
 
 Texas AI Consulting built a lung transplant surveillance dashboard that brings two clinical data sources into one governed Power BI application. The result is an exception-based view of the post-transplant population, longitudinal lab trends, protocol status, and the information needed for a daily clinical huddle.
 
+The overall goal was straightforward: give clinicians one place to review patient data, recognize what needs attention, and make better-informed decisions in support of better patient outcomes.
+
 <div className="p-4 my-6 bg-[#0e2042] rounded-lg border border-[#2c75ff]">
   <h3 className="text-xl text-[#ffcc00] mb-4 font-hesdeadjim">
     THE PROJECT IN ONE LINE
   </h3>
   <div className="text-white mb-0">
-    Two disconnected clinical sources became one daily-refreshed Power BI surveillance application built around alerts, protocols, and clinical workflow.
+    Two disconnected clinical sources became one daily-refreshed Power BI surveillance application where clinicians can review patient data in one place and act on alerts, trends, and protocols.
   </div>
 </div>
 
@@ -43,11 +45,34 @@ The technical challenge was not simply building a chart. It was creating a clini
 
 The project started with source discovery and data lineage, not dashboard colors.
 
-| Layer | Technology | Role in the solution |
-|---|---|---|
-| Transplant EHR | TeleResults and SQL Server | Transplant dates, clinic activity, labs, pulmonary function, and patient-level surveillance fields |
-| Enterprise clinical network | HCA HIN and Google BigQuery | Radiology and imaging information not available in the transplant EHR source |
-| Semantic and reporting layer | Power BI Service | Governed model, daily refresh, alerts, trends, protocol views, and clinical huddle workflow |
+<div className="my-8 overflow-x-auto rounded-lg border border-[#2c75ff]">
+  <table className="w-full border-collapse text-left">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Technology</th>
+        <th>Role in the solution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Transplant EHR</td>
+        <td>TeleResults and SQL Server</td>
+        <td>Transplant dates, clinic activity, labs, pulmonary function, and patient-level surveillance fields</td>
+      </tr>
+      <tr>
+        <td>Enterprise clinical network</td>
+        <td>HCA HIN and Google BigQuery</td>
+        <td>Radiology and imaging information not available in the transplant EHR source</td>
+      </tr>
+      <tr>
+        <td>Semantic and reporting layer</td>
+        <td>Power BI Service</td>
+        <td>Governed model, daily refresh, alerts, trends, protocol views, and clinical huddle workflow</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 I used SQL Server Management Studio to explore the TeleResults backend and trace the tables, keys, and relationships needed for the model. GitHub AI tools helped accelerate schema questions, SQL patterns, and troubleshooting.
 
@@ -114,6 +139,14 @@ The protocol page also keeps contextual clinical notes with the selected procedu
 ## Designing for the Daily Huddle
 
 The report was built as an 11-page clinical surveillance application, not a static executive dashboard. Its pages include clinic volume, pre-transplant, post-transplant, patient review, FEV1 summary, tacrolimus trends, lab review, protocol views, and a dedicated daily huddle page.
+
+The **Pre-Transplant** and **Post-Transplant** pages serve as the primary cohort entry points. From either page, clinicians can select a patient and drill down into three focused views:
+
+- **Patient Review** for the selected patient's consolidated clinical information
+- **FEV1 Summary** for patient-specific pulmonary function surveillance
+- **Tacro Trend** for longitudinal tacrolimus results and target-range review
+
+These drill-down pages let clinicians move from the cohort view into the selected patient's detail without leaving the dashboard or reconstructing the record across separate reports.
 
 That last page matters because analytics only creates value when it fits the work. The dashboard had to support the team's recurring discussion: which patients need review, which alerts deserve follow-up, and which protocol requirements are approaching or incomplete.
 
