@@ -12,7 +12,7 @@ image: "/blog-images/lung-transplant-power-bi-post-transplant-alerts.png"
 
 A transplant team should not have to search multiple systems, assemble spreadsheets, and read every chart to find the patients who need attention today.
 
-Texas AI Consulting built a lung transplant surveillance dashboard that brings direct transplant data from TeleResults together with broader enterprise clinical data housed in HCA's Health Integrated Network (HIN) and accessed through BigQuery. The result is one governed Power BI application with an exception-based view of the post-transplant population, longitudinal lab trends, protocol status, and the information needed for a daily clinical huddle.
+Texas AI Consulting built a lung transplant surveillance dashboard that brings direct transplant data from TeleResults together with radiology data available through the HCA Healthcare Intelligence Net (HIN) and queried through BigQuery. The result is one governed Power BI application with an exception-based view of the post-transplant population, longitudinal lab trends, protocol status, and the information needed for a daily clinical huddle.
 
 The overall goal was straightforward: give clinicians one place to review patient data, recognize what needs attention, and make better-informed decisions in support of better patient outcomes.
 
@@ -32,7 +32,7 @@ Lung transplant surveillance is continuous. The team needs to know how long each
 The relevant information did not live in one place.
 
 - **TeleResults**, the transplant EHR, contained structured transplant and clinic data in its SQL Server backend, but that source did not contain all of the radiology data needed for protocol measurement.
-- **HCA's Health Integrated Network (HIN)** served as the enterprise clinical data repository. EHRs such as TeleResults and MEDITECH write data to and retrieve data from HIN.
+- **The HCA Healthcare Intelligence Net (HIN)** served as the enterprise data and analytics environment that integrates information from clinical source systems for governed reporting and decision support.
 - **HCA's Google Cloud Platform services and BigQuery** provided the governed access and query path used to locate the required HIN radiology data.
 - Written program protocols defined what should happen at each stage after transplant.
 
@@ -62,9 +62,9 @@ The project started with source discovery and data lineage, not dashboard colors
         <td>Direct access to transplant dates, clinic activity, labs, pulmonary function, and patient-level surveillance fields</td>
       </tr>
       <tr>
-        <td>Enterprise clinical repository</td>
-        <td>HCA Health Integrated Network (HIN)</td>
-        <td>Shared clinical data repository used by enterprise EHRs, including TeleResults and MEDITECH</td>
+        <td>Enterprise data and analytics environment</td>
+        <td>HCA Healthcare Intelligence Net (HIN)</td>
+        <td>Integrates information from clinical source systems for governed analytics, data lineage, historical reporting, and decision support</td>
       </tr>
       <tr>
         <td>Cloud access and query layer</td>
@@ -84,7 +84,9 @@ I started with the source closest to the transplant workflow. Using SQL Server M
 
 The discovery process also exposed an important gap: the TeleResults SQL Server did not contain the radiology data needed to measure every applicable element of the transplant protocol. Stopping at the application database would have left the dashboard incomplete.
 
-That is where understanding HCA's broader data architecture mattered. TeleResults, MEDITECH, and other enterprise EHRs exchange data with HIN, the health system's integrated clinical repository. **HIN was the data repository; BigQuery was the tool used to access and query that data through HCA's GCP cloud services.** They were not two interchangeable data sources.
+That is where understanding HCA's broader data architecture mattered. HIN is an enterprise data and analytics environment that integrates information from clinical source systems for governed reporting and decision support. It is not another transactional EHR.
+
+For this project, TeleResults data was accessed directly from its SQL Server backend, while radiology data missing from that source was located in HIN and queried through HCA's Google Cloud and BigQuery environment. This distinction kept the data lineage clear: TeleResults was the direct transplant source, HIN was the enterprise analytics environment, and BigQuery was the query technology used to reach the required HIN data.
 
 Working in that environment required familiarity with HCA's cloud tooling, BigQuery datasets, SQL-based discovery, and clinical data lineage. I used those tools to search the HIN data available through BigQuery, identify the missing radiology information, and trace the fields needed to measure the team's protocol requirements. Once validated, those fields could be modeled alongside the direct TeleResults data in Power BI.
 
@@ -193,7 +195,7 @@ This project required more than Power BI development. It combined:
 - Protocol modeling and source-lineage transparency
 - Privacy-aware use of AI-assisted development tools
 
-The operational result was a single governed surveillance view spanning the direct transplant database and the enterprise HIN data path. The team could review the post-transplant panel through exceptions, trends, and protocol status instead of reconstructing the same picture one chart at a time.
+The operational result was a single governed surveillance view spanning the direct TeleResults database and HIN data queried through BigQuery. The team could review the post-transplant panel through exceptions, trends, and protocol status instead of reconstructing the same picture one chart at a time.
 
 That is the kind of healthcare technology work Texas AI Consulting is built to do: connect clinical knowledge with engineering execution so the final system supports the people delivering care.
 
