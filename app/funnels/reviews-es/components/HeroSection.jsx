@@ -38,7 +38,7 @@ export default function HeroSection() {
                 borderRadius: '6px',
               }}
             >
-              Empieza Tu Prueba Gratis de 10 Días
+              Empieza Tu Prueba Gratis de 14 Días
             </Link>
             <a
               href='https://link.texasaiconsulting.com/widget/booking/uuJHOQrN5564Px31JrBi'
@@ -58,7 +58,7 @@ export default function HeroSection() {
             </a>
           </div>
           <p style={{ marginTop: '24px', fontSize: '13px', color: '#888' }}>
-            Sin sorpresas en tu tarjeta. Cancela cuando quieras durante tu prueba de 10 días.
+            Sin sorpresas en tu tarjeta. Cancela cuando quieras durante tu prueba de 14 días.
           </p>
         </div>
         <div

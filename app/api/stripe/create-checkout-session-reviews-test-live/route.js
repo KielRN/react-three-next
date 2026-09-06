@@ -62,7 +62,7 @@ export async function POST(req) {
         source: 'reviews_funnel_test_live',
       },
       subscription_data: {
-        trial_period_days: 10,
+        trial_period_days: REVIEWS_TEST_LIVE_STRIPE_CONFIG.trial.days,
         metadata: {
           tier,
           billing,

@@ -188,7 +188,7 @@ The `/funnels/reviews` route is a self-contained sales funnel for the Texas AI R
 - [app/funnels/reviews/page.jsx](app/funnels/reviews/page.jsx) — landing page (hero, problem/solution, timeline, FAQ)
 - [app/funnels/reviews/pricing/page.jsx](app/funnels/reviews/pricing/page.jsx) — 3-tier pricing with monthly/annual toggle
 - [app/funnels/reviews/demo/page.jsx](app/funnels/reviews/demo/page.jsx) — demo lead-capture (posts to `/api/contact` with `source: 'reviews_funnel_demo'`)
-- [app/funnels/reviews/checkout/page.jsx](app/funnels/reviews/checkout/page.jsx) — Stripe embedded checkout (subscription mode + 10-day trial)
+- [app/funnels/reviews/checkout/page.jsx](app/funnels/reviews/checkout/page.jsx) — Stripe embedded checkout (subscription mode + 14-day trial)
 - [app/funnels/reviews/thank-you/page.jsx](app/funnels/reviews/thank-you/page.jsx) — post-purchase confirmation
 - [app/funnels/reviews/stripe-config.js](app/funnels/reviews/stripe-config.js) — tier definitions, price IDs, display copy
 - [app/funnels/reviews-test-live/](app/funnels/reviews-test-live/) — LIVE-mode smoke test mirror (red TEST PAGE banner, `noindex,nofollow`, $1.50/$5.50 dummy prices)

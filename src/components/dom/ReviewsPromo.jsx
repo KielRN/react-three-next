@@ -36,7 +36,7 @@ export function ReviewsTransmissionBar() {
         Rank #1 on Google With Automated Five-Star Reviews
       </span>
       <span className='font-mono text-[11px] uppercase tracking-[0.2em] text-ai-blue'>
-        // 10-Day Free Trial
+        // 14-Day Free Trial
       </span>
       <span className='text-ai-gold-bright/40'>◆</span>
     </span>
@@ -136,7 +136,7 @@ export function ReviewsHud() {
                   <span className='text-white/90'>NEW SERVICE //</span> Reviews Automation
                 </div>
                 <div className='mt-0.5 font-mono text-[11px] uppercase tracking-[0.15em] text-white/70'>
-                  Be the obvious choice on Google · 10-day free trial
+                  Be the obvious choice on Google · 14-day free trial
                 </div>
               </div>
 
@@ -221,7 +221,7 @@ export function ReviewsBriefing() {
               Reviews Service
             </div>
             <div className='font-mono text-[9px] uppercase tracking-[0.2em] text-white/70'>
-              10-Day Free Trial
+              14-Day Free Trial
             </div>
           </div>
           <div className='relative flex items-center gap-1 bg-ai-gold-bright px-3 py-1.5 font-hesdeadjim text-[11px] uppercase tracking-wider text-black'>
@@ -270,7 +270,7 @@ export function ReviewsBriefing() {
                   <span className='text-ai-gold-bright'>Automate Five-Star Reviews.</span>
                 </h3>
                 <p className='font-mono text-[11px] leading-relaxed text-white/60 sm:text-[12px]'>
-                  Done-for-you review collection, response, and ranking signals. No credit card surprises — cancel anytime in your 10-day trial.
+                  Done-for-you review collection, response, and ranking signals. No credit card surprises — cancel anytime in your 14-day trial.
                 </p>
 
                 {/* Inline veteran credential row — shows when the standalone seal is hidden */}
@@ -553,7 +553,7 @@ export function ProductsCard({ isVisible, onClose }) {
                       {[
                         ['+87%', 'reviews captured'],
                         ['#1', 'on Google Maps'],
-                        ['10-day', 'free trial'],
+                        ['14-day', 'free trial'],
                       ].map(([k, v]) => (
                         <div
                           key={v}

@@ -101,8 +101,8 @@ export const REVIEWS_STRIPE_CONFIG = {
   ],
 
   trial: {
-    days: 10,
-    ctaLabel: 'Start 10-Day Free Trial',
+    days: 14,
+    ctaLabel: 'Start 14-Day Free Trial',
   },
 
   successUrl: '/funnels/reviews/thank-you',

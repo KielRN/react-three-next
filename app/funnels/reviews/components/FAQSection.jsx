@@ -5,7 +5,7 @@ import { useState } from 'react'
 const FAQS = [
   {
     q: 'How long is the free trial?',
-    a: '10 days. You enter payment info at signup but are not charged until day 11. Cancel anytime before then for $0.',
+    a: '14 days. You enter payment info at signup but are not charged until day 15. Cancel anytime before then for $0.',
   },
   {
     q: 'What if I have more than 300 review requests per month?',

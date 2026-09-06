@@ -72,7 +72,7 @@ export async function POST(req) {
         company: customerInfo.company || '',
       },
       subscription_data: {
-        trial_period_days: 10,
+        trial_period_days: REVIEWS_STRIPE_CONFIG.trial.days,
         metadata: {
           tier,
           billing,

@@ -126,7 +126,7 @@ function CheckoutInner() {
           <div style={{ textAlign: 'right' }}>
             <p style={{ margin: 0, fontSize: '24px', fontWeight: 'bold', color: '#0e2042' }}>{priceLabel}</p>
             <p style={{ margin: 0, fontSize: '13px', color: '#888' }}>
-              {billing === 'monthly' ? '/mes' : '/año'} · prueba gratis de 10 días
+              {billing === 'monthly' ? '/mes' : '/año'} · prueba gratis de 14 días
             </p>
           </div>
         </div>

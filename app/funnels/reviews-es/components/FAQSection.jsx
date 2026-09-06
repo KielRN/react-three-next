@@ -5,7 +5,7 @@ import { useState } from 'react'
 const FAQS = [
   {
     q: '¿Cuánto dura la prueba gratis?',
-    a: '10 días. Pones tu información de pago al registrarte pero no te cobramos nada hasta el día 11. Cancela cuando quieras antes de esa fecha y no pagas nada.',
+    a: '14 días. Pones tu información de pago al registrarte pero no te cobramos nada hasta el día 15. Cancela cuando quieras antes de esa fecha y no pagas nada.',
   },
   {
     q: '¿Y si necesito más de 300 solicitudes de reseñas al mes?',

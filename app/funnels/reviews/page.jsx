@@ -23,7 +23,7 @@ export default function ReviewsLandingPage() {
       <section style={{ padding: '80px 24px', background: '#0e2042', color: '#fff', textAlign: 'center' }}>
         <h2 style={{ fontSize: '36px', margin: '0 0 16px' }}>Getting reviews has never been easier</h2>
         <p style={{ fontSize: '18px', opacity: 0.85, marginBottom: '32px' }}>
-          Texas AI Reviews does the hard work for you. Start your 10-day free trial.
+          Texas AI Reviews does the hard work for you. Start your 14-day free trial.
         </p>
         <div style={{ display: 'inline-flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
           <Link
@@ -37,7 +37,7 @@ export default function ReviewsLandingPage() {
               borderRadius: '6px',
             }}
           >
-            Start 10-Day Free Trial
+            Start 14-Day Free Trial
           </Link>
           <a
             href='https://link.texasaiconsulting.com/widget/booking/uuJHOQrN5564Px31JrBi'

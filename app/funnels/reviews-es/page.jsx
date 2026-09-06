@@ -23,7 +23,7 @@ export default function ReviewsEsLandingPage() {
       <section style={{ padding: '80px 24px', background: '#0e2042', color: '#fff', textAlign: 'center' }}>
         <h2 style={{ fontSize: '36px', margin: '0 0 16px' }}>Conseguir reseñas nunca había sido tan fácil</h2>
         <p style={{ fontSize: '18px', opacity: 0.85, marginBottom: '32px' }}>
-          Texas AI Reseñas hace el trabajo pesado por ti. Empieza tu prueba gratis de 10 días.
+          Texas AI Reseñas hace el trabajo pesado por ti. Empieza tu prueba gratis de 14 días.
         </p>
         <div style={{ display: 'inline-flex', gap: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
           <Link
@@ -37,7 +37,7 @@ export default function ReviewsEsLandingPage() {
               borderRadius: '6px',
             }}
           >
-            Empieza Tu Prueba Gratis de 10 Días
+            Empieza Tu Prueba Gratis de 14 Días
           </Link>
           <a
             href='https://link.texasaiconsulting.com/widget/booking/uuJHOQrN5564Px31JrBi'

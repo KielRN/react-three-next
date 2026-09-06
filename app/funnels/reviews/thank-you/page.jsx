@@ -23,10 +23,10 @@ export default function ReviewsThankYouPage() {
           ✓
         </div>
         <h1 style={{ color: '#0e2042', fontSize: '36px', margin: '0 0 16px' }}>
-          You&apos;re in. Your 10-day trial starts now.
+          You&apos;re in. Your 14-day trial starts now.
         </h1>
         <p style={{ color: '#555', fontSize: '18px', maxWidth: '540px', margin: '0 auto 32px', lineHeight: 1.5 }}>
-          We&apos;ll send a welcome email shortly with onboarding details. You&apos;re not charged until day 11 — cancel
+          We&apos;ll send a welcome email shortly with onboarding details. You&apos;re not charged until day 15 — cancel
           anytime before then for $0.
         </p>
 
@@ -68,7 +68,7 @@ export default function ReviewsThankYouPage() {
             >
               support@texasaiconsulting.com
             </a>{' '}
-            with the word <strong>CANCEL</strong> before day 11 to end your trial at $0. After day 11, the same address
+            with the word <strong>CANCEL</strong> before day 15 to end your trial at $0. After day 15, the same address
             cancels at the end of your current billing cycle.
           </p>
         </div>

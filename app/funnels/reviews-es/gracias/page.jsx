@@ -23,11 +23,11 @@ export default function ReviewsEsThankYouPage() {
           ✓
         </div>
         <h1 style={{ color: '#0e2042', fontSize: '36px', margin: '0 0 16px' }}>
-          ¡Listo! Tu prueba de 10 días empieza ahora.
+          ¡Listo! Tu prueba de 14 días empieza ahora.
         </h1>
         <p style={{ color: '#555', fontSize: '18px', maxWidth: '540px', margin: '0 auto 32px', lineHeight: 1.5 }}>
           Te mandamos un correo de bienvenida en un momento con los detalles de configuración. No te cobramos nada hasta
-          el día 11 — cancela cuando quieras antes de esa fecha y tu total será $0.
+          el día 15 — cancela cuando quieras antes de esa fecha y tu total será $0.
         </p>
 
         <div
@@ -68,7 +68,7 @@ export default function ReviewsEsThankYouPage() {
             >
               support@texasaiconsulting.com
             </a>{' '}
-            con la palabra <strong>CANCELAR</strong> antes del día 11 y tu prueba termina sin costo. Después del día 11,
+            con la palabra <strong>CANCELAR</strong> antes del día 15 y tu prueba termina sin costo. Después del día 15,
             el mismo correo cancela al final de tu ciclo de facturación actual.
           </p>
         </div>

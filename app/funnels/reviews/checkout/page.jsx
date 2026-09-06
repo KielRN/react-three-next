@@ -142,7 +142,7 @@ function CheckoutInner() {
                   letterSpacing: '0.04em',
                 }}
               >
-                10-DAY FREE TRIAL
+                14-DAY FREE TRIAL
               </span>
             </div>
           </div>
@@ -161,7 +161,7 @@ function CheckoutInner() {
               }}
             >
               <span style={{ fontSize: '13px', color: '#666' }}>
-                Then {priceLabel}{billing === 'monthly' ? '/month' : '/year'} after day 10
+                Then {priceLabel}{billing === 'monthly' ? '/month' : '/year'} after day 14
               </span>
               <span style={{ fontSize: '13px', color: '#888' }}>Cancel anytime</span>
             </div>
@@ -184,7 +184,7 @@ function CheckoutInner() {
         >
           <span>🔒 256-bit secure checkout</span>
           <span style={{ color: '#ccc' }}>•</span>
-          <span>✓ No charge for 10 days</span>
+          <span>✓ No charge for 14 days</span>
           <span style={{ color: '#ccc' }}>•</span>
           <span>↩ 100% money-back guarantee</span>
         </div>
@@ -239,10 +239,10 @@ function CheckoutInner() {
                 cursor: 'pointer',
               }}
             >
-              Start My 10-Day Free Trial →
+              Start My 14-Day Free Trial →
             </button>
             <p style={{ margin: '-4px 0 0', textAlign: 'center', fontSize: '13px', color: '#666' }}>
-              🔒 You won’t be charged today. Cancel anytime before day 11 — your total stays $0.
+              🔒 You won’t be charged today. Cancel anytime before day 15 — your total stays $0.
             </p>
             <p style={{ margin: 0, textAlign: 'center', fontSize: '12px', color: '#999' }}>
               We never share your details. A Texas-based specialist sets up your account within 48 hours.

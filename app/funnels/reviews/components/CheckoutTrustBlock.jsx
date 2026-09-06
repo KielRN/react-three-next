@@ -3,9 +3,9 @@ import Image from 'next/image'
 const COPY = {
   en: {
     trialBadge: 'NO CHARGE TODAY',
-    trialHeadline: 'You won’t be charged until day 11.',
+    trialHeadline: 'You won’t be charged until day 15.',
     trialBody:
-      'Your card is held by Stripe for the 10-day free trial. Cancel anytime before day 11 by emailing support@texasaiconsulting.com — your total will be $0.',
+      'Your card is held by Stripe for the 14-day free trial. Cancel anytime before day 15 by emailing support@texasaiconsulting.com — your total will be $0.',
     guaranteeBadge: 'SATISFACTION GUARANTEE',
     guaranteeHeadline: 'Not getting more reviews? Your money back.',
     guaranteeBody:
@@ -16,16 +16,16 @@ const COPY = {
       { title: 'Real human support', body: 'A Texas-based onboarding specialist sets up your account within 48 hours.' },
       { title: 'Your data stays yours', body: 'We never sell your customer list. Export everything anytime.' },
     ],
-    badges: ['10-Day Free Trial', 'Cancel Anytime', 'Secure Stripe Checkout', 'Satisfaction Guarantee', 'No Setup Fee'],
+    badges: ['14-Day Free Trial', 'Cancel Anytime', 'Secure Stripe Checkout', 'Satisfaction Guarantee', 'No Setup Fee'],
     secureLabel: 'Secure SSL Checkout',
     supportLine: 'Questions before you buy?',
     supportEmail: 'support@texasaiconsulting.com',
   },
   es: {
     trialBadge: 'HOY NO TE COBRAMOS',
-    trialHeadline: 'No te cobramos nada hasta el día 11.',
+    trialHeadline: 'No te cobramos nada hasta el día 15.',
     trialBody:
-      'Stripe guarda tu tarjeta durante los 10 días de prueba gratis. Cancela cuando quieras antes del día 11 mandando un correo a support@texasaiconsulting.com — tu total será $0.',
+      'Stripe guarda tu tarjeta durante los 14 días de prueba gratis. Cancela cuando quieras antes del día 15 mandando un correo a support@texasaiconsulting.com — tu total será $0.',
     guaranteeBadge: 'GARANTÍA DE SATISFACCIÓN',
     guaranteeHeadline: '¿No te están llegando más reseñas? Te devolvemos tu dinero.',
     guaranteeBody:
@@ -36,7 +36,7 @@ const COPY = {
       { title: 'Soporte humano de verdad', body: 'Un especialista en Texas configura tu cuenta en menos de 48 horas.' },
       { title: 'Tu información es tuya', body: 'Nunca vendemos tu lista de clientes. Exporta todo cuando quieras.' },
     ],
-    badges: ['Prueba Gratis de 10 Días', 'Cancela Cuando Quieras', 'Pago Seguro con Stripe', 'Garantía de Satisfacción', 'Sin Cuota de Configuración'],
+    badges: ['Prueba Gratis de 14 Días', 'Cancela Cuando Quieras', 'Pago Seguro con Stripe', 'Garantía de Satisfacción', 'Sin Cuota de Configuración'],
     secureLabel: 'Pago Seguro SSL',
     supportLine: '¿Tienes preguntas antes de comprar?',
     supportEmail: 'support@texasaiconsulting.com',

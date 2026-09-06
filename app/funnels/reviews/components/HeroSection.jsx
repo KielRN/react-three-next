@@ -38,7 +38,7 @@ export default function HeroSection() {
                 borderRadius: '6px',
               }}
             >
-              Start 10-Day Free Trial
+              Start 14-Day Free Trial
             </Link>
             <a
               href='https://link.texasaiconsulting.com/widget/booking/uuJHOQrN5564Px31JrBi'
@@ -58,7 +58,7 @@ export default function HeroSection() {
             </a>
           </div>
           <p style={{ marginTop: '24px', fontSize: '13px', color: '#888' }}>
-            No credit card surprise. Cancel anytime during your 10-day trial.
+            No credit card surprise. Cancel anytime during your 14-day trial.
           </p>
         </div>
         <div

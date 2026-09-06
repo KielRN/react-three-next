@@ -79,8 +79,8 @@ export const REVIEWS_ES_STRIPE_CONFIG = {
   ],
 
   trial: {
-    days: 10,
-    ctaLabel: 'Empieza Tu Prueba Gratis de 10 Días',
+    days: 14,
+    ctaLabel: 'Empieza Tu Prueba Gratis de 14 Días',
   },
 
   successUrl: '/funnels/reviews-es/gracias',

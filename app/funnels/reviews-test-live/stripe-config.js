@@ -73,7 +73,7 @@ export const REVIEWS_TEST_LIVE_STRIPE_CONFIG = {
     'Refund immediately after smoke test',
   ],
 
-  trial: { days: 10, ctaLabel: 'Start TEST-LIVE Trial' },
+  trial: { days: 14, ctaLabel: 'Start TEST-LIVE Trial' },
 
   successUrl: '/funnels/reviews-test-live/thank-you',
   cancelUrl: '/funnels/reviews-test-live/pricing',
