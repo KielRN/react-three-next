@@ -1,0 +1,194 @@
+---
+title: "How We Built Kavah, an Audio Bible App, With an AI Workflow"
+slug: "kavah-audio-bible-app-ai-workflow-case-study"
+date: "2026-10-01"
+author: "Elliott Lamboy, RN"
+excerpt: "How Texas AI Consulting used AI coding agents, written guardrails, and a decision log to take Kavah, a curated audio Bible app, from mockups to a live product."
+tags: ["Case Study", "AI Development", "AI Agents", "Web App", "Firebase"]
+image: "/blog-images/kavah-audio-scripture-app-screens.png"
+---
+
+# How We Built Kavah, an Audio Bible App, With an AI Workflow
+
+AI can write code fast. That is no longer the hard part.
+
+The hard part is keeping an AI-built project on course for months. Agents forget yesterday's decisions. They re-break last week's fix. They will happily run up a bill on an API that charges by the character.
+
+Kavah is the project where we put a real system around that problem. It is a curated audio Bible app: open it, press play, and hear New King James Version Scripture read aloud in a natural AI voice. It is live today at [kavah.org](https://kavah.org).
+
+This is how we built it, what the AI workflow looked like, and where it was tested hardest.
+
+<div className="p-4 my-6 bg-[#0e2042] rounded-lg border border-[#2c75ff]">
+  <h3 className="text-xl text-[#ffcc00] mb-4 font-hesdeadjim">
+    THE PROJECT IN ONE LINE
+  </h3>
+  <div className="text-white mb-0">
+    AI agents wrote most of the code. A written rulebook, a decision log, and a human reviewer kept it one coherent product across 162 commits.
+  </div>
+</div>
+
+## What the Client Needed
+
+The brief was simple to say and hard to do well.
+
+- **A daily listening experience, not a full Bible reader.** Verses are hand-picked and grouped into themes like Peace, Faith, Love, Strength, and Healing.
+- **A curator who is not a developer.** The client had to be able to find a verse, generate its audio, and publish it without calling us.
+- **Web first, mobile later, one codebase.** No rebuilding the app twice.
+- **Clean ownership.** Every account and license needed to end up in the client's name.
+
+That led to a deliberately boring stack, chosen on day one and locked.
+
+<div className="my-8 overflow-x-auto rounded-lg border border-[#2c75ff]">
+  <table className="w-full border-collapse text-left">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Technology</th>
+        <th>Why it was chosen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>App</td>
+        <td>React with Expo</td>
+        <td>One codebase for the web app now and iOS and Android later</td>
+      </tr>
+      <tr>
+        <td>Backend</td>
+        <td>Firebase</td>
+        <td>Sign-in, database, file storage, hosting, and server functions under one client-owned account</td>
+      </tr>
+      <tr>
+        <td>Voice</td>
+        <td>ElevenLabs</td>
+        <td>The quality bar for spoken Scripture, with a male and a female voice</td>
+      </tr>
+      <tr>
+        <td>Scripture text</td>
+        <td>API.Bible</td>
+        <td>Licensed access to the NKJV text</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+![Kavah design mockup beside the shipped Kavah home player](/blog-images/kavah-mockup-vs-shipped.png)
+
+*The design mockup we started from, next to the home player that shipped.*
+
+## The AI Workflow Behind the Build
+
+We did not open a chat window and ask for an app. We built a small operating system for the agents first, then let them work inside it.
+
+### 1. One rulebook every agent reads
+
+The project has a single instruction file that any AI coding tool reads before it touches the code. It lists the rules that are not up for debate on any task:
+
+- **API keys never leave the server.** The app talks to our own server functions. Only those functions talk to ElevenLabs and API.Bible.
+- **Never pay for the same audio twice.** The same verse in the same voice always resolves to the same stored file.
+- **One codebase.** No separate web and mobile versions.
+- **No stack changes without a logged decision.** An agent can propose a change. It cannot quietly make one.
+
+### 2. Three living documents
+
+Agents have no memory between sessions, so the project carries its own.
+
+- A **roadmap** with a status marker on every task
+- A **changelog** updated after every change lands
+- An append-only **decision log**: what we chose, what we rejected, and why
+
+The decision log reached 34 entries. When an agent picks up work three weeks later, it does not guess why sign-in works the way it does. It reads the entry.
+
+### 3. Specialist agents on the right model
+
+We split the work between two specialist agents in Claude Code: one for the app interface and one for the backend. Each carries only the context for its side of the system.
+
+Model choice followed the work. Claude Opus handled design, review, and ambiguous tradeoffs. Claude Sonnet handled execution at a fraction of the cost. The main session reviewed every result and made every commit. The specialist agents never committed code on their own.
+
+### 4. Spec, then plan, then code
+
+Every meaningful feature started as a short written design, then an implementation plan, then code. The project holds 22 of those dated spec and plan documents.
+
+That order matters. A wrong idea costs a few minutes to fix in a spec. It costs days once it is in production.
+
+### 5. A list of things that bit us once
+
+When a problem cost us real time, the lesson went into a "known gotchas" section of the rulebook. One example: a password reset email that never arrived looked like a spam problem. It was actually a domain missing from an approved list. That is now one paragraph any future agent reads first.
+
+## Where AI Lives in the Product, and Where It Does Not
+
+The voice is the AI in the product. The curator searches for a verse, clicks **Generate Audio**, and the server creates the recording and stores it. Every listener after that hears the stored file.
+
+That design is about money as much as speed. Voice generation is billed per character, so a careless loop can get expensive quickly. The rule that the same verse and voice always map to the same file makes a double charge impossible by design.
+
+We also made a call that may sound odd coming from an AI consulting firm: **no AI agents inside the app.** No chatbot, no agent framework. Nothing in the first version needed multi-step reasoning, and that kind of infrastructure is expensive to build and maintain.
+
+AI built the app. That does not mean the app needed more AI.
+
+## Three Problems That Tested the Workflow
+
+### The voice that read "I I Corinthians"
+
+A reference like "II Corinthians 6:11" came out of the speaker as "I, I, Corinthians." The fix converts every reference into a spoken form before audio is generated: "Second Corinthians, chapter 6, verse 11." No automated test caught it. A person listening did.
+
+### The headings that were read as Scripture
+
+Some passages arrived with section headings attached, and the voice read them aloud as if they were Scripture. Our first fix used pattern matching to strip them out. Its tests passed. Then four different real passages broke it.
+
+The lasting fix was to stop guessing. We now ask the Scripture service to leave that material out at the source, and keep the pattern matching only as a backstop.
+
+**Passing tests are not the same as a working product.** The decision log records both attempts and why the first one failed.
+
+### The audio that stopped when the phone locked
+
+The client reported that audio stopped whenever the phone locked or another app was opened. For a listening app, that is the whole product.
+
+We first built a workaround: stitch the day's verses into one continuous audio stream. It worked. A day later we traced the real cause to a single line we had added the week before to give the app a home-screen icon. That line changed how iPhones launched the saved app.
+
+We removed it, wrote down that we were partly reversing our own earlier decision, and flagged the streaming workaround for removal once device testing confirms the fix.
+
+Without a written history, that workaround would have stayed in the product forever and nobody would remember why it was there.
+
+## What the Human Still Does
+
+The agents wrote most of the code. The work that decided whether Kavah succeeded stayed with people.
+
+- **Choosing the stack and the rules** before any code existed
+- **Approving each design** before it was built
+- **Testing on real devices**, because the lock-screen bug does not show up on a laptop
+- **Listening to the client.** Client testing is why sign-in moved from emailed links to a plain email and password. The links kept failing when opened in a different browser or mail app.
+
+AI did not replace engineering judgment on this project. It made it affordable to apply that judgment to every feature.
+
+## Kavah by the Numbers
+
+- **162 commits** across **29 working days**, May through August 2026
+- **34 logged decisions**, each with the alternatives we rejected
+- **22 written specs and plans**
+- **More than 200 curated verses** across five themes, each in two voices
+- **One codebase**, already set up for the iOS and Android phase
+
+Listeners get a daily-rotating queue, themes, favorites, a choice of voice, and lock-screen controls. The curator gets a private admin area to search verses, generate audio, organize themes, and publish, including bulk actions and adjustable voice settings.
+
+## What This Means for Your Business
+
+None of this is specific to a Bible app. The same workflow fits a customer portal, an internal tool, or a booking system.
+
+If you are weighing an AI-built project, ask your developer four questions:
+
+1. **Where are the rules written down?** If they live only in someone's head, the AI will not follow them.
+2. **Can you show me the decision log?** You should be able to see why your software works the way it does.
+3. **Who reviews what the AI writes?** Fast code with no reviewer is a liability.
+4. **Whose name is on the accounts?** You should own your hosting, your data, and your licenses.
+
+Good answers to those four are the difference between software you own and a demo that falls apart in six months.
+
+## Related Reading
+
+- [How We Built a Lung Transplant Power BI Dashboard](/blog/lung-transplant-power-bi-dashboard-case-study)
+- [Launch Your AI-Powered Web App in 1 Day](/blog/build-and-automate-your-first-web-app-powered-by-ai)
+- [The Death of the Website: Why the Future of Business Marketing Is Built for AI Agents](/blog/future-of-business-ai-agents)
+
+---
+
+*Texas AI Consulting | AI speed, engineering discipline, software you own.*
