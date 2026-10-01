@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import ReviewsFunnelHeader from './components/ReviewsFunnelHeader'
 import HeroSection from './components/HeroSection'
+import AsSeenOn from './components/AsSeenOn'
 import TrustStrip from './components/TrustStrip'
 import ProblemCards from './components/ProblemCards'
 import SolutionGrid from './components/SolutionGrid'
@@ -13,6 +14,7 @@ export default function ReviewsLandingPage() {
     <main>
       <ReviewsFunnelHeader currentStep={1} />
       <HeroSection />
+      <AsSeenOn />
       <TrustStrip />
       <ProblemCards />
       <SolutionGrid />

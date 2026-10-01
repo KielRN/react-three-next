@@ -55,7 +55,10 @@ const PortfolioHeader = () => {
 // Portfolio Project Card component
 const ProjectCard = ({ project }) => {
   const [isHovered, setIsHovered] = useState(false)
-  
+  // Internal links (e.g. blog case studies) stay in the same tab
+  const isInternal = project.url.startsWith('/')
+  const LinkTag = isInternal ? Link : 'a'
+
   return (
     <div 
       className="bg-gray-900 rounded-lg overflow-hidden border border-[#2c75ff]/30 transform transition-all duration-300"
@@ -90,10 +93,9 @@ const ProjectCard = ({ project }) => {
           {project.description}
         </p>
         
-        <a 
-          href={project.url} 
-          target="_blank" 
-          rel="noopener noreferrer"
+        <LinkTag
+          href={project.url}
+          {...(isInternal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
           className="inline-block bg-[#0e2042] text-[#ffcc00] px-6 py-2 transition-colors duration-300 font-hesdeadjim uppercase tracking-wider hover:bg-[#2c75ff] hover:text-white"
           style={{
             clipPath: 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
@@ -101,8 +103,8 @@ const ProjectCard = ({ project }) => {
             boxShadow: '0 0 10px rgba(44, 117, 255, 0.4)'
           }}
         >
-          Visit Website
-        </a>
+          {project.linkLabel || 'Visit Website'}
+        </LinkTag>
       </div>
     </div>
   )
@@ -110,6 +112,28 @@ const ProjectCard = ({ project }) => {
 
 // Portfolio data with project information
 const portfolioProjects = [
+  {
+    id: 8,
+    title: "Lung Transplant Power BI Dashboard",
+    description: "A clinical surveillance dashboard that joins TeleResults SQL data with HCA HIN data through BigQuery, giving the transplant team one daily-refreshed view of alerts, lab trends, and protocol status.",
+    image: "/img/lung-transplant-power-bi.jpg",
+    url: "/blog/lung-transplant-power-bi-dashboard-case-study",
+    linkLabel: "Read Case Study"
+  },
+  {
+    id: 9,
+    title: "Kavah",
+    description: "A curated NKJV audio Bible app for web and mobile. Listen to Scripture for everyday alignment, browse verses by theme, and save your favorites.",
+    image: "/img/kavah-app.png",
+    url: "https://kavah.org"
+  },
+  {
+    id: 10,
+    title: "Groundworks Construction",
+    description: "A San Antonio site preparation and excavation contractor. The website showcases trenching, grading, demolition, and haul-off services with a fast free-estimate request.",
+    image: "/img/groundworks-construction.jpg",
+    url: "https://groundworksconstructionllc.com/"
+  },
   {
     id: 1,
     title: "TINTI Documentary",
