@@ -2,7 +2,7 @@ const title = 'Texas AI Consulting | AI Solutions for Small Business'
 const url = 'https://texasaiconsulting.com'
 const description = 'Big AI For Small Businesses in San Antonio, Austin and Central Texas. Transform your business with AI-powered sales, operations, and marketing automation.'
 const author = 'Texas AI Consulting'
-const twitter = '@texasaiconsulting'
+const twitter = '@ElliottLamboy'
 
 export default function Head() {
   return (

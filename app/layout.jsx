@@ -38,7 +38,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Texas AI Consulting | AI Solutions for Small Business',
     description: 'Big AI For Small Businesses in San Antonio, Austin and Central Texas. Transform your business with AI-powered sales, operations, and marketing automation.',
-    creator: '@texasaiconsulting',
+    creator: '@ElliottLamboy',
     images: ['/img/Texas-AI-Consulting-ST-Logo-ICON.png'],
   },
   robots: {
@@ -82,8 +82,10 @@ export default function RootLayout({ children }) {
           height: 512,
         },
         sameAs: [
-          'https://twitter.com/texasaiconsulting',
-          'https://www.linkedin.com/company/texas-ai-consulting',
+          'https://www.linkedin.com/company/110845066/',
+          'https://www.facebook.com/profile.php?id=61590337198300',
+          'https://www.youtube.com/@texasaiconsulting1',
+          'https://x.com/ElliottLamboy',
         ],
         contactPoint: {
           '@type': 'ContactPoint',
