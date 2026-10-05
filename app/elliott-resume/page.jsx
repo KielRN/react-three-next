@@ -377,6 +377,38 @@ export default function ElliottResumePage() {
               <h2 className="mb-6 text-3xl font-bold text-ai-navy">Professional Certifications</h2>
 
               <div className="mb-6 grid gap-6 md:grid-cols-2">
+                <div className="col-span-full rounded-lg bg-gradient-to-br from-slate-800 to-slate-950 p-6 text-white shadow-lg">
+                  <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+                    <div>
+                      <div className="mb-3 flex size-12 items-center justify-center rounded bg-white">
+                        <img src="/img/openai-logo.png" alt="OpenAI" className="size-10 object-contain" />
+                      </div>
+                      <h3 className="mb-2 text-xl font-bold">OpenAI ChatGPT Deployment Practitioner</h3>
+                      <p className="mb-4 text-sm text-slate-200">Issued October 2026 • Valid through October 2027</p>
+                      <a
+                        href="/img/openai-chatgpt-deployment-practitioner.jpg"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-sm text-yellow-300 underline hover:text-yellow-200"
+                      >
+                        View Certificate →
+                      </a>
+                    </div>
+                    <a
+                      href="/img/openai-chatgpt-deployment-practitioner.jpg"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 print:hidden"
+                    >
+                      <img
+                        src="/img/openai-chatgpt-deployment-practitioner.jpg"
+                        alt="ChatGPT Deployment Practitioner certificate awarded to Eliud Lamboy by OpenAI"
+                        className="w-full rounded-lg shadow-md md:w-72"
+                      />
+                    </a>
+                  </div>
+                </div>
+
                 <div className="rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 p-6 text-white shadow-lg">
                   <div className="mb-3 flex size-12 items-center justify-center rounded bg-white">
                     <img src="/img/ibm-logo.png" alt="IBM" className="size-10 object-contain" />
@@ -622,6 +654,8 @@ export default function ElliottResumePage() {
             background: #0e2042 !important;
           }
 
+          .from-slate-800,
+          .to-slate-950,
           .from-blue-600,
           .to-blue-800,
           .from-purple-600,
@@ -631,6 +665,8 @@ export default function ElliottResumePage() {
             color: #000 !important;
           }
 
+          .from-slate-800 *,
+          .to-slate-950 *,
           .from-blue-600 *,
           .to-blue-800 *,
           .from-purple-600 *,
