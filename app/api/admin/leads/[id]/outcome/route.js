@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { requireAdmin } from '../../../../../../lib/adminAuth.js'
 import { recordOutcome } from '../../../../../../lib/playerStore.js'
+import { businessDate } from '../../../../../../lib/taskSchedule.js'
 
 export const dynamic = 'force-dynamic'
 
@@ -34,7 +35,7 @@ export async function POST(req, { params }) {
     )
   }
 
-  const today = new Date().toISOString().slice(0, 10)
+  const today = businessDate()
   try {
     const result = await recordOutcome({ callerId, leadId, outcome, tier, note, today })
     return NextResponse.json(result)

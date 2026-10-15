@@ -1,7 +1,7 @@
 import { readdirSync, readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
-import { query } from '../lib/db.js'
+import { query, transaction } from '../lib/db.js'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const dir = join(here, '..', 'db', 'migrations')
@@ -20,13 +20,12 @@ async function main() {
     }
     const sql = readFileSync(join(dir, file), 'utf8')
     console.log(`apply  ${file}`)
-    await query('begin')
     try {
-      await query(sql)
-      await query('insert into _migrations (name) values ($1)', [file])
-      await query('commit')
+      await transaction(async (client) => {
+        await client.query(sql)
+        await client.query('insert into _migrations (name) values ($1)', [file])
+      })
     } catch (e) {
-      await query('rollback')
       console.error(`FAILED ${file}: ${e.message}`)
       process.exit(1)
     }

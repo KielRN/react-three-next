@@ -12,6 +12,9 @@ const Layout = ({ children }) => {
   const ref = useRef()
   const pathname = usePathname()
 
+  // Admin tools have their own navigation and do not need the marketing canvas.
+  if (pathname === '/admin' || pathname?.startsWith('/admin/')) return <>{children}</>
+
   // Show the priority transmission bar everywhere except inside the reviews funnel
   // and the immersive mock-up pages.
   const hideTransmissionBar =

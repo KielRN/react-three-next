@@ -1,8 +1,9 @@
 import { auth } from '../../../lib/firebaseClient'
 
 async function authedFetch(path, options = {}) {
-  const token = auth.currentUser ? await auth.currentUser.getIdToken() : null
+  const token = auth?.currentUser ? await auth.currentUser.getIdToken() : null
   const res = await fetch(path, {
+    cache: 'no-store',
     ...options,
     headers: {
       'Content-Type': 'application/json',
@@ -27,3 +28,7 @@ export const postOutcome = (leadId, payload) =>
 export const getProfile = () => authedFetch('/api/admin/profile')
 export const putAvatar = (avatarId) =>
   authedFetch('/api/admin/profile', { method: 'PUT', body: JSON.stringify({ avatarId }) })
+
+export const getTasks = (week) => authedFetch(`/api/admin/tasks${week ? `?week=${encodeURIComponent(week)}` : ''}`)
+export const postTaskCompletion = (id, note) =>
+  authedFetch(`/api/admin/tasks/${id}/complete`, { method: 'POST', body: JSON.stringify({ note }) })

@@ -1,0 +1,31 @@
+{
+  "source": "CEO.md / brand authority and client follow-through",
+  "tasks": [
+    {
+      "key": "ai-influencer-post",
+      "title": "Generate this week's AI Influencer post",
+      "days": ["Monday"],
+      "points": 200,
+      "xp": 50,
+      "instructions": "Review the latest AI Influencer brief and choose one useful, on-brand idea. Generate the image or video and a caption with a clear call to action. Check character consistency, spelling, and claims. Save the finished draft and add its link below for Elliott's review. This task is complete when the draft is ready for review; publishing is a separate assignment."
+    },
+    {
+      "key": "linkedin-post",
+      "title": "Publish an approved LinkedIn post",
+      "days": ["Tuesday", "Thursday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.linkedin.com/company/110845066/",
+      "instructions": "Use the approved Texas AI Consulting content brief. Share a practical AI lesson, client-safe example, or company update with one clear takeaway and call to action. Verify claims, links, and the destination account, then publish the approved post. Add the live post URL below. If approval or account access is missing, leave this task open and flag the blocker to Elliott."
+    },
+    {
+      "key": "ghl-conversations",
+      "title": "Check Texas AI Consulting conversations",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "points": 75,
+      "xp": 15,
+      "link": "https://app.gohighlevel.com/",
+      "instructions": "Open GoHighLevel and select the Texas AI Consulting subaccount. Review new and unread conversations, identify follow-ups, and flag anything that needs Elliott's decision. Respond only within your approved handling instructions. Record a brief summary below, such as 'Checked: no new conversations' or the number reviewed and any outstanding follow-ups. Do not paste private customer messages into this task."
+    }
+  ]
+}

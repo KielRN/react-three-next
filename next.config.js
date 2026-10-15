@@ -9,6 +9,15 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
   disable: process.env.NODE_ENV === 'development',
+  extendDefaultRuntimeCaching: true,
+  workboxOptions: {
+    runtimeCaching: [{
+      // Personal admin data must never fall back to another session's cached response.
+      urlPattern: ({ sameOrigin, url }) => sameOrigin && url.pathname.startsWith('/api/admin/'),
+      handler: 'NetworkOnly',
+      method: 'GET',
+    }],
+  },
 })
 
 // Add MDX support
