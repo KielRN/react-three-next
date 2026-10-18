@@ -18,7 +18,7 @@ export default function TaskBoard({ data, busy, onComplete }) {
             <p className='text-xs uppercase tracking-widest text-lcars-ice/60'>This week&apos;s progress</p>
             <p className='mt-2 text-3xl font-bold text-white'>{data.weekly.completed}<span className='text-lg font-normal text-lcars-ice/50'> / {data.weekly.total} tasks</span></p>
           </div>
-          <div className='text-right text-sm'><p className='font-bold text-ai-gold'>{data.weekly.points} points earned</p><p className='mt-1 text-lcars-violet'>+{data.weekly.xp} XP this week</p></div>
+          <div className='text-right text-sm'><p className='font-bold text-ai-gold'>{data.weekly.points} points you earned</p><p className='mt-1 text-lcars-violet'>+{data.weekly.xp} XP for you this week</p></div>
         </div>
         <div role='progressbar' aria-label='Tasks completed this week' aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} className='mt-5 h-2 overflow-hidden rounded-full bg-white/10'>
           <div className='h-full rounded-full bg-lcars-teal transition-all motion-reduce:transition-none' style={{ width: `${progress}%` }} />
@@ -70,10 +70,11 @@ function TaskCard({ task, today, businessDay, busy, onComplete }) {
             <span className='text-ai-gold'>{task.points} pts</span><span className='text-lcars-violet'>+{task.xp} XP</span>
           </div>
           <h2 className={`mt-2 break-words text-base font-bold sm:text-lg ${done ? 'text-lcars-ice/70' : 'text-white'}`}>{task.title}</h2>
+          {task.is_shared && <p className='mt-2 text-xs text-lcars-teal'>Shared task · Either assignee can complete it for everyone.</p>}
           <p className='mt-3 whitespace-pre-wrap break-words text-sm leading-7 text-lcars-ice/70'>{task.instructions}</p>
           {task.resource_url && <a href={task.resource_url} target='_blank' rel='noreferrer' className='mt-3 inline-block text-sm text-lcars-teal underline underline-offset-4'>Open task resource ↗</a>}
           {task.source && <p className='mt-3 break-words text-[10px] text-lcars-ice/50'>Brief: {task.source}</p>}
-          {done ? <div className='mt-4 text-xs text-lcars-teal'>Rewards recorded{task.completion_note && <p className='mt-2 whitespace-pre-wrap break-words text-lcars-ice/60'>{task.completion_note}</p>}</div> : <form onSubmit={(event) => { event.preventDefault(); onComplete(task, note) }} className='mt-5'>
+          {done ? <div className='mt-4 text-xs text-lcars-teal'>Completed by {task.completed_by_name || 'you'} · Rewards recorded once{task.completion_note && <p className='mt-2 whitespace-pre-wrap break-words text-lcars-ice/60'>{task.completion_note}</p>}</div> : <form onSubmit={(event) => { event.preventDefault(); onComplete(task, note) }} className='mt-5'>
             <label htmlFor={`note-${task.id}`} className='block text-xs text-lcars-ice/60'>Completion note or result link <span className='text-lcars-ice/40'>(optional)</span></label>
             <textarea id={`note-${task.id}`} value={note} onChange={(e) => setNote(e.target.value)} maxLength={2000} rows={2} disabled={Boolean(busy) || future || !businessDay}
               className='mt-2 w-full resize-y rounded-lg border border-lcars-ice/20 bg-black/20 p-3 text-sm text-white outline-none focus:border-lcars-teal disabled:opacity-40' />

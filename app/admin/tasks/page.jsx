@@ -70,7 +70,8 @@ export default function TasksPage() {
       <header className='mb-8'>
         <p className='text-xs uppercase tracking-[0.25em] text-lcars-teal'>Daily operations / Monday–Friday</p>
         <h1 className='mt-3 text-3xl font-bold text-white sm:text-4xl'>Small tasks. Real progress.</h1>
-        <p className='mt-3 max-w-xl text-sm leading-6 text-lcars-ice/60'>Your assigned work, one check-off at a time. Earn points, build experience, and keep Texas AI moving.</p>
+        <p className='mt-3 max-w-xl text-sm leading-6 text-lcars-ice/60'>Your assigned work, one check-off at a time. Shared tasks stay complete for everyone; points and XP go to the person who completes them.</p>
+        <p className='mt-2 text-xs text-lcars-ice/50'>Signed in as {user.email}</p>
       </header>
       {error && <div role='alert' className='mb-5 rounded-xl border border-lcars-amber/40 bg-lcars-amber/10 p-4 text-sm text-lcars-amber'>{error.message} <button onClick={refresh} className='ml-2 underline'>Retry</button></div>}
       {notice && <p role='status' className='mb-5 rounded-xl border border-lcars-teal/30 bg-lcars-teal/10 p-4 text-sm text-lcars-teal'>{notice}</p>}

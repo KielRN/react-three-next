@@ -29,11 +29,73 @@ beforeAll(async () => {
   const tasks = readFileSync(new URL('../db/migrations/002_tasks.sql', import.meta.url), 'utf8')
   await state.db.exec(tasks)
   await state.db.exec(tasks) // migration is safe to retry
+  const shared = readFileSync(new URL('../db/migrations/003_shared_tasks.sql', import.meta.url), 'utf8')
+  await state.db.exec(shared)
+  await state.db.exec(shared)
 }, 30000)
 beforeEach(async () => { await state.db.exec('truncate task_events, admin_tasks, call_events, leads, player_profile cascade') })
 afterAll(async () => { await state.db?.close() })
 
 describe('task assignment and rewards in Postgres', () => {
+  const collaborators = [{ userId: 'manny', displayName: 'Manny' }, { userId: 'elliott', displayName: 'Elliott' }]
+  it('shares the existing task IDs and links without duplicate rows, including after reimport', async () => {
+    const task = await assignedTask({ link: 'https://example.com/resource' })
+    await importTasks([{ ...assignment, link: 'https://example.com/resource' }], 'manny', collaborators)
+    await importTasks([{ ...assignment, link: 'https://example.com/resource' }], 'manny', collaborators)
+    for (const caller of ['manny', 'elliott']) {
+      const data = await getTaskWeek(caller, '2026-W42', '2026-10-15')
+      expect(data.tasks).toHaveLength(1)
+      expect(data.tasks[0]).toMatchObject({ id: task.id, is_shared: true, resource_url: 'https://example.com/resource' })
+    }
+    expect(await scalar('select count(*)::int from admin_tasks')).toBe(1)
+    expect(await scalar('select count(*)::int from admin_task_assignees')).toBe(2)
+    expect((await getTaskWeek('unrelated', '2026-W42', '2026-10-15')).tasks).toHaveLength(0)
+    await expect(completeTask({ callerId: 'unrelated', taskId: task.id, today: '2026-10-15' })).rejects.toMatchObject({ status: 404 })
+  })
+  it.each(['manny', 'elliott'])('completion by %s completes both views and only rewards the completer', async (callerId) => {
+    await importTasks([assignment], 'manny', collaborators)
+    const task = (await getTaskWeek(callerId, '2026-W42', '2026-10-15')).tasks[0]
+    await completeTask({ callerId, taskId: task.id, note: 'Shared result', today: '2026-10-15' })
+    const other = callerId === 'manny' ? 'elliott' : 'manny'
+    expect(await completeTask({ callerId: other, taskId: task.id, today: '2026-10-15' })).toMatchObject({ alreadyCompleted: true, points: 0, xp: 0 })
+    for (const viewer of [callerId, other]) {
+      const data = await getTaskWeek(viewer, '2026-W42', '2026-10-15')
+      expect(data.weekly).toEqual({ total: 1, completed: 1, points: viewer === callerId ? 75 : 0, xp: viewer === callerId ? 15 : 0 })
+      expect(data.tasks[0]).toMatchObject({ completed_by: callerId, completion_note: 'Shared result', completed_by_name: viewer === callerId ? 'You' : collaborators.find((p) => p.userId === callerId).displayName })
+      expect(data.profile.lifetimeXp).toBe(viewer === callerId ? 15 : 0)
+      expect(data.lifetime.completed).toBe(viewer === callerId ? 1 : 0)
+    }
+    expect(await scalar('select count(*)::int from task_events')).toBe(1)
+  })
+  it('serializes simultaneous check-offs from different shared assignees', async () => {
+    await importTasks([assignment], 'manny', collaborators)
+    const task = (await getTaskWeek('manny', '2026-W42', '2026-10-15')).tasks[0]
+    const results = await Promise.all(['elliott', 'manny', 'elliott', 'manny'].map((callerId) =>
+      completeTask({ callerId, taskId: task.id, today: '2026-10-15' }),
+    ))
+    expect(results.filter((result) => !result.alreadyCompleted)).toHaveLength(1)
+    expect(await scalar('select count(*)::int from task_events')).toBe(1)
+    expect(Number(await scalar('select sum(lifetime_xp) from player_profile'))).toBe(15)
+  })
+  it('can share a completed task without resetting its completion, note, or reward', async () => {
+    const task = await assignedTask()
+    await completeTask({ callerId: 'manny', taskId: task.id, note: 'Original result', today: '2026-10-15' })
+    expect(await importTasks([{ ...assignment, xp: 199 }], 'manny', collaborators)).toMatchObject({ completedUnchanged: 1 })
+    const data = await getTaskWeek('elliott', '2026-W42', '2026-10-15')
+    expect(data.tasks[0]).toMatchObject({ id: task.id, xp: 15, completed_by_name: 'Manny', completion_note: 'Original result' })
+    expect(data.weekly.completed).toBe(1)
+    expect(data.weekly.xp).toBe(0)
+  })
+  it('retains date restrictions and overdue visibility for shared assignees', async () => {
+    await importTasks([assignment], 'manny', collaborators)
+    const task = (await getTaskWeek('elliott', '2026-W42', '2026-10-15')).tasks[0]
+    await expect(completeTask({ callerId: 'elliott', taskId: task.id, today: '2026-10-14' })).rejects.toMatchObject({ status: 409 })
+    await expect(completeTask({ callerId: 'elliott', taskId: task.id, today: '2026-10-17' })).rejects.toMatchObject({ status: 409 })
+    expect((await getTaskWeek('elliott', '2026-W43', '2026-10-19')).tasks).toHaveLength(1)
+    await completeTask({ callerId: 'elliott', taskId: task.id, today: '2026-10-19' })
+    expect((await getTaskWeek('manny', '2026-W43', '2026-10-19')).tasks).toHaveLength(0)
+    expect((await getTaskWeek('manny', '2026-W42', '2026-10-19')).weekly.completed).toBe(1)
+  })
   it('imports idempotently and keeps separate days and assignees', async () => {
     expect(await importTasks([assignment], 'manny')).toEqual({ imported: 1, updated: 0, completedUnchanged: 0 })
     expect(await importTasks([{ ...assignment, title: 'Updated instructions' }], 'manny')).toEqual({ imported: 0, updated: 1, completedUnchanged: 0 })

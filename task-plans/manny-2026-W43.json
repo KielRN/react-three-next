@@ -1,0 +1,200 @@
+{
+  "source": "P-018, CEO_Journal.md:218-243 (2026-10-16); Elliott's weekly task brief (2026-10-18); week of October 19-23, 2026",
+  "tasks": [
+    {
+      "key": "vendor-registration-prep",
+      "title": "Confirm business details, NAICS codes, and Keeper access",
+      "days": ["Monday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://keepersecurity.com/vault/",
+      "instructions": "Start here before filling in vendor applications. Review P-018 in CEO_Journal.md and Texas_Comptroller_Registration_Info.md in the Texas AI Consulting knowledge files. Confirm the legal business name, business address, contact email, approved W-9, service description, and primary/secondary NAICS codes with Elliott. The NIGP commodity codes in the Comptroller record are different from NAICS codes; do not substitute one for the other. Locate existing portal records in Keeper before creating any accounts. Use the authorized Texas AI Consulting shared folder and individual delegated access where the portal supports it. For every business login created or updated this week, save the correct portal URL, username, password, and recovery details in Keeper immediately. Keep passwords, tax IDs, and personal veteran documents out of task notes. Done when the verified business details and document locations are ready and Keeper access is confirmed; note only the readiness status and any missing items here."
+    },
+    {
+      "key": "vendor-bexar-county",
+      "title": "Priority: add or complete the Bexar County supplier profile",
+      "days": ["Monday"],
+      "points": 250,
+      "xp": 60,
+      "link": "https://www.bexar.org/616/Supplier-PortalVendor-Registration",
+      "instructions": "Make Bexar County the first agency you work on after confirming the business details. Elliott met with Jason from Bexar County. Open the official Supplier Portal/Vendor Registration page and check Keeper and the portal for an existing Texas AI Consulting supplier account. Recover or finish that profile if it exists; otherwise register the business using the verified business details, W-9, accurate service/commodity categories, and notification email. The October conference attendee registration is separate and does not establish a supplier profile. Save all new or updated credentials in Keeper. Done when the supplier profile is submitted or an existing active profile is verified. Record the actual status, a non-sensitive confirmation/reference, and the next follow-up date. Pending review is not active approval; leave this task open if required documents or access prevent submission."
+    },
+    {
+      "key": "sba-vetcert-prior-decision",
+      "title": "SBA SDVOSB: verify the prior application and decision",
+      "days": ["Monday"],
+      "points": 200,
+      "xp": 50,
+      "link": "https://certifications.sba.gov/",
+      "source": "Elliott's 2026-10-18 request: service-disabled veteran business certification; prior denial is unconfirmed",
+      "instructions": "Work with Elliott to locate the existing SBA certification account, application record, and any decision letter or request for information. Check the actual Service-Disabled Veteran-Owned Small Business (SDVOSB/VetCert) status; Elliott recalls a possible denial, but that is not yet confirmed. Record the decision date, stated reason, current status, missing documents, and the next action permitted by the letter and current SBA guidance. Flag any stated deadline to Elliott immediately. If the portal does not show the old record, prepare a support request for Elliott instead of creating a duplicate application. Save authorized business login details in Keeper, and keep personal identity and disability documents in their approved secure location. Done when the prior status and next-step checklist are verified with Elliott; put only a brief non-sensitive summary and secure document location in the task note. If the status cannot be verified, leave the task open and record the blocker."
+    },
+    {
+      "key": "ai-influencer-post",
+      "title": "Generate this week's AI Influencer post",
+      "days": ["Monday"],
+      "points": 200,
+      "xp": 50,
+      "source": "Previously approved weekly schedule / CEO.md brand authority",
+      "instructions": "Review the latest AI Influencer brief and choose one useful, on-brand idea. Generate the image or video and a caption with a clear call to action. Check character consistency, spelling, and claims. Save the finished draft and add its link below for Elliott's review. This task is complete when the draft is ready for review; publishing is a separate assignment."
+    },
+    {
+      "key": "linkedin-post",
+      "title": "Publish an approved LinkedIn post",
+      "days": ["Tuesday", "Thursday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.linkedin.com/company/110845066/",
+      "source": "Previously approved weekly schedule / CEO.md brand authority",
+      "instructions": "Use the approved Texas AI Consulting content brief. Share a practical AI lesson, client-safe example, or company update with one clear takeaway and call to action. Verify claims, links, and the destination account, then publish the approved post. Add the live post URL below. If approval or account access is missing, leave this task open and flag the blocker to Elliott."
+    },
+    {
+      "key": "ghl-conversations",
+      "title": "Check Texas AI Consulting conversations",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "points": 75,
+      "xp": 15,
+      "link": "https://app.gohighlevel.com/",
+      "source": "Previously approved weekly schedule / client follow-through",
+      "instructions": "Open GoHighLevel and select the Texas AI Consulting subaccount. Review new and unread conversations, identify follow-ups, and flag anything that needs Elliott's decision. Respond only within your approved handling instructions. Record a brief summary below, such as 'Checked: no new conversations' or the number reviewed and any outstanding follow-ups. Do not paste private customer messages into this task."
+    },
+    {
+      "key": "upwork-ai-ghl-search",
+      "title": "Check Upwork for AI and GoHighLevel work",
+      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "points": 100,
+      "xp": 25,
+      "link": "https://www.upwork.com/nx/find-work/",
+      "source": "Elliott's 2026-10-18 request / daily business-day Upwork review",
+      "instructions": "Spend about 20 minutes reviewing new Upwork work through your authorized account or agency access. Run searches for AI automation, AI chatbot, GoHighLevel, and GHL; check both AI and GHL opportunities each day. Review scope, budget, client history, timing, and fit with Texas AI Consulting's actual capabilities. Save up to three strong matches and add their job links plus a one-line fit/risk summary in the completion note. If none fit, record that both categories were checked and no suitable jobs were found. On Monday, save the useful searches so they can be reused all week. This task covers research and shortlisting; flag proposal candidates to Elliott without spending Connects or submitting proposals as part of this check. Keep authorized business credentials in Keeper."
+    },
+    {
+      "key": "vendor-sam-gov",
+      "title": "Verify or complete the SAM.gov entity registration",
+      "days": ["Tuesday"],
+      "points": 250,
+      "xp": 60,
+      "link": "https://sam.gov/entity-registration",
+      "instructions": "Check for Texas AI Consulting's existing entity and UEI before starting anything new. Verify whether the entity has an active registration for federal contracting, not just a UEI. Use the existing entity administrator or request the appropriate delegated role; work with Elliott on owner-only steps. If no registration exists, prepare and complete the correct registration using the verified legal information, NAICS codes, and required records. If an existing registration needs renewal or correction, address that record instead of creating a duplicate. Have Elliott confirm any business representations that require his certification. SAM.gov registration is free. Save authorized login details in Keeper. Done when active status is verified or the completed registration/update has been submitted; record the actual status, renewal/follow-up date, and any dependency for SBA VetCert. If you cannot submit because information or owner action is missing, leave the task open with the blocker."
+    },
+    {
+      "key": "vendor-city-san-antonio",
+      "title": "Verify or register the City of San Antonio supplier profile",
+      "days": ["Tuesday"],
+      "points": 200,
+      "xp": 50,
+      "link": "https://www.sanantonio.gov/procurement/Become-a-Vendor/Frequently-Asked-Questions",
+      "instructions": "Use the City's official procurement guidance to reach SAePS supplier registration. Check for an existing Texas AI Consulting account first and recover/update it if found. If none exists, register with the verified business details, accurate commodity/service categories, and a monitored bid-notification email. Do not create another company record just because a login is missing. Complete the required verification steps and save the portal login in Keeper. Done when an existing profile is confirmed active or the registration has been submitted. Record the status, non-sensitive reference, and follow-up date; if access or documents block submission, leave this task open."
+    },
+    {
+      "key": "vendor-tx-cmbl",
+      "title": "Confirm the Texas CMBL listing is active and current",
+      "days": ["Tuesday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://comptroller.texas.gov/purchasing/vendor/registration/modify.php",
+      "instructions": "P-018 and Texas_Comptroller_Registration_Info.md say Texas AI Consulting is registered with CMBL. Verify the current listing and renewal date in the official system rather than registering again. Review the contact details, notification email, and NIGP commodity/service codes against what we actually sell. Correct routine profile details using the confirmed business information. Record the verified status, expiration/renewal date, and any renewal fee or action Elliott needs to handle. Save or update the eSystems login in Keeper. Done when the current status and renewal needs are confirmed; if you cannot verify the record, leave this task open. This check does not establish any separate certification or contract award."
+    },
+    {
+      "key": "upwork-profile-update",
+      "title": "Update our Upwork profile for AI and GoHighLevel services",
+      "days": ["Wednesday"],
+      "points": 300,
+      "xp": 75,
+      "link": "https://support.upwork.com/hc/en-us/articles/360000403687-How-to-update-your-freelancer-profile-on-Upwork",
+      "source": "Elliott's 2026-10-18 request / Upwork profile refresh this week",
+      "instructions": "Confirm with Elliott which existing freelancer or Texas AI Consulting agency profile should be updated. Use the appropriate authorized access, or prepare the edits for the profile owner to apply. Refresh the headline, opening overview, AI automation and GoHighLevel service descriptions, relevant skills, availability, and portfolio. Include accurate examples of work we have actually completed, with client-safe images and descriptions; do not invent results, credentials, or certifications. Compare the wording with the work found in this week's job searches. Review the proposed changes with Elliott, apply the approved edits through the correct account, and inspect the public profile. Save any authorized business credentials created or changed in Keeper. Done when the intended profile is updated; add its public URL and a short change summary. If owner access or review is outstanding, leave the task open and link the prepared draft."
+    },
+    {
+      "key": "vendor-university-health",
+      "title": "Confirm University Health vendor registration is active",
+      "days": ["Wednesday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.universityhealth.com/about-us/vendor-program",
+      "instructions": "P-018 marks University Health as already registered, but its current status is unverified. Open the official vendor program page and use its Bonfire procurement link to find the existing Texas AI Consulting supplier record. Check account access, active/profile status, business contacts, relevant service/NAICS selections, and bid notifications. Recover or update the existing account instead of duplicating it; the procurement profile is the target of this task. Save or update the login in Keeper. Done when the current registration status and notification settings are verified; note the result, any required follow-up, and the date checked. If you cannot verify the account, leave this task open with the blocker."
+    },
+    {
+      "key": "vendor-cps-energy",
+      "title": "Verify or complete CPS Energy supplier registration",
+      "days": ["Wednesday"],
+      "points": 200,
+      "xp": 50,
+      "link": "https://www.cpsenergy.com/en/work-with-us/procurement-and-suppliers.html",
+      "instructions": "Start at CPS Energy's official procurement and suppliers page. Check Keeper and the linked systems for an existing Texas AI Consulting record. Follow the current instructions for both the supplier registration portal and supplier management/B2GNow system; an account in one system may not finish the other step. Reuse the correct existing business identity where supported. Complete the required business profile and follow-up forms using approved records, including the W-9 and references if requested. Save credentials in Keeper. Done when all required registration steps have been submitted or existing current records have been verified. Record which systems were checked, the actual status in each, and any follow-up date. If required forms or access are missing, leave the task open; do not describe a pending application as approved."
+    },
+    {
+      "key": "vendor-gsa-eligibility",
+      "title": "Assess GSA Schedule eligibility and application requirements",
+      "days": ["Wednesday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.gsa.gov/sell-to-government/step-1-learn-about-government-contracting/how-to-access-contract-opportunities/help-with-mas-contracts-to-sell-to-government/roadmap-to-get-a-mas-contract",
+      "instructions": "Timebox the initial GSA Multiple Award Schedule review to about 45 minutes. Identify the service categories/SINs that fit Texas AI Consulting, required experience and financial/past-performance records, mandatory preparation, and current application steps. Compare those requirements with our actual records. If a standard requirement is missing, check whether an official alternative such as Startup Springboard could apply rather than assuming eligibility. Note SAM dependencies and the effort needed for an offer. Done when a short fit/gap checklist and a recommended next action are saved in the task note or linked working document. This is an eligibility assessment, not a GSA contract award or a promise to submit an entire offer this week. If account access is needed, check existing records first and store authorized credentials in Keeper."
+    },
+    {
+      "key": "vendor-txdot",
+      "title": "Confirm the correct TxDOT vendor route for our services",
+      "days": ["Thursday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.txdot.gov/business/suppliers-vendors/selling-goods-and-non-professional-services-to-txdot.html",
+      "instructions": "Review TxDOT's official supplier guidance for the AI, software, automation, and consulting services we actually offer. The linked goods/non-professional-services guidance starts with CMBL, so use Tuesday's verified listing and check the relevant NIGP categories and ESBD opportunities. Confirm which procurement route applies to our offerings; do not create a construction-contractor account merely to tick a box. Check whether an additional TxDOT supplier profile or system registration is required for the relevant route, then verify an existing account or complete the required profile if applicable. Save any credentials in Keeper. Done when the applicable route, current registration coverage, and any additional steps are documented. If the route requires no separate registration, say that explicitly with the official source; otherwise record the submitted/current status or leave the task open if required registration is blocked."
+    },
+    {
+      "key": "vendor-dir-eligibility",
+      "title": "Assess DIR opportunities and the vendor or partner route",
+      "days": ["Thursday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://dir.texas.gov/it-solutions-and-services/selling-through-dir",
+      "instructions": "Timebox the first DIR review to about 45 minutes. Identify current or upcoming solicitations that fit Texas AI Consulting's real IT/AI services. Record the relevant solicitation links, deadlines, qualifications, and submission system, if any. DIR prime vendor status requires the applicable solicitation and contract process; creating a portal login alone is not an award. If no suitable prime opportunity is open, identify up to two relevant existing DIR contract holders as possible subcontract/reseller partners and document the route for Elliott to consider. Done when the fit, requirements, and next action are documented, including 'no suitable current solicitation' if that is the finding. Save any authorized portal credentials in Keeper."
+    },
+    {
+      "key": "vendor-txmas-eligibility",
+      "title": "Review TXMAS eligibility before attempting an application",
+      "days": ["Thursday"],
+      "points": 100,
+      "xp": 25,
+      "link": "https://comptroller.texas.gov/purchasing/contracts/txmas/",
+      "instructions": "Review the current official TXMAS eligibility page against Texas AI Consulting's actual offerings. The published scope excludes information technology and consulting services and requires a qualifying existing government contract. Check those exclusions first. If our offerings are outside TXMAS scope, record 'not applicable for the reviewed offerings' with the reason and identify DIR or another relevant route as the next step. Only if an actual offering qualifies, list the required base contract, documents, submission window, and remaining gaps for Elliott. Done when the eligibility finding and source are documented. Do not submit an unsupported application or describe this review as a TXMAS registration. Save any necessary authorized account credentials in Keeper."
+    },
+    {
+      "key": "vendor-tips-eligibility",
+      "title": "Review TIPS eligibility and set up relevant bid notifications",
+      "days": ["Friday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.tips-usa.com/vendors/become",
+      "instructions": "Use the official Becoming a TIPS Awarded Vendor guidance. Check whether Texas AI Consulting already has an eBid supplier account; recover it or register for relevant commodity/bid notifications if needed. Save credentials in Keeper. Review current proposal categories against our actual AI, software, automation, and consulting offerings. Record a relevant proposal link, deadline, qualification gaps, and next action, or note that no suitable category is currently open. Supplier registration is only the notification/access step; an awarded TIPS contract requires the proposal and award process. Done when the eligibility/opportunity review is documented and the notification account is configured where applicable. A contract proposal itself should be prepared separately with Elliott's pricing and business commitments confirmed."
+    },
+    {
+      "key": "vendor-buyboard-eligibility",
+      "title": "Review BuyBoard eligibility and supplier notification access",
+      "days": ["Friday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.buyboard.com/vendor/how-to-register",
+      "instructions": "Review BuyBoard's official vendor registration and proposal guidance. Check for an existing Texas AI Consulting supplier account before registering in the linked Ion Wave system. Configure accurate commodity/service categories and notification contacts if applicable, using verified business data, and save credentials in Keeper. Identify whether current proposal invitations cover our offerings, then record the relevant link, deadline, requirements, and next step, or document that no suitable opportunity is open. Registration provides proposal notifications; selling as an awarded BuyBoard vendor requires a successful proposal/award. Done when the eligibility review and notification-account status are documented. Do not label the business an awarded vendor just because a login exists."
+    },
+    {
+      "key": "sba-vetcert-next-submission",
+      "title": "SBA SDVOSB: prepare and complete the verified next step",
+      "days": ["Friday"],
+      "points": 250,
+      "xp": 60,
+      "link": "https://certifications.sba.gov/",
+      "source": "Elliott's 2026-10-18 SDVOSB request; depends on verified prior decision and SAM status",
+      "instructions": "Use Monday's verified SBA status and decision checklist plus Tuesday's SAM findings. With Elliott, gather the current program's required ownership/control, veteran/service-disability, business, and other supporting records in the approved secure location. Address the specific missing information or denial reason if one is confirmed. Follow the actual letter and current SBA instructions to determine whether the next step is an information response, corrected application, reapplication, or another permitted route; do not guess an appeal deadline or create a duplicate application. Prepare the appropriate package and have the required owner complete declarations/signatures and submit the eligible next step. Save authorized login credentials in Keeper. Done when that next step is submitted and its receipt/status is recorded, or an existing active certification is verified and no submission is needed. If documents, eligibility, a waiting period, or owner action block submission, leave this task open with the precise next action and date. Do not claim the business is certified while review is pending."
+    },
+    {
+      "key": "vendor-weekly-status-keeper-audit",
+      "title": "Review all 12 vendor statuses and confirm passwords are in Keeper",
+      "days": ["Friday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://keepersecurity.com/vault/",
+      "instructions": "Review the task results for all 12 P-018 entries: Bexar County, SAM.gov, TXMAS, City of San Antonio, University Health, TxDOT, Texas CMBL, GSA, TIPS, DIR, and BuyBoard, plus CPS Energy. Create a concise status summary in this task or a linked working document: active/verified, submitted/pending, blocked, eligibility reviewed, or not applicable, with the next action and follow-up date. Include the SBA certification progress and the Upwork profile URL. Confirm that each business login created or updated this week is saved in the authorized Keeper folder with the correct URL and access; resolve duplicate or missing records without sharing secrets in the task list. Check that needed bid-notification emails reach the intended inbox. Done when the summary and Keeper check are complete. Outstanding registrations remain outstanding; checking off this review does not complete them. Keep Manny's task tracking here rather than rewriting the CEO journal."
+    }
+  ]
+}
