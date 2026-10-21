@@ -1,0 +1,162 @@
+/* ChatGPT Deployment funnel. Same palette as the Reviews funnel; responsive layout classes. */
+
+.cgd {
+  --cgd-navy: #0e2042;
+  --cgd-gold: #ebcb4c;
+  --cgd-ink: #1b2433;
+  --cgd-muted: #555;
+  --cgd-line: #e3e6ec;
+  --cgd-soft: #f6f7fa;
+  color: var(--cgd-ink);
+  font-family: 'Space Mono', monospace;
+  background: #fff;
+  min-height: 100vh;
+}
+
+.cgd h1,
+.cgd h2,
+.cgd h3 {
+  color: var(--cgd-navy);
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+.cgd h1 { font-size: 44px; }
+.cgd h2 { font-size: 34px; }
+.cgd h3 { font-size: 20px; }
+.cgd p { line-height: 1.6; }
+
+.cgd-container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+.cgd-section { padding: 80px 0; }
+.cgd-section-soft { background: var(--cgd-soft); border-top: 1px solid var(--cgd-line); border-bottom: 1px solid var(--cgd-line); }
+.cgd-section-navy { background: var(--cgd-navy); color: #fff; }
+.cgd-section-navy h2,
+.cgd-section-navy h3 { color: var(--cgd-gold); }
+.cgd-lead { font-size: 18px; color: var(--cgd-muted); max-width: 720px; }
+.cgd-section-navy .cgd-lead { color: rgba(255, 255, 255, 0.85); }
+.cgd-center { text-align: center; }
+.cgd-center .cgd-lead { margin-left: auto; margin-right: auto; }
+
+.cgd-eyebrow {
+  display: inline-block;
+  background: #000;
+  color: var(--cgd-gold);
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+/* Header */
+.cgd-header {
+  background: #000;
+  border-bottom: 2px solid var(--cgd-gold);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cgd-header a { color: var(--cgd-gold); text-decoration: none; font-weight: bold; letter-spacing: 0.05em; }
+.cgd-header-cta { font-size: 13px; border: 1px solid var(--cgd-gold); padding: 8px 14px; border-radius: 6px; white-space: nowrap; }
+
+/* Hero */
+.cgd-hero { padding: 64px 0 72px; }
+.cgd-hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: start; }
+.cgd-hero-sub { font-size: 19px; color: var(--cgd-muted); margin-bottom: 28px; }
+.cgd-checks { list-style: none; padding: 0; margin: 0 0 28px; }
+.cgd-checks li { padding-left: 30px; position: relative; margin-bottom: 12px; line-height: 1.5; }
+.cgd-checks li::before { content: '✓'; position: absolute; left: 0; top: 0; color: var(--cgd-navy); font-weight: bold; background: var(--cgd-gold); width: 20px; height: 20px; border-radius: 50%; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+.cgd-trustline { font-size: 13px; color: #777; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+
+/* Cards */
+.cgd-card {
+  background: #fff;
+  border: 1px solid var(--cgd-line);
+  border-radius: 10px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(14, 32, 66, 0.08);
+}
+.cgd-form-card { border-top: 4px solid var(--cgd-gold); }
+.cgd-form-card h2 { font-size: 22px; margin-bottom: 6px; }
+.cgd-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+.cgd-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.cgd-card p { color: var(--cgd-muted); margin: 0; }
+.cgd-card-num { color: var(--cgd-gold); font-weight: bold; font-size: 13px; letter-spacing: 0.1em; display: block; margin-bottom: 10px; }
+.cgd-section-navy .cgd-card { background: rgba(255, 255, 255, 0.05); border-color: rgba(235, 203, 76, 0.35); box-shadow: none; }
+.cgd-section-navy .cgd-card p { color: rgba(255, 255, 255, 0.82); }
+
+/* Steps */
+.cgd-steps { list-style: none; padding: 0; margin: 40px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; counter-reset: step; }
+.cgd-steps li { counter-increment: step; border-left: 3px solid var(--cgd-gold); padding: 4px 0 4px 20px; }
+.cgd-steps li::before { content: 'STEP ' counter(step); display: block; font-size: 12px; font-weight: bold; letter-spacing: 0.1em; color: #888; margin-bottom: 6px; }
+.cgd-steps p { color: var(--cgd-muted); margin: 0; }
+
+/* Example */
+.cgd-example { background: #fff; border: 1px dashed #b9c2d3; border-radius: 10px; padding: 28px; }
+.cgd-tag { display: inline-block; font-size: 11px; letter-spacing: 0.1em; font-weight: bold; color: #8a6d00; background: #fff7d6; border: 1px solid var(--cgd-gold); padding: 2px 8px; border-radius: 4px; margin-bottom: 12px; }
+.cgd-quote { border-left: 3px solid var(--cgd-navy); padding-left: 16px; font-style: italic; color: var(--cgd-ink); }
+
+/* Credentials */
+.cgd-creds { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; }
+.cgd-cred-list { list-style: none; padding: 0; margin: 0 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+.cgd-cred-list li { padding: 10px 0; border-bottom: 1px solid var(--cgd-line); font-weight: bold; color: var(--cgd-navy); font-size: 15px; }
+.cgd-cred-list span { display: block; font-weight: normal; color: #777; font-size: 12px; }
+.cgd-note { background: #fff7d6; border: 1px solid var(--cgd-gold); border-radius: 8px; padding: 16px 20px; color: #5a4500; font-size: 14px; }
+
+/* Buttons */
+.cgd-btn { display: inline-block; padding: 14px 28px; font-weight: bold; text-decoration: none; border-radius: 6px; border: 2px solid transparent; cursor: pointer; font-family: inherit; font-size: 16px; text-align: center; }
+.cgd-btn-primary { background: var(--cgd-navy); color: var(--cgd-gold); }
+.cgd-btn-primary:hover { background: #18315f; }
+.cgd-btn-primary:disabled { opacity: 0.6; cursor: wait; }
+.cgd-btn-gold { background: var(--cgd-gold); color: var(--cgd-navy); }
+.cgd-btn-outline { background: transparent; color: var(--cgd-navy); border-color: var(--cgd-navy); }
+.cgd-section-navy .cgd-btn-outline { color: var(--cgd-gold); border-color: var(--cgd-gold); }
+.cgd-btn-block { width: 100%; }
+.cgd-btn-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.cgd-center .cgd-btn-row { justify-content: center; }
+
+/* Form */
+.cgd-form { display: flex; flex-direction: column; gap: 14px; margin-top: 16px; }
+.cgd-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cgd-label { font-size: 13px; font-weight: bold; color: var(--cgd-navy); display: flex; flex-direction: column; gap: 4px; }
+.cgd-req { color: #a00; }
+.cgd-input { padding: 11px 12px; border: 1px solid #cfd5df; border-radius: 6px; font-size: 15px; font-family: inherit; width: 100%; box-sizing: border-box; background: #fff; color: var(--cgd-ink); }
+.cgd-input:focus { outline: 2px solid var(--cgd-gold); border-color: var(--cgd-navy); }
+.cgd-honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.cgd-error { background: #fee; color: #a00; padding: 12px; border-radius: 6px; font-size: 14px; }
+.cgd-fineprint { font-size: 12px; color: #888; margin: 0; line-height: 1.5; }
+.cgd-fineprint a { color: var(--cgd-navy); }
+
+/* FAQ */
+.cgd-faq { max-width: 860px; margin: 40px auto 0; }
+.cgd-faq-item { border-bottom: 1px solid var(--cgd-line); padding: 6px 0; }
+.cgd-faq-q { width: 100%; background: none; border: none; text-align: left; padding: 14px 0; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; align-items: center; font-size: 16px; font-weight: bold; color: var(--cgd-navy); font-family: inherit; }
+.cgd-faq-q span:last-child { color: var(--cgd-gold); font-size: 22px; }
+.cgd-faq-a { color: var(--cgd-muted); margin: 0 0 16px; }
+
+/* Footer */
+.cgd-footer { background: #000; color: #aaa; font-size: 13px; padding: 28px 24px; text-align: center; }
+.cgd-footer a { color: var(--cgd-gold); margin: 0 10px; }
+
+@media (max-width: 900px) {
+  .cgd h1 { font-size: 32px; }
+  .cgd h2 { font-size: 26px; }
+  .cgd-section { padding: 56px 0; }
+  .cgd-hero { padding: 40px 0 48px; }
+  .cgd-hero-grid,
+  .cgd-grid-2,
+  .cgd-creds { grid-template-columns: 1fr; gap: 32px; }
+  .cgd-grid-3,
+  .cgd-steps { grid-template-columns: 1fr; }
+  .cgd-creds img { margin: 0 auto; }
+}
+
+@media (max-width: 560px) {
+  .cgd-container { padding: 0 16px; }
+  .cgd-form-row,
+  .cgd-cred-list { grid-template-columns: 1fr; }
+  .cgd-card { padding: 22px 18px; }
+  .cgd-btn-row .cgd-btn { width: 100%; }
+  .cgd-header-brand { font-size: 13px; }
+}
