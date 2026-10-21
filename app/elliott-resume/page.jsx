@@ -378,34 +378,71 @@ export default function ElliottResumePage() {
 
               <div className="mb-6 grid gap-6 md:grid-cols-2">
                 <div className="col-span-full rounded-lg bg-gradient-to-br from-slate-800 to-slate-950 p-6 text-white shadow-lg">
-                  <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                    <div>
-                      <div className="mb-3 flex size-12 items-center justify-center rounded bg-white">
-                        <img src="/img/openai-logo.png" alt="OpenAI" className="size-10 object-contain" />
-                      </div>
-                      <h3 className="mb-2 text-xl font-bold">OpenAI ChatGPT Deployment Practitioner</h3>
-                      <p className="mb-4 text-sm text-slate-200">Issued October 2026 • Valid through October 2027</p>
-                      <a
-                        href="/img/openai-chatgpt-deployment-practitioner.jpg"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm text-yellow-300 underline hover:text-yellow-200"
-                      >
-                        View Certificate →
-                      </a>
-                    </div>
-                    <a
-                      href="/img/openai-chatgpt-deployment-practitioner.jpg"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="shrink-0 print:hidden"
-                    >
+                  <div className="flex flex-col gap-6 md:flex-row md:items-start">
+                    <div className="flex shrink-0 flex-col items-center text-center md:w-56">
                       <img
-                        src="/img/openai-chatgpt-deployment-practitioner.jpg"
-                        alt="ChatGPT Deployment Practitioner certificate awarded to Eliud Lamboy by OpenAI"
-                        className="w-full rounded-lg shadow-md md:w-72"
+                        src="/img/chatgpt-expert-badge.png"
+                        alt="ChatGPT Expert badge from OpenAI"
+                        className="mb-3 w-36 drop-shadow-lg md:w-44"
                       />
-                    </a>
+                      <h3 className="text-xl font-bold">ChatGPT Expert</h3>
+                      <p className="text-sm text-slate-200">All levels achieved • October 2026</p>
+                      <p className="mt-3 rounded bg-white/10 px-3 py-1 text-xs font-semibold text-yellow-300">
+                        Texas AI Consulting • Member of the OpenAI Partner Network
+                      </p>
+                    </div>
+
+                    <div className="flex-1">
+                      <div className="mb-4 flex items-center gap-3">
+                        <div className="flex size-12 items-center justify-center rounded bg-white">
+                          <img src="/img/openai-logo.png" alt="OpenAI" className="size-10 object-contain" />
+                        </div>
+                        <h3 className="text-xl font-bold">OpenAI Certifications</h3>
+                      </div>
+                      <ul className="divide-y divide-white/10">
+                        {[
+                          { name: 'OpenAI Technical Practitioner', issued: 'October 2026' },
+                          { name: 'ChatGPT Solutions Practitioner', issued: 'October 2026', cert: '/img/openai-chatgpt-solutions-practitioner.jpg' },
+                          { name: 'OpenAI Consultative Solutions Practitioner', issued: 'October 2026', cert: '/img/openai-consultative-solutions-practitioner.jpg' },
+                          { name: 'OpenAI Foundational Knowledge', issued: 'October 2026' },
+                          {
+                            name: 'ChatGPT Deployment Practitioner',
+                            issued: 'October 2026',
+                            cert: '/img/openai-chatgpt-deployment-practitioner.jpg',
+                            verify: 'https://www.credential.net/97e04489-941a-44c4-8263-daf9422157e3',
+                          },
+                        ].map((c) => (
+                          <li key={c.name} className="flex flex-col gap-1 py-3 sm:flex-row sm:items-center sm:justify-between">
+                            <div>
+                              <p className="font-semibold">{c.name}</p>
+                              <p className="text-sm text-slate-300">Issued {c.issued} • Valid through October 2027</p>
+                            </div>
+                            <div className="flex gap-4 text-sm print:hidden">
+                              {c.cert && (
+                                <a
+                                  href={c.cert}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-yellow-300 underline hover:text-yellow-200"
+                                >
+                                  View Certificate →
+                                </a>
+                              )}
+                              {c.verify && (
+                                <a
+                                  href={c.verify}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-yellow-300 underline hover:text-yellow-200"
+                                >
+                                  Verify →
+                                </a>
+                              )}
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                   </div>
                 </div>
 
