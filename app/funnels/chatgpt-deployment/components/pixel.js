@@ -58,8 +58,8 @@ export function loadPixel() {
     })(window, document, 'script', SDK_URL)
   }
   if (!window.__txaiPixelInit) {
-    window.__txaiPixelInit = true
     window.oaiq('init', { pixelId: PIXEL_ID, debug: isDebug() })
+    window.__txaiPixelInit = true
     debugLog('init', PIXEL_ID)
   }
 }
@@ -74,8 +74,8 @@ export function newEventId(prefix) {
 
 export function measure(eventName, data, options) {
   if (typeof window === 'undefined') return
-  loadPixel()
   try {
+    loadPixel()
     if (options) window.oaiq('measure', eventName, data, options)
     else window.oaiq('measure', eventName, data)
     debugLog('measure', eventName, data, options || {})
@@ -94,21 +94,18 @@ async function sha256(value) {
 }
 
 // Re-initializes the pixel with hashed contact details so OpenAI can match the
-// conversion to the ad click. Values are normalized and hashed in the browser;
-// raw email/phone are never sent to OpenAI.
-export async function identifyUser({ email, phone, firstName, lastName }) {
-  if (typeof window === 'undefined' || !crypto?.subtle) return
-  loadPixel()
+// conversion to the ad click. Email and names are normalized and hashed in the
+// browser; this integration never supplies phone numbers or SMS consent records.
+export async function identifyUser({ email, firstName, lastName }) {
+  if (typeof window === 'undefined' || typeof crypto === 'undefined' || !crypto.subtle) return
   try {
-    const user = { country: 'US' }
+    loadPixel()
+    const user = {}
     if (email) user.email_sha256 = await sha256(email.trim().toLowerCase())
-    if (phone) {
-      let digits = phone.replace(/\D/g, '')
-      if (digits.length === 10) digits = `1${digits}`
-      if (digits.length >= 11) user.phone_number_sha256 = await sha256(digits)
-    }
-    if (firstName) user.first_name_sha256 = await sha256(firstName.trim().toLowerCase())
-    if (lastName) user.last_name_sha256 = await sha256(lastName.trim().toLowerCase())
+    // Exclude phone numbers and SMS consent records from ad matching.
+    const normalizeName = (value) => value.toLowerCase().replace(/[\s!-/:-@\[-`{-~]/g, '')
+    if (firstName) user.first_name_sha256 = await sha256(normalizeName(firstName))
+    if (lastName) user.last_name_sha256 = await sha256(normalizeName(lastName))
     window.oaiq('init', { pixelId: PIXEL_ID, debug: isDebug(), user })
     debugLog('identify', Object.keys(user))
   } catch (err) {

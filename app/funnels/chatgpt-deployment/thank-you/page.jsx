@@ -1,8 +1,10 @@
 import { FunnelHeader, FunnelFooter } from '../components/FunnelChrome'
+import Link from 'next/link'
 import BookingEmbed from '../components/BookingEmbed'
 
 export const metadata = {
   title: 'Request Received',
+  alternates: { canonical: 'https://texasaiconsulting.com/funnels/chatgpt-deployment/thank-you' },
   robots: { index: false, follow: false },
 }
 
@@ -34,6 +36,7 @@ export default function ChatGPTDeploymentThankYouPage() {
             We&apos;ll reach out within one business day. Want to skip the back-and-forth? Pick a time below and
             we&apos;ll come prepared with questions about your workflows.
           </p>
+          <p><Link href='/blog/identify-the-right-workflow-before-ai'>Read the free workflow guide while you wait</Link>.</p>
         </div>
         <div className='cgd-container' style={{ maxWidth: '900px' }}>
           <div className='cgd-card' style={{ marginTop: '32px', padding: '8px' }}>

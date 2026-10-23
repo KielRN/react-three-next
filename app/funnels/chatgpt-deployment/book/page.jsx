@@ -4,6 +4,7 @@ import BookingEmbed from '../components/BookingEmbed'
 
 export const metadata = {
   title: 'Book a ChatGPT Rollout Call',
+  alternates: { canonical: 'https://texasaiconsulting.com/funnels/chatgpt-deployment/book' },
 }
 
 export default function ChatGPTDeploymentBookPage() {

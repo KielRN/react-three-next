@@ -9,7 +9,10 @@ const STAGE_NEW_LEAD = 'New Lead'
 // contact note. GHL workflows can trigger on the "chatgpt-deployment-funnel" tag.
 export async function POST(req) {
   try {
-    const body = await req.json()
+    const body = await req.json().catch(() => null)
+    if (!body || typeof body !== 'object' || Array.isArray(body)) {
+      return NextResponse.json({ error: 'Please check your consultation details.' }, { status: 400 })
+    }
     const {
       firstName = '',
       lastName = '',
@@ -25,9 +28,19 @@ export async function POST(req) {
     } = body
 
     // Honeypot filled in: answer like a success so bots don't retry, but save nothing.
-    if (website) return NextResponse.json({ ok: true })
+    if (website) return NextResponse.json({ ok: true, accepted: false })
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    const fields = { firstName, lastName, email, company, phone, teamSize, workflow, eventId, pageUrl }
+    const limits = { firstName: 100, lastName: 100, email: 254, company: 200, phone: 40, teamSize: 20, workflow: 4000, eventId: 100, pageUrl: 2000 }
+    if (Object.entries(fields).some(([key, value]) => typeof value !== 'string' || value.length > limits[key]) ||
+        [firstName, lastName, company].some((value) => !value.trim()) ||
+        !['1–10', '11–25', '26–100', '100+'].includes(teamSize) ||
+        !utm || typeof utm !== 'object' || Array.isArray(utm) ||
+        Object.entries(utm).some(([key, value]) => !['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].includes(key) || typeof value !== 'string' || value.length > 300)) {
+      return NextResponse.json({ error: 'Please check the required fields and keep your workflow description under 4,000 characters.' }, { status: 400 })
+    }
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       return NextResponse.json({ error: 'A valid email is required' }, { status: 400 })
     }
 
@@ -72,7 +85,7 @@ export async function POST(req) {
       console.warn('ChatGPT deployment lead: note not saved:', noteErr.message)
     }
 
-    return NextResponse.json({ ok: true, contactId: contactResult.contactId })
+    return NextResponse.json({ ok: true, accepted: true })
   } catch (err) {
     console.error('ChatGPT deployment lead error:', err)
     return NextResponse.json({ error: 'We could not save your request. Please try again or book a call below.' }, { status: 500 })

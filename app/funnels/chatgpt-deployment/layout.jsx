@@ -3,6 +3,7 @@ import OpenAIPixel from './components/OpenAIPixel'
 
 export const metadata = {
   title: 'ChatGPT Deployment for Texas Teams',
+  alternates: { canonical: 'https://texasaiconsulting.com/funnels/chatgpt-deployment' },
   description:
     'Workflow-first ChatGPT rollouts for Texas businesses. Find the work where ChatGPT saves time, then roll it out with your team so it sticks. Veteran-owned, San Antonio.',
   openGraph: {

@@ -15,6 +15,11 @@ const Layout = ({ children }) => {
   // Admin tools have their own navigation and do not need the marketing canvas.
   if (pathname === '/admin' || pathname?.startsWith('/admin/')) return <>{children}</>
 
+  // This campaign supplies its own header and has no canvas content.
+  if (pathname === '/funnels/chatgpt-deployment' || pathname?.startsWith('/funnels/chatgpt-deployment/')) {
+    return <>{children}</>
+  }
+
   // Show the priority transmission bar everywhere except inside the reviews and
   // ChatGPT deployment funnels and the immersive mock-up pages.
   const hideTransmissionBar =

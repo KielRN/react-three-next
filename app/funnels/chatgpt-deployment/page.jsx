@@ -67,6 +67,10 @@ export default function ChatGPTDeploymentPage() {
               We find the recurring work where ChatGPT actually saves time, then roll it out with your team so it
               sticks. Workflow first, then the tool.
             </p>
+            <div className='cgd-hero-links'>
+              <a href='#workflow-first-video'>Watch the workflow-first walkthrough</a>
+              <Link href='/blog/identify-the-right-workflow-before-ai'>Read the free guide</Link>
+            </div>
             <ul className='cgd-checks'>
               <li>Pick the two or three workflows worth changing, not fifty scattered experiments</li>
               <li>Shared instructions, templates, and training your team uses the same way</li>
@@ -91,6 +95,34 @@ export default function ChatGPTDeploymentPage() {
       </section>
 
       {/* Problem */}
+      <section id='workflow-first-video' className='cgd-section cgd-section-soft'>
+        <div className='cgd-container cgd-video-grid'>
+          <div>
+            <h2>See how to find your first workflow</h2>
+            <p className='cgd-lead'>
+              Watch Elliott walk through the workflow-first approach, then use the free guide to map the recurring
+              work on your own team.
+            </p>
+            <Link href='/blog/identify-the-right-workflow-before-ai' className='cgd-btn cgd-btn-primary'>
+              Read the free workflow guide
+            </Link>
+            <p className='cgd-video-fallback'>
+              <a href='https://youtu.be/jrk6FUoHgrs' target='_blank' rel='noopener noreferrer'>Watch on YouTube</a>
+            </p>
+          </div>
+          <div className='cgd-video'>
+            <iframe
+              src='https://www.youtube-nocookie.com/embed/jrk6FUoHgrs'
+              title='Workflow first: identify the right workflow before you buy AI — Elliott Lamboy'
+              loading='lazy'
+              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+              referrerPolicy='strict-origin-when-cross-origin'
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </section>
+
       <section className='cgd-section cgd-section-soft'>
         <div className='cgd-container'>
           <h2>Why most ChatGPT rollouts stall</h2>

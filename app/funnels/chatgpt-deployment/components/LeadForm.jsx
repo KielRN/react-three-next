@@ -41,14 +41,16 @@ export default function LeadForm() {
         body: JSON.stringify({ ...form, utm, eventId, pageUrl: window.location.href }),
       })
 
-      if (!response.ok) {
-        const text = await response.text()
-        throw new Error(`Submission failed (${response.status}): ${text.slice(0, 200)}`)
+      const result = await response.json().catch(() => null)
+      if (!response.ok || result?.ok !== true) {
+        throw new Error(result?.error || 'We could not save your request. Please try again or book a call.')
       }
 
       // Conversion fires only after the lead is saved, so Ads Manager counts real leads.
-      await identifyUser(form)
-      measure(EVENTS.LEAD_CREATED, { type: 'customer_action' }, { event_id: eventId })
+      if (result.accepted !== false) {
+        await identifyUser(form)
+        measure(EVENTS.LEAD_CREATED, { type: 'customer_action' }, { event_id: eventId })
+      }
       router.push('/funnels/chatgpt-deployment/thank-you')
     } catch (err) {
       setError(err.message)
@@ -84,6 +86,7 @@ export default function LeadForm() {
         Which recurring work takes the most time? (optional)
         <textarea
           rows={3}
+          maxLength={4000}
           value={form.workflow}
           onChange={handleChange('workflow')}
           className='cgd-input'
@@ -96,7 +99,7 @@ export default function LeadForm() {
         <input tabIndex={-1} autoComplete='off' value={form.website} onChange={handleChange('website')} />
       </label>
 
-      {error && <div className='cgd-error'>{error}</div>}
+      {error && <div className='cgd-error' role='alert'>{error} <Link href='/funnels/chatgpt-deployment/book'>Book a call instead</Link>.</div>}
 
       <button type='submit' disabled={submitting} className='cgd-btn cgd-btn-primary cgd-btn-block'>
         {submitting ? 'Sending…' : 'Request my consultation'}
@@ -122,6 +125,7 @@ function Field({ label, type = 'text', required, value, onChange, autoComplete }
         value={value}
         onChange={onChange}
         autoComplete={autoComplete}
+        maxLength={type === 'email' ? 254 : type === 'tel' ? 40 : label === 'Company' ? 200 : 100}
         className='cgd-input'
       />
     </label>

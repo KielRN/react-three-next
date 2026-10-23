@@ -199,6 +199,22 @@ export default function PrivacyPolicyPage() {
               You may control cookies through your browser settings. Disabling cookies may limit your ability to use
               certain features of our website.
             </p>
+            <h3 className='mb-2 mt-4 text-lg font-semibold text-ai-navy'>OpenAI Ads measurement</h3>
+            <p className='mb-3'>
+              Our ChatGPT deployment consultation pages use the OpenAI Ads Measurement Pixel to measure page visits,
+              consultation requests, and confirmed calendar bookings. The pixel uses browser information and
+              first-party attribution cookies to help connect these actions to our ads in ChatGPT.
+            </p>
+            <p className='mb-3'>
+              After a consultation request, our integration may provide SHA-256 hashes of your email address and
+              name for conversion matching. It does not supply your workflow description, phone number, or SMS
+              opt-in records to the pixel. Our consultation form and booking calendar use GoHighLevel to process
+              your request.
+            </p>
+            <p>
+              The walkthrough video is embedded using YouTube&apos;s privacy-enhanced player. Playing it connects
+              your browser to YouTube. You can also open the video directly on YouTube.
+            </p>
           </section>
 
           <section className='mb-8'>

@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { EVENTS, loadPixel, measure } from './pixel'
+import { EVENTS, measure } from './pixel'
 
 // Loads the OpenAI Ads pixel for this funnel only and sends page_viewed on every
 // funnel page (landing, booking, thank-you). The funnel layout stays mounted
@@ -11,7 +11,6 @@ export default function OpenAIPixel() {
   const pathname = usePathname()
 
   useEffect(() => {
-    loadPixel()
     // Effects can run twice for one visit (React dev mode, remounts); count each page once.
     if (window.__txaiLastPageView === pathname) return
     window.__txaiLastPageView = pathname
