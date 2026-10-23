@@ -4,7 +4,9 @@
     {
       "key": "ai-influencer-post",
       "title": "Generate this week's AI Influencer post",
-      "days": ["Monday"],
+      "days": [
+        "Monday"
+      ],
       "points": 200,
       "xp": 50,
       "instructions": "Review the latest AI Influencer brief and choose one useful, on-brand idea. Generate the image or video and a caption with a clear call to action. Check character consistency, spelling, and claims. Save the finished draft and add its link below for Elliott's review. This task is complete when the draft is ready for review; publishing is a separate assignment."
@@ -12,7 +14,10 @@
     {
       "key": "linkedin-post",
       "title": "Publish an approved LinkedIn post",
-      "days": ["Tuesday", "Thursday"],
+      "days": [
+        "Tuesday",
+        "Thursday"
+      ],
       "points": 150,
       "xp": 35,
       "link": "https://www.linkedin.com/company/110845066/",
@@ -21,11 +26,28 @@
     {
       "key": "ghl-conversations",
       "title": "Check Texas AI Consulting conversations",
-      "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
       "points": 75,
       "xp": 15,
       "link": "https://app.gohighlevel.com/",
       "instructions": "Open GoHighLevel and select the Texas AI Consulting subaccount. Review new and unread conversations, identify follow-ups, and flag anything that needs Elliott's decision. Respond only within your approved handling instructions. Record a brief summary below, such as 'Checked: no new conversations' or the number reviewed and any outstanding follow-ups. Do not paste private customer messages into this task."
+    },
+    {
+      "key": "vethub-opportunities",
+      "title": "Look for Texas VetHUB opportunities",
+      "days": [
+        "Friday"
+      ],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.txsmartbuy.gov/esbd",
+      "instructions": "1. Open the Texas bid search below. Look for open AI, automation, software, IT support, and consulting opportunities.\n2. Check our VetHUB emails and agency portals for subcontracting opportunities too.\n3. Save up to three good matches. Add each link, deadline, contact, and a short reason it fits Texas AI Consulting.\n4. Add a short search summary for Elliott and check this off when the weekly search is finished."
     }
   ]
 }

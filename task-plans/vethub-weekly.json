@@ -1,0 +1,14 @@
+{
+  "source": "Weekly Texas VetHUB opportunity search",
+  "tasks": [
+    {
+      "key": "vethub-opportunities",
+      "title": "Look for Texas VetHUB opportunities",
+      "days": ["Friday"],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.txsmartbuy.gov/esbd",
+      "instructions": "1. Open the Texas bid search below. Look for open AI, automation, software, IT support, and consulting opportunities.\n2. Check our VetHUB emails and agency portals for subcontracting opportunities too.\n3. Save up to three good matches. Add each link, deadline, contact, and a short reason it fits Texas AI Consulting.\n4. Add a short search summary for Elliott and check this off when the weekly search is finished."
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "source": "Agency profiles · P-018",
+  "tasks": [
+    {
+      "key": "vendor-gsa-eligibility",
+      "title": "Set up our GSA eOffer account",
+      "days": [
+        "Monday"
+      ],
+      "points": 150,
+      "xp": 35,
+      "link": "https://eoffer.gsa.gov/",
+      "instructions": "1. Open GSA eOffer below. Use our existing FAS ID or choose Register new Account.\n2. Work with Elliott to connect the account to our business and the required contact in SAM.gov.\n3. Save the website, username, and password in our Texas AI Consulting folder in Keeper.\n4. Add the account link and check this off once sign-in works. List any remaining contract application steps for Elliott.",
+      "source": "Agency profiles · P-018"
+    },
+    {
+      "key": "vendor-txmas-eligibility",
+      "title": "Get our TXMAS application started",
+      "days": [
+        "Monday"
+      ],
+      "points": 100,
+      "xp": 25,
+      "link": "https://comptroller.texas.gov/purchasing/contracts/txmas/",
+      "instructions": "1. Open the TXMAS link with Elliott. This program needs a qualifying government contract and an eligible service.\n2. If our business qualifies, start the application and fill in the company details. If our services fall under DIR, record that route for Elliott.\n3. Save any account access in Keeper and the application draft in our project folder.\n4. Add the application link and next step. Check this off when the draft is ready or Elliott confirms the right program for our services.",
+      "source": "Agency profiles · P-018"
+    },
+    {
+      "key": "vethub-opportunities",
+      "title": "Look for Texas VetHUB opportunities",
+      "days": [
+        "Friday"
+      ],
+      "points": 150,
+      "xp": 35,
+      "link": "https://www.txsmartbuy.gov/esbd",
+      "instructions": "1. Open the Texas bid search below. Look for open AI, automation, software, IT support, and consulting opportunities.\n2. Check our VetHUB emails and agency portals for subcontracting opportunities too.\n3. Save up to three good matches. Add each link, deadline, contact, and a short reason it fits Texas AI Consulting.\n4. Add a short search summary for Elliott and check this off when the weekly search is finished."
+    }
+  ]
+}
