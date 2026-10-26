@@ -1,0 +1,21 @@
+{
+  "source": "Daily routine",
+  "tasks": [
+    {
+      "key": "ghl-conversations",
+      "title": "Check GoHighLevel messages",
+      "points": 50,
+      "xp": 10,
+      "link": "https://app.gohighlevel.com/",
+      "instructions": "1. Open GoHighLevel and choose the Texas AI Consulting subaccount.\n2. Read new messages and follow the usual reply instructions. Flag anything Elliott needs to handle.\n3. Add a short update, such as \"Inbox checked\" or \"2 messages need a reply,\" and check this off."
+    },
+    {
+      "key": "upwork-ai-ghl-search",
+      "title": "Check Upwork for AI and GHL jobs",
+      "points": 50,
+      "xp": 10,
+      "link": "https://www.upwork.com/nx/find-work/",
+      "instructions": "1. Search Upwork for AI automation, AI chatbot, GoHighLevel, and GHL jobs.\n2. Spend about 20 minutes looking for jobs that fit our services.\n3. Save up to three good matches and add their links here for Elliott. Check this off after both AI and GHL searches are finished."
+    }
+  ]
+}

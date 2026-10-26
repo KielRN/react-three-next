@@ -52,7 +52,9 @@ export default function TasksPage() {
     setNotice('')
     try {
       const result = await postTaskCompletion(task.id, note)
-      setNotice(result.alreadyCompleted ? 'This task was already completed. Your rewards are saved.' : `Task complete! +${result.points} points · +${result.xp} XP${result.leveledUp ? ' · Level up!' : ''}`)
+      const streak = result.multiplier > 1 ? ` (×${result.multiplier.toFixed(1)} routine streak)` : ''
+      const perfect = result.perfectWeek ? ` · Perfect routine week! +${result.perfectWeek.points} bonus points for the routine owner` : ''
+      setNotice(result.alreadyCompleted ? 'This task was already completed. Your rewards are saved.' : `Task complete! +${result.points} points${streak} · +${result.xp} XP${result.leveledUp ? ' · Level up!' : ''}${perfect}`)
       if (result.leveledUp) setCelebration('levelUp')
       await refresh()
     } catch (e) { setError(e) }

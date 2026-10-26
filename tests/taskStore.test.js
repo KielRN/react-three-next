@@ -35,8 +35,11 @@ beforeAll(async () => {
   const rollover = readFileSync(new URL('../db/migrations/004_task_rollover.sql', import.meta.url), 'utf8')
   await state.db.exec(rollover)
   await state.db.exec(rollover)
+  const routines = readFileSync(new URL('../db/migrations/005_task_routines.sql', import.meta.url), 'utf8')
+  await state.db.exec(routines)
+  await state.db.exec(routines)
 }, 30000)
-beforeEach(async () => { await state.db.exec('truncate task_events, admin_tasks, call_events, leads, player_profile cascade') })
+beforeEach(async () => { await state.db.exec('truncate task_events, task_bonuses, task_routines, admin_tasks, call_events, leads, player_profile cascade') })
 afterAll(async () => { await state.db?.close() })
 
 describe('task assignment and rewards in Postgres', () => {
@@ -156,7 +159,7 @@ describe('task assignment and rewards in Postgres', () => {
     const done = await assignedTask({ key: 'done-already', dueDate: '2026-10-08' })
     await completeTask({ callerId: 'manny', taskId: done.id, today: '2026-10-08' })
     // Weekend of the same week: nothing has ended yet.
-    expect(await rollOverMissedTasks('2026-10-10')).toEqual({ missed: 0, restarted: 0 })
+    expect(await rollOverMissedTasks('2026-10-10')).toEqual({ missed: 0, restarted: 0, expired: 0 })
     const data = await getTaskWeek('manny', '2026-W42', '2026-10-13')
     expect(data.tasks).toHaveLength(1)
     expect(data.tasks[0]).toMatchObject({ task_key: 'conversations', due_date: '2026-10-14', restarted_from: old.id })
@@ -166,7 +169,7 @@ describe('task assignment and rewards in Postgres', () => {
     expect(lastWeek.tasks.find((task) => task.id === old.id).missed_at).toBeTruthy()
     expect(lastWeek.tasks.find((task) => task.id === done.id).missed_at).toBeNull()
     // Rerunning is a no-op, and a missed task is never reopened by a plan reimport.
-    expect(await rollOverMissedTasks('2026-10-13')).toEqual({ missed: 0, restarted: 0 })
+    expect(await rollOverMissedTasks('2026-10-13')).toEqual({ missed: 0, restarted: 0, expired: 0 })
     await importTasks([{ ...assignment, dueDate: '2026-10-07', title: 'Changed' }], 'manny')
     expect(await scalar('select title from admin_tasks where id = $1', [old.id])).toBe(assignment.title)
     expect(await scalar('select count(*)::int from admin_tasks')).toBe(3)
@@ -174,11 +177,82 @@ describe('task assignment and rewards in Postgres', () => {
   it('restarts into an existing slot without duplicating it, and chains through skipped weeks', async () => {
     await importTasks([{ ...assignment, key: 'weekly-search', dueDate: '2026-10-09' }], 'manny')
     await importTasks([{ ...assignment, key: 'weekly-search', dueDate: '2026-10-16' }], 'manny')
-    expect(await rollOverMissedTasks('2026-10-12')).toEqual({ missed: 1, restarted: 0 })
+    expect(await rollOverMissedTasks('2026-10-12')).toEqual({ missed: 1, restarted: 0, expired: 0 })
     expect(await scalar('select count(*)::int from admin_tasks')).toBe(2)
     // Nobody opened the board for two weeks: the Oct 16 task restarts straight into the current week.
-    expect(await rollOverMissedTasks('2026-10-27')).toEqual({ missed: 1, restarted: 1 })
+    expect(await rollOverMissedTasks('2026-10-27')).toEqual({ missed: 1, restarted: 1, expired: 0 })
     expect(await scalar("select due_date::text from admin_tasks where completed_at is null and missed_at is null")).toBe('2026-10-30')
+  })
+})
+
+describe('daily routines', () => {
+  const people = [{ userId: 'manny', displayName: 'Manny' }, { userId: 'elliott', displayName: 'Elliott' }]
+  async function addRoutine(key = 'ghl', points = 50) {
+    await state.db.query(`insert into task_routines (assignee_id, task_key, title, instructions, points, xp, shared_with)
+      values ('manny', $1, $2, 'Check messages.', $3, 10, $4::jsonb)`, [key, `Routine ${key}`, points, JSON.stringify(people)])
+  }
+  const routineTask = async (day, key = 'ghl') =>
+    (await state.db.query("select *, due_date::text as due_date from admin_tasks where routine and task_key = $1 and due_date = $2", [key, day])).rows[0]
+
+  it('appears every business day of the week, shared, and expires at the end of its day without restarting', async () => {
+    await addRoutine()
+    const week = await getTaskWeek('elliott', '2026-W44', '2026-10-27')
+    expect(week.tasks.map((task) => task.due_date)).toEqual(['2026-10-26', '2026-10-27', '2026-10-28', '2026-10-29', '2026-10-30'])
+    expect(week.tasks.every((task) => task.routine && task.is_shared)).toBe(true)
+    expect(week.tasks[0].missed_at).toBeTruthy() // Monday expired on Tuesday
+    expect(week.tasks[1].missed_at).toBeNull()
+    await expect(completeTask({ callerId: 'manny', taskId: week.tasks[0].id, today: '2026-10-27' })).rejects.toMatchObject({ status: 409 })
+    // The next week starts clean: no restarted copies of missed routines.
+    await rollOverMissedTasks('2026-11-02')
+    expect(await scalar("select count(*)::int from admin_tasks where restarted_from is not null")).toBe(0)
+    expect(await scalar("select count(*)::int from admin_tasks where missed_at is null and completed_at is null")).toBe(5)
+  })
+  it('converts an existing open task with the same key into the routine, keeping completed history', async () => {
+    await importTasks([{ ...assignment, key: 'ghl', dueDate: '2026-10-28', points: 75 }], 'manny')
+    await importTasks([{ ...assignment, key: 'ghl', dueDate: '2026-10-26', points: 75 }], 'manny')
+    await completeTask({ callerId: 'manny', taskId: (await routineTaskAny('2026-10-26')).id, today: '2026-10-26' })
+    await addRoutine()
+    await rollOverMissedTasks('2026-10-26')
+    expect(await scalar("select count(*)::int from admin_tasks where task_key = 'ghl'")).toBe(5)
+    expect(await routineTask('2026-10-28')).toMatchObject({ points: 50, routine: true })
+    expect(await scalar("select points from admin_tasks where due_date = '2026-10-26'")).toBe(75)
+  })
+  async function routineTaskAny(day) {
+    return (await state.db.query('select id from admin_tasks where due_date = $1', [day])).rows[0]
+  }
+  it('multiplies points by the streak, resets after a missed day, and pays a perfect week once', async () => {
+    await addRoutine('ghl')
+    await addRoutine('upwork')
+    const days = ['2026-10-26', '2026-10-27', '2026-10-28', '2026-10-29', '2026-10-30']
+    const earned = []
+    for (const day of days) {
+      await rollOverMissedTasks(day)
+      for (const key of ['ghl', 'upwork']) {
+        const caller = key === 'ghl' ? 'manny' : 'elliott'
+        earned.push(await completeTask({ callerId: caller, taskId: (await routineTask(day, key)).id, today: day }))
+      }
+    }
+    expect(earned.map((result) => result.points)).toEqual([50, 50, 55, 55, 60, 60, 65, 65, 70, 70])
+    expect(earned.filter((result) => result.perfectWeek)).toHaveLength(1)
+    expect(earned.at(-1).perfectWeek).toEqual({ points: 300, xp: 75 })
+    // The bonus goes to the routine owner, even though Elliott finished the week.
+    expect(await scalar("select caller_id from task_bonuses")).toBe('manny')
+    const manny = await getTaskWeek('manny', '2026-W44', '2026-10-30')
+    expect(manny.routine).toMatchObject({ streak: 4, multiplier: 1.4, perfectWeek: true })
+    expect(manny.weekly.points).toBe(50 + 55 + 60 + 65 + 70 + 300)
+    expect(manny.lifetime.points).toBe(600)
+    expect(manny.profile.lifetimeXp).toBe(50 + 75)
+    // Monday: the Friday-cleared week carries the streak; skipping Monday's routines resets it.
+    expect((await getTaskWeek('manny', '2026-W45', '2026-11-02')).routine).toMatchObject({ streak: 5, multiplier: 1.5 })
+    expect((await getTaskWeek('manny', '2026-W45', '2026-11-03')).routine).toMatchObject({ streak: 0, multiplier: 1 })
+  })
+  it('skips the perfect week when any routine day was missed', async () => {
+    await addRoutine()
+    for (const day of ['2026-10-26', '2026-10-27', '2026-10-29', '2026-10-30']) {
+      await rollOverMissedTasks(day)
+      await completeTask({ callerId: 'manny', taskId: (await routineTask(day)).id, today: day })
+    }
+    expect(await scalar('select count(*)::int from task_bonuses')).toBe(0)
   })
   it('rolls back the whole import if any assignment violates the schema', async () => {
     await expect(importTasks([assignment, { ...assignment, key: 'invalid', dueDate: '2026-10-17' }], 'manny')).rejects.toThrow()

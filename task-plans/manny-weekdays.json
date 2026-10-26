@@ -24,21 +24,6 @@
       "instructions": "Use the approved Texas AI Consulting content brief. Share a practical AI lesson, client-safe example, or company update with one clear takeaway and call to action. Verify claims, links, and the destination account, then publish the approved post. Add the live post URL below. If approval or account access is missing, leave this task open and flag the blocker to Elliott."
     },
     {
-      "key": "ghl-conversations",
-      "title": "Check Texas AI Consulting conversations",
-      "days": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-      ],
-      "points": 75,
-      "xp": 15,
-      "link": "https://app.gohighlevel.com/",
-      "instructions": "Open GoHighLevel and select the Texas AI Consulting subaccount. Review new and unread conversations, identify follow-ups, and flag anything that needs Elliott's decision. Respond only within your approved handling instructions. Record a brief summary below, such as 'Checked: no new conversations' or the number reviewed and any outstanding follow-ups. Do not paste private customer messages into this task."
-    },
-    {
       "key": "vethub-opportunities",
       "title": "Look for Texas VetHUB opportunities",
       "days": [

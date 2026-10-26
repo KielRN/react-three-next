@@ -4,6 +4,7 @@ import {
   businessDate, businessWeek, completionError, expandTaskPlan, isBusinessDay,
   nextBusinessStreak, validDate, weekForDate,
 } from '../lib/taskSchedule.js'
+import { routineDefinitions, routineMultiplier, routineStreak } from '../lib/taskRoutines.js'
 
 const plan = { tasks: [{ key: 'check-inbox', title: 'Check inbox', instructions: 'Review unread conversations.', days: ['Monday', 'Friday'] }] }
 
@@ -66,12 +67,29 @@ describe('assignment plan', () => {
       { link: 'https://user:password@example.com' },
     ]) expect(() => expandTaskPlan({ tasks: [{ ...plan.tasks[0], ...changes }] }, '2026-W43')).toThrow()
   })
-  it('ships a valid starter schedule with nine separate assignments', () => {
+  it('ships a valid starter schedule with four separate assignments and no daily routines', () => {
     const starter = JSON.parse(readFileSync(new URL('../task-plans/manny-weekdays.json', import.meta.url), 'utf8'))
     const assignments = expandTaskPlan(starter, '2026-W43')
-    expect(assignments).toHaveLength(9)
+    expect(assignments).toHaveLength(4)
     expect(assignments.filter((t) => t.key === 'vethub-opportunities')).toHaveLength(1)
-    expect(assignments.filter((t) => t.key === 'ghl-conversations')).toHaveLength(5)
+    const routines = routineDefinitions(JSON.parse(readFileSync(new URL('../task-plans/routines.json', import.meta.url), 'utf8')))
+    expect(routines.map((t) => t.key)).toEqual(['ghl-conversations', 'upwork-ai-ghl-search'])
+    expect(assignments.some((t) => routines.some((r) => r.key === t.key))).toBe(false)
     expect(assignments.every((t) => isBusinessDay(t.dueDate))).toBe(true)
+  })
+  it('scores routines on a streak of fully cleared business days', () => {
+    expect([0, 1, 3, 10, 25].map(routineMultiplier)).toEqual([1, 1.1, 1.3, 2, 2])
+    const cleared = new Map([['2026-10-23', true], ['2026-10-22', true], ['2026-10-21', false], ['2026-10-20', true]])
+    expect(routineStreak(cleared, '2026-10-26')).toBe(2) // Monday counts back over the weekend
+    expect(routineStreak(cleared, '2026-10-24')).toBe(2) // Saturday looks back from Friday
+    expect(routineStreak(cleared, '2026-10-22')).toBe(0)
+    expect(routineStreak(new Map(), '2026-10-26')).toBe(0)
+    expect(() => routineDefinitions({ tasks: [{ key: 'Bad Key', title: 't', instructions: 'i' }] })).toThrow()
+  })
+  it('expires routines at the end of their own day', () => {
+    expect(completionError({ due_date: '2026-10-26', routine: true }, '2026-10-26')).toBeNull()
+    expect(completionError({ due_date: '2026-10-23', routine: true }, '2026-10-26')).toMatch(/expired/)
+    expect(completionError({ due_date: '2026-10-21', routine: true }, '2026-10-22')).toMatch(/expired/)
+    expect(completionError({ due_date: '2026-10-27', routine: true }, '2026-10-26')).toMatch(/future/)
   })
 })

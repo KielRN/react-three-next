@@ -35,4 +35,16 @@ Reimports update incomplete assignments; completed work and rewards stay intact.
 
 On `/admin/tasks`, select week 43 for October 19–23 and week 44 for October 26. Check-offs are available Monday–Friday in America/Chicago, on or after the due date, until the task's week ends. A second open account sees updates on focus or the next minute's refresh.
 
+## Daily routines
+
+`routines.json` lists work that must happen every business day (GoHighLevel messages and the Upwork job search). Routines are not part of weekly plans: the board generates them for every business day of the current week, shared like their definition. Load or change them with:
+
+```powershell
+node --env-file=.env scripts/import-routines.mjs --file task-plans/routines.json --email manny.lamboy23@gmail.com --share-with elliott@texasaiconsulting.com --apply
+```
+
+The file is the complete list for that person; a routine removed from it is paused. A routine can only be checked off on its own day and expires unchecked at the end of that day without restarting. Points are the base value times the routine streak: +10% for each fully cleared business day in a row before today, up to double. Clearing every routine on all five days pays the routine owner a one-time 300-point / 75 XP perfect-week bonus. Missing a day resets the streak. Requires `db/migrations/005_task_routines.sql`.
+
+## Unfinished tasks
+
 Unfinished work does not carry over as overdue. When a week ends, every unchecked task in it is closed as **Not done** (`missed_at`) and a fresh copy restarts on the same weekday of the current week, with the same instructions, rewards, and shared access (`restarted_from` links the copy to the original). If that slot already holds the same task key, such as a weekly search, the existing task is kept instead of duplicated. The rollover runs automatically whenever the task board loads; `db/migrations/004_task_rollover.sql` must be applied first. Reimports never reopen a task that closed as not done.
