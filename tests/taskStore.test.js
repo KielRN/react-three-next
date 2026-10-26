@@ -8,7 +8,7 @@ vi.mock('../lib/db.js', () => ({
   transaction: (work) => state.db.transaction(work),
 }))
 import { importTasks } from '../lib/taskImport.js'
-import { completeTask, getTaskWeek } from '../lib/taskStore.js'
+import { completeTask, getTaskWeek, rollOverMissedTasks } from '../lib/taskStore.js'
 import { getOrCreateProfile, recordOutcome } from '../lib/playerStore.js'
 
 const assignment = {
@@ -32,6 +32,9 @@ beforeAll(async () => {
   const shared = readFileSync(new URL('../db/migrations/003_shared_tasks.sql', import.meta.url), 'utf8')
   await state.db.exec(shared)
   await state.db.exec(shared)
+  const rollover = readFileSync(new URL('../db/migrations/004_task_rollover.sql', import.meta.url), 'utf8')
+  await state.db.exec(rollover)
+  await state.db.exec(rollover)
 }, 30000)
 beforeEach(async () => { await state.db.exec('truncate task_events, admin_tasks, call_events, leads, player_profile cascade') })
 afterAll(async () => { await state.db?.close() })
@@ -86,15 +89,18 @@ describe('task assignment and rewards in Postgres', () => {
     expect(data.weekly.completed).toBe(1)
     expect(data.weekly.xp).toBe(0)
   })
-  it('retains date restrictions and overdue visibility for shared assignees', async () => {
+  it('retains date restrictions and restarts unfinished shared work for both assignees', async () => {
     await importTasks([assignment], 'manny', collaborators)
     const task = (await getTaskWeek('elliott', '2026-W42', '2026-10-15')).tasks[0]
     await expect(completeTask({ callerId: 'elliott', taskId: task.id, today: '2026-10-14' })).rejects.toMatchObject({ status: 409 })
     await expect(completeTask({ callerId: 'elliott', taskId: task.id, today: '2026-10-17' })).rejects.toMatchObject({ status: 409 })
-    expect((await getTaskWeek('elliott', '2026-W43', '2026-10-19')).tasks).toHaveLength(1)
-    await completeTask({ callerId: 'elliott', taskId: task.id, today: '2026-10-19' })
-    expect((await getTaskWeek('manny', '2026-W43', '2026-10-19')).tasks).toHaveLength(0)
-    expect((await getTaskWeek('manny', '2026-W42', '2026-10-19')).weekly.completed).toBe(1)
+    const restarted = (await getTaskWeek('elliott', '2026-W43', '2026-10-19')).tasks
+    expect(restarted).toHaveLength(1)
+    expect(restarted[0]).toMatchObject({ due_date: '2026-10-22', restarted_from: task.id, is_shared: true, completed_at: null })
+    await expect(completeTask({ callerId: 'elliott', taskId: task.id, today: '2026-10-19' })).rejects.toMatchObject({ status: 409 })
+    await completeTask({ callerId: 'elliott', taskId: restarted[0].id, today: '2026-10-22' })
+    expect((await getTaskWeek('manny', '2026-W43', '2026-10-22')).weekly.completed).toBe(1)
+    expect((await getTaskWeek('manny', '2026-W42', '2026-10-22')).tasks[0]).toMatchObject({ completed_at: null, missed_at: expect.anything() })
   })
   it('imports idempotently and keeps separate days and assignees', async () => {
     expect(await importTasks([assignment], 'manny')).toEqual({ imported: 1, updated: 0, completedUnchanged: 0 })
@@ -145,17 +151,34 @@ describe('task assignment and rewards in Postgres', () => {
     expect(await scalar('select count(*)::int from task_events')).toBe(0)
     expect(await scalar('select completed_at from admin_tasks')).toBeNull()
   })
-  it('keeps overdue assignments visible until completed, without counting them in this week', async () => {
-    const old = await assignedTask({ dueDate: '2026-10-09' })
-    await assignedTask()
-    let data = await getTaskWeek('manny', '2026-W42', '2026-10-15')
-    expect(data.tasks).toHaveLength(2)
-    expect(data.weekly.total).toBe(1)
-    await completeTask({ callerId: 'manny', taskId: old.id, today: '2026-10-15' })
-    data = await getTaskWeek('manny', '2026-W42', '2026-10-15')
+  it('closes unfinished work as not done and restarts it on the same weekday of the next week', async () => {
+    const old = await assignedTask({ dueDate: '2026-10-07' })
+    const done = await assignedTask({ key: 'done-already', dueDate: '2026-10-08' })
+    await completeTask({ callerId: 'manny', taskId: done.id, today: '2026-10-08' })
+    // Weekend of the same week: nothing has ended yet.
+    expect(await rollOverMissedTasks('2026-10-10')).toEqual({ missed: 0, restarted: 0 })
+    const data = await getTaskWeek('manny', '2026-W42', '2026-10-13')
     expect(data.tasks).toHaveLength(1)
-    expect(data.lifetime.points).toBe(75)
-    expect((await getTaskWeek('manny', '2026-W41', '2026-10-15')).tasks[0].completed_at).toBeTruthy()
+    expect(data.tasks[0]).toMatchObject({ task_key: 'conversations', due_date: '2026-10-14', restarted_from: old.id })
+    expect(data.weekly.total).toBe(1)
+    const lastWeek = await getTaskWeek('manny', '2026-W41', '2026-10-13')
+    expect(lastWeek.weekly).toMatchObject({ total: 2, completed: 1 })
+    expect(lastWeek.tasks.find((task) => task.id === old.id).missed_at).toBeTruthy()
+    expect(lastWeek.tasks.find((task) => task.id === done.id).missed_at).toBeNull()
+    // Rerunning is a no-op, and a missed task is never reopened by a plan reimport.
+    expect(await rollOverMissedTasks('2026-10-13')).toEqual({ missed: 0, restarted: 0 })
+    await importTasks([{ ...assignment, dueDate: '2026-10-07', title: 'Changed' }], 'manny')
+    expect(await scalar('select title from admin_tasks where id = $1', [old.id])).toBe(assignment.title)
+    expect(await scalar('select count(*)::int from admin_tasks')).toBe(3)
+  })
+  it('restarts into an existing slot without duplicating it, and chains through skipped weeks', async () => {
+    await importTasks([{ ...assignment, key: 'weekly-search', dueDate: '2026-10-09' }], 'manny')
+    await importTasks([{ ...assignment, key: 'weekly-search', dueDate: '2026-10-16' }], 'manny')
+    expect(await rollOverMissedTasks('2026-10-12')).toEqual({ missed: 1, restarted: 0 })
+    expect(await scalar('select count(*)::int from admin_tasks')).toBe(2)
+    // Nobody opened the board for two weeks: the Oct 16 task restarts straight into the current week.
+    expect(await rollOverMissedTasks('2026-10-27')).toEqual({ missed: 1, restarted: 1 })
+    expect(await scalar("select due_date::text from admin_tasks where completed_at is null and missed_at is null")).toBe('2026-10-30')
   })
   it('rolls back the whole import if any assignment violates the schema', async () => {
     await expect(importTasks([assignment, { ...assignment, key: 'invalid', dueDate: '2026-10-17' }], 'manny')).rejects.toThrow()

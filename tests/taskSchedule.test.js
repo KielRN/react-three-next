@@ -35,6 +35,10 @@ describe('business calendar', () => {
     expect(completionError({ due_date: '2026-10-16' }, '2026-10-15')).toMatch(/future/)
     expect(completionError({ due_date: '2026-10-16' }, '2026-10-17')).toMatch(/Monday through Friday/)
   })
+  it('rejects work from a week that has ended, or that already closed as not done', () => {
+    expect(completionError({ due_date: '2026-10-16' }, '2026-10-19')).toMatch(/not done/)
+    expect(completionError({ due_date: '2026-10-15', missed_at: new Date() }, '2026-10-15')).toMatch(/not done/)
+  })
 })
 
 describe('shared activity streak', () => {
@@ -62,10 +66,11 @@ describe('assignment plan', () => {
       { link: 'https://user:password@example.com' },
     ]) expect(() => expandTaskPlan({ tasks: [{ ...plan.tasks[0], ...changes }] }, '2026-W43')).toThrow()
   })
-  it('ships a valid starter schedule with eight separate assignments', () => {
+  it('ships a valid starter schedule with nine separate assignments', () => {
     const starter = JSON.parse(readFileSync(new URL('../task-plans/manny-weekdays.json', import.meta.url), 'utf8'))
     const assignments = expandTaskPlan(starter, '2026-W43')
-    expect(assignments).toHaveLength(8)
+    expect(assignments).toHaveLength(9)
+    expect(assignments.filter((t) => t.key === 'vethub-opportunities')).toHaveLength(1)
     expect(assignments.filter((t) => t.key === 'ghl-conversations')).toHaveLength(5)
     expect(assignments.every((t) => isBusinessDay(t.dueDate))).toBe(true)
   })

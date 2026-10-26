@@ -33,4 +33,6 @@ Sharing links the original task IDs. It does not create a second checklist. Both
 
 Reimports update incomplete assignments; completed work and rewards stay intact. Sharing is additive and can include completed assignments without paying them again. Omitting `--share-with` later does not revoke existing access. Keep Manny as the owner when revising this plan.
 
-On `/admin/tasks`, select week 43 for October 19–23 and week 44 for October 26. Check-offs are available Monday–Friday in America/Chicago, on or after the due date. A second open account sees updates on focus or the next minute's refresh.
+On `/admin/tasks`, select week 43 for October 19–23 and week 44 for October 26. Check-offs are available Monday–Friday in America/Chicago, on or after the due date, until the task's week ends. A second open account sees updates on focus or the next minute's refresh.
+
+Unfinished work does not carry over as overdue. When a week ends, every unchecked task in it is closed as **Not done** (`missed_at`) and a fresh copy restarts on the same weekday of the current week, with the same instructions, rewards, and shared access (`restarted_from` links the copy to the original). If that slot already holds the same task key, such as a weekly search, the existing task is kept instead of duplicated. The rollover runs automatically whenever the task board loads; `db/migrations/004_task_rollover.sql` must be applied first. Reimports never reopen a task that closed as not done.

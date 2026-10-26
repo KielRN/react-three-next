@@ -7,8 +7,8 @@ function shortDate(day) {
 
 export default function TaskBoard({ data, busy, onComplete }) {
   const [selected, setSelected] = useState('all')
-  const overdue = data.tasks.filter((task) => task.due_date < data.days[0].date)
-  const visible = selected === 'all' ? data.tasks : selected === 'overdue' ? overdue : data.tasks.filter((task) => task.due_date === selected)
+  const missed = data.tasks.filter((task) => task.missed_at).length
+  const visible = selected === 'all' ? data.tasks : data.tasks.filter((task) => task.due_date === selected)
   const progress = data.weekly.total ? Math.round(data.weekly.completed / data.weekly.total * 100) : 0
   return (
     <>
@@ -24,6 +24,7 @@ export default function TaskBoard({ data, busy, onComplete }) {
           <div className='h-full rounded-full bg-lcars-teal transition-all motion-reduce:transition-none' style={{ width: `${progress}%` }} />
         </div>
         {data.weekly.total > 0 && data.weekly.completed === data.weekly.total && <p className='mt-3 text-sm text-lcars-teal'>Week cleared. Nice work keeping things moving.</p>}
+        {missed > 0 && <p className='mt-3 text-sm text-lcars-amber'>{missed} not done when the week ended · each one restarted the following week.</p>}
       </section>
 
       <div aria-label='Filter by business day' className='grid grid-cols-5 gap-1 sm:gap-2'>
@@ -39,7 +40,6 @@ export default function TaskBoard({ data, busy, onComplete }) {
       </div>
       <div className='flex flex-wrap items-center gap-4 text-xs'>
         <button onClick={() => setSelected('all')} aria-pressed={selected === 'all'} className={`py-2 ${selected === 'all' ? 'text-lcars-teal underline underline-offset-4' : 'text-lcars-ice/60'}`}>All days</button>
-        {overdue.length > 0 && <button onClick={() => setSelected('overdue')} aria-pressed={selected === 'overdue'} className='py-2 text-lcars-amber'>Carried forward ({overdue.length})</button>}
         <span className='ml-auto text-lcars-ice/50'>America/Chicago</span>
       </div>
       {!data.isBusinessDay && <p className='rounded-xl border border-lcars-amber/30 bg-lcars-amber/10 p-4 text-sm text-lcars-amber'>Weekend breather. Review your tasks here; check-offs resume Monday. Your streak is preserved over the weekend.</p>}
@@ -47,7 +47,7 @@ export default function TaskBoard({ data, busy, onComplete }) {
         {!visible.length ? <div className='rounded-2xl border border-dashed border-lcars-ice/25 px-6 py-12 text-center'>
           <h2 className='text-lg text-white'>No tasks {selected === 'all' ? 'assigned this week' : 'on this day'}.</h2>
           <p className='mx-auto mt-3 max-w-sm text-sm leading-6 text-lcars-ice/60'>{data.tasks.length ? 'Choose another day or view all days to see your assignments.' : 'Your next assignments will appear here once your weekly task plan is loaded.'}</p>
-        </div> : [...visible].sort((a, b) => Number(Boolean(a.completed_at)) - Number(Boolean(b.completed_at))).map((task) =>
+        </div> : [...visible].sort((a, b) => Number(Boolean(a.completed_at || a.missed_at)) - Number(Boolean(b.completed_at || b.missed_at))).map((task) =>
           <TaskCard key={task.id} task={task} today={data.today} businessDay={data.isBusinessDay} busy={busy} onComplete={onComplete} />,
         )}
       </section>
@@ -58,23 +58,25 @@ export default function TaskBoard({ data, busy, onComplete }) {
 function TaskCard({ task, today, businessDay, busy, onComplete }) {
   const [note, setNote] = useState('')
   const done = Boolean(task.completed_at)
+  const missed = !done && Boolean(task.missed_at)
   const future = task.due_date > today
-  const overdue = !done && task.due_date < today
+  const overdue = !done && !missed && task.due_date < today
   return (
-    <article className={`rounded-2xl border p-5 sm:p-6 ${done ? 'border-lcars-teal/20 bg-lcars-teal/5' : 'border-lcars-ice/15 bg-black/25'}`}>
+    <article className={`rounded-2xl border p-5 sm:p-6 ${done ? 'border-lcars-teal/20 bg-lcars-teal/5' : missed ? 'border-lcars-amber/20 bg-black/15' : 'border-lcars-ice/15 bg-black/25'}`}>
       <div className='flex items-start gap-4'>
-        <span aria-hidden='true' className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg border text-lg ${done ? 'border-lcars-teal bg-lcars-teal text-ai-navy' : 'border-lcars-ice/40'}`}>{done ? '✓' : ''}</span>
+        <span aria-hidden='true' className={`mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-lg border text-lg ${done ? 'border-lcars-teal bg-lcars-teal text-ai-navy' : missed ? 'border-lcars-amber/60 text-lcars-amber' : 'border-lcars-ice/40'}`}>{done ? '✓' : missed ? '–' : ''}</span>
         <div className='min-w-0 flex-1'>
           <div className='flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] uppercase tracking-wider'>
-            <span className={done ? 'text-lcars-teal' : overdue ? 'text-lcars-amber' : 'text-lcars-ice/60'}>{done ? 'Completed' : overdue ? 'Overdue' : future ? 'Upcoming' : 'Due today'} · {shortDate(task.due_date)}</span>
+            <span className={done ? 'text-lcars-teal' : missed || overdue ? 'text-lcars-amber' : 'text-lcars-ice/60'}>{done ? 'Completed' : missed ? 'Not done' : overdue ? 'Overdue' : future ? 'Upcoming' : 'Due today'} · {shortDate(task.due_date)}</span>
             <span className='text-ai-gold'>{task.points} pts</span><span className='text-lcars-violet'>+{task.xp} XP</span>
           </div>
-          <h2 className={`mt-2 break-words text-base font-bold sm:text-lg ${done ? 'text-lcars-ice/70' : 'text-white'}`}>{task.title}</h2>
+          <h2 className={`mt-2 break-words text-base font-bold sm:text-lg ${done || missed ? 'text-lcars-ice/70' : 'text-white'}`}>{task.title}</h2>
+          {task.restarted_from && <p className='mt-2 text-xs text-lcars-amber'>Restarted · This wasn&apos;t finished last week, so it starts fresh here.</p>}
           {task.is_shared && <p className='mt-2 text-xs text-lcars-teal'>Shared task · Either assignee can complete it for everyone.</p>}
           <p className='mt-3 whitespace-pre-wrap break-words text-sm leading-7 text-lcars-ice/70'>{task.instructions}</p>
           {task.resource_url && <a href={task.resource_url} target='_blank' rel='noreferrer' className='mt-3 inline-block text-sm text-lcars-teal underline underline-offset-4'>Open task resource ↗</a>}
           {task.source && <p className='mt-3 break-words text-[10px] text-lcars-ice/50'>Brief: {task.source}</p>}
-          {done ? <div className='mt-4 text-xs text-lcars-teal'>Completed by {task.completed_by_name || 'you'} · Rewards recorded once{task.completion_note && <p className='mt-2 whitespace-pre-wrap break-words text-lcars-ice/60'>{task.completion_note}</p>}</div> : <form onSubmit={(event) => { event.preventDefault(); onComplete(task, note) }} className='mt-5'>
+          {done ? <div className='mt-4 text-xs text-lcars-teal'>Completed by {task.completed_by_name || 'you'} · Rewards recorded once{task.completion_note && <p className='mt-2 whitespace-pre-wrap break-words text-lcars-ice/60'>{task.completion_note}</p>}</div> : missed ? <p className='mt-4 text-xs text-lcars-amber'>Not done when the week ended · Restarted the following week.</p> : <form onSubmit={(event) => { event.preventDefault(); onComplete(task, note) }} className='mt-5'>
             <label htmlFor={`note-${task.id}`} className='block text-xs text-lcars-ice/60'>Completion note or result link <span className='text-lcars-ice/40'>(optional)</span></label>
             <textarea id={`note-${task.id}`} value={note} onChange={(e) => setNote(e.target.value)} maxLength={2000} rows={2} disabled={Boolean(busy) || future || !businessDay}
               className='mt-2 w-full resize-y rounded-lg border border-lcars-ice/20 bg-black/20 p-3 text-sm text-white outline-none focus:border-lcars-teal disabled:opacity-40' />
