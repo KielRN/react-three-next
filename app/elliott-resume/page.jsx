@@ -176,7 +176,7 @@ export default function ElliottResumePage() {
                     <p className="text-sm text-gray-600">Application Development and Business Intelligence Team</p>
                   </div>
                   <span className="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm font-bold text-gray-700">
-                    August 2024 – February 2026
+                    August 2024 – Present
                   </span>
                 </div>
                 <ul className="ml-4 list-inside list-disc space-y-2 text-gray-700">
