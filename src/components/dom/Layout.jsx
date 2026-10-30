@@ -20,6 +20,11 @@ const Layout = ({ children }) => {
     return <>{children}</>
   }
 
+  // Workshop pages are document-first and do not use the 3D canvas.
+  if (pathname === '/workshops' || pathname?.startsWith('/workshops/')) {
+    return <><Navigation />{children}</>
+  }
+
   // Show the priority transmission bar everywhere except inside the reviews and
   // ChatGPT deployment funnels and the immersive mock-up pages.
   const hideTransmissionBar =

@@ -1,4 +1,5 @@
 import { getAllBlogPosts } from '../lib/blog';
+import { workshops } from '../lib/workshops';
 
 export default async function sitemap() {
   const baseUrl = 'https://texasaiconsulting.com';
@@ -70,5 +71,10 @@ export default async function sitemap() {
   }
 
   // Combine all URLs
-  return [...staticPages, ...blogPosts];
+  const workshopPages = ['', ...workshops.map(({ slug }) => `/${slug}`)].map((path) => ({
+    url: `${baseUrl}/workshops${path}`,
+    changeFrequency: 'weekly',
+    priority: path ? 0.7 : 0.8,
+  }));
+  return [...staticPages, ...workshopPages, ...blogPosts];
 }

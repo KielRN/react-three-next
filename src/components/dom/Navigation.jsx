@@ -49,9 +49,6 @@ export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  // Hide nav entirely on mockup pages for immersive client review
-  if (pathname?.startsWith('/mock-ups')) return null
-
   // Add scroll event listener
   useEffect(() => {
     const handleScroll = () => {
@@ -61,10 +58,14 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Keep hooks unconditional when navigating between public and mockup routes.
+  if (pathname?.startsWith('/mock-ups')) return null
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Portfolio', path: '/portfolio' },
     { name: 'Blog', path: '/blog' },
+    { name: 'Workshops', path: '/workshops' },
     { name: 'Apps', path: '/apps' },
     { name: 'Pricing', path: '/blog/texas-ai-pricing-2025' },
     // Add other navigation links as needed
@@ -94,14 +95,14 @@ export default function Navigation() {
         </Link>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
+        <div className="hidden lg:flex items-center space-x-1">
           <LCARSDecoration />
           {navLinks.map((link) => (
             <Link
               key={link.path}
               href={link.path}
-              className={`relative font-medium transition-all duration-300 font-hesdeadjim text-lg uppercase tracking-wider px-4 py-2 ${
-                pathname === link.path
+              className={`relative font-medium transition-all duration-300 font-hesdeadjim text-sm uppercase tracking-wider px-3 py-2 ${
+                pathname === link.path || (link.path === '/workshops' && pathname?.startsWith('/workshops/'))
                   ? 'text-[#2c75ff] bg-[#0e2042] border-b-2 border-[#2c75ff]'
                   : 'text-[#ffcc00] hover:text-[#2c75ff] hover:bg-[#0e2042] hover:border-b-2 hover:border-[#2c75ff]'
               }`}
@@ -117,7 +118,10 @@ export default function Navigation() {
 
         {/* Mobile menu button */}
         <button
-          className="md:hidden bg-black border border-[#2c75ff] rounded p-2"
+          className="lg:hidden bg-black border border-[#2c75ff] rounded p-2"
+          aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-navigation"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           style={{
             boxShadow: '0 0 8px rgba(44, 117, 255, 0.6)',
@@ -138,7 +142,7 @@ export default function Navigation() {
 
       {/* Mobile menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-black bg-opacity-95 shadow-lg border-t border-[#2c75ff]"
+        <div id="mobile-navigation" className="lg:hidden bg-black bg-opacity-95 shadow-lg border-t border-[#2c75ff]"
              style={{
                backgroundImage: 'linear-gradient(to bottom, rgba(0,10,30,0.9), rgba(0,0,0,0.98))',
                boxShadow: 'inset 0 0 15px rgba(44, 117, 255, 0.3)'
