@@ -2,6 +2,8 @@ import Link from 'next/link'
 import WorkshopCatalog from '../../src/components/workshops/WorkshopCatalog'
 import styles from './workshops.module.css'
 
+export const revalidate = 300
+
 export const metadata = {
   title: 'Practical AI Workshops for Business, Careers & Engineering',
   description:
@@ -43,9 +45,10 @@ export default function WorkshopsPage() {
             </header>
             <div className={styles.notice}>
               <strong>How to get started:</strong> choose a workshop, explore the outline, and ask about the next public
-              date or a private session. Dates, fees and delivery details will be confirmed before registration opens.
+              date or a private session. Registration opens after setup and booking checks are complete. Sessions are
+              online via Google Meet.
             </div>
-            <WorkshopCatalog />
+            <WorkshopCatalog asOf={Date.now()} />
             <section className={styles.teamSection}>
               <h2>Have a team or a particular workflow in mind?</h2>
               <p>
@@ -59,11 +62,15 @@ export default function WorkshopsPage() {
             <section className={styles.infoBox}>
               <h2>Training status</h2>
               <div>
-                <h3>Dates coming soon</h3>
+                <h3>Registration opening soon</h3>
                 <p>
-                  These workshops are in planning. Dates, fees, seat limits and delivery details are being finalized.
+                  Each workshop below lists its next planned date. Sessions run Fridays, 11 a.m.–1 p.m. Central, online
+                  via Google Meet.
                 </p>
-                <p>No seats are on sale yet. An inquiry does not reserve a place.</p>
+                <p>
+                  Business/career sessions: up to 12 attendees. Technical sessions: up to 10. No seats are on sale yet;
+                  an inquiry does not reserve a place.
+                </p>
               </div>
             </section>
             <section className={styles.infoBox}>

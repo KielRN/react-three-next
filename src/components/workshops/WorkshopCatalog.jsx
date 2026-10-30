@@ -2,7 +2,13 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { filterWorkshops, workshopCategories } from '../../../lib/workshops'
+import {
+  filterWorkshops,
+  workshopCategories,
+  getWorkshopSession,
+  formatWorkshopDate,
+  formatWorkshopFee,
+} from '../../../lib/workshops'
 import styles from '../../../app/workshops/workshops.module.css'
 
 const introductions = {
@@ -12,7 +18,20 @@ const introductions = {
   technical: 'For developers, data teams and analysts. Work through a focused lab, then test and review the result.',
 }
 
-export default function WorkshopCatalog() {
+function SessionDate({ slug, asOf }) {
+  const session = getWorkshopSession(slug, asOf)
+  return session ? (
+    <>
+      <time dateTime={session.start}>{formatWorkshopDate(session)}</time>
+      <br />
+      <small>11 a.m.–1 p.m. CT</small>
+    </>
+  ) : (
+    'Dates coming soon'
+  )
+}
+
+export default function WorkshopCatalog({ asOf }) {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
   const visible = filterWorkshops(query, category)
@@ -59,9 +78,9 @@ export default function WorkshopCatalog() {
               <p className={styles.trackDescription}>{introductions[group.id]}</p>
               <div className={styles.columnHeadings} aria-hidden='true'>
                 <span>Workshop</span>
-                <span>Next session</span>
+                <span>Planned session</span>
                 <span>Duration</span>
-                <span>Fee</span>
+                <span>Fee (USD)</span>
                 <span>Details</span>
               </div>
               <ul className={styles.grid}>
@@ -77,16 +96,18 @@ export default function WorkshopCatalog() {
                       </div>
                       <dl className={styles.cardFacts}>
                         <div>
-                          <dt>Next session</dt>
-                          <dd>Dates coming soon</dd>
+                          <dt>Planned session</dt>
+                          <dd>
+                            <SessionDate slug={workshop.slug} asOf={asOf} />
+                          </dd>
                         </div>
                         <div>
                           <dt>Duration</dt>
                           <dd>About 2 hours</dd>
                         </div>
                         <div>
-                          <dt>Fee</dt>
-                          <dd>To be announced</dd>
+                          <dt>Fee (USD)</dt>
+                          <dd>{formatWorkshopFee(workshop)}</dd>
                         </div>
                       </dl>
                       <Link

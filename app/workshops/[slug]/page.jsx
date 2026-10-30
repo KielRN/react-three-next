@@ -1,8 +1,18 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { workshops, getWorkshop, workshopCategories } from '../../../lib/workshops'
+import {
+  workshops,
+  getWorkshop,
+  workshopCategories,
+  getWorkshopSession,
+  formatWorkshopDate,
+  formatWorkshopFee,
+  workshopPolicy,
+} from '../../../lib/workshops'
 import WorkshopInquiry from '../../../src/components/workshops/WorkshopInquiry'
 import styles from '../workshops.module.css'
+
+export const revalidate = 300
 
 export function generateStaticParams() {
   return workshops.map(({ slug }) => ({ slug }))
@@ -30,6 +40,7 @@ export default function WorkshopPage({ params }) {
   const workshop = getWorkshop(params.slug)
   if (!workshop) notFound()
   const category = workshopCategories.find((item) => item.id === workshop.category)
+  const session = getWorkshopSession(workshop.slug)
   const related = workshops
     .filter((item) => item.category === workshop.category && item.slug !== workshop.slug)
     .slice(0, 3)
@@ -109,8 +120,8 @@ export default function WorkshopPage({ params }) {
               <h3>Tools and access</h3>
               <p>{workshop.tools}</p>
               <p>
-                Delivery platform, location or joining instructions will be published with each confirmed session. Use
-                practice material you have permission to share.
+                Sessions take place online via Google Meet. Joining instructions will be supplied with confirmed
+                registration. Use practice material you have permission to share.
               </p>
             </section>
             <section className={styles.instructor}>
@@ -132,11 +143,15 @@ export default function WorkshopPage({ params }) {
                 ...workshop.faq,
                 [
                   'When is the next session, and what does it cost?',
-                  'Dates and fees are coming soon. The planned window is Friday, 11 a.m.–1 p.m. America/Chicago. Ask about availability below; an inquiry does not reserve a seat.',
+                  `${session ? `The planned session is ${formatWorkshopDate(session)}, 11 a.m.–1 p.m. America/Chicago.` : 'Dates are coming soon.'} The introductory fee is ${formatWorkshopFee(workshop)} USD per person. Registration is not open yet; an inquiry does not reserve a seat.`,
                 ],
                 [
                   'What will be confirmed before I register?',
-                  'The session date, fee, capacity, delivery platform, exact software requirements, and cancellation/refund terms will be available before registration opens. Recording or replay access is not currently promised.',
+                  'Exact software requirements, joining instructions and the booking/payment process will be checked before registration opens. Recording or replay access is not currently promised.',
+                ],
+                [
+                  'What is the cancellation and refund policy?',
+                  `${workshopPolicy.cancellation} ${workshopPolicy.organizer}`,
                 ],
                 [
                   'Can my team request a private workshop?',
@@ -170,7 +185,7 @@ export default function WorkshopPage({ params }) {
             <div className={styles.bookingCard}>
               <div className={styles.bookingHeader}>
                 <p>{workshop.title}</p>
-                <p className={styles.bookingStatus}>Dates coming soon</p>
+                <p className={styles.bookingStatus}>{session ? formatWorkshopDate(session) : 'Dates coming soon'}</p>
                 <p>Registration is not open yet</p>
               </div>
               <div className={styles.bookingBody}>
@@ -181,11 +196,19 @@ export default function WorkshopPage({ params }) {
                   </div>
                   <div>
                     <dt>Fee</dt>
-                    <dd>To be announced</dd>
+                    <dd>{formatWorkshopFee(workshop)} USD/person</dd>
                   </div>
                   <div>
                     <dt>Delivery</dt>
-                    <dd>Details coming soon</dd>
+                    <dd>Google Meet</dd>
+                  </div>
+                  <div>
+                    <dt>Seat limit</dt>
+                    <dd>{workshop.capacity} attendees</dd>
+                  </div>
+                  <div>
+                    <dt>Minimum enrollment</dt>
+                    <dd>{workshopPolicy.minimumAttendees} attendees</dd>
                   </div>
                   <div>
                     <dt>Planned window</dt>
