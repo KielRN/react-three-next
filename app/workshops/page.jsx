@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import WorkshopCatalog from '../../src/components/workshops/WorkshopCatalog'
+import { workshopPolicy } from '../../lib/workshops'
 import styles from './workshops.module.css'
 
 export const revalidate = 300
@@ -49,6 +50,15 @@ export default function WorkshopsPage() {
               online via Google Meet.
             </div>
             <WorkshopCatalog asOf={Date.now()} />
+            <section className={styles.policySection} id='workshop-policy' aria-labelledby='workshop-policy-title'>
+              <h2 id='workshop-policy-title'>Workshop cancellation and refund policy</h2>
+              <p>{workshopPolicy.cancellation}</p>
+              <p>{workshopPolicy.organizer}</p>
+              <p>
+                To cancel, transfer your place or ask about a refund, email{' '}
+                <a href='mailto:elliott@texasaiconsulting.com'>elliott@texasaiconsulting.com</a>.
+              </p>
+            </section>
             <section className={styles.teamSection}>
               <h2>Have a team or a particular workflow in mind?</h2>
               <p>

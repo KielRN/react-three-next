@@ -371,6 +371,21 @@
   margin-left: auto;
   margin-right: auto;
 }
+.policySection {
+  border-top: 1px solid #d8dee5;
+  margin: 15px 0 32px;
+  padding-top: 24px;
+  scroll-margin-top: 185px;
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+.policySection h2 {
+  font-size: 1.15rem;
+  color: #005390;
+}
+.policySection p {
+  margin: 12px 0;
+}
 .teamSection {
   padding: 22px 24px;
   border: 1px solid #d4e5f6;
