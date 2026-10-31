@@ -12,6 +12,10 @@ const withPWA = require('@ducanh2912/next-pwa').default({
   extendDefaultRuntimeCaching: true,
   workboxOptions: {
     runtimeCaching: [{
+      urlPattern: require('./lib/workshopStudioCache.cjs'),
+      handler: 'NetworkOnly',
+      method: 'GET',
+    }, {
       // Personal admin data must never fall back to another session's cached response.
       urlPattern: ({ sameOrigin, url }) => sameOrigin && url.pathname.startsWith('/api/admin/'),
       handler: 'NetworkOnly',

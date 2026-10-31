@@ -40,6 +40,10 @@ beforeEach(() => {
 })
 
 describe('owner studio routes', () => {
+  it('guards the owner readiness document after authenticating', async () => {
+    expect((await ownerStatus(request('/api/admin/workshop-studio?token=bad'))).status).toBe(400)
+    expect((await ownerStatus(request('/api/admin/workshop-studio', { headers: { Origin: 'https://evil.example' } }))).status).toBe(403)
+  })
   it.each([401, 403])('requires owner authorization first on every route: %s', async (status) => {
     requireAdmin.mockResolvedValue({ error: new Response('{}', { status }) })
     for (const response of [await ownerStatus(request()), await provision(post()), await ownerSeat(request(), { params: { seatId } })]) {
