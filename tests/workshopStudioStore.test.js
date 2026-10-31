@@ -31,7 +31,7 @@ async function seat() {
   return id
 }
 const reserve = (changes = {}) => store.reserveGeneration({
-  seatId, requestKey: randomUUID(), requestHash: hash(), maximumCostCents: 200, currency: 'USD', now: NOW, ...changes,
+  seatId, accessVersion: 1, requestKey: randomUUID(), requestHash: hash(), maximumCostCents: 200, currency: 'USD', now: NOW, ...changes,
 })
 const reconcile = (job, changes = {}) => store.reconcileGeneration({
   jobId: job.id, outcome: 'charged', actualCostCents: 150, currency: 'USD',
@@ -45,6 +45,7 @@ beforeAll(async () => {
   await state.db.exec(migration)
   await state.db.exec(migration) // Safe migration retry must preserve data and constraints.
   await state.db.exec(readFileSync(new URL('../db/migrations/007_workshop_studio_access.sql', import.meta.url), 'utf8'))
+  await state.db.exec(readFileSync(new URL('../db/migrations/008_workshop_studio_submission.sql', import.meta.url), 'utf8'))
 }, 30000)
 beforeEach(async () => {
   state.failEvent = false
@@ -59,6 +60,33 @@ beforeEach(async () => {
 afterAll(async () => { await state.db?.close() })
 
 describe('studio allowance ledger in PostgreSQL', () => {
+  it.each([undefined, null, 0, -1, 1.5, '1'])('requires an explicit valid session epoch: %s', async (accessVersion) => {
+    await expect(reserve({ accessVersion })).rejects.toMatchObject({ code: 'INVALID_ACCESS' })
+    expect(await scalar('select count(*)::int from workshop_studio_jobs')).toBe(0)
+  })
+  it('rejects stale session versions and cached jobs owned before transfer', async () => {
+    const requestKey = randomUUID()
+    await reserve({ requestKey, accessVersion: 1 })
+    await store.transferStudioSeat({ seatId, ghlContactId: 'replacement', ghlRegistrationId: 'replacement', evidenceReference: 'verified-transfer', now: NOW })
+    await expect(reserve({ accessVersion: 1 })).rejects.toMatchObject({ code: 'INVALID_ACCESS' })
+    await expect(reserve({ requestKey, accessVersion: 2 })).rejects.toMatchObject({ code: 'REQUEST_CONFLICT' })
+  })
+  it('claims submission only once and retains an unknown hold before any external POST', async () => {
+    const job = await reserve()
+    const args = { seatId, jobId: job.id, accessVersion: 1, now: NOW }
+    const results = await Promise.all([store.claimGenerationSubmission(args), store.claimGenerationSubmission(args)])
+    expect(results.filter((r) => r.claimed)).toHaveLength(1)
+    expect((await store.getGeneration({ seatId, jobId: job.id })).state).toBe('unknown')
+    expect((await store.getStudioUsage({ seatId })).seat.heldCents).toBe(200)
+    await state.db.exec(readFileSync(new URL('../db/migrations/008_workshop_studio_submission.sql', import.meta.url), 'utf8'))
+    expect((await store.claimGenerationSubmission(args)).claimed).toBe(false)
+  })
+  it('cannot claim another seat or a transferred learner job', async () => {
+    const job = await reserve()
+    await expect(store.claimGenerationSubmission({ seatId: await seat(), jobId: job.id, accessVersion: 1, now: NOW })).rejects.toMatchObject({ code: 'NOT_FOUND' })
+    await store.transferStudioSeat({ seatId, ghlContactId: 'replacement', ghlRegistrationId: 'replacement', evidenceReference: 'verified-transfer', now: NOW })
+    await expect(store.claimGenerationSubmission({ seatId, jobId: job.id, accessVersion: 2, now: NOW })).rejects.toMatchObject({ code: 'INVALID_ACCESS' })
+  })
   it('enforces the learner cap against both held and settled cost', async () => {
     const first = await reserve({ maximumCostCents: 400 })
     expect(await store.getStudioUsage({ seatId })).toMatchObject({

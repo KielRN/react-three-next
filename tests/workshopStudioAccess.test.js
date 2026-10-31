@@ -138,7 +138,7 @@ describe('private studio access on local synthetic records only', () => {
   it('invalidates previous codes/sessions and hides prior learner jobs after a seat transfer', async () => {
     const session = await exchangeStudioCode({ code, now: NOW })
     const oldCode = await makeCode()
-    const job = await reserveGeneration({ seatId, requestKey: randomUUID(), requestHash: digest('shot'), maximumCostCents: 200, now: NOW })
+    const job = await reserveGeneration({ seatId, accessVersion: 1, requestKey: randomUUID(), requestHash: digest('shot'), maximumCostCents: 200, now: NOW })
     expect(await getStudioLearnerJob({ seatId, accessVersion: 1, jobId: job.id, now: NOW })).toMatchObject({ id: job.id })
     await transferStudioSeat({ seatId, ghlContactId: 'new-contact', ghlRegistrationId: 'replacement-registration', evidenceReference: 'verified-transfer', now: NOW })
     await expect(authenticateStudioSession({ token: session.token, now: NOW })).rejects.toMatchObject({ code: 'INVALID_ACCESS' })
@@ -151,7 +151,7 @@ describe('private studio access on local synthetic records only', () => {
   })
 
   it('does not expose another seat job, provider correlation or request fingerprint', async () => {
-    const job = await reserveGeneration({ seatId, requestKey: randomUUID(), requestHash: digest('private shot'), maximumCostCents: 200, now: NOW })
+    const job = await reserveGeneration({ seatId, accessVersion: 1, requestKey: randomUUID(), requestHash: digest('private shot'), maximumCostCents: 200, now: NOW })
     const view = await getStudioLearnerJob({ seatId, accessVersion: 1, jobId: job.id, now: NOW })
     expect(view).not.toHaveProperty('providerJobId')
     expect(view).not.toHaveProperty('requestHash')
@@ -169,7 +169,7 @@ describe('private studio access on local synthetic records only', () => {
   })
 
   it('checks current revocation/expiry at job lookup, after earlier authentication', async () => {
-    const job = await reserveGeneration({ seatId, requestKey: randomUUID(), requestHash: digest('shot'), maximumCostCents: 200, now: NOW })
+    const job = await reserveGeneration({ seatId, accessVersion: 1, requestKey: randomUUID(), requestHash: digest('shot'), maximumCostCents: 200, now: NOW })
     expect(await getStudioLearnerJob({ seatId, accessVersion: 1, jobId: job.id, now: new Date('2026-11-13T19:00:00Z') })).toBeNull()
     await state.db.query('update workshop_studio_seats set revoked_at = now() where id = $1', [seatId])
     expect(await getStudioLearnerJob({ seatId, accessVersion: 1, jobId: job.id, now: NOW })).toBeNull()
