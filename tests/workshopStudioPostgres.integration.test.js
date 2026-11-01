@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
-import { readFileSync } from 'node:fs'
+import { existsSync,readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { createHash, randomBytes, randomUUID } from 'node:crypto'
 import pg from 'pg'
@@ -17,6 +17,7 @@ vi.mock('../lib/db.js', () => ({ query:(...args) => state.pool.query(...args),tr
   } catch (error) { await client.query('rollback'); throw error } finally { client.release() }
 } }))
 vi.mock('../lib/workshopStudioFeatures.js', () => ({ studioAccessEnabled:()=>true,studioProviderTransportEnabled:()=>true,studioReadiness:()=>({ providerSubmissionEnabled:true }) }))
+vi.mock('../lib/workshopStudioOutputOrigins.js',()=>({ studioOutputOrigins:()=>['https://synthetic-output.example'] }))
 vi.mock('../lib/workshopStudioEligibility.js', () => ({ verifyStudioRegistration:async ({ seatId,now }) => {
   const seat=(await state.pool.query('select * from workshop_studio_seats where id=$1',[seatId])).rows[0]
   return { seatId,cohortId:seat.cohort_id,accessVersion:seat.access_version,calendarId:seat.ghl_calendar_id,registrationId:seat.ghl_registration_id,contactId:seat.ghl_contact_id,checkedAt:now }
@@ -30,6 +31,8 @@ import { exchangeStudioCode } from '../lib/workshopStudioAccess.js'
 import { issueStudioQuote,reserveQuotedGeneration } from '../lib/workshopStudioQuotes.js'
 import { dispatchStudioJob } from '../lib/workshopStudioWorker.js'
 import { studioRequestHash } from '../lib/workshopStudioProvider.js'
+import { importStudioOutput,getStudioOutput,readStudioOutputChunk } from '../lib/workshopStudioOutputs.js'
+import { GET as downloadStoredOutput } from '../app/api/workshop-studio/jobs/[jobId]/download/route.js'
 
 const NOW=new Date('2026-11-06T17:00:00Z')
 let cohortId, seats
@@ -57,12 +60,13 @@ describe.skipIf(!url)('real PostgreSQL connection contention in an owned disposa
     state.pool=new pg.Pool({ connectionString:url,max:16,application_name:'txai-studio-acceptance',connectionTimeoutMillis:5000 })
     const identity=(await state.pool.query("select current_user,current_database(),current_setting('data_directory') as directory")).rows[0]
     expect(identity.current_user).toBe('studio_test');expect(identity.current_database).toBe('postgres');expect(resolve(identity.directory)).toBe(directory)
-    for (const file of ['006_workshop_studio.sql','007_workshop_studio_access.sql','008_workshop_studio_submission.sql','009_workshop_studio_quotes.sql','010_workshop_studio_provider.sql']) {
+    for (const file of ['006_workshop_studio.sql','007_workshop_studio_access.sql','008_workshop_studio_submission.sql','009_workshop_studio_quotes.sql','010_workshop_studio_provider.sql','011_workshop_studio_outputs.sql']) {
       const sql=readFileSync(new URL('../db/migrations/'+file,import.meta.url),'utf8')
       await state.pool.query(sql);await state.pool.query(sql)
     }
   },30000)
   beforeEach(async () => {
+    vi.unstubAllGlobals()
     state.posts=0
     await state.pool.query('truncate workshop_studio_cohorts cascade')
     cohortId=randomUUID();seats=Array.from({ length:13 },()=>randomUUID())
@@ -71,7 +75,7 @@ describe.skipIf(!url)('real PostgreSQL connection contention in an owned disposa
     for (let i=0;i<seats.length;i++) await state.pool.query(`insert into workshop_studio_seats(id,cohort_id,ghl_calendar_id,ghl_registration_id,ghl_contact_id,registration_state)
       values($1,$2,'synthetic-only',$3,$4,'eligible')`,[seats[i],cohortId,'synthetic-registration-'+i,'synthetic-contact-'+i])
   })
-  afterAll(async () => { await state.pool?.end() })
+  afterAll(async () => { vi.unstubAllGlobals();await state.pool?.end() })
 
   it('uses physically independent backend connections', async () => {
     const first=await state.pool.connect(),second=await state.pool.connect()
@@ -140,5 +144,50 @@ describe.skipIf(!url)('real PostgreSQL connection contention in an owned disposa
     expect(attempts[0].status).toBe('fulfilled')
     if (attempts[1].status==='rejected') await reserve(seats[0],{ maximumCostCents:300 })
     expect((await getStudioUsage({ seatId:seats[0] })).seat).toMatchObject({ heldCents:300,spentCents:200,availableCents:0 })
+  })
+  async function outputFixture(){
+    const quote=await issueStudioQuote({ seatId:seats[0],accessVersion:1,request,now:NOW })
+    const job=await reserveQuotedGeneration({ seatId:seats[0],accessVersion:1,quoteId:quote.id,requestKey:randomUUID(),now:NOW })
+    await dispatchStudioJob({ jobId:job.id,seatId:seats[0],accessVersion:1,now:NOW })
+    const providerId=(await state.pool.query('select provider_job_id from workshop_studio_jobs where id=$1',[job.id])).rows[0].provider_job_id
+    await state.pool.query("update workshop_studio_jobs set provider_state='completed',provider_video_url=$2,provider_expires_at='2026-11-08T17:00:00Z' where id=$1",[job.id,`https://synthetic-output.example/${providerId}/out.mp4`])
+    const bytes=Buffer.concat([Buffer.from([0,0,0,24]),Buffer.from('ftypisom'),Buffer.alloc(244,7)])
+    vi.stubGlobal('fetch',vi.fn(async()=>new Response(bytes,{ headers:{ 'Content-Type':'video/mp4','Content-Length':String(bytes.length) } })))
+    const token=randomBytes(32).toString('base64url')
+    await state.pool.query("insert into workshop_studio_sessions(token_hash,seat_id,access_version,created_at,expires_at) values($1,$2,1,$3,'2026-11-13T19:00:00Z')",[createHash('sha256').update(token).digest('hex'),seats[0],NOW])
+    return { job,bytes,token }
+  }
+  it('persists one identical output copy across concurrent import connections',async()=>{
+    const { job,bytes,token }=await outputFixture()
+    const results=await Promise.all([importStudioOutput({ jobId:job.id,now:NOW }),importStudioOutput({ jobId:job.id,now:NOW })])
+    expect(results[0]).toEqual(results[1]);expect(await count('select count(*) from workshop_studio_outputs')).toBe(1)
+    const file=await getStudioOutput({ jobId:job.id,seatId:seats[0],accessVersion:1,token,now:NOW })
+    expect(file.byteCount).toBe(bytes.length)
+    expect((await getStudioUsage({ seatId:seats[0] })).seat.heldCents).toBe(472)
+  })
+  it('serves bytea through a fresh session check and stops after another connection revokes it',async()=>{
+    const { job,bytes,token }=await outputFixture();await importStudioOutput({ jobId:job.id,now:NOW })
+    const args={ jobId:job.id,seatId:seats[0],accessVersion:1,token,offset:0,now:NOW }
+    expect(Buffer.from(await readStudioOutputChunk(args))).toEqual(bytes)
+    const other=await state.pool.connect()
+    try{await other.query('update workshop_studio_sessions set revoked_at=$2 where token_hash=$1',[createHash('sha256').update(token).digest('hex'),NOW])}finally{other.release()}
+    await expect(readStudioOutputChunk(args)).rejects.toMatchObject({ code:'NOT_FOUND' })
+  })
+  it.skipIf(!existsSync('.tmp/workshop-studio/funded-pilot/reference.mp4'))('preserves saved actual pilot bytes through private SQL storage and full protected download without new provider calls',async()=>{
+    const { job,token }=await outputFixture()
+    const bytes=readFileSync('.tmp/workshop-studio/funded-pilot/reference.mp4')
+    const expected='7b4f8efdf46ab65c89015315d81a1e11afd1e1f5020e4aec8aa4b4d4af89ee30'
+    expect(createHash('sha256').update(bytes).digest('hex')).toBe(expected)
+    vi.stubGlobal('fetch',vi.fn(async()=>new Response(bytes,{ headers:{ 'Content-Type':'video/mp4','Content-Length':String(bytes.length) } })))
+    const stored=await importStudioOutput({ jobId:job.id,now:NOW })
+    expect(stored.sha256).toBe(expected)
+    vi.useFakeTimers({ toFake:['Date'] });vi.setSystemTime(NOW)
+    try{
+      const req=new Request(`https://texasaiconsulting.com/api/workshop-studio/jobs/${job.id}/download`,{ headers:{ Cookie:'__Host-txai_studio='+token } })
+      const response=await downloadStoredOutput(req,{ params:{ jobId:job.id } })
+      expect(response.status).toBe(200);expect(response.headers.get('cache-control')).toContain('no-store')
+      const copied=Buffer.from(await response.arrayBuffer())
+      expect(copied.length).toBe(bytes.length);expect(createHash('sha256').update(copied).digest('hex')).toBe(expected)
+    }finally{vi.useRealTimers()}
   })
 })

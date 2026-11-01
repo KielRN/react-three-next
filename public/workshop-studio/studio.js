@@ -5,18 +5,83 @@
   const status = document.querySelector('#status')
   const logout = document.querySelector('#logout')
   const allowance = document.querySelector('#allowance')
+  const results = document.querySelector('#results')
+  const resultList = document.querySelector('#result-list')
+  const resultsStatus = document.querySelector('#results-status')
+  const refreshResults = document.querySelector('#refresh-results')
   const enabled = document.body.dataset.accessEnabled === 'true'
   let busy = false
   let revision = 0
+  let jobsRevision = 0
+  const channel = typeof BroadcastChannel === 'function' ? new BroadcastChannel('txai-workshop-view') : null
   const options = { credentials: 'same-origin', cache: 'no-store', referrerPolicy: 'no-referrer' }
   const message = (value) => { status.textContent = value }
   function signedOut() {
+    ++jobsRevision
     allowance.hidden = true
     logout.hidden = true
     form.hidden = false
-    form.querySelector('button').disabled = !enabled
+    form.querySelector('button').disabled = !enabled || busy
     for (const id of ['available', 'held', 'spent', 'expiry']) document.getElementById(id).textContent = ''
     code.value = ''
+    results.hidden = true
+    resultList.replaceChildren()
+    resultsStatus.textContent = ''
+    refreshResults.disabled = false
+  }
+  async function loadJobs(version, jobVersion) {
+    resultList.replaceChildren()
+    results.hidden = false
+    resultsStatus.textContent = 'Loading your videos…'
+    const response = await fetch('/api/workshop-studio/jobs', options)
+    if (version !== revision || jobVersion !== jobsRevision) return
+    if (!response.ok) {
+      if ([401, 403].includes(response.status)) { ++revision; signedOut(); message('Studio access is invalid or expired. Please check with your instructor.'); return }
+      resultsStatus.textContent = 'Your videos could not be loaded. Please try refreshing.'
+      return
+    }
+    const data = await response.json()
+    if (version !== revision || jobVersion !== jobsRevision) return
+    if (!Array.isArray(data.jobs) || data.jobs.length > 50) throw new Error('Invalid response')
+    const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
+    const fragment = document.createDocumentFragment()
+    for (const [index, job] of data.jobs.entries()) {
+      if (!/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(job.id) ||
+        !Number.isSafeInteger(job.maximumCostCents) || job.maximumCostCents < 1 ||
+        (job.actualCostCents !== null && (!Number.isSafeInteger(job.actualCostCents) || job.actualCostCents < 0))) throw new Error('Invalid response')
+      const item = document.createElement('li')
+      const title = document.createElement('h3')
+      title.textContent = 'Video ' + (index + 1)
+      const progress = document.createElement('p')
+      progress.textContent = job.downloadReady === true ? 'Your video is ready to download.'
+        : job.providerState === 'completed' ? 'Video created; a saved download is not available.'
+          : ['failed', 'canceled', 'nsfw'].includes(job.providerState) ? 'This request did not complete.'
+            : job.state === 'unknown' && !job.providerState ? 'Request outcome is not confirmed. Please contact your instructor.'
+              : ['queued', 'in_progress'].includes(job.providerState) ? 'Your request is in progress.' : 'No completed video is available yet.'
+      const cost = document.createElement('p')
+      cost.className = 'result-cost'
+      cost.textContent = job.actualCostCents === null ? 'Up to ' + money.format(job.maximumCostCents / 100) + ' reserved until billing is confirmed.'
+        : job.actualCostCents === 0 ? 'No charge recorded.' : 'Confirmed usage: ' + money.format(job.actualCostCents / 100) + '.'
+      item.append(title, progress, cost)
+      if (job.downloadReady === true) {
+        const link = document.createElement('a')
+        link.className = 'download'
+        link.textContent = 'Download video'
+        link.setAttribute('aria-label', 'Download video ' + (index + 1))
+        link.href = '/api/workshop-studio/jobs/' + job.id + '/download'
+        link.rel = 'noreferrer'
+        item.append(link)
+      }
+      fragment.append(item)
+    }
+    resultList.replaceChildren(fragment)
+    resultsStatus.textContent = data.jobs.length ? '' : 'No video requests yet.'
+  }
+  function refreshJobs(version) {
+    const jobVersion = ++jobsRevision
+    loadJobs(version, jobVersion).catch(() => {
+      if (version === revision && jobVersion === jobsRevision) { resultList.replaceChildren(); resultsStatus.textContent = 'Your videos could not be loaded. Please try refreshing.' }
+    })
   }
   async function load(version) {
     const response = await fetch('/api/workshop-studio/session', options)
@@ -34,6 +99,7 @@
     logout.hidden = false
     form.hidden = true
     message('Your allowance is shown below. Generation is not available yet.')
+    refreshJobs(version)
   }
   form.addEventListener('submit', async (event) => {
     event.preventDefault()
@@ -46,27 +112,41 @@
     code.value = ''
     try {
       const response = await fetch('/api/workshop-studio/session', { ...options, method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: value }) })
+      // The browser applies Set-Cookie independently of rendering revisions.
+      // Notify other views even when a visibility change made this POST stale.
+      if (response.ok) channel?.postMessage('access-changed')
       if (version !== revision) return
       if (!response.ok) { message(response.status === 401 ? 'That code is invalid or expired. Please check with your instructor.' : 'Studio access is not available yet.'); return }
       await load(version)
-    } catch { if (version === revision) { signedOut(); message('Unable to reach your studio. Please try again.') } }
-    finally { if (version === revision) { busy = false; button.disabled = false } }
+    } catch { channel?.postMessage('access-changed'); if (version === revision) { signedOut(); message('Unable to reach your studio. Please try again.') } }
+    finally {
+      busy = false
+      button.disabled = !enabled
+      if (version !== revision) { signedOut(); message('Studio access changed while signing in. Reload to verify your current access.') }
+    }
   })
   logout.addEventListener('click', async () => {
     if (busy) return
     busy = true
     ++revision
+    signedOut()
     try {
       const response = await fetch('/api/workshop-studio/session', { ...options, method: 'DELETE' })
       message(response.ok ? 'You have signed out.' : 'Your browser view is cleared. Sign-out could not be confirmed; close this window and contact your instructor.')
     } catch { message('Your browser view is cleared. Sign-out could not be confirmed; close this window and contact your instructor.') }
-    finally { signedOut(); busy = false }
+    finally { busy = false; signedOut(); channel?.postMessage('access-changed') }
   })
+  refreshResults.addEventListener('click', () => { if (!busy) refreshJobs(revision) })
   function refresh() {
     const version = ++revision
     load(version).catch(() => { if (version === revision) { signedOut(); message('Unable to reach your studio. Please try again.') } })
   }
   window.addEventListener('pagehide', () => { ++revision; signedOut() })
-  window.addEventListener('pageshow', (event) => { if (event.persisted) { busy = false; signedOut(); if (enabled) refresh() } })
+  document.addEventListener('visibilitychange', () => {
+    ++revision; signedOut()
+    if (document.visibilityState === 'visible' && enabled && !busy) refresh()
+  })
+  if (channel) channel.onmessage = () => { ++revision; signedOut(); message('Studio access changed in another window. Reload to continue.') }
+  window.addEventListener('pageshow', (event) => { if (event.persisted) { signedOut(); if (enabled && !busy) refresh() } })
   if (enabled) refresh()
 })()

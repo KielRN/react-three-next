@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { GET } from '../app/workshops/studio/route.js'
 import privateStudioRequest from '../lib/workshopStudioCache.cjs'
+import { studioDocument } from '../lib/workshopStudioDocument.js'
 
 describe('standalone private studio document', () => {
   it('bypasses the marketing layout and forbids tracking, frames and shared caching', async () => {
@@ -31,7 +32,15 @@ describe('standalone private studio document', () => {
     expect(response.status).toBe(400)
     expect(await response.text()).not.toContain('secret')
   })
-  it.each(['/workshops/studio', '/workshops/studio/', '/api/workshop-studio/session', '/api/workshop-studio/jobs/job'])('keeps private data network-only in the PWA: %s', (path) => {
+  it('prepares a hidden empty result list without putting file URLs or credentials in HTML',()=>{
+    const html=studioDocument(true)
+    expect(html).toContain('id="results"')
+    expect(html).toContain('id="result-list"')
+    expect(html).toContain('id="refresh-results"')
+    expect(html).not.toMatch(/provider_video_url|cloudfront|signature=|name="token"/)
+    expect(html).toContain('Generation unavailable')
+  })
+  it.each(['/workshops/studio', '/workshops/studio/', '/api/workshop-studio/session', '/api/workshop-studio/jobs/job','/api/workshop-studio/jobs','/api/workshop-studio/jobs/job/download'])('keeps private data network-only in the PWA: %s', (path) => {
     expect(privateStudioRequest({ sameOrigin: true, url: new URL('https://texasaiconsulting.com' + path) })).toBe(true)
   })
   it('does not change public workshop caching or unrelated origins', () => {
