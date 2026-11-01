@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 const gate = vi.hoisted(() => ({ transport: false, submission: false }))
 vi.mock('../lib/workshopStudioFeatures.js', () => ({ studioProviderTransportEnabled: () => gate.transport, studioReadiness: () => ({ providerSubmissionEnabled: gate.submission }) }))
 import { createStudioTransport } from '../lib/workshopStudioTransport.js'
@@ -18,6 +18,7 @@ beforeEach(() => {
   resolveReference = vi.fn(async () => ({ url: 'https://class-assets.example/reference.mp4', sha256: 'a'.repeat(64) }))
   client = createStudioTransport({ fetchImpl, getCredentials: credentials, resolveReference, allowedReferenceOrigins: ['https://class-assets.example'] })
 })
+afterEach(() => vi.unstubAllEnvs())
 
 describe('real protocol implementation with fake HTTP only', () => {
   it('denies every operation before keys, media resolution or network while the real gate is off', async () => {
@@ -36,6 +37,17 @@ describe('real protocol implementation with fake HTTP only', () => {
     expect(JSON.parse(options.body)).toEqual({ prompt: request.prompt, duration: 8, resolution: '720p', aspect_ratio: '16:9', output_format: 'mp4', generate_audio: false, video_urls: ['https://class-assets.example/reference.mp4'] })
     expect(result).toMatchObject({ maximumCostCents: 500, currency: 'USD', correlationId: 'provider-receipt-one' })
     expect(fetchImpl).toHaveBeenCalledTimes(1)
+  })
+  it('loads the existing project key alias only at runtime and prefers the official variable', async () => {
+    gate.transport = true
+    vi.stubEnv('HF_CREDENTIALS','');vi.stubEnv('HIGGSFIELD_API_KEY','fixture-project:fixture-alias')
+    const runtime=createStudioTransport({ fetchImpl,resolveReference,allowedReferenceOrigins:['https://class-assets.example'] })
+    fetchImpl.mockImplementation(async () => response({ usd:'4.72' }))
+    await runtime.estimate({ request })
+    expect(fetchImpl.mock.calls[0][1].headers.Authorization).toBe('Key fixture-project:fixture-alias')
+    vi.stubEnv('HF_CREDENTIALS','fixture-official:fixture-primary')
+    await runtime.estimate({ request })
+    expect(fetchImpl.mock.calls[1][1].headers.Authorization).toBe('Key fixture-official:fixture-primary')
   })
   it('does not silently clamp an estimate over the learner limit', async () => {
     gate.transport = true; fetchImpl.mockResolvedValue(response({ usd: '5.54688' }))
