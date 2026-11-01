@@ -41,6 +41,12 @@ describe('real protocol implementation with fake HTTP only', () => {
     gate.transport = true; fetchImpl.mockResolvedValue(response({ usd: '5.54688' }))
     expect((await client.estimate({ request })).maximumCostCents).toBe(555)
   })
+  it('fails closed on the actual descriptive Seedance estimate instead of issuing a learner dollar quote', async () => {
+    gate.transport = true
+    fetchImpl.mockResolvedValue(response({ type: 'description', pricing_description: '$0.01284 per 1,000 tokens at 480p or 720p' }))
+    await expect(client.estimate({ request })).rejects.toMatchObject({ code: 'PROVIDER_BAD_RESPONSE' })
+    expect(fetchImpl).toHaveBeenCalledTimes(1)
+  })
   it.each(['-1', 'NaN', '1e2', '', null, undefined, '1.123456789'])('rejects invalid provider prices: %s', async (usd) => {
     gate.transport = true; fetchImpl.mockResolvedValue(response({ usd }))
     await expect(client.estimate({ request })).rejects.toMatchObject({ code: 'PROVIDER_BAD_RESPONSE' })
