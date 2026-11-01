@@ -36,7 +36,7 @@ async function makeCode(changes = {}) {
 
 beforeAll(async () => {
   state.db = new PGlite()
-  for (const file of ['006_workshop_studio.sql', '007_workshop_studio_access.sql']) {
+  for (const file of ['006_workshop_studio.sql', '007_workshop_studio_access.sql', '008_workshop_studio_submission.sql', '009_workshop_studio_quotes.sql']) {
     const sql = readFileSync(new URL(`../db/migrations/${file}`, import.meta.url), 'utf8')
     await state.db.exec(sql)
     await state.db.exec(sql)
@@ -173,5 +173,12 @@ describe('private studio access on local synthetic records only', () => {
     expect(await getStudioLearnerJob({ seatId, accessVersion: 1, jobId: job.id, now: new Date('2026-11-13T19:00:00Z') })).toBeNull()
     await state.db.query('update workshop_studio_seats set revoked_at = now() where id = $1', [seatId])
     expect(await getStudioLearnerJob({ seatId, accessVersion: 1, jobId: job.id, now: NOW })).toBeNull()
+  })
+  it('does not exchange a code that expires while remote eligibility is being verified', async () => {
+    const clock = new Date('2026-11-06T17:14:59Z')
+    const base = verifyStudioRegistration.getMockImplementation()
+    verifyStudioRegistration.mockImplementationOnce(async (args) => { const proof = await base(args); clock.setTime(clock.getTime() + 2000); return proof })
+    await expect(exchangeStudioCode({ code, now: clock })).rejects.toMatchObject({ code: 'INVALID_ACCESS' })
+    expect(await scalar('select count(*)::int from workshop_studio_sessions')).toBe(0)
   })
 })

@@ -118,4 +118,13 @@ describe('real protocol implementation with fake HTTP only', () => {
     expect(JSON.parse(fetchImpl.mock.calls[0][1].body).prompt).toBe(request.prompt)
     expect(JSON.parse(fetchImpl.mock.calls[0][1].body).duration).toBe(8)
   })
+  it('submits the persisted quoted payload without resolving a different signed URL', async () => {
+    gate.transport = true; gate.submission = true
+    const providerPayload = { prompt: request.prompt, duration: 8, resolution: '720p', aspect_ratio: '16:9', output_format: 'mp4', generate_audio: false,
+      video_urls: ['https://class-assets.example/reference.mp4?frozen=one'] }
+    fetchImpl.mockResolvedValue(response({ request_id: id, status: 'queued', status_url: endpoint }))
+    await client.submit({ request, providerPayload, idempotencyKey: id })
+    expect(resolveReference).not.toHaveBeenCalled()
+    expect(JSON.parse(fetchImpl.mock.calls[0][1].body)).toEqual(providerPayload)
+  })
 })

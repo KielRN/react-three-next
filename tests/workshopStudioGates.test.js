@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { studioAccessEnabled, studioReadiness, studioProviderTransportEnabled } from '../lib/workshopStudioFeatures.js'
 import { verifyStudioRegistration } from '../lib/workshopStudioEligibility.js'
+import { issueStudioQuote, reserveQuotedGeneration, claimQuotedGeneration } from '../lib/workshopStudioQuotes.js'
 
 describe('actual studio release gates', () => {
   it('cannot be activated by an environment variable or manually supplied paid flag', async () => {
@@ -12,6 +13,9 @@ describe('actual studio release gates', () => {
       expect(studioProviderTransportEnabled()).toBe(false)
       expect(studioReadiness()).toEqual({ accessEnabled: false, provisioningEnabled: false, providerSubmissionEnabled: false, nativePaymentBindingAccepted: false })
       await expect(verifyStudioRegistration({ paid: true, paymentStatus: 'succeeded', enabled: true })).rejects.toMatchObject({ code: 'ELIGIBILITY_NOT_ACCEPTED' })
+      for (const operation of [issueStudioQuote, reserveQuotedGeneration, claimQuotedGeneration]) {
+        await expect(operation({ paid: true, enabled: true })).rejects.toMatchObject({ code: 'STUDIO_UNAVAILABLE' })
+      }
       expect(fetch).not.toHaveBeenCalled()
     } finally { vi.unstubAllGlobals(); vi.unstubAllEnvs() }
   })

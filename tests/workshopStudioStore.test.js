@@ -46,6 +46,7 @@ beforeAll(async () => {
   await state.db.exec(migration) // Safe migration retry must preserve data and constraints.
   await state.db.exec(readFileSync(new URL('../db/migrations/007_workshop_studio_access.sql', import.meta.url), 'utf8'))
   await state.db.exec(readFileSync(new URL('../db/migrations/008_workshop_studio_submission.sql', import.meta.url), 'utf8'))
+  await state.db.exec(readFileSync(new URL('../db/migrations/009_workshop_studio_quotes.sql', import.meta.url), 'utf8'))
 }, 30000)
 beforeEach(async () => {
   state.failEvent = false
