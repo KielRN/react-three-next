@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
-import { validateWorkshopInquiry, submitWorkshopInquiry } from '../lib/workshop-inquiry'
+import { validateWorkshopInquiry, submitWorkshopInquiry, WORKSHOP_FIELD_ID } from '../lib/workshop-inquiry'
 
 const input = {
   slug: 'ai-video-editing',
@@ -41,7 +41,9 @@ describe('workshop inquiry', () => {
       email: 'alex@example.com',
       firstName: 'Alex',
       lastName: 'Sample',
+      customFields: [{ id: WORKSHOP_FIELD_ID, field_value: 'AI Video Editing' }],
     })
+    expect(deps.upsertContact.mock.invocationCallOrder[0]).toBeLessThan(deps.addContactTags.mock.invocationCallOrder[0])
     expect(deps.addContactTags).toHaveBeenCalledWith('contact-1', ['workshop-inquiry', 'workshop-ai-video-editing'])
     expect(deps.addContactNote.mock.calls[0][0].body).toContain('Inquiry only; no seat reserved or payment collected.')
   })
@@ -63,5 +65,8 @@ describe('workshop inquiry', () => {
     await submitWorkshopInquiry(input, deps)
     await submitWorkshopInquiry({ ...input, slug: 'ai-marketing' }, deps)
     expect(deps.addContactTags.mock.calls[1]).toEqual(['contact-1', ['workshop-inquiry', 'workshop-ai-marketing']])
+    expect(deps.upsertContact.mock.calls[1][0].customFields).toEqual([
+      { id: WORKSHOP_FIELD_ID, field_value: 'AI Marketing' },
+    ])
   })
 })
