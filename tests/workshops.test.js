@@ -28,7 +28,6 @@ describe('workshop catalog', () => {
   })
   it('uses corrected Friday dates, a biweekly 2027 cadence and Central daylight time', () => {
     expect(workshopSessions.map((session) => session.start.slice(0, 10))).toEqual([
-      '2026-11-06',
       '2026-12-04',
       '2026-12-11',
       '2027-01-08',
@@ -37,6 +36,7 @@ describe('workshop catalog', () => {
       '2027-02-19',
       '2027-03-05',
       '2027-03-19',
+      '2027-04-02',
     ])
     for (const session of workshopSessions) {
       expect(new Date(session.end) - new Date(session.start)).toBe(120 * 60000)
@@ -48,9 +48,10 @@ describe('workshop catalog', () => {
         ),
       ).toBe('11')
     }
-    expect(getWorkshopSession('ai-marketing', new Date('2026-10-30'))?.start).toContain('2026-12-04')
-    expect(getWorkshopSession('ai-video-editing', new Date('2026-11-07'))).toBeUndefined()
-    expect(formatWorkshopDate(workshopSessions[8])).toBe('Mar 19, 2027')
+    expect(getWorkshopSession('ai-marketing', new Date('2026-10-30'))?.start).toContain('2026-12-11')
+    expect(getWorkshopSession('ai-video-editing', new Date('2026-12-05'))).toBeUndefined()
+    expect(formatWorkshopDate(workshopSessions[7])).toBe('Mar 19, 2027')
+    expect(formatWorkshopDate(workshopSessions[8])).toBe('Apr 2, 2027')
   })
   it.each([
     'ai-video-editing',
