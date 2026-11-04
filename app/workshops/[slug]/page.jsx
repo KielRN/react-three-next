@@ -9,6 +9,7 @@ import {
   formatWorkshopFee,
   workshopPolicy,
 } from '../../../lib/workshops'
+import { isRegistrationOpen } from '../../../lib/workshop-registration'
 import WorkshopInquiry from '../../../src/components/workshops/WorkshopInquiry'
 import styles from '../workshops.module.css'
 
@@ -41,6 +42,7 @@ export default function WorkshopPage({ params }) {
   if (!workshop) notFound()
   const category = workshopCategories.find((item) => item.id === workshop.category)
   const session = getWorkshopSession(workshop.slug)
+  const registrationOpen = isRegistrationOpen(workshop.slug)
   const related = workshops
     .filter((item) => item.category === workshop.category && item.slug !== workshop.slug)
     .slice(0, 3)
@@ -143,7 +145,7 @@ export default function WorkshopPage({ params }) {
                 ...workshop.faq,
                 [
                   'When is the next session, and what does it cost?',
-                  `${session ? `The planned session is ${formatWorkshopDate(session)}, 11 a.m.–1 p.m. America/Chicago.` : 'Dates are coming soon.'} The introductory fee is ${formatWorkshopFee(workshop)} USD per person. Registration is not open yet; an inquiry does not reserve a seat.`,
+                  `${session ? `The planned session is ${formatWorkshopDate(session)}, 11 a.m.–1 p.m. America/Chicago.` : 'Dates are coming soon.'} The introductory fee is ${formatWorkshopFee(workshop)} USD per person. ${registrationOpen ? 'Register on this page to reserve a seat.' : 'Registration is not open yet; an inquiry does not reserve a seat.'}`,
                 ],
                 [
                   'What will be confirmed before I register?',
@@ -186,7 +188,7 @@ export default function WorkshopPage({ params }) {
               <div className={styles.bookingHeader}>
                 <p>{workshop.title}</p>
                 <p className={styles.bookingStatus}>{session ? formatWorkshopDate(session) : 'Dates coming soon'}</p>
-                <p>Registration is not open yet</p>
+                <p>{registrationOpen ? 'Registration is open' : 'Registration is not open yet'}</p>
               </div>
               <div className={styles.bookingBody}>
                 <dl className={styles.sessionFacts}>
@@ -219,13 +221,27 @@ export default function WorkshopPage({ params }) {
                     <dd>America/Chicago</dd>
                   </div>
                 </dl>
-                <a href='#inquiry' className={styles.button}>
-                  Ask about this workshop
-                </a>
-                <p>
-                  Send a short inquiry about the next public date or a private group. No seat is reserved and no payment
-                  is collected.
-                </p>
+                {registrationOpen ? (
+                  <>
+                    <Link href={`/workshops/${workshop.slug}/register`} className={styles.button}>
+                      Register — ${workshop.priceUSD}
+                    </Link>
+                    <p>
+                      Pay securely by card. Your confirmation email has the Google Meet link.{' '}
+                      <a href='#inquiry'>Ask a question first</a>.
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <a href='#inquiry' className={styles.button}>
+                      Ask about this workshop
+                    </a>
+                    <p>
+                      Send a short inquiry about the next public date or a private group. No seat is reserved and no
+                      payment is collected.
+                    </p>
+                  </>
+                )}
               </div>
             </div>
             <section className={styles.infoBox}>

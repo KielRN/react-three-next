@@ -219,6 +219,16 @@ NEXT_PUBLIC_REV_TL_PRICE_STARTER_MONTHLY / _ANNUAL  (and growth, pro)
 
 **To create products** for the Reviews funnel: use `.agent/skills/manage_stripe_products/scripts/create_reviews_products.js --mode=<test|live> --prefix=<REV|REV_TL>`. The same operational rules from the Growth Platform section apply (test/live mode mismatch refused, NEXT_PUBLIC_* require redeploy, fallbacks must match active mode).
 
+### Workshop Registration (Stripe)
+
+Paid workshop seats use the same pattern as the funnels: Stripe Embedded Checkout on `/workshops/[slug]/register`, then [app/api/stripe/webhook-workshops/route.js](app/api/stripe/webhook-workshops/route.js) writes GHL. Logic lives in [lib/workshop-registration.js](lib/workshop-registration.js).
+
+- **Opening a session:** `WORKSHOP_REGISTRATION_OPEN` (comma list of slugs). Unlisted sessions keep the inquiry-only page.
+- **Prices:** found by Stripe lookup key `workshop_<slug>_<date>` (created by `.agent/skills/manage_stripe_products/scripts/create_workshop_products.js`).
+- **Seats:** paid + unrefunded checkouts plus open ones (31-minute hold) are counted before checkout starts; capacity comes from `lib/workshops.js`.
+- **Fulfillment:** oldest GHL contact with the email (GHL allows duplicates) gets the Workshop field, `workshop-registrant` and `workshop-paid-<slug>`, plus a note. That tag triggers the per-workshop GHL workflow (confirmation, alert, task, reminders). Full refunds swap to `workshop-refunded-<slug>`. PaymentIntent metadata makes retries safe; the webhook returns 5xx on failure so Stripe retries.
+- **Env:** `STRIPE_WORKSHOPS_WEBHOOK_SECRET` (endpoint subscribed to `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `charge.refunded`).
+
 ### Contact Form & Webhooks
 
 [app/api/contact/route.js](app/api/contact/route.js) proxies form submissions to a Make.com webhook (`NEXT_PUBLIC_CONTACT_WEBHOOK`). The ROI calculator posts to a GHL webhook (`NEXT_PUBLIC_ROI_CALCULATOR_WEBHOOK`).
