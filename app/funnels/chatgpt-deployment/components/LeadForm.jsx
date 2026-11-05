@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { EVENTS, identifyUser, measure, newEventId } from './pixel'
+import { OPT_IN_TEXT } from '../../../../lib/newsletter'
 
 const TEAM_SIZES = ['1–10', '11–25', '26–100', '100+']
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term']
@@ -20,6 +21,7 @@ export default function LeadForm() {
     workflow: '',
     website: '', // honeypot: real visitors never see or fill this
   })
+  const [newsletter, setNewsletter] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -38,7 +40,7 @@ export default function LeadForm() {
       const response = await fetch('/api/ghl/chatgpt-deployment-lead', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, utm, eventId, pageUrl: window.location.href }),
+        body: JSON.stringify({ ...form, newsletter, utm, eventId, pageUrl: window.location.href }),
       })
 
       const result = await response.json().catch(() => null)
@@ -92,6 +94,16 @@ export default function LeadForm() {
           className='cgd-input'
           placeholder='e.g. proposals, weekly client reports, intake paperwork'
         />
+      </label>
+
+      <label className='cgd-label' style={{ flexDirection: 'row', alignItems: 'flex-start', gap: '0.5rem' }}>
+        <input
+          type='checkbox'
+          checked={newsletter}
+          onChange={(e) => setNewsletter(e.target.checked)}
+          style={{ marginTop: '0.25rem' }}
+        />
+        <span style={{ fontWeight: 'normal' }}>{OPT_IN_TEXT}</span>
       </label>
 
       <label className='cgd-honeypot' aria-hidden='true'>

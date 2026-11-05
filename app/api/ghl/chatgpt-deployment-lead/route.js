@@ -1,5 +1,13 @@
 import { NextResponse } from 'next/server'
-import { upsertContact, addContactNote, createOpportunity } from '../../../../lib/ghl'
+import {
+  upsertContact,
+  addContactNote,
+  addContactTags,
+  createOpportunity,
+  removeContactTags,
+  searchContactsByEmail,
+} from '../../../../lib/ghl'
+import { OPT_IN_TEXT, subscribeToNewsletter } from '../../../../lib/newsletter'
 
 const PIPELINE_NAME = 'TxAI Marketing Pipeline v1'
 const STAGE_NEW_LEAD = 'New Lead'
@@ -25,6 +33,7 @@ export async function POST(req) {
       utm = {},
       eventId = '',
       pageUrl = '',
+      newsletter = false,
     } = body
 
     // Honeypot filled in: answer like a success so bots don't retry, but save nothing.
@@ -35,6 +44,7 @@ export async function POST(req) {
     if (Object.entries(fields).some(([key, value]) => typeof value !== 'string' || value.length > limits[key]) ||
         [firstName, lastName, company].some((value) => !value.trim()) ||
         !['1–10', '11–25', '26–100', '100+'].includes(teamSize) ||
+        typeof newsletter !== 'boolean' ||
         !utm || typeof utm !== 'object' || Array.isArray(utm) ||
         Object.entries(utm).some(([key, value]) => !['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].includes(key) || typeof value !== 'string' || value.length > 300)) {
       return NextResponse.json({ error: 'Please check the required fields and keep your workflow description under 4,000 characters.' }, { status: 400 })
@@ -47,14 +57,16 @@ export async function POST(req) {
     const tags = ['chatgpt-deployment-funnel']
     if (utm.utm_source) tags.push(`source-${String(utm.utm_source).toLowerCase().replace(/[^a-z0-9]+/g, '-')}`)
 
+    // Tags are added separately: upsert with tags would replace the contact's existing tags
+    // (for example a Texas AI Weekly subscriber's `newsletter` tag).
     const contactResult = await upsertContact({
       email: email.trim(),
       firstName: firstName.trim(),
       lastName: lastName.trim(),
       phone: phone.trim(),
       companyName: company.trim(),
-      tags,
     })
+    await addContactTags(contactResult.contactId, tags)
 
     const noteLines = [
       'ChatGPT Deployment funnel lead',
@@ -83,6 +95,24 @@ export async function POST(req) {
       await addContactNote({ contactId: contactResult.contactId, body: noteLines.join('\n') })
     } catch (noteErr) {
       console.warn('ChatGPT deployment lead: note not saved:', noteErr.message)
+    }
+
+    if (newsletter) {
+      try {
+        await subscribeToNewsletter(
+          {
+            email: email.trim().toLowerCase(),
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            source: 'chatgpt-deployment',
+            page: '/funnels/chatgpt-deployment',
+            consentText: OPT_IN_TEXT,
+          },
+          { searchContactsByEmail, upsertContact, addContactTags, removeContactTags, addContactNote },
+        )
+      } catch (subErr) {
+        console.warn('ChatGPT deployment lead: newsletter opt-in not saved:', subErr.message)
+      }
     }
 
     return NextResponse.json({ ok: true, accepted: true })

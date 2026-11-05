@@ -6,6 +6,7 @@ import TypewriterText from './TypewriterText';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import ContactForm from './ContactForm';
 import BlogStyles from './BlogStyles';
+import NewsletterSignup from '../newsletter/NewsletterSignup';
 
 // LCARS decorative elements
 const LCARSDecoration = ({ className = '' }) => (
@@ -141,6 +142,10 @@ export default function BlogLayout({ post, contentHtml, mdxContent, nextPost, pr
 
         <BlogStyles />
       </article>
+
+      <div className="mt-12">
+        <NewsletterSignup source="blog" id="newsletter-blog" />
+      </div>
 
       {/* Navigation */}
       {(nextPost || prevPost) && (

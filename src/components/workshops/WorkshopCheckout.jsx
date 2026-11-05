@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { loadStripe } from '@stripe/stripe-js'
 import styles from '../../../app/workshops/workshops.module.css'
+import { OPT_IN_TEXT } from '../../../lib/newsletter'
 
 const STRIPE_PK = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
 const stripePromise = STRIPE_PK ? loadStripe(STRIPE_PK) : null
@@ -54,6 +55,7 @@ export default function WorkshopCheckout({ slug, title, policy }) {
           name: form.get('name'),
           email: form.get('email'),
           policy: form.get('policy') === 'on',
+          newsletter: form.get('newsletter') === 'on',
         }),
         signal: AbortSignal.timeout(45000),
       })
@@ -92,6 +94,10 @@ export default function WorkshopCheckout({ slug, title, policy }) {
       <p>{policy}</p>
       <label className={styles.consent} htmlFor={`reg-policy-${slug}`}>
         <input id={`reg-policy-${slug}`} name='policy' type='checkbox' required />I have read the cancellation policy.
+      </label>
+      <label className={styles.consent} htmlFor={`reg-newsletter-${slug}`}>
+        <input id={`reg-newsletter-${slug}`} name='newsletter' type='checkbox' />
+        {OPT_IN_TEXT}
       </label>
       {error ? (
         <p className={styles.error} role='alert'>

@@ -2,10 +2,12 @@
 
 import { useRef, useState } from 'react'
 import styles from '../../../app/workshops/workshops.module.css'
+import { OPT_IN_TEXT } from '../../../lib/newsletter'
 
 export default function WorkshopInquiry({ slug, title }) {
   const [status, setStatus] = useState('idle')
   const [error, setError] = useState('')
+  const [newsletter, setNewsletter] = useState('')
   const pending = useRef(false)
   async function submit(event) {
     event.preventDefault()
@@ -26,12 +28,14 @@ export default function WorkshopInquiry({ slug, title }) {
           message: form.get('message'),
           website: form.get('website'),
           consent: form.get('consent') === 'on',
+          newsletter: form.get('newsletter') === 'on',
         }),
         signal: AbortSignal.timeout(45000),
       })
       const result = await response.json()
       if (!response.ok || result.status !== 'inquiry_received')
         throw new Error(result.error || 'Your inquiry could not be confirmed. Please try again.')
+      setNewsletter(result.newsletter || '')
       setStatus('received')
     } catch (failure) {
       setError(
@@ -50,6 +54,12 @@ export default function WorkshopInquiry({ slug, title }) {
         <h3>Inquiry received</h3>
         <p>We saved your interest in {title}. Elliott can follow up about availability and session details.</p>
         <p>This is an inquiry. No seat is reserved and no payment has been collected.</p>
+        {newsletter === 'subscribed' ? <p>You&apos;re also signed up for Texas AI Weekly.</p> : null}
+        {newsletter === 'failed' ? (
+          <p>
+            We could not add you to Texas AI Weekly. You can <a href='/newsletter'>sign up here</a>.
+          </p>
+        ) : null}
         <button type='button' className={styles.textButton} onClick={() => setStatus('idle')}>
           Ask about a different group or date
         </button>
@@ -94,6 +104,10 @@ export default function WorkshopInquiry({ slug, title }) {
           You may contact me about this workshop inquiry. See the <a href='/privacy-policy'>privacy policy</a>.
         </span>
       </label>
+      <label className={styles.consent}>
+        <input type='checkbox' name='newsletter' />
+        <span>{OPT_IN_TEXT}</span>
+      </label>
       {error && (
         <p className={styles.error} role='alert'>
           {error}
@@ -103,7 +117,8 @@ export default function WorkshopInquiry({ slug, title }) {
         {status === 'sending' ? 'Saving inquiry…' : 'Send workshop inquiry'}
       </button>
       <p className={styles.finePrint}>
-        An inquiry does not reserve a seat or subscribe you to marketing. You can also email{' '}
+        An inquiry does not reserve a seat. It only adds you to the newsletter if you tick that box. You can also
+        email{' '}
         <a href='mailto:elliott@texasaiconsulting.com'>elliott@texasaiconsulting.com</a>.
       </p>
     </form>

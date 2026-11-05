@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { upsertContact, addContactTags, addContactNote } from '../../../lib/ghl'
+import { upsertContact, addContactTags, addContactNote, removeContactTags, searchContactsByEmail } from '../../../lib/ghl'
 import { submitWorkshopInquiry, validateWorkshopInquiry } from '../../../lib/workshop-inquiry'
 
 export const runtime = 'nodejs'
@@ -41,7 +41,13 @@ export async function POST(request) {
   const result = validateWorkshopInquiry(input)
   if (result.error) return NextResponse.json({ error: result.error }, { status: 400 })
   try {
-    const response = await submitWorkshopInquiry(input, { upsertContact, addContactTags, addContactNote })
+    const response = await submitWorkshopInquiry(input, {
+      upsertContact,
+      addContactTags,
+      addContactNote,
+      removeContactTags,
+      searchContactsByEmail,
+    })
     return NextResponse.json(response)
   } catch {
     // Do not expose CRM responses or claim success after a partial save.

@@ -1,6 +1,13 @@
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 
-const ghl = vi.hoisted(() => ({ upsertContact: vi.fn(), createOpportunity: vi.fn(), addContactNote: vi.fn() }))
+const ghl = vi.hoisted(() => ({
+  upsertContact: vi.fn(),
+  createOpportunity: vi.fn(),
+  addContactNote: vi.fn(),
+  addContactTags: vi.fn(),
+  removeContactTags: vi.fn(),
+  searchContactsByEmail: vi.fn(),
+}))
 vi.mock('../lib/ghl', () => ghl)
 import { POST } from '../app/api/ghl/chatgpt-deployment-lead/route.js'
 import { measure, identifyUser } from '../app/funnels/chatgpt-deployment/components/pixel.js'
@@ -17,6 +24,8 @@ beforeEach(() => {
   ghl.upsertContact.mockResolvedValue({ contactId: 'contact_fixture' })
   ghl.createOpportunity.mockResolvedValue({ opportunityId: 'opportunity_fixture' })
   ghl.addContactNote.mockResolvedValue({ noteId: 'note_fixture' })
+  ghl.addContactTags.mockResolvedValue({})
+  ghl.searchContactsByEmail.mockResolvedValue([])
 })
 afterEach(() => vi.unstubAllGlobals())
 
@@ -35,8 +44,19 @@ describe('consultation lead capture', () => {
   it('saves the workflow and campaign context along with the tagged contact', async () => {
     const response = await POST(request({ ...validLead, workflow: 'Weekly reports', utm: { utm_source: 'openai' }, eventId: 'lead_fixture' }))
     expect(await response.json()).toMatchObject({ ok: true, accepted: true })
-    expect(ghl.upsertContact).toHaveBeenCalledWith(expect.objectContaining({ tags: ['chatgpt-deployment-funnel', 'source-openai'] }))
+    // Tags are added, never passed to upsert (which would replace the contact's existing tags).
+    expect(ghl.upsertContact.mock.calls[0][0].tags).toBeUndefined()
+    expect(ghl.addContactTags).toHaveBeenCalledWith('contact_fixture', ['chatgpt-deployment-funnel', 'source-openai'])
     expect(ghl.addContactNote).toHaveBeenCalledWith(expect.objectContaining({ body: expect.stringContaining('Weekly reports') }))
+    expect(ghl.addContactTags).not.toHaveBeenCalledWith(expect.anything(), expect.arrayContaining(['newsletter']))
+  })
+  it('subscribes to Texas AI Weekly only when the opt-in box is checked', async () => {
+    const response = await POST(request({ ...validLead, newsletter: true }))
+    expect(await response.json()).toMatchObject({ ok: true, accepted: true })
+    expect(ghl.addContactTags).toHaveBeenCalledWith('contact_fixture', ['newsletter', 'newsletter-src-chatgpt-deployment'])
+  })
+  it('rejects a non-boolean newsletter value', async () => {
+    expect((await POST(request({ ...validLead, newsletter: 'yes' }))).status).toBe(400)
   })
 })
 

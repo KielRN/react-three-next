@@ -1,6 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-vi.mock('../lib/ghl', () => ({ upsertContact: vi.fn(), addContactTags: vi.fn(), addContactNote: vi.fn() }))
+vi.mock('../lib/ghl', () => ({
+  upsertContact: vi.fn(),
+  addContactTags: vi.fn(),
+  addContactNote: vi.fn(),
+  removeContactTags: vi.fn(),
+  searchContactsByEmail: vi.fn(),
+}))
 import { upsertContact, addContactTags, addContactNote } from '../lib/ghl'
 import { POST } from '../app/api/workshop-inquiry/route'
 
