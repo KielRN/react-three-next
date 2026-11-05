@@ -43,6 +43,30 @@ const METHOD = [
   { title: 'Value and readiness', body: 'Record a baseline, check readiness, then roll out and measure against it.' },
 ]
 
+// From OpenAI's ChatGPT for Clinicians help article, checked 2026-11-05. Recheck before changing the wording.
+const CLINICIANS_URL = 'https://help.openai.com/en/articles/20001202-chatgpt-for-clinicians'
+const CLINICIANS_FACTS = [
+  'Free for verified clinicians in the United States',
+  'Currently physicians (MD/DO), nurse practitioners, physician assistants, and pharmacists',
+  'Sign-up uses your NPI and a license check',
+  'Built for individual use, including the option to sign a BAA',
+]
+
+const DOCTOR_STEPS = [
+  {
+    title: 'Get set up',
+    body: 'Confirm eligibility, complete verification, and decide whether you need the BAA before any patient information goes in.',
+  },
+  {
+    title: 'Pick your first workflows',
+    body: 'Referral letters, prior authorization letters, patient instructions, or evidence review: the recurring work that eats your evenings.',
+  },
+  {
+    title: 'Build repeatable prompts',
+    body: 'Saved instructions and templates that draft the way you write, with you reviewing every output.',
+  },
+]
+
 const CREDENTIALS = [
   { name: 'ChatGPT Expert', detail: 'All levels achieved · no expiration' },
   { name: 'ChatGPT Deployment Practitioner', detail: 'Oct 2026 · valid through Oct 2027' },
@@ -90,6 +114,57 @@ export default function ChatGPTDeploymentPage() {
               Tell us a little about your team. We&apos;ll set up a short call to find your best starting workflow.
             </p>
             <LeadForm />
+          </div>
+        </div>
+      </section>
+
+      {/* ChatGPT for doctors */}
+      <section id='doctors' className='cgd-section'>
+        <div className='cgd-container'>
+          <span className='cgd-eyebrow'>CHATGPT FOR DOCTORS</span>
+          <h2>Doctors can get ChatGPT for free. Put it to work.</h2>
+          <p className='cgd-lead'>
+            I&apos;m Elliott Lamboy, an RN with more than 20 years of clinical experience and OpenAI deployment
+            credentials. I help doctors set up ChatGPT for Clinicians and build it into the work they repeat every
+            week.
+          </p>
+          <div className='cgd-grid-2 cgd-plans'>
+            <div className='cgd-card'>
+              <span className='cgd-tag'>FROM OPENAI</span>
+              <h3>ChatGPT for Clinicians</h3>
+              <ul className='cgd-checks'>
+                {CLINICIANS_FACTS.map((fact) => (
+                  <li key={fact}>{fact}</li>
+                ))}
+              </ul>
+              <p className='cgd-plan-source'>
+                <a href={CLINICIANS_URL} target='_blank' rel='noopener noreferrer'>
+                  OpenAI&apos;s eligibility and sign-up details →
+                </a>
+              </p>
+            </div>
+            <div className='cgd-card'>
+              <span className='cgd-tag'>HOW I HELP</span>
+              <h3>From sign-up to daily use</h3>
+              <ol className='cgd-steps cgd-steps-stack'>
+                {DOCTOR_STEPS.map((s) => (
+                  <li key={s.title}>
+                    <h3>{s.title}</h3>
+                    <p>{s.body}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
+          <div className='cgd-note cgd-health-note'>
+            Eligibility and features are set by OpenAI and can change. Doctors remain responsible for care decisions,
+            and we don&apos;t provide medical or legal advice. Practices that need shared admin controls can look at
+            OpenAI&apos;s ChatGPT for Healthcare.
+          </div>
+          <div className='cgd-btn-row'>
+            <a href='#request' className='cgd-btn cgd-btn-primary'>
+              Request a consultation
+            </a>
           </div>
         </div>
       </section>

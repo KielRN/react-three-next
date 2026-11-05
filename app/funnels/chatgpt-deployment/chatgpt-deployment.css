@@ -111,6 +111,13 @@
 .cgd-cred-list { list-style: none; padding: 0; margin: 0 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
 .cgd-cred-list li { padding: 10px 0; border-bottom: 1px solid var(--cgd-line); font-weight: bold; color: var(--cgd-navy); font-size: 15px; }
 .cgd-cred-list span { display: block; font-weight: normal; color: #777; font-size: 12px; }
+.cgd-plans { align-items: stretch; gap: 24px; margin-top: 40px; }
+.cgd-plans .cgd-checks { margin: 16px 0; }
+.cgd-plans .cgd-card p.cgd-plan-source { font-size: 13px; }
+.cgd-plan-source a { color: var(--cgd-navy); text-underline-offset: 4px; }
+.cgd-steps-stack { grid-template-columns: 1fr; gap: 18px; margin-top: 16px; }
+.cgd-steps-stack h3 { font-size: 17px; }
+.cgd-health-note { margin: 40px 0 28px; }
 .cgd-note { background: #fff7d6; border: 1px solid var(--cgd-gold); border-radius: 8px; padding: 16px 20px; color: #5a4500; font-size: 14px; }
 
 /* Buttons */
