@@ -16,6 +16,7 @@ export async function generateMetadata({ params }) {
 
   return {
     title: `${post.title}`,
+    alternates: { canonical: `/blog/${post.slug}` },
     description: post.excerpt || 'Read the latest insights about AI and business automation from Texas AI Consulting.',
     keywords: post.tags || [],
     authors: [{ name: post.author || 'Texas AI Consulting' }],

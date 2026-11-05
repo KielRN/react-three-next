@@ -3,6 +3,7 @@ import PortfolioContent from '../../src/components/portfolio/PortfolioContent'
 
 export const metadata = {
   title: 'Portfolio - Client Success Stories',
+  alternates: { canonical: '/portfolio' },
   description: 'Explore our recent client success stories and web development projects. See how we help small businesses in San Antonio, Austin, and Central Texas leverage AI technology.',
   keywords: ['portfolio', 'client success stories', 'web development projects', 'AI projects', 'Texas business solutions'],
   openGraph: {

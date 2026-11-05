@@ -2,16 +2,23 @@ import { getAllBlogPosts, getAllTags, getBlogPostsByTag } from '../../lib/blog';
 import BlogHeader from '../../src/components/blog/BlogHeader';
 import BlogList from '../../src/components/blog/BlogList';
 
-export const metadata = {
-  title: 'Blog | Texas AI Consulting',
-  description: 'Explore the latest insights, tutorials, and news about AI, web development, and digital innovation.',
-  openGraph: {
-    title: 'Blog | Texas AI Consulting',
-    description: 'Explore the latest insights, tutorials, and news about AI, web development, and digital innovation.',
-    url: 'https://texasai.consulting/blog',
-    type: 'website',
-  },
-};
+export function generateMetadata({ searchParams }) {
+  const filtered = Boolean(searchParams?.tag || searchParams?.search);
+  const description = 'Practical AI guides, business automation tips, and client case studies for small businesses in San Antonio, Austin, and across Texas.';
+
+  return {
+    title: 'AI & Business Automation Insights',
+    description,
+    alternates: { canonical: '/blog' },
+    ...(filtered ? { robots: { index: false, follow: true, googleBot: { index: false, follow: true } } } : {}),
+    openGraph: {
+      title: 'AI & Business Automation Insights | Texas AI Consulting',
+      description,
+      url: 'https://texasaiconsulting.com/blog',
+      type: 'website',
+    },
+  };
+}
 
 export default async function BlogPage({ searchParams }) {
   const tag = searchParams?.tag || null;

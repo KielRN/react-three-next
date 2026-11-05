@@ -23,7 +23,7 @@ Central Texas is experiencing an unprecedented data center boom, transforming fr
 - Record-low **4% vacancy rates** with nearly all new capacity pre-leased
 - Hyperscale, colocation, and edge segments all thriving simultaneously
 
-**[Download Our Complete 2025 Central Texas Data Center Market Report (PDF)](/Reports/Central%20Texas%20Data%20Center%20Market%20Report%20(Austin,%20San%20Antonio,%20Waco).pdf)** | **[Explore Interactive Dashboard](/data-dashboard)**
+**[Download Our Complete 2025 Central Texas Data Center Market Report (PDF)](/Reports/Central%20Texas%20Data%20Center%20Market%20Report%20(Austin,%20San%20Antonio,%20Waco).pdf)** | **[Explore Interactive Dashboard](/apps/central-texas-data-centers)**
 
 ## Austin & San Antonio: From Secondary Markets to Powerhouse Hub
 
@@ -53,7 +53,7 @@ As JLL's data center expert Curt Holcomb notes, "We're seeing really insatiable 
 
 *Source: [San Antonio Express-News](https://www.expressnews.com/business/real-estate/article/san-antonio-austin-data-center-development-20234133.php) and [Texas Real Estate Research Center](https://trerc.tamu.edu/blog/ai-land-and-power-inside-texas-data-center-explosion/)*
 
-**[View Interactive Growth Visualization](/data-dashboard?chart=market-capacity)** ✨
+**[View Interactive Growth Visualization](/apps/central-texas-data-centers?chart=market-capacity)** ✨
 
 ### Real-World Development Examples
 
@@ -105,7 +105,7 @@ Waco's central location makes it ideal for edge computing applications, with com
 
 *Source: Data compiled from [San Antonio Express-News](https://www.expressnews.com/business/real-estate/article/san-antonio-austin-data-center-development-20234133.php), [TRERC](https://trerc.tamu.edu/blog/ai-land-and-power-inside-texas-data-center-explosion/), and [DataCenters.com](https://www.datacenters.com/news/from-cattle-ranches-to-server-farms-texas-s-rural-data-boom)*
 
-**[Compare Regions Interactively](/data-dashboard?chart=regional-comparison)** 📊
+**[Compare Regions Interactively](/apps/central-texas-data-centers?chart=regional-comparison)** 📊
 
 ## 5 Factors Driving Central Texas's Data Center Advantage
 
@@ -161,7 +161,7 @@ The Central Texas market exhibits a rare convergence where all major data center
 
 *Source: Data compiled from [San Antonio Express-News](https://www.expressnews.com/business/real-estate/article/san-antonio-austin-data-center-development-20234133.php) and industry analysis*
 
-**[Explore Market Segments Breakdown](/data-dashboard?chart=market-segmentation)** 🔍
+**[Explore Market Segments Breakdown](/apps/central-texas-data-centers?chart=market-segmentation)** 🔍
 
 ### Hyperscale Sector
 
@@ -210,7 +210,7 @@ Our analysis projects continued strong growth for the Central Texas data center 
 
 *Source: Texas AI Consulting analysis based on [Muskin | Elam](https://muskin-elam.com/1500-acre-data-center-campus-800-jobs-confirmed-for-small-town-in-caldwell-county/) and [TRERC data](https://trerc.tamu.edu/blog/ai-land-and-power-inside-texas-data-center-explosion/)*
 
-**[View All Forecast Metrics](/data-dashboard?chart=forecast)** 📈
+**[View All Forecast Metrics](/apps/central-texas-data-centers?chart=forecast)** 📈
 
 - **Capacity Growth:** Total market capacity expected to exceed 4 GW by 2028
 - **Investment Volume:** More than $20 billion in new data center investment anticipated
@@ -230,7 +230,7 @@ The explosive growth of data centers across Central Texas represents a generatio
 - **Network Design:** Plan connectivity and infrastructure requirements
 - **Financial Modeling:** Project ROI and operational costs
 
-**[Download Our Complete 2025 Central Texas Data Center Market Report](/Reports/Central%20Texas%20Data%20Center%20Market%20Report%20(Austin,%20San%20Antonio,%20Waco).pdf)** | **[Explore Our Interactive Data Dashboard](/data-dashboard)** 📊
+**[Download Our Complete 2025 Central Texas Data Center Market Report](/Reports/Central%20Texas%20Data%20Center%20Market%20Report%20(Austin,%20San%20Antonio,%20Waco).pdf)** | **[Explore Our Interactive Data Dashboard](/apps/central-texas-data-centers)** 📊
 
 Schedule a consultation with Texas AI Consulting today to explore how you can participate in Central Texas's data center success story. The future of digital infrastructure is being built right now in our backyard—don't miss your opportunity to be part of it.
 

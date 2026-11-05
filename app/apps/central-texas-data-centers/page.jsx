@@ -13,6 +13,7 @@ export default function CentralTexasDataCentersPage() {
 // Add metadata for better SEO
 export const metadata = {
   title: 'Central Texas Data Centers Dashboard - Market Analysis',
+  alternates: { canonical: '/apps/central-texas-data-centers' },
   description: 'Interactive dashboard visualizing the explosive growth of data centers in Austin, San Antonio, and Waco regions of Central Texas. Explore market capacity, regional comparisons, and growth forecasts.',
   keywords: ['Central Texas data centers', 'Austin data centers', 'San Antonio data centers', 'Waco data centers', 'data center market analysis', 'Texas infrastructure', 'data center growth'],
   openGraph: {

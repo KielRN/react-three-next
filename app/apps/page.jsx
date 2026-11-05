@@ -13,6 +13,7 @@ export default function AppsPage() {
 // Add metadata for SEO
 export const metadata = {
   title: 'Interactive Applications & Tools',
+  alternates: { canonical: '/apps' },
   description: 'Explore our collection of interactive AI-powered tools and data visualization dashboards designed for small businesses in Texas. ROI calculators, market analysis, and more.',
   keywords: ['AI tools', 'business calculators', 'ROI calculator', 'data visualization', 'interactive dashboards', 'Texas business tools'],
   openGraph: {
