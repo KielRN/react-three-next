@@ -5,21 +5,10 @@
 User-agent: *
 Allow: /
 
-# Disallow access to private and system files
+# Keep application endpoints out of crawl results. Public rendering assets
+# remain crawlable so search engines can render the site.
 Disallow: /api/
-Disallow: /_next/
 Disallow: /admin/
-Disallow: /*.json$
-
-# Allow specific bots full access
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Slurp
-Allow: /
 
 # Sitemap location
 Sitemap: https://texasaiconsulting.com/sitemap.xml

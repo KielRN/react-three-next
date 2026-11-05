@@ -13,6 +13,7 @@ export default function ROICalculatorPage() {
 // Add metadata for better SEO
 export const metadata = {
   title: 'AI ROI Calculator - Calculate Your Return on Investment',
+  alternates: { canonical: '/apps/roi-calculator' },
   description: 'Calculate the potential return on investment when integrating AI into your business operations. Analyze uncollected billing recovery, missed call opportunities, and employee time savings with our free ROI calculator.',
   keywords: ['AI ROI calculator', 'return on investment', 'AI integration', 'business automation ROI', 'AI cost savings', 'productivity calculator', 'Texas business tools'],
   openGraph: {

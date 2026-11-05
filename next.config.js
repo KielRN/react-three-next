@@ -26,6 +26,13 @@ const withMDX = require('@next/mdx')({
 })
 
 const nextConfig = {
+  async redirects() {
+    return [{
+      source: '/data-dashboard',
+      destination: '/apps/central-texas-data-centers',
+      permanent: true,
+    }]
+  },
   // Add pageExtensions to include md and mdx files
   pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
   // uncomment the following snippet if using styled components

@@ -5,10 +5,10 @@ import { Space_Mono } from 'next/font/google'
 export const metadata = {
   metadataBase: new URL('https://texasaiconsulting.com'),
   title: {
-    default: 'Texas AI Consulting | AI Solutions for Small Business',
+    default: 'AI Consulting in San Antonio & Texas | Texas AI Consulting',
     template: '%s | Texas AI Consulting',
   },
-  description: 'Big AI For Small Businesses in San Antonio, Austin and Central Texas. Transform your business with AI-powered sales, operations, and marketing automation.',
+  description: 'AI consulting and business automation for small businesses in San Antonio, Austin, and Central Texas. Get practical help with ChatGPT, sales, and marketing.',
   keywords: ['AI consulting', 'artificial intelligence', 'small business AI', 'Texas AI', 'San Antonio AI', 'Austin AI', 'Central Texas', 'AI automation', 'sales automation', 'marketing automation', 'business intelligence', 'AI agents', 'machine learning', 'ChatGPT for business', 'AI integration'],
   authors: [{ name: 'Texas AI Consulting' }],
   creator: 'Texas AI Consulting',
@@ -19,8 +19,8 @@ export const metadata = {
     telephone: true,
   },
   openGraph: {
-    title: 'Texas AI Consulting | AI Solutions for Small Business',
-    description: 'Big AI For Small Businesses in San Antonio, Austin and Central Texas. Transform your business with AI-powered sales, operations, and marketing automation.',
+    title: 'AI Consulting in San Antonio & Texas | Texas AI Consulting',
+    description: 'AI consulting and business automation for small businesses in San Antonio, Austin, and Central Texas. Get practical help with ChatGPT, sales, and marketing.',
     url: 'https://texasaiconsulting.com',
     siteName: 'Texas AI Consulting',
     images: [
@@ -36,8 +36,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Texas AI Consulting | AI Solutions for Small Business',
-    description: 'Big AI For Small Businesses in San Antonio, Austin and Central Texas. Transform your business with AI-powered sales, operations, and marketing automation.',
+    title: 'AI Consulting in San Antonio & Texas | Texas AI Consulting',
+    description: 'AI consulting and business automation for small businesses in San Antonio, Austin, and Central Texas. Get practical help with ChatGPT, sales, and marketing.',
     creator: '@ElliottLamboy',
     images: ['/img/Texas-AI-Consulting-ST-Logo-ICON.png'],
   },
@@ -51,9 +51,6 @@ export const metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
-  },
-  verification: {
-    google: 'G-S46TGFXZQF',
   },
 }
 
@@ -100,7 +97,6 @@ export default function RootLayout({ children }) {
         name: 'Texas AI Consulting',
         description: 'Big AI For Small Businesses in San Antonio, Austin and Central Texas. Transform your business with AI-powered sales, operations, and marketing automation.',
         url: 'https://texasaiconsulting.com',
-        telephone: '+1-210-555-0100',
         priceRange: '$$',
         address: {
           '@type': 'PostalAddress',
@@ -142,11 +138,6 @@ export default function RootLayout({ children }) {
         description: 'Big AI For Small Businesses in San Antonio, Austin and Central Texas',
         publisher: {
           '@id': 'https://texasaiconsulting.com/#organization',
-        },
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: 'https://texasaiconsulting.com/blog?search={search_term_string}',
-          'query-input': 'required name=search_term_string',
         },
       },
       {
