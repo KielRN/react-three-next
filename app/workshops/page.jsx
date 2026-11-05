@@ -8,7 +8,7 @@ export const revalidate = 300
 export const metadata = {
   title: 'Practical AI Workshops for Business, Careers & Engineering',
   description:
-    'Explore nine hands-on AI workshops with Texas AI Consulting. Build a focused result in about two hours. Browse outlines and ask about the next session.',
+    'Explore nine hands-on AI workshops with Texas AI Consulting. Build a focused result in about two hours. Browse dates, outlines and registration details.',
   alternates: { canonical: '/workshops' },
   openGraph: {
     title: 'Practical AI Workshops | Texas AI Consulting',
@@ -19,7 +19,7 @@ export const metadata = {
   twitter: {
     card: 'summary',
     title: 'Practical AI Workshops | Texas AI Consulting',
-    description: 'Nine focused workshop topics. Explore the outlines and ask about availability.',
+    description: 'Nine focused workshop topics. Explore dates, outlines and registration details.',
   },
   robots: { index: true, follow: true },
 }
@@ -45,9 +45,9 @@ export default function WorkshopsPage() {
               </p>
             </header>
             <div className={styles.notice}>
-              <strong>How to get started:</strong> choose a workshop, explore the outline, and ask about the next public
-              date or a private session. Registration opens after setup and booking checks are complete. Sessions are
-              online via Google Meet.
+              <strong>How to get started:</strong> choose a workshop, explore the outline, and use Register on the
+              workshop page to reserve a place in an available public session. For a private group, send an inquiry.
+              Sessions are online via Google Meet.
             </div>
             <WorkshopCatalog asOf={Date.now()} />
             <section className={styles.policySection} id='workshop-policy' aria-labelledby='workshop-policy-title'>
@@ -72,26 +72,26 @@ export default function WorkshopsPage() {
             <section className={styles.infoBox}>
               <h2>Training status</h2>
               <div>
-                <h3>Registration opening soon</h3>
+                <h3>Registration and availability</h3>
                 <p>
-                  Each workshop below lists its next planned date. Sessions run Fridays, 11 a.m.–1 p.m. Central, online
+                  Each workshop lists its next scheduled date. Sessions run Fridays, 11 a.m.–1 p.m. Central, online
                   via Google Meet.
                 </p>
                 <p>
-                  Business/career sessions: up to 12 attendees. Technical sessions: up to 10. No seats are on sale yet;
-                  an inquiry does not reserve a place.
+                  Business/career sessions: up to 12 attendees. Technical sessions: up to 10. Registration availability
+                  is shown on each workshop page. Completing payment reserves your place; an inquiry does not.
                 </p>
               </div>
             </section>
             <section className={styles.infoBox}>
-              <h2>How to inquire</h2>
+              <h2>How to register</h2>
               <div>
                 <ol className={styles.steps}>
                   <li>
                     Choose <strong>View Workshop</strong> for the topic that fits your goal.
                   </li>
                   <li>Read the outline and preparation requirements.</li>
-                  <li>Send an inquiry for a public session or a private group.</li>
+                  <li>Choose Register for an available public session, or send an inquiry for a private group.</li>
                 </ol>
               </div>
             </section>
