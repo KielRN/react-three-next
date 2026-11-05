@@ -229,6 +229,20 @@ Paid workshop seats use the same pattern as the funnels: Stripe Embedded Checkou
 - **Fulfillment:** oldest GHL contact with the email (GHL allows duplicates) gets the Workshop field, `workshop-registrant` and `workshop-paid-<slug>`, plus a note. That tag triggers the per-workshop GHL workflow (confirmation, alert, task, reminders). Full refunds swap to `workshop-refunded-<slug>`. PaymentIntent metadata makes retries safe; the webhook returns 5xx on failure so Stripe retries.
 - **Env:** `STRIPE_WORKSHOPS_WEBHOOK_SECRET` (endpoint subscribed to `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `charge.refunded`).
 
+### Caller Pay (Mission Control)
+
+Contract callers can be paid per call against a prepaid balance (e.g. Sam, `cowgirlteam@gmail.com`, $5/call, $890 starting balance). Opt-in per caller: only callers with a row in `caller_pay_accounts` see the balance panel on `/admin/mission` and `/admin/mission/history`.
+
+- **Paid call** = one lead the caller logged an outcome on, counted once per lead per Central-time day (re-logging/correcting the same lead that day is not billed twice). Calls past the prepay show as "earned past prepay" (owed).
+- Tables: `caller_pay_accounts` (rate, start time) and `caller_payments` (credits) — [db/migrations/012_caller_pay.sql](db/migrations/012_caller_pay.sql). Logic: [lib/callerPay.js](lib/callerPay.js) (pure math), [lib/payStore.js](lib/payStore.js) (SQL), [app/api/admin/pay/route.js](app/api/admin/pay/route.js) (signed-in caller only).
+- Manage with [scripts/caller-pay.mjs](scripts/caller-pay.mjs) — preview by default, `--apply` to write:
+
+```bash
+node --env-file=.env scripts/caller-pay.mjs status                       # every pay account
+node --env-file=.env scripts/caller-pay.mjs credit --email cowgirlteam@gmail.com --amount 445 --note "Top-up" --apply
+node --env-file=.env scripts/caller-pay.mjs open --email new@caller.com --rate 5 --apply
+```
+
 ### Contact Form & Webhooks
 
 [app/api/contact/route.js](app/api/contact/route.js) proxies form submissions to a Make.com webhook (`NEXT_PUBLIC_CONTACT_WEBHOOK`). The ROI calculator posts to a GHL webhook (`NEXT_PUBLIC_ROI_CALCULATOR_WEBHOOK`).

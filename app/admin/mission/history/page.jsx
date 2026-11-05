@@ -3,7 +3,9 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useAuth } from '../../AuthProvider'
 import SignInGate from '../components/SignInGate'
-import { getProfile } from '../../lib/api'
+import PayBalance from '../components/PayBalance'
+import { getProfile, getPay } from '../../lib/api'
+import { formatUsd } from '../../../../lib/callerPay'
 
 async function getHistory() {
   const { auth } = await import('../../../../lib/firebaseClient')
@@ -16,11 +18,13 @@ async function getHistory() {
 export default function HistoryPage() {
   const { user, loading: authLoading } = useAuth()
   const [data, setData] = useState(null)
+  const [pay, setPay] = useState(null)
   const [denied, setDenied] = useState(false)
 
   useEffect(() => {
     if (!user) return
     getProfile().catch(() => {}) // warms the profile row
+    getPay().then((p) => setPay(p.pay)).catch(() => {})
     getHistory().then(setData).catch((e) => { if (e.status === 403) setDenied(true) })
   }, [user])
 
@@ -39,6 +43,25 @@ export default function HistoryPage() {
       <div className='rounded-2xl bg-black/30 p-4 ring-1 ring-lcars-violet/40 text-sm'>
         {data.profile.rank} · LVL {data.profile.level} · {data.profile.lifetimeXp} XP · best streak {data.profile.longestStreak}
       </div>
+
+      {pay && (
+        <section className='flex flex-col gap-2'>
+          <h2 className='text-xs uppercase tracking-widest text-lcars-amber'>Pay</h2>
+          <PayBalance pay={pay} />
+          <p className='text-xs leading-5 text-lcars-ice/60'>
+            Each lead you log an outcome on counts as one paid call (once per lead per day).
+          </p>
+          {pay.payments.map((p, i) => (
+            <div key={i} className='flex justify-between gap-3 rounded-xl bg-black/20 px-4 py-2 text-sm'>
+              <span className='min-w-0'>
+                {p.paidOn}
+                {p.note && <span className='block truncate text-xs text-lcars-ice/60'>{p.note}</span>}
+              </span>
+              <span className='shrink-0 text-lcars-teal'>+{formatUsd(p.amountCents)}</span>
+            </div>
+          ))}
+        </section>
+      )}
 
       <section>
         <h2 className='mb-2 text-xs uppercase tracking-widest text-lcars-amber'>By Week</h2>

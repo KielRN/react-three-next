@@ -1,10 +1,11 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '../AuthProvider'
-import { getMission, getLeads, getWeeks, postOutcome, putAvatar } from '../lib/api'
+import { getMission, getLeads, getWeeks, getPay, postOutcome, putAvatar } from '../lib/api'
 import SignInGate from './components/SignInGate'
 import PlayerHud from './components/PlayerHud'
 import MissionBar from './components/MissionBar'
+import PayBalance from './components/PayBalance'
 import LeadCard from './components/LeadCard'
 import LeadList from './components/LeadList'
 import WeekSelector from './components/WeekSelector'
@@ -17,6 +18,7 @@ export default function MissionPage() {
   const [denied, setDenied] = useState(false)
   const [loading, setLoading] = useState(true)
   const [mission, setMission] = useState(null)
+  const [pay, setPay] = useState(null) // prepaid call balance — null unless this caller has a pay account
   const [leads, setLeads] = useState([])
   const [busy, setBusy] = useState(false)
   const [celebration, setCelebration] = useState(null)
@@ -30,9 +32,11 @@ export default function MissionPage() {
   const refresh = useCallback(async (wk) => {
     setLoading(true)
     try {
-      const [m, l] = await Promise.all([getMission(wk), getLeads(wk)])
+      // Pay is best-effort: a balance hiccup must never block calling.
+      const [m, l, p] = await Promise.all([getMission(wk), getLeads(wk), getPay().catch(() => null)])
       setMission(m)
       setLeads(l.leads)
+      setPay(p?.pay ?? null)
       setDenied(false)
     } catch (e) {
       if (e.status === 403) setDenied(true)
@@ -93,6 +97,7 @@ export default function MissionPage() {
   return (
     <main className='mx-auto flex max-w-md flex-col gap-4 p-4 pb-24'>
       <PlayerHud profile={mission?.profile} onPickAvatar={() => setShowPicker(true)} />
+      <PayBalance pay={pay} />
       <MissionBar mission={mission} />
 
       <div className='flex items-center justify-between gap-3'>

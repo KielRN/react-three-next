@@ -26,6 +26,7 @@ export const getWeeks = () => authedFetch('/api/admin/weeks')
 export const postOutcome = (leadId, payload) =>
   authedFetch(`/api/admin/leads/${leadId}/outcome`, { method: 'POST', body: JSON.stringify(payload) })
 export const getProfile = () => authedFetch('/api/admin/profile')
+export const getPay = () => authedFetch('/api/admin/pay')
 export const putAvatar = (avatarId) =>
   authedFetch('/api/admin/profile', { method: 'PUT', body: JSON.stringify({ avatarId }) })
 
