@@ -1,5 +1,11 @@
 import { describe, expect, it, vi } from 'vitest'
-import { CONSENT_TEXT, subscribeToNewsletter, validateNewsletterSignup } from '../lib/newsletter'
+import {
+  CONSENT_TEXT,
+  subscribeToNewsletter,
+  unsubscribeFromNewsletter,
+  validateNewsletterSignup,
+  validateUnsubscribe,
+} from '../lib/newsletter'
 import { submitWorkshopInquiry } from '../lib/workshop-inquiry'
 
 const signup = { firstName: 'Alex', email: 'Alex@Example.com', consent: true, source: 'blog', page: '/blog/post' }
@@ -88,5 +94,50 @@ describe('workshop inquiry opt-in', () => {
       status: 'inquiry_received',
       newsletter: 'failed',
     })
+  })
+})
+
+describe('newsletter unsubscribe validation', () => {
+  it('prefers a well-formed contact id from the email link', () => {
+    expect(validateUnsubscribe({ contactId: 'TLAUMXxRDOZ63f9s435S', email: 'x@y.com' }).data).toEqual({
+      contactId: 'TLAUMXxRDOZ63f9s435S',
+      email: '',
+    })
+  })
+  it('falls back to a typed email and normalizes it', () => {
+    expect(validateUnsubscribe({ contactId: '../bad', email: ' Alex@Example.com ' }).data).toEqual({
+      contactId: '',
+      email: 'alex@example.com',
+    })
+  })
+  it.each([null, [], {}, { email: 'nope' }, { contactId: 'short' }])('rejects %j', (input) => {
+    expect(validateUnsubscribe(input).error).toBeTruthy()
+  })
+})
+
+describe('unsubscribeFromNewsletter', () => {
+  const unsubDeps = ({ byId = null, byEmail = [] } = {}) => ({
+    getContact: vi.fn().mockResolvedValue(byId),
+    searchContactsByEmail: vi.fn().mockResolvedValue(byEmail),
+    addContactTags: vi.fn().mockResolvedValue({}),
+    addContactNote: vi.fn().mockResolvedValue({}),
+  })
+  it('tags the linked contact newsletter-unsubscribed and notes it', async () => {
+    const d = unsubDeps({ byId: { id: 'c1' } })
+    const result = await unsubscribeFromNewsletter({ contactId: 'c1', email: '' }, d, new Date('2026-11-05T18:00:00Z'))
+    expect(d.searchContactsByEmail).not.toHaveBeenCalled()
+    expect(d.addContactTags).toHaveBeenCalledWith('c1', ['newsletter-unsubscribed'])
+    expect(d.addContactNote.mock.calls[0][0].body).toContain('email link')
+    expect(result).toEqual({ status: 'unsubscribed', matched: 1 })
+  })
+  it('tags every contact sharing a typed email', async () => {
+    const d = unsubDeps({ byEmail: [{ id: 'a' }, { id: 'b' }] })
+    await unsubscribeFromNewsletter({ contactId: '', email: 'alex@example.com' }, d)
+    expect(d.addContactTags.mock.calls.map((call) => call[0])).toEqual(['a', 'b'])
+  })
+  it('changes nothing for an unknown contact id', async () => {
+    const d = unsubDeps()
+    expect(await unsubscribeFromNewsletter({ contactId: 'missing123', email: '' }, d)).toEqual({ status: 'unsubscribed', matched: 0 })
+    expect(d.addContactTags).not.toHaveBeenCalled()
   })
 })

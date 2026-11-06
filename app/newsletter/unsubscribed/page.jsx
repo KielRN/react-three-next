@@ -6,8 +6,8 @@ export const metadata = {
   robots: { index: false, follow: true },
 }
 
-// Landing page for the newsletter's one-click unsubscribe link. The click itself is a GHL
-// trigger link; GHL's unsubscribe workflow tags the contact and turns on do-not-disturb.
+// Shown after the reader confirms on /newsletter/unsubscribe. The confirm step adds the
+// newsletter-unsubscribed tag; GHL's unsubscribe workflow then turns on do-not-disturb.
 export default function NewsletterUnsubscribedPage() {
   return (
     <div className='min-h-screen w-full bg-gradient-to-b from-black to-gray-900 text-white'>
