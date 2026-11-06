@@ -43,6 +43,9 @@ describe('standalone private studio document', () => {
   it.each(['/workshops/studio', '/workshops/studio/', '/api/workshop-studio/session', '/api/workshop-studio/jobs/job','/api/workshop-studio/jobs','/api/workshop-studio/jobs/job/download'])('keeps private data network-only in the PWA: %s', (path) => {
     expect(privateStudioRequest({ sameOrigin: true, url: new URL('https://texasaiconsulting.com' + path) })).toBe(true)
   })
+  it.each(['/workshops/%73tudio', '/api/workshop%2Dstudio/session', '/api/workshop-studio%2Fjobs/id/download', '/workshops/studio?code=ignored', '/api/workshop-studio%2F..%2Fsession'])('keeps encoded aliases and private queries out of shared caches: %s', (path) => {
+    expect(privateStudioRequest({ sameOrigin: true, url: new URL('https://texasaiconsulting.com' + path) })).toBe(true)
+  })
   it('does not change public workshop caching or unrelated origins', () => {
     expect(privateStudioRequest({ sameOrigin: true, url: new URL('https://texasaiconsulting.com/workshops') })).toBe(false)
     expect(privateStudioRequest({ sameOrigin: false, url: new URL('https://other.example/workshops/studio') })).toBe(false)

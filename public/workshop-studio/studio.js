@@ -13,15 +13,46 @@
   let busy = false
   let revision = 0
   let jobsRevision = 0
+  let safeController
+  let privacyReady = !navigator.serviceWorker?.controller
   const channel = typeof BroadcastChannel === 'function' ? new BroadcastChannel('txai-workshop-view') : null
   const options = { credentials: 'same-origin', cache: 'no-store', referrerPolicy: 'no-referrer' }
   const message = (value) => { status.textContent = value }
+  const connectionMessage = () => privacyReady ? 'Unable to reach your studio. Please try again.'
+    : 'Your browser needs a privacy update. Reconnect and reload this page before opening the studio.'
+  async function privateNetwork() {
+    const controller = navigator.serviceWorker?.controller || null
+    if (safeController === controller) return controller
+    if (controller) {
+      privacyReady = false
+      const safe = await new Promise((resolve) => {
+        const bridge = new MessageChannel()
+        const finish = (value) => { clearTimeout(timer); bridge.port1.close(); resolve(value) }
+        const timer = setTimeout(() => finish(false), 1500)
+        bridge.port1.onmessage = ({ data }) => finish(data?.type === 'TXAI_STUDIO_CACHE_READY' && data.version === 1 && data.safe === true)
+        try { controller.postMessage({ type: 'TXAI_STUDIO_CACHE_GUARD', version: 1 }, [bridge.port2]) }
+        catch { finish(false) }
+      })
+      if (!safe || navigator.serviceWorker.controller !== controller) {
+        navigator.serviceWorker.getRegistration().then((registration) => registration?.update()).catch(() => {})
+        throw new Error('Private network unavailable')
+      }
+    }
+    safeController = controller
+    privacyReady = true
+    return controller
+  }
+  async function studioFetch(url, init = options) {
+    const controller = await privateNetwork()
+    if ((navigator.serviceWorker?.controller || null) !== controller) throw new Error('Private network changed')
+    return fetch(url, init)
+  }
   function signedOut() {
     ++jobsRevision
     allowance.hidden = true
     logout.hidden = true
     form.hidden = false
-    form.querySelector('button').disabled = !enabled || busy
+    form.querySelector('button').disabled = !enabled || busy || !privacyReady
     for (const id of ['available', 'held', 'spent', 'expiry']) document.getElementById(id).textContent = ''
     code.value = ''
     results.hidden = true
@@ -33,7 +64,7 @@
     resultList.replaceChildren()
     results.hidden = false
     resultsStatus.textContent = 'Loading your videos…'
-    const response = await fetch('/api/workshop-studio/jobs', options)
+    const response = await studioFetch('/api/workshop-studio/jobs')
     if (version !== revision || jobVersion !== jobsRevision) return
     if (!response.ok) {
       if ([401, 403].includes(response.status)) { ++revision; signedOut(); message('Studio access is invalid or expired. Please check with your instructor.'); return }
@@ -84,7 +115,7 @@
     })
   }
   async function load(version) {
-    const response = await fetch('/api/workshop-studio/session', options)
+    const response = await studioFetch('/api/workshop-studio/session')
     if (version !== revision) return
     if (!response.ok) { signedOut(); message(response.status === 401 ? 'Enter your access code to continue.' : 'Studio access is not available. Please contact your instructor.'); return }
     const data = await response.json()
@@ -111,17 +142,17 @@
     const value = code.value
     code.value = ''
     try {
-      const response = await fetch('/api/workshop-studio/session', { ...options, method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: value }) })
+      const response = await studioFetch('/api/workshop-studio/session', { ...options, method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ code: value }) })
       // The browser applies Set-Cookie independently of rendering revisions.
       // Notify other views even when a visibility change made this POST stale.
       if (response.ok) channel?.postMessage('access-changed')
       if (version !== revision) return
       if (!response.ok) { message(response.status === 401 ? 'That code is invalid or expired. Please check with your instructor.' : 'Studio access is not available yet.'); return }
       await load(version)
-    } catch { channel?.postMessage('access-changed'); if (version === revision) { signedOut(); message('Unable to reach your studio. Please try again.') } }
+    } catch { channel?.postMessage('access-changed'); if (version === revision) { signedOut(); message(connectionMessage()) } }
     finally {
       busy = false
-      button.disabled = !enabled
+      button.disabled = !enabled || !privacyReady
       if (version !== revision) { signedOut(); message('Studio access changed while signing in. Reload to verify your current access.') }
     }
   })
@@ -131,16 +162,32 @@
     ++revision
     signedOut()
     try {
-      const response = await fetch('/api/workshop-studio/session', { ...options, method: 'DELETE' })
+      const response = await studioFetch('/api/workshop-studio/session', { ...options, method: 'DELETE' })
       message(response.ok ? 'You have signed out.' : 'Your browser view is cleared. Sign-out could not be confirmed; close this window and contact your instructor.')
     } catch { message('Your browser view is cleared. Sign-out could not be confirmed; close this window and contact your instructor.') }
     finally { busy = false; signedOut(); channel?.postMessage('access-changed') }
   })
   refreshResults.addEventListener('click', () => { if (!busy) refreshJobs(revision) })
+  resultList.addEventListener('click', async (event) => {
+    const link = event.target.closest('a.download')
+    if (!link) return
+    event.preventDefault()
+    const version = revision
+    try {
+      const controller = await privateNetwork()
+      if (version === revision && link.isConnected && (navigator.serviceWorker?.controller || null) === controller) window.location.assign(link.href)
+    } catch { ++revision; signedOut(); message(connectionMessage()) }
+  })
   function refresh() {
     const version = ++revision
-    load(version).catch(() => { if (version === revision) { signedOut(); message('Unable to reach your studio. Please try again.') } })
+    load(version).catch(() => { if (version === revision) { signedOut(); message(connectionMessage()) } })
   }
+  navigator.serviceWorker?.addEventListener('controllerchange', () => {
+    safeController = undefined
+    privacyReady = false
+    ++revision; signedOut()
+    if (enabled && !busy) refresh()
+  })
   window.addEventListener('pagehide', () => { ++revision; signedOut() })
   document.addEventListener('visibilitychange', () => {
     ++revision; signedOut()

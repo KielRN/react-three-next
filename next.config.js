@@ -11,6 +11,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
   disable: process.env.NODE_ENV === 'development',
   extendDefaultRuntimeCaching: true,
   workboxOptions: {
+    importScripts: ['/workshop-studio/cache-guard.js'],
     runtimeCaching: [{
       urlPattern: require('./lib/workshopStudioCache.cjs'),
       handler: 'NetworkOnly',
