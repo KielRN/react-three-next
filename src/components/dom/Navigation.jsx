@@ -68,6 +68,7 @@ export default function Navigation() {
     { name: 'Workshops', path: '/workshops' },
     { name: 'Apps', path: '/apps' },
     { name: 'Pricing', path: '/blog/texas-ai-pricing-2025' },
+    { name: 'Government', path: '/government' },
     // Add other navigation links as needed
   ]
 

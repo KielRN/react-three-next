@@ -377,6 +377,13 @@ export function VetHubSeal() {
               Texas State <span className='text-ai-gold-bright'>VetHub Certified</span>
             </div>
 
+            <Link
+              href='/government'
+              className='font-mono text-[10px] uppercase tracking-[0.18em] text-white/70 slashed-zero transition-colors hover:text-ai-gold-bright'
+            >
+              UEI LE9JXUK4C3P3 · CAGE 26UG0
+            </Link>
+
             <div className='mt-1 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.22em]'>
               <Link
                 href='/privacy-policy'
