@@ -5,7 +5,7 @@ import Link from 'next/link'
 const CAPABILITY_STATEMENT = '/docs/Texas-AI-Consulting-Capability-Statement.pdf'
 
 const description =
-  'Government contracting data for Texas AI Consulting, LLC: SAM.gov UEI LE9JXUK4C3P3, CAGE code 26UG0, Texas VetHUB certification, NIGP codes and capability statement.'
+  'Government contracting data for Texas AI Consulting, LLC: SAM.gov UEI LE9JXUK4C3P3, CAGE code 26UG0, primary NAICS 541512, Texas VetHUB certification, NIGP codes and capability statement.'
 
 export const metadata = {
   title: 'Government Contracting',
@@ -26,6 +26,24 @@ const federal = [
   { label: 'Unique Entity ID (UEI)', value: 'LE9JXUK4C3P3', mono: true },
   { label: 'CAGE code', value: '26UG0', mono: true },
   { label: 'SAM.gov status', value: 'Active, All Awards' },
+  { label: 'Primary NAICS', value: '541512', mono: true },
+]
+
+// From the SAM.gov entity record (Assertions > Service Classifications), read Nov 7, 2026.
+const naics = [
+  ['541512', 'Computer Systems Design Services (primary)'],
+  ['541511', 'Custom Computer Programming Services'],
+  ['541519', 'Other Computer Related Services'],
+  ['541611', 'Administrative Management and General Management Consulting Services'],
+  ['518210', 'Computing Infrastructure Providers, Data Processing, Web Hosting and Related Services'],
+  ['512110', 'Motion Picture and Video Production'],
+]
+
+const psc = [
+  ['DA01', 'IT and Telecom: Business Application / Application Development Support Services (Labor)'],
+  ['DA10', 'IT and Telecom: Business Application / Application Development Software as a Service'],
+  ['DD01', 'IT and Telecom: Service Delivery Support Services: ITSM, Operations Center, Project/PM (Labor)'],
+  ['DF01', 'IT and Telecom: IT Management Support Services (Labor)'],
 ]
 
 const texas = [
@@ -156,6 +174,28 @@ export default function GovernmentPage() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className='mt-6 rounded-2xl bg-white p-6 shadow-xl md:p-8'>
+          <h2 className='mb-1 text-xl font-bold text-ai-navy'>Federal classification codes</h2>
+          <p className='mb-4 text-sm text-gray-500'>As registered in SAM.gov.</p>
+          <div className='grid gap-6 md:grid-cols-2'>
+            {[
+              ['NAICS codes', naics],
+              ['Product and service codes (PSC)', psc],
+            ].map(([heading, rows]) => (
+              <div key={heading}>
+                <h3 className='mb-2 text-sm font-semibold uppercase tracking-wide text-ai-navy'>{heading}</h3>
+                <ul className='space-y-1 text-sm text-gray-800'>
+                  {rows.map(([code, name]) => (
+                    <li key={code}>
+                      <span className='font-mono font-semibold'>{code}</span> {name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className='mt-6 rounded-2xl bg-white p-6 shadow-xl md:p-8'>
